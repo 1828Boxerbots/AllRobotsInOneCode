@@ -5,26 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "../include/subsystems/Rocky/LoaderSubsystemRocky.h"
+#include "../include/subsystems/LoaderSubsystemBase.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "../include/Util.h"
 
-LoaderSubsystemRocky::LoaderSubsystemRocky() {}
+LoaderSubsystemBase::LoaderSubsystemBase() {}
 
 // This method will be called once per scheduler run
-void LoaderSubsystemRocky::Periodic() {}
+void LoaderSubsystemBase::Periodic() {}
 
-void LoaderSubsystemRocky::LoadMotor(double loadSpeed)
+void LoaderSubsystemBase::LoadMotor(double loadSpeed)
 {
     loadSpeed = Util::Limit(loadSpeed);
     loadSpeed = loadSpeed * m_scale;
     frc::SmartDashboard::PutNumber("Motor Speed", loadSpeed);
-    #ifndef NOHW
-    m_loaderMotor.Set(loadSpeed);
-    #endif
+    SetLoadMotor(loadSpeed);
 }
 
-void LoaderSubsystemRocky::Load(double loadSpeed, double ejectSpeed)
+void LoaderSubsystemBase::Load(double loadSpeed, double ejectSpeed)
 {
     frc::SmartDashboard::PutNumber("Load Speed", loadSpeed);
     frc::SmartDashboard::PutNumber("Eject Speed", ejectSpeed);
@@ -46,7 +44,7 @@ void LoaderSubsystemRocky::Load(double loadSpeed, double ejectSpeed)
     
 }
 
-void LoaderSubsystemRocky::LoadXY(bool xButton, bool yButton)
+void LoaderSubsystemBase::LoadXY(bool xButton, bool yButton)
 {
     if(xButton == true && yButton == false)
     {

@@ -7,16 +7,11 @@
 
 #pragma once
 
-#include <frc2/command/Command.h>
-#include <frc/XboxController.h>
-#include "Constants.h"
 #include "subsystems/Rocky/DriveTrainSubsystemRocky.h"
 #include "subsystems/Rocky/TurretSubsystemRocky.h"
-#include <frc2/command/RunCommand.h>
-#include <frc2/command/InstantCommand.h>
 #include "subsystems/Rocky/LoaderSubsystemRocky.h"
 #include "subsystems/Rocky/ShooterSubsystemRocky.h"
-
+#include "RobotContainerBase.h"
 
 
 /**
@@ -26,7 +21,7 @@
  * scheduler calls).  Instead, the structure of the robot (including subsystems,
  * commands, and button mappings) should be declared here.
  */
-class RobotContainerRocky {
+class RobotContainerRocky : public RobotContainerBase{
  public:
   RobotContainerRocky();
 
@@ -36,7 +31,6 @@ class RobotContainerRocky {
   // The robot's subsystems and commands are defined here...
 
   //Controller
-  frc::XboxController m_controller{USB_CONTROLLER_ONE};
   DriveTrainSubsystemRocky m_drive;
   TurretSubsystemRocky m_turret;
   LoaderSubsystemRocky m_loader;

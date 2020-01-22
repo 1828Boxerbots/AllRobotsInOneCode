@@ -7,7 +7,9 @@
 
 #pragma once
 
+//Controllers
 constexpr int USB_CONTROLLER_ONE = 0;
+constexpr int USB_CONTROLLER_TWO = 1;
 
 //Rocky
 constexpr int PWM_LEFTMOTOR_ROCKY = 2;
@@ -17,7 +19,25 @@ constexpr int PWM_TURRETMOTOR_ROCKY = 4;
 constexpr int PWM_LOADMOTOR_ROCKY = 9;
 
 //Laika
-constexpr int PWM_LEFTMOTOR_LAIKA = 1;
+constexpr int PWM_LEFTMOTOR_LAIKA_ONE = 1;
+constexpr int PWM_LEFTMOTOR_LAIKA_TWO = 2;
+constexpr int PWM_RIGHTMOTOR_LAIKA_ONE = 3;
+constexpr int PWM_RIGHTMOTOR_LAIKA_TWO = 4;
+
+//Kurgan
+constexpr int PWM_LEFTMOTOR_KURGAN_ONE = 1;
+constexpr int PWM_LEFTMOTOR_KURGAN_TWO = 2;
+constexpr int PWM_RIGHTMOTOR_KURGAN_ONE = 3;
+constexpr int PWM_RIGHTMOTOR_KURGAN_TWO = 4;
+constexpr int PWM_LOADMOTOR_KURGAN = 0;
+constexpr int PWM_LEFTSHOOTER_KURGAN_ONE = 6;
+constexpr int PWM_LEFTSHOOTER_KURGAN_TWO = 7;
+constexpr int PWM_RIGHTSHOOTER_KURGAN_ONE = 5;
+constexpr int PWM_RIGHTSHOOTER_KURGAN_TWO = 8;
+
+//Allowing hardware to be used
+//#define NOHW
+
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants.  This should not be used for any other

@@ -5,30 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "subsystems/Rocky/DriveTrainSubsystemRocky.h"
+#include "subsystems/DriveTrainSubsystemBase.h"
 
-DriveTrainSubsystemRocky::DriveTrainSubsystemRocky() {}
+DriveTrainSubsystemBase::DriveTrainSubsystemBase() {}
 
 // This method will be called once per scheduler run
-void DriveTrainSubsystemRocky::Periodic() {}
- void DriveTrainSubsystemRocky::MoveTank(double leftY, double rightY)
-  { 
+void DriveTrainSubsystemBase::Periodic() {}
+void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
+{ 
     leftY = Util::Limit(leftY, -.7, .7);
     rightY = Util::Limit(rightY, -.7, .7);
     frc::SmartDashboard::PutNumber("Drive Left", leftY);
     frc::SmartDashboard::PutNumber("Drive Right", rightY);
 
-    #ifndef NOHW
-    m_leftMotor.Set(leftY);
-    m_rightMotor.Set(rightY);
-    #endif
-  }
+    SetMotorL(leftY);
+    SetMotorR(rightY);
+}
 
-
-  void DriveTrainSubsystemRocky::Init()
-  {
-    #ifndef NOHW
-    m_rightMotor.SetInverted(false);
-    m_leftMotor.SetInverted(true);
-    #endif
-  }
+void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
+{
+    double leftY = X + Y;
+    double rightY = X - Y;
+    MoveTank(leftY, rightY);
+}

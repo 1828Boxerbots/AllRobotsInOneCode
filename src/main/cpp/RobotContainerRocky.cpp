@@ -10,8 +10,6 @@
 
 RobotContainerRocky::RobotContainerRocky()
  {
-  // Initialize all of your commands and subsystems here
-
   // Configure the button bindings
   ConfigureButtonBindings();
   m_drive.Init();
@@ -22,34 +20,6 @@ RobotContainerRocky::RobotContainerRocky()
     }
     ,{&m_drive}));
 
-    frc::SmartDashboard::PutNumber("Turret Angle", m_turret.m_turretAngle);
-
-    /*m_turret.SetDefaultCommand(frc2::RunCommand(
-    [this] 
-    {
-      m_turret.Turn(m_controller.GetAButton(), m_controller.GetBButton());
-    }
-    ,{&m_turret}));
-
-    m_loader.SetDefaultCommand(frc2::RunCommand(
-    [this] 
-    {
-      m_loader.Load(m_controller.GetTriggerAxis(frc::GenericHID::kLeftHand), m_controller.GetTriggerAxis(frc::GenericHID::kRightHand));
-    }
-    ,{&m_loader}));
-
-    m_loader.SetDefaultCommand(frc2::RunCommand(
-    [this] 
-    {
-      m_loader.LoadXY(m_controller.GetXButton(), m_controller.GetYButton());
-    }
-    ,{&m_loader}));
-
-    m_shooter.SetDefaultCommand(frc2::RunCommand(
-    [this] 
-    {
-      m_shooter.ShootBump(m_controller.GetBumper(frc::GenericHID::kLeftHand) || m_controller.GetBumper(frc::GenericHID::kRightHand));
-    ,{&m_shooter}));*/
 }
 
 void RobotContainerRocky::ConfigureButtonBindings()

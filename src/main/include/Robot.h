@@ -11,6 +11,9 @@
 #include <frc2/command/Command.h>
 
 #include "RobotContainerRocky.h"
+#include "RobotContainerKurgan.h"
+#include "RobotContainerLaika.h"
+
 
 class Robot : public frc::TimedRobot {
  public:
@@ -29,5 +32,5 @@ class Robot : public frc::TimedRobot {
   // doesn't have undefined behavior and potentially crash.
   frc2::Command* m_autonomousCommand = nullptr;
 
-  RobotContainerRocky m_container;
+  RobotContainerKurgan m_container;
 };

@@ -5,27 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "../include/subsystems/Rocky/ShooterSubsystemRocky.h"
+#include "../include/subsystems/ShooterSubsystemBase.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "../include/Util.h"
 
-ShooterSubsystemRocky::ShooterSubsystemRocky() {}
+ShooterSubsystemBase::ShooterSubsystemBase() {}
 
 // This method will be called once per scheduler run
-void ShooterSubsystemRocky::Periodic() {}
+void ShooterSubsystemBase::Periodic() {}
 
-void ShooterSubsystemRocky::Shoot(double shootSpeed)
+void ShooterSubsystemBase::Shoot(double shootSpeed)
 {
     //The shooter shouldnt be able to shoot backwards
     shootSpeed = -Util::Limit(shootSpeed, 0.0);
     frc::SmartDashboard::PutNumber("Shoot Speed", shootSpeed);
-    #ifndef NOHW
-    //Put Motor
-    m_shooterMotor.Set(shootSpeed);
-    #endif
+    SetShootMotor(shootSpeed);
 }
 
-void ShooterSubsystemRocky::ShootBump(bool bump)
+void ShooterSubsystemBase::ShootBump(bool bump)
 {
     if(bump == true)
     {

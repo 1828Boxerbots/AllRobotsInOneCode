@@ -7,32 +7,27 @@
 
 #pragma once
 
-#include <frc2/command/SubsystemBase.h>
 #include <frc/Spark.h>
-#include "../../Util.h"
-#include "../../Constants.h"
+#include "../DriveTrainSubsystemBase.h"
 
-class LoaderSubsystemRocky : public frc2::SubsystemBase {
+class DriveTrainSubsystemLaika : public DriveTrainSubsystemBase {
  public:
-  LoaderSubsystemRocky();
+  DriveTrainSubsystemLaika();
 
-  void LoadMotor(double loadSpeed);
-  void Load(double loadSpeed, double ejectSpeed);
-  void LoadXY(bool xButton, bool yButton);
+  virtual void SetMotorL(double speed);
+  virtual void SetMotorR(double speed); 
+  virtual void Init();
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-  void Periodic();
 
  private:
-  #ifndef NOHW
-  frc::Spark m_loaderMotor {PWM_LOADMOTOR_ROCKY};
+ #ifndef NOHW
+  frc::Spark m_leftMotor1{PWM_LEFTMOTOR_LAIKA_ONE};
+  frc::Spark m_leftMotor2{PWM_LEFTMOTOR_LAIKA_TWO};
+  frc::Spark m_rightMotor1{PWM_RIGHTMOTOR_LAIKA_ONE};
+  frc::Spark m_rightMotor2{PWM_RIGHTMOTOR_LAIKA_TWO};
   #endif
-  double m_scale = 1.0;
-  const double LOADSPEED = 1.0;
-  const double EJECTSPEED = -1.0;
-
-  
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };
