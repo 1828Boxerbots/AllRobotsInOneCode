@@ -35,6 +35,13 @@ constexpr int PWM_SHOOTER_KURGAN_TWO = 5;
 constexpr int PWM_SHOOTER_KURGAN_THREE = 7;
 constexpr int PWM_SHOOTER_KURGAN_FOUR = 8;
 
+//SLAL - Sir-Lifts-A-Lot
+constexpr int PWM_LEFTMOTOR_SLAL = 0;
+constexpr int PWM_RIGHTMOTOR_SLAL = 1;
+constexpr int PWM_ARM_SLAL_ONE = 2;
+constexpr int PWM_ARM_SLAL_TWO = 3;
+
+
 //Allowing hardware to be used
 //#define NOHW
 
