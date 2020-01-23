@@ -44,8 +44,9 @@ class RobotContainerRocky : public RobotContainerBase{
   frc2::RunCommand m_loaderLoad{[this] {m_loader.LoadXY(m_controller.GetXButton(), m_controller.GetYButton());}, {&m_loader}};
   frc2::RunCommand m_loaderStop{[this] {m_loader.LoadXY(false, false);}, {&m_loader}};
 
-  frc2::RunCommand m_spinShooter{[this] {m_shooter.ShootBump(true);}, {&m_shooter}};
-  frc2::RunCommand m_shooterStop{[this] {m_shooter.ShootBump(false);}, {&m_shooter}};
+  frc2::RunCommand m_shooterSpin{[this] {m_shooter.ShootBump(false, true);}, {&m_shooter}};
+  frc2::RunCommand m_shooterEject{[this] {m_shooter.ShootBump(true, false);}, {&m_shooter}};
+  frc2::RunCommand m_shooterStop{[this] {m_shooter.ShootBump(false, false);}, {&m_shooter}};
 
   void ConfigureButtonBindings();
 };

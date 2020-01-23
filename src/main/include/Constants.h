@@ -30,10 +30,10 @@ constexpr int PWM_LEFTMOTOR_KURGAN_TWO = 2;
 constexpr int PWM_RIGHTMOTOR_KURGAN_ONE = 3;
 constexpr int PWM_RIGHTMOTOR_KURGAN_TWO = 4;
 constexpr int PWM_LOADMOTOR_KURGAN = 0;
-constexpr int PWM_LEFTSHOOTER_KURGAN_ONE = 6;
-constexpr int PWM_LEFTSHOOTER_KURGAN_TWO = 7;
-constexpr int PWM_RIGHTSHOOTER_KURGAN_ONE = 5;
-constexpr int PWM_RIGHTSHOOTER_KURGAN_TWO = 8;
+constexpr int PWM_SHOOTER_KURGAN_ONE = 6;
+constexpr int PWM_SHOOTER_KURGAN_TWO = 5;
+constexpr int PWM_SHOOTER_KURGAN_THREE = 7;
+constexpr int PWM_SHOOTER_KURGAN_FOUR = 8;
 
 //Allowing hardware to be used
 //#define NOHW

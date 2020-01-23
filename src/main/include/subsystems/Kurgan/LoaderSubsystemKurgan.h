@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <frc/Spark.h>
+#include <frc/Victor.h>
 #include "../LoaderSubsystemBase.h"
 
 class LoaderSubsystemKurgan : public LoaderSubsystemBase {
@@ -22,7 +22,7 @@ class LoaderSubsystemKurgan : public LoaderSubsystemBase {
 
  private:
   #ifndef NOHW
-  frc::Spark m_loaderMotor {PWM_LOADMOTOR_KURGAN};
+  frc::Victor m_loaderMotor {PWM_LOADMOTOR_KURGAN};
   #endif
   
   // Components (e.g. motor controllers and sensors) should generally be

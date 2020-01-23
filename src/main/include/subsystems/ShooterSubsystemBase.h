@@ -17,7 +17,7 @@ class ShooterSubsystemBase : public frc2::SubsystemBase {
   ShooterSubsystemBase();
 
   void Shoot(double shootSpeed);
-  void ShootBump(bool bump);
+  void ShootBump(bool bumpL, bool bumpR);
   virtual void SetShootMotor (double speed) {}
 
   /**

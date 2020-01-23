@@ -38,11 +38,11 @@ void RobotContainerRocky::ConfigureButtonBindings()
   buttonB.WhenReleased(&m_turretStop);
 
   frc2::Button bumperL{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
-  bumperL.WhenHeld(&m_spinShooter);
+  bumperL.WhenHeld(&m_shooterEject);
   bumperL.WhenReleased(&m_shooterStop);
 
   frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
-  bumperR.WhenHeld(&m_spinShooter);
+  bumperR.WhenHeld(&m_shooterSpin);
   bumperR.WhenReleased(&m_shooterStop);
 
   frc2::Button buttonX{[this] {return m_controller.GetXButton();}};

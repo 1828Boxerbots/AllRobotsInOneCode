@@ -5,9 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "subsystems/Kurgan/ShooterSubsystemKurgan.h"
+#include "../include/subsystems/Kurgan/ShooterSubsystemKurgan.h"
+#include <frc/smartdashboard/SmartDashboard.h>
+#include "../include/Util.h"
 
 ShooterSubsystemKurgan::ShooterSubsystemKurgan() {}
 
 // This method will be called once per scheduler run
-void ShooterSubsystemKurgan::Periodic() {}
+
+
+void ShooterSubsystemKurgan::SetShootMotor(double speed)
+{
+    #ifndef NOHW
+    m_shootOne.Set(speed);
+    m_shootTwo.Set(speed);
+    m_shootThree.Set(speed);
+    m_shootFour.Set(speed);
+    #endif
+}
+
