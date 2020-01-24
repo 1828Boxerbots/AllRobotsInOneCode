@@ -8,38 +8,38 @@
 #pragma once
 
 //Controllers
-constexpr int USB_CONTROLLER_ONE = 0;
-constexpr int USB_CONTROLLER_TWO = 1;
+constexpr int USB_CONTROLLER_ONE        = 0;
+constexpr int USB_CONTROLLER_TWO        = 1;
 
 //Rocky
-constexpr int PWM_LEFTMOTOR_ROCKY = 2;
-constexpr int PWM_RIGHTMOTOR_ROCKY = 3;
-constexpr int PWM_SHOOTMOTOR_ROCKY = 5;
-constexpr int PWM_TURRETMOTOR_ROCKY = 4;
-constexpr int PWM_LOADMOTOR_ROCKY = 9;
+constexpr int PWM_LEFTMOTOR_ROCKY       = 2;
+constexpr int PWM_RIGHTMOTOR_ROCKY      = 3;
+constexpr int PWM_SHOOTMOTOR_ROCKY      = 5;
+constexpr int PWM_TURRETMOTOR_ROCKY     = 4;
+constexpr int PWM_LOADMOTOR_ROCKY       = 9;
 
 //Laika
-constexpr int PWM_LEFTMOTOR_LAIKA_ONE = 1;
-constexpr int PWM_LEFTMOTOR_LAIKA_TWO = 2;
-constexpr int PWM_RIGHTMOTOR_LAIKA_ONE = 3;
-constexpr int PWM_RIGHTMOTOR_LAIKA_TWO = 4;
+constexpr int PWM_LEFTMOTOR_LAIKA_ONE   = 1;
+constexpr int PWM_LEFTMOTOR_LAIKA_TWO   = 2;
+constexpr int PWM_RIGHTMOTOR_LAIKA_ONE  = 3;
+constexpr int PWM_RIGHTMOTOR_LAIKA_TWO  = 4;
 
 //Kurgan
-constexpr int PWM_LEFTMOTOR_KURGAN_ONE = 1;
-constexpr int PWM_LEFTMOTOR_KURGAN_TWO = 2;
+constexpr int PWM_LEFTMOTOR_KURGAN_ONE  = 1;
+constexpr int PWM_LEFTMOTOR_KURGAN_TWO  = 2;
 constexpr int PWM_RIGHTMOTOR_KURGAN_ONE = 3;
 constexpr int PWM_RIGHTMOTOR_KURGAN_TWO = 4;
-constexpr int PWM_LOADMOTOR_KURGAN = 0;
-constexpr int PWM_SHOOTER_KURGAN_ONE = 6;
-constexpr int PWM_SHOOTER_KURGAN_TWO = 5;
-constexpr int PWM_SHOOTER_KURGAN_THREE = 7;
-constexpr int PWM_SHOOTER_KURGAN_FOUR = 8;
+constexpr int PWM_LOADMOTOR_KURGAN      = 0;
+constexpr int PWM_SHOOTER_KURGAN_ONE    = 6;
+constexpr int PWM_SHOOTER_KURGAN_TWO    = 5;
+constexpr int PWM_SHOOTER_KURGAN_THREE  = 7;
+constexpr int PWM_SHOOTER_KURGAN_FOUR   = 8;
 
 //SLAL - Sir-Lifts-A-Lot
-constexpr int PWM_LEFTMOTOR_SLAL = 0;
-constexpr int PWM_RIGHTMOTOR_SLAL = 1;
-constexpr int PWM_ARM_SLAL_ONE = 2;
-constexpr int PWM_ARM_SLAL_TWO = 3;
+constexpr int PWM_LEFTMOTOR_SLAL        = 0;
+constexpr int PWM_RIGHTMOTOR_SLAL       = 1;
+constexpr int PWM_ARM_SLAL_ONE          = 2;
+constexpr int PWM_ARM_SLAL_TWO          = 3;
 
 
 //Allowing hardware to be used

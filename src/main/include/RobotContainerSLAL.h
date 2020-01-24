@@ -32,9 +32,9 @@ class RobotContainerSLAL : public RobotContainerBase{
   DriveTrainSubsystemSLAL m_drive;
   LiftSubsystemSLAL m_lift;
 
-  frc2::RunCommand m_armLift{[this] {m_lift.Raise(true);}, {&m_lift}};
-  frc2::RunCommand m_armLower{[this] {m_lift.Lower(true);}, {&m_lift}};
-  frc2::RunCommand m_armStop{[this] {m_lift.Raise(false);}, {&m_lift}};
+  frc2::RunCommand m_armLift  {[this] {m_lift.Raise(true) ;}, {&m_lift}};
+  frc2::RunCommand m_armLower {[this] {m_lift.Lower(true) ;}, {&m_lift}};
+  frc2::RunCommand m_armStop  {[this] {m_lift.Raise(false);}, {&m_lift}};
 
   void ConfigureButtonBindings();
 };

@@ -23,8 +23,8 @@ class DriveTrainSubsystemSLAL : public DriveTrainSubsystemBase {
 
  private:
  #ifndef NOHW
-  frc::Talon m_leftMotor{PWM_LEFTMOTOR_SLAL};
-  frc::Talon m_rightMotor{PWM_RIGHTMOTOR_SLAL};
+  frc::Talon m_leftMotor  {PWM_LEFTMOTOR_SLAL };
+  frc::Talon m_rightMotor {PWM_RIGHTMOTOR_SLAL};
   #endif
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
