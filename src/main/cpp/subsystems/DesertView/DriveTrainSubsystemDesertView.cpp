@@ -26,7 +26,7 @@ void DriveTrainSubsystemDesertView::SetMotorR(double speed)
 void DriveTrainSubsystemDesertView::Init()
 {
   #ifndef NOHW
-  m_leftMotor.SetInverted(true);
-  m_rightMotor.SetInverted(false);
+  m_leftMotor.SetInverted(false);
+  m_rightMotor.SetInverted(true);
   #endif
 }
