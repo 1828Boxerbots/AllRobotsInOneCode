@@ -43,6 +43,11 @@ constexpr int PWM_ARM_SLAL_TWO          = 3;
 constexpr int DIO_TOPSWITCH_SLAL        = 6;
 constexpr int DIO_BOTTOMSWITCH_SLAL     = 7;
 
+//Desert View
+constexpr int PWM_LEFTMOTOR_DESERTVIEW = 2;
+constexpr int PWM_RIGHTMOTOR_DESERTVIEW = 1;
+
+
 //Allowing hardware to be used
 //#define NOHW
 
