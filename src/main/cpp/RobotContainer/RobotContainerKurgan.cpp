@@ -5,10 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "RobotContainerSLAL.h"
+#include "../include/RobotContainer/RobotContainerKurgan.h"
 #include <frc2/command/button/JoystickButton.h>
 
-RobotContainerSLAL::RobotContainerSLAL()
+RobotContainerKurgan::RobotContainerKurgan()
  {
   // Initialize all of your commands and subsystems here
 
@@ -24,17 +24,26 @@ RobotContainerSLAL::RobotContainerSLAL()
 
 }
 
-void RobotContainerSLAL::ConfigureButtonBindings()
+void RobotContainerKurgan::ConfigureButtonBindings()
 {
-    frc2::Button bumperL{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
-    bumperL.WhenHeld(&m_armLower);
-    bumperL.WhenReleased(&m_armStop);
-    frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
-    bumperR.WhenHeld(&m_armLift);
-    bumperR.WhenReleased(&m_armStop); 
+  //Loader Controlls
+  frc2::Button buttonA{[this] {return m_controller.GetAButton();}};
+  buttonA.WhenHeld(&m_loaderEject);
+  buttonA.WhenReleased(&m_loaderStop);
+  frc2::Button buttonB{[this] {return m_controller.GetBButton();}};
+  buttonB.WhenHeld(&m_loaderLoad);
+  buttonB.WhenReleased(&m_loaderStop);
+
+  //Shooter Controlls
+  frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
+  bumperR.WhenHeld(&m_shooterSpin);
+  bumperR.WhenReleased(&m_shooterStop);
+  frc2::Button bumperL{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
+  bumperL.WhenHeld(&m_shooterEject);
+  bumperL.WhenReleased(&m_shooterStop);
 }
 
-frc2::Command* RobotContainerSLAL::GetAutonomousCommand() {
+frc2::Command* RobotContainerKurgan::GetAutonomousCommand() {
   // An example command will be run in autonomous
   return 0;
 }

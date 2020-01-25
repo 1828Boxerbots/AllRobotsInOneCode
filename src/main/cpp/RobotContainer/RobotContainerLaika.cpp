@@ -5,10 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "RobotContainerDesertView.h"
+#include "../include/RobotContainer/RobotContainerLaika.h"
 #include <frc2/command/button/JoystickButton.h>
 
-RobotContainerDesertView::RobotContainerDesertView()
+RobotContainerLaika::RobotContainerLaika()
  {
   // Initialize all of your commands and subsystems here
 
@@ -24,12 +24,12 @@ RobotContainerDesertView::RobotContainerDesertView()
 
 }
 
-void RobotContainerDesertView::ConfigureButtonBindings()
+void RobotContainerLaika::ConfigureButtonBindings()
 {
-  //DesertView has no other functions than drive as of 1/21/20
+  //Laika has no other functions than drive as of 1/21/20
 }
 
-frc2::Command* RobotContainerDesertView::GetAutonomousCommand() {
+frc2::Command* RobotContainerLaika::GetAutonomousCommand() {
   // An example command will be run in autonomous
   return 0;
 }

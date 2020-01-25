@@ -5,10 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "RobotContainerLaika.h"
+#include "../include/RobotContainer/RobotContainerSLAL.h"
 #include <frc2/command/button/JoystickButton.h>
 
-RobotContainerLaika::RobotContainerLaika()
+RobotContainerSLAL::RobotContainerSLAL()
  {
   // Initialize all of your commands and subsystems here
 
@@ -24,12 +24,17 @@ RobotContainerLaika::RobotContainerLaika()
 
 }
 
-void RobotContainerLaika::ConfigureButtonBindings()
+void RobotContainerSLAL::ConfigureButtonBindings()
 {
-  //Laika has no other functions than drive as of 1/21/20
+    frc2::Button bumperL{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
+    bumperL.WhenHeld(&m_armLower);
+    bumperL.WhenReleased(&m_armStop);
+    frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
+    bumperR.WhenHeld(&m_armLift);
+    bumperR.WhenReleased(&m_armStop); 
 }
 
-frc2::Command* RobotContainerLaika::GetAutonomousCommand() {
+frc2::Command* RobotContainerSLAL::GetAutonomousCommand() {
   // An example command will be run in autonomous
   return 0;
 }

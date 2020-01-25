@@ -5,10 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "RobotContainerKurgan.h"
+#include "../include/RobotContainer/RobotContainerDesertView.h"
 #include <frc2/command/button/JoystickButton.h>
 
-RobotContainerKurgan::RobotContainerKurgan()
+RobotContainerDesertView::RobotContainerDesertView()
  {
   // Initialize all of your commands and subsystems here
 
@@ -24,26 +24,12 @@ RobotContainerKurgan::RobotContainerKurgan()
 
 }
 
-void RobotContainerKurgan::ConfigureButtonBindings()
+void RobotContainerDesertView::ConfigureButtonBindings()
 {
-  //Loader Controlls
-  frc2::Button buttonA{[this] {return m_controller.GetAButton();}};
-  buttonA.WhenHeld(&m_loaderEject);
-  buttonA.WhenReleased(&m_loaderStop);
-  frc2::Button buttonB{[this] {return m_controller.GetBButton();}};
-  buttonB.WhenHeld(&m_loaderLoad);
-  buttonB.WhenReleased(&m_loaderStop);
-
-  //Shooter Controlls
-  frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
-  bumperR.WhenHeld(&m_shooterSpin);
-  bumperR.WhenReleased(&m_shooterStop);
-  frc2::Button bumperL{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
-  bumperL.WhenHeld(&m_shooterEject);
-  bumperL.WhenReleased(&m_shooterStop);
+  //DesertView has no other functions than drive as of 1/21/20
 }
 
-frc2::Command* RobotContainerKurgan::GetAutonomousCommand() {
+frc2::Command* RobotContainerDesertView::GetAutonomousCommand() {
   // An example command will be run in autonomous
   return 0;
 }
