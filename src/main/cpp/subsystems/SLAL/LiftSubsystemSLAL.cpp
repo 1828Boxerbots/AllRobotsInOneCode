@@ -17,5 +17,15 @@ void LiftSubsystemSLAL::LiftMotor(double speed)
     #ifndef NOHW
     m_liftMotorOne.Set(speed);
     m_liftMotorTwo.Set(-speed);
-    #endif
+    #endif 
+}
+
+bool LiftSubsystemSLAL::UpperLimitHit()
+{
+   return m_topSwitch.Get();
+}
+
+bool LiftSubsystemSLAL::LowerLimitHit()
+{
+   return m_bottomSwitch.Get();
 }

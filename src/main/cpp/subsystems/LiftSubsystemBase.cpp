@@ -24,7 +24,7 @@ void LiftSubsystemBase::Raise(bool bump)
 {
     if(bump == true)
     {
-        Lift(LIFTSPEED);
+        LimitedLift(LIFTSPEED);
     }
     else
     {
@@ -37,11 +37,37 @@ void LiftSubsystemBase::Lower(bool bump)
 {
     if(bump == true)
     {
-        Lift(-LIFTSPEED);
+        LimitedLift(-LIFTSPEED);
     }
     else
     {
         Lift(0.0);
     }
     
+}
+
+void LiftSubsystemBase::LimitedLift(double speed)
+{
+    if(speed < 0.0)
+    {
+        if(LowerLimitHit() == true)
+        {
+            StopMotor();
+        } 
+        else
+        {
+            Lift(speed);
+        }
+    }
+    else 
+    {
+        if(UpperLimitHit() == true)
+        {
+            StopMotor();
+        }
+        else
+        {
+           Lift(speed); 
+        }
+    }
 }

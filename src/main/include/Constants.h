@@ -40,7 +40,8 @@ constexpr int PWM_LEFTMOTOR_SLAL        = 0;
 constexpr int PWM_RIGHTMOTOR_SLAL       = 1;
 constexpr int PWM_ARM_SLAL_ONE          = 2;
 constexpr int PWM_ARM_SLAL_TWO          = 3;
-
+constexpr int DIO_TOPSWITCH_SLAL        = 6;
+constexpr int DIO_BOTTOMSWITCH_SLAL     = 7;
 
 //Allowing hardware to be used
 //#define NOHW

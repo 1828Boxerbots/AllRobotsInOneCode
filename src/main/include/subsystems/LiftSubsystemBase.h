@@ -23,6 +23,10 @@ class LiftSubsystemBase : public frc2::SubsystemBase {
   void Lift(double armSpeed);
   void Raise(bool bump);
   void Lower(bool bump);
+  void StopMotor() {LiftMotor(0.0);}
+  void LimitedLift(double speed);
+  virtual bool UpperLimitHit() {return false;}
+  virtual bool LowerLimitHit() {return false;}
   virtual void LiftMotor(double speed) {}
 
  private:
