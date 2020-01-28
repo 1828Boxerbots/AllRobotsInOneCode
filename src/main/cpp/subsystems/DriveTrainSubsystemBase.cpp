@@ -28,3 +28,13 @@ void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
     double rightY = X - Y;
     MoveTank(leftY, rightY);
 }
+
+void DriveTrainSubsystemBase::Stop()
+{
+    MoveTank(0.0, 0.0);
+}
+
+void DriveTrainSubsystemBase::Forward(double speed)
+{
+    MoveTank(1.0, 1.0);
+}

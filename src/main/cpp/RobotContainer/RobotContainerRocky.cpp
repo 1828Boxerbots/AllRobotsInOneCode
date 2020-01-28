@@ -57,5 +57,5 @@ void RobotContainerRocky::ConfigureButtonBindings()
 
 frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  return 0;
+  return &m_autoTestOne;
 }
