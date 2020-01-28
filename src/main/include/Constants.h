@@ -47,6 +47,15 @@ constexpr int DIO_BOTTOMSWITCH_SLAL     = 7;
 constexpr int PWM_LEFTMOTOR_DESERTVIEW = 2;
 constexpr int PWM_RIGHTMOTOR_DESERTVIEW = 1;
 
+//2020 Robot
+constexpr int PWM_LEFTMOTOR_ROBOT2020 = 0;
+constexpr int PWM_RIGHTMOTOR_ROBOT2020 = 1;
+constexpr int PWM_SHOOTMOTOR_ROBOT2020  = 2;
+constexpr int PWM_LOADMOTOR_ROBOT2020 = 3;
+
+
+
+
 
 //Allowing hardware to be used
 //#define NOHW
