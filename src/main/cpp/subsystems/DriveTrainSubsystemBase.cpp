@@ -38,3 +38,50 @@ void DriveTrainSubsystemBase::Forward(double speed)
 {
     MoveTank(1.0, 1.0);
 }
+void DriveTrainSubsystemBase::ForwardInSeconds(double time)
+{
+    m_timeVariable.Reset();
+    m_timeVariable.Start();
+   double startTime = m_timeVariable.Get();
+   double currentTime = m_timeVariable.Get();
+   if(time < 0) {Stop();}
+   Forward();
+   while(currentTime-startTime < time)
+   {
+       currentTime = m_timeVariable.Get();
+   }
+   m_timeVariable.Stop();
+   Stop();
+}
+void DriveTrainSubsystemBase::TurnRight(double speed)
+{
+
+}
+void DriveTrainSubsystemBase::TurnLeft(double speed)
+{
+    
+}
+void DriveTrainSubsystemBase::TurnInDegress(double relativeAngle)
+{
+    double startAngle = m_gyro.GetAngle();
+    double currentAngle = m_gyro.GetAngle();
+    if(relativeAngle > 0)
+    {
+        while(currentAngle - startAngle < relativeAngle)
+        {
+            TurnRight();
+        }
+    }
+    if(relativeAngle < 0)
+    {
+        while(currentAngle - startAngle > relativeAngle)
+        {
+            TurnLeft();
+        }
+    }
+}
+void DriveTrainSubsystemBase::Init()
+{
+    m_gyro.Calibrate();
+    m_gyro.Reset();
+}
