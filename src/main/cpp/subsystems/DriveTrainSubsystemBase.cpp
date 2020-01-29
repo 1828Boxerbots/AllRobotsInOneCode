@@ -38,6 +38,7 @@ void DriveTrainSubsystemBase::Forward(double speed)
 {
     MoveTank(1.0, 1.0);
 }
+<<<<<<< HEAD
 void DriveTrainSubsystemBase::ForwardInSeconds(double time)
 {
     m_timeVariable.Reset();
@@ -84,4 +85,16 @@ void DriveTrainSubsystemBase::Init()
 {
     m_gyro.Calibrate();
     m_gyro.Reset();
+=======
+
+void DriveTrainSubsystemBase::GoDistanceInch(double speed, double inch)
+{
+    MoveTank(speed, speed);
+    double currentDistance = GetLeftEncoderInch();
+    while(currentDistance < inch)
+    {
+        currentDistance = GetLeftEncoderInch();
+    }
+    Stop();
+>>>>>>> 2a1bb3b6c66214e1f29e0f12e0a9072ff059e274
 }
