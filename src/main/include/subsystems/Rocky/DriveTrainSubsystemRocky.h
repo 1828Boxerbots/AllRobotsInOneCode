@@ -20,6 +20,7 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
   virtual void Init();
   virtual double GetLeftEncoderInch();
   virtual double GetRightEncoderInch();
+  virtual void ResetEncoder();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -33,6 +34,8 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
   frc::Encoder m_rightEncoder{DIO_ENCODERRIGHT_ROCKY_ONE, DIO_ENCODERRIGHT_ROCKY_TWO};
   #endif
   const double WHEELDIAMETER = 8.0;
+  int m_leftEncoderSim = 0;
+  int m_rightEncoderSim = 0;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

@@ -22,10 +22,14 @@ void LiftSubsystemSLAL::LiftMotor(double speed)
 
 bool LiftSubsystemSLAL::UpperLimitHit()
 {
+   #ifndef NOHW
    return m_topSwitch.Get();
+   #endif
 }
 
 bool LiftSubsystemSLAL::LowerLimitHit()
 {
+   #ifndef NOHW
    return m_bottomSwitch.Get();
+   #endif
 }

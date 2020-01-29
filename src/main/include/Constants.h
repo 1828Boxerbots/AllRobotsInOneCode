@@ -68,7 +68,7 @@ constexpr int PWM_HOOKMOTOR_ROBOT2020 = 8;
 
 
 //Allowing hardware to be used
-//#define NOHW
+#define NOHW
 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide

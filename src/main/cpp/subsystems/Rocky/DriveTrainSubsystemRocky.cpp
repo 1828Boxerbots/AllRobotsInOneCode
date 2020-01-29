@@ -25,7 +25,7 @@ void DriveTrainSubsystemRocky::SetMotorR(double speed)
 
 double DriveTrainSubsystemRocky::GetLeftEncoderInch()
 {
-  double encoderDistance = 0.0;
+  double encoderDistance = m_leftEncoderSim++;
   #ifndef NOHW
   encoderDistance = m_leftEncoder.GetDistance();
   #endif
@@ -35,7 +35,7 @@ double DriveTrainSubsystemRocky::GetLeftEncoderInch()
 
 double DriveTrainSubsystemRocky::GetRightEncoderInch()
 {
-  double encoderDistance = 0.0;
+  double encoderDistance = m_rightEncoderSim++;
   #ifndef NOHW
   m_rightEncoder.GetDistance();
   #endif
@@ -50,4 +50,15 @@ void DriveTrainSubsystemRocky::Init()
   m_rightMotor.SetInverted(false);
   m_leftEncoder.SetDistancePerPulse((WHEELDIAMETER*Util::PI)/PULSE_PER_REVOLUTION);
   #endif
+}
+
+void DriveTrainSubsystemRocky::ResetEncoder()
+{
+  #ifndef NOHW
+  m_leftEncoder.Reset();
+  m_rightEncoder.Reset();
+  #endif
+
+  m_rightEncoderSim = 0.0;
+  m_leftEncoderSim = 0.0;
 }
