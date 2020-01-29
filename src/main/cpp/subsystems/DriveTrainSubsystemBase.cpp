@@ -47,5 +47,9 @@ void DriveTrainSubsystemBase::ForwardInInch(double speed, double inch)
     {
         currentDistance = GetLeftEncoderInch();
     }
+    if(currentDistance > inch)
+    {
+        ResetEncoder();
+    }
     Stop();
 }
