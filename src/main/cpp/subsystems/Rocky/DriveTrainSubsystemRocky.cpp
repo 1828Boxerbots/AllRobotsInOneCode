@@ -23,10 +23,31 @@ void DriveTrainSubsystemRocky::SetMotorR(double speed)
   #endif
 }
 
+double DriveTrainSubsystemRocky::GetLeftEncoderInch()
+{
+  double encoderDistance = 0.0;
+  #ifndef NOHW
+  encoderDistance = m_leftEncoder.GetDistance();
+  #endif
+  frc::SmartDashboard::PutNumber("Left Encoder Distance", encoderDistance);
+  return encoderDistance;
+}
+
+double DriveTrainSubsystemRocky::GetRightEncoderInch()
+{
+  double encoderDistance = 0.0;
+  #ifndef NOHW
+  m_rightEncoder.GetDistance();
+  #endif
+  frc::SmartDashboard::PutNumber("Right Encoder Distance", encoderDistance);
+  return encoderDistance;
+}
+
 void DriveTrainSubsystemRocky::Init()
 {
   #ifndef NOHW
   m_leftMotor.SetInverted(true);
   m_rightMotor.SetInverted(false);
+  m_leftEncoder.SetDistancePerPulse((WHEELDIAMETER*Util::PI)/PULSE_PER_REVOLUTION);
   #endif
 }

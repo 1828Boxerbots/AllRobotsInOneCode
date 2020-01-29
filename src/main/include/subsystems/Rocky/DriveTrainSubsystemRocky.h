@@ -8,6 +8,7 @@
 #pragma once
 
 #include <frc/Spark.h>
+#include <frc/Encoder.h>
 #include "../DriveTrainSubsystemBase.h"
 
 class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
@@ -17,6 +18,9 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
   virtual void SetMotorL(double speed);
   virtual void SetMotorR(double speed); 
   virtual void Init();
+  virtual double GetLeftEncoderInch();
+  virtual double GetRightEncoderInch();
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -25,7 +29,10 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
  #ifndef NOHW
   frc::Spark m_leftMotor{PWM_LEFTMOTOR_ROCKY};
   frc::Spark m_rightMotor{PWM_RIGHTMOTOR_ROCKY};
+  frc::Encoder m_leftEncoder{DIO_ENCODERLEFT_ROCKY_ONE, DIO_ENCODERLEFT_ROCKY_TWO};
+  frc::Encoder m_rightEncoder{DIO_ENCODERRIGHT_ROCKY_ONE, DIO_ENCODERRIGHT_ROCKY_TWO};
   #endif
+  const double WHEELDIAMETER = 8.0;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

@@ -22,7 +22,9 @@ class LoaderSubsystemRobot2020 : public LoaderSubsystemBase {
 
  private:
   #ifndef NOHW
-  frc::Spark m_loaderMotor {PWM_LOADMOTOR_ROBOT2020};
+  frc::Spark m_loaderMotorBottom {PWM_LOADMOTORBOTTOM_ROBOT2020};
+  frc::Spark m_loaderMotorMiddle {PWM_LOADMOTORMIDDLE_ROBOT2020};
+  frc::Spark m_loaderMotorTop {PWM_LOADMOTORTOP_ROBOT2020};
   #endif
   
   // Components (e.g. motor controllers and sensors) should generally be

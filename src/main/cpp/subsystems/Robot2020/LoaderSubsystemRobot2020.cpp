@@ -17,6 +17,8 @@ LoaderSubsystemRobot2020::LoaderSubsystemRobot2020() {}
 void LoaderSubsystemRobot2020::SetLoadMotor(double speed)
 {
     #ifndef NOHW
-    m_loaderMotor.Set(speed);
+    m_loaderMotorTop.Set(speed);
+    m_loaderMotorBottom.Set(speed);
+    m_loaderMotorMiddle.Set(speed);
     #endif
 }
