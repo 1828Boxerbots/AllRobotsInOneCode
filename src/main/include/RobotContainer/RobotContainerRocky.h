@@ -48,5 +48,8 @@ class RobotContainerRocky : public RobotContainerBase{
   frc2::RunCommand m_shooterEject{[this] {m_shooter.ShootBump(true, false);}, {&m_shooter}};
   frc2::RunCommand m_shooterStop{[this] {m_shooter.ShootBump(false, false);}, {&m_shooter}};
 
+  frc2::InstantCommand m_encoderTest{[this] {m_drive.ForwardInInch(1.0, 30.0);}, {&m_drive}};
+  frc2::InstantCommand m_resetEncoder{[this] {m_drive.ResetEncoder();}, {&m_drive}};
+
   void ConfigureButtonBindings();
 };
