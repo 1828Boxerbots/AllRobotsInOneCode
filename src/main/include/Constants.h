@@ -17,6 +17,11 @@ constexpr int PWM_RIGHTMOTOR_ROCKY      = 3;
 constexpr int PWM_SHOOTMOTOR_ROCKY      = 5;
 constexpr int PWM_TURRETMOTOR_ROCKY     = 4;
 constexpr int PWM_LOADMOTOR_ROCKY       = 9;
+constexpr int DIO_ENCODERLEFT_ROCKY_ONE = 1;
+constexpr int DIO_ENCODERLEFT_ROCKY_TWO = 2;
+constexpr int DIO_ENCODERRIGHT_ROCKY_ONE = 8;
+constexpr int DIO_ENCODERRIGHT_ROCKY_TWO = 9;
+
 
 //Laika
 constexpr int PWM_LEFTMOTOR_LAIKA_ONE   = 1;
@@ -51,7 +56,12 @@ constexpr int PWM_RIGHTMOTOR_DESERTVIEW = 1;
 constexpr int PWM_LEFTMOTOR_ROBOT2020 = 0;
 constexpr int PWM_RIGHTMOTOR_ROBOT2020 = 1;
 constexpr int PWM_SHOOTMOTOR_ROBOT2020  = 2;
-constexpr int PWM_LOADMOTOR_ROBOT2020 = 3;
+constexpr int PWM_LOADMOTORBOTTOM_ROBOT2020 = 3;
+constexpr int PWM_LOADMOTORMIDDLE_ROBOT2020 = 4;
+constexpr int PWM_LOADMOTORTOP_ROBOT2020 = 5;
+constexpr int PWM_ARMMOTOR_ROBOT2020 = 6;
+constexpr int PWM_SPINNERMOTOR_ROBOT2020 = 7;
+constexpr int PWM_HOOKMOTOR_ROBOT2020 = 8;
 
 
 

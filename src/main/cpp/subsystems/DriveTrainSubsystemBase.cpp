@@ -38,3 +38,14 @@ void DriveTrainSubsystemBase::Forward(double speed)
 {
     MoveTank(1.0, 1.0);
 }
+
+void DriveTrainSubsystemBase::GoDistanceInch(double speed, double inch)
+{
+    MoveTank(speed, speed);
+    double currentDistance = GetLeftEncoderInch();
+    while(currentDistance < inch)
+    {
+        currentDistance = GetLeftEncoderInch();
+    }
+    Stop();
+}

@@ -25,11 +25,16 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   void MoveArcade(double X, double Y);
   void Stop();
   void Forward(double speed);
+  void GoDistanceInch(double speed, double inch);
   virtual void Init() {}
   virtual void SetMotorL(double speed) {}
   virtual void SetMotorR(double speed) {}
   virtual void TurnLeft(double speed = 1.0) {}
   virtual void TurnRight(double speed = 1.0) {}
+  virtual double GetLeftEncoderInch() {}
+  virtual double GetRightEncoderInch() {}
+
+ const double PULSE_PER_REVOLUTION = 256.0;
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
