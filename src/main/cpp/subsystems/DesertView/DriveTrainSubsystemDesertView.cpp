@@ -15,6 +15,8 @@ void DriveTrainSubsystemDesertView::SetMotorL(double speed)
   #ifndef NOHW
   m_leftMotor.Set(speed);
   PhotoTrigger();
+  GetAnalogPhotoDiode();
+  GetAnalogHallEffect();
   #endif
 }
 
@@ -31,6 +33,32 @@ void DriveTrainSubsystemDesertView::PhotoTrigger()
   bool triggered = m_photogate.Get();
   frc::SmartDashboard::PutBoolean("Triggered?", triggered);
   #endif
+}
+
+void DriveTrainSubsystemDesertView::GetAnalogHallEffect()
+{
+  #ifndef NOHW
+  double sensorval = m_analogHallEffect.GetVoltage();
+  frc::SmartDashboard::PutNumber("Raw AnalogHallEffect", sensorval);
+  if (sensorval >= 1.50)
+  {
+    frc::SmartDashboard::PutString("Detected Pole:", "Strong North");
+  }
+  else if (sensorval <= 0.5)
+  {
+    frc::SmartDashboard::PutString("Detected Pole:", "Strong South");
+  }
+  else
+  {
+    frc::SmartDashboard::PutString("Detected Pole:", "None");
+  }
+  #endif
+}
+
+void DriveTrainSubsystemDesertView::GetAnalogPhotoDiode()
+{
+  double sensorval = m_analogPhotoDiode.GetVoltage();
+  frc::SmartDashboard::PutNumber("Raw Analog PhotoDiode", sensorval);
 }
 
 void DriveTrainSubsystemDesertView::Init()
