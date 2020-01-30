@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/DesertView/DriveTrainSubsystemDesertView.h"
+#include "frc/smartdashboard/SmartDashboard.h"
 
 DriveTrainSubsystemDesertView::DriveTrainSubsystemDesertView() {}
 
@@ -13,6 +14,7 @@ void DriveTrainSubsystemDesertView::SetMotorL(double speed)
 {
   #ifndef NOHW
   m_leftMotor.Set(speed);
+  PhotoTrigger();
   #endif
 }
 
@@ -20,6 +22,14 @@ void DriveTrainSubsystemDesertView::SetMotorR(double speed)
 {
   #ifndef NOHW
   m_rightMotor.Set(speed);
+  #endif
+}
+
+void DriveTrainSubsystemDesertView::PhotoTrigger()
+{
+  #ifndef NOHW
+  bool triggered = m_photogate.Get();
+  frc::SmartDashboard::PutBoolean("Triggered?", triggered);
   #endif
 }
 

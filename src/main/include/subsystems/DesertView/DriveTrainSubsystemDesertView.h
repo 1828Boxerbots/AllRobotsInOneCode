@@ -8,6 +8,7 @@
 #pragma once
 
 #include <frc/Spark.h>
+#include <frc/DigitalInput.h>
 #include "../DriveTrainSubsystemBase.h"
 
 class DriveTrainSubsystemDesertView : public DriveTrainSubsystemBase {
@@ -17,6 +18,7 @@ class DriveTrainSubsystemDesertView : public DriveTrainSubsystemBase {
   virtual void SetMotorL(double speed);
   virtual void SetMotorR(double speed); 
   virtual void Init();
+  void PhotoTrigger();
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -25,6 +27,7 @@ class DriveTrainSubsystemDesertView : public DriveTrainSubsystemBase {
  #ifndef NOHW
   frc::Spark m_leftMotor{PWM_LEFTMOTOR_DESERTVIEW};
   frc::Spark m_rightMotor{PWM_RIGHTMOTOR_DESERTVIEW};
+  frc::DigitalInput m_photogate {DIO_PHOTOGATE_DESERTVIEW};
   #endif
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.

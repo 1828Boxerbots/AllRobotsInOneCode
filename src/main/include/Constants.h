@@ -14,8 +14,8 @@ constexpr int USB_CONTROLLER_TWO        = 1;
 //Rocky
 constexpr int PWM_LEFTMOTOR_ROCKY       = 2;
 constexpr int PWM_RIGHTMOTOR_ROCKY      = 3;
-constexpr int PWM_SHOOTMOTOR_ROCKY      = 5;
 constexpr int PWM_TURRETMOTOR_ROCKY     = 4;
+constexpr int PWM_SHOOTMOTOR_ROCKY      = 5;
 constexpr int PWM_LOADMOTOR_ROCKY       = 9;
 constexpr int DIO_ENCODERLEFT_ROCKY_ONE = 8;
 constexpr int DIO_ENCODERLEFT_ROCKY_TWO = 9;
@@ -51,6 +51,7 @@ constexpr int DIO_BOTTOMSWITCH_SLAL     = 7;
 //Desert View
 constexpr int PWM_LEFTMOTOR_DESERTVIEW = 2;
 constexpr int PWM_RIGHTMOTOR_DESERTVIEW = 1;
+constexpr int DIO_PHOTOGATE_DESERTVIEW = 4;
 
 //2020 Robot
 constexpr int PWM_LEFTMOTOR_ROBOT2020 = 0;
