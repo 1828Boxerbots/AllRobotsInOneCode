@@ -17,8 +17,8 @@ constexpr int PWM_RIGHTMOTOR_ROCKY      = 3;
 constexpr int PWM_SHOOTMOTOR_ROCKY      = 5;
 constexpr int PWM_TURRETMOTOR_ROCKY     = 4;
 constexpr int PWM_LOADMOTOR_ROCKY       = 9;
-constexpr int DIO_ENCODERLEFT_ROCKY_ONE = 1;
-constexpr int DIO_ENCODERLEFT_ROCKY_TWO = 2;
+constexpr int DIO_ENCODERLEFT_ROCKY_ONE = 0;
+constexpr int DIO_ENCODERLEFT_ROCKY_TWO = 1;
 constexpr int DIO_ENCODERRIGHT_ROCKY_ONE = 8;
 constexpr int DIO_ENCODERRIGHT_ROCKY_TWO = 9;
 
@@ -68,7 +68,7 @@ constexpr int PWM_HOOKMOTOR_ROBOT2020 = 8;
 
 
 //Allowing hardware to be used
-#define NOHW
+//#define NOHW
 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide

@@ -13,8 +13,8 @@ DriveTrainSubsystemBase::DriveTrainSubsystemBase() {}
 void DriveTrainSubsystemBase::Periodic() {}
 void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
 { 
-    leftY = Util::Limit(leftY, -.7, .7);
-    rightY = Util::Limit(rightY, -.7, .7);
+    leftY = Util::Limit(leftY, -.5, .5);
+    rightY = Util::Limit(rightY, -.5, .5);
     if(leftY > 0.1 || leftY < -0.1)
     {
         GetLeftEncoderInch();

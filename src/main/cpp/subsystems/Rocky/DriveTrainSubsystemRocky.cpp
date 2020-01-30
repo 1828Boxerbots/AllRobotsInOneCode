@@ -25,22 +25,28 @@ void DriveTrainSubsystemRocky::SetMotorR(double speed)
 
 double DriveTrainSubsystemRocky::GetLeftEncoderInch()
 {
-  double encoderDistance = m_leftEncoderSim++;
+  m_leftEncoderSim++;
   #ifndef NOHW
-  encoderDistance = m_leftEncoder.GetDistance();
+  m_leftEncoderSim = m_leftEncoder.GetDistance();
+  frc::SmartDashboard::PutNumber("LeftEncoder Raw", m_leftEncoder.Get());
+  frc::SmartDashboard::PutBoolean("LeftEncoder Direction", m_leftEncoder.GetDirection());
+  frc::SmartDashboard::PutBoolean("LeftEncoder Running", m_leftEncoder.GetStopped());
   #endif
   LogEncoder();
-  return encoderDistance;
+  return m_leftEncoderSim;
 }
 
 double DriveTrainSubsystemRocky::GetRightEncoderInch()
 {
-  double encoderDistance = m_rightEncoderSim++;
+  m_rightEncoderSim++;
   #ifndef NOHW
-  encoderDistance = m_rightEncoder.GetDistance();
+  m_rightEncoderSim = m_rightEncoder.GetDistance();
+  frc::SmartDashboard::PutNumber("RightEncoder Raw", m_rightEncoder.Get());
+  frc::SmartDashboard::PutBoolean("RightEncoder Direction", m_rightEncoder.GetDirection());
+  frc::SmartDashboard::PutBoolean("RightEncoder Running", m_rightEncoder.GetStopped());
   #endif
   LogEncoder();
-  return encoderDistance;
+  return m_rightEncoderSim;
 }
 
 void DriveTrainSubsystemRocky::Init()
@@ -48,7 +54,12 @@ void DriveTrainSubsystemRocky::Init()
   #ifndef NOHW
   m_leftMotor.SetInverted(true);
   m_rightMotor.SetInverted(false);
+  m_leftEncoder.Reset();
+  m_rightEncoder.Reset();
+  m_leftEncoder.SetReverseDirection(true);
+  m_rightEncoder.SetReverseDirection(true);
   m_leftEncoder.SetDistancePerPulse((WHEELDIAMETER*Util::PI)/PULSE_PER_REVOLUTION);
+  m_rightEncoder.SetDistancePerPulse((WHEELDIAMETER*Util::PI)/PULSE_PER_REVOLUTION);
   #endif
 }
 
