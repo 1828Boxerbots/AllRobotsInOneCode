@@ -24,6 +24,8 @@ bool LiftSubsystemSLAL::UpperLimitHit()
 {
    #ifndef NOHW
    return m_topSwitch.Get();
+   #else
+   return false;
    #endif
 }
 
@@ -31,5 +33,7 @@ bool LiftSubsystemSLAL::LowerLimitHit()
 {
    #ifndef NOHW
    return m_bottomSwitch.Get();
+   #else
+   return false;
    #endif
 }

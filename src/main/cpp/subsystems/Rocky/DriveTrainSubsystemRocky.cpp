@@ -29,7 +29,7 @@ double DriveTrainSubsystemRocky::GetLeftEncoderInch()
   #ifndef NOHW
   encoderDistance = m_leftEncoder.GetDistance();
   #endif
-  frc::SmartDashboard::PutNumber("Left Encoder Distance", encoderDistance);
+  LogEncoder();
   return encoderDistance;
 }
 
@@ -37,9 +37,9 @@ double DriveTrainSubsystemRocky::GetRightEncoderInch()
 {
   double encoderDistance = m_rightEncoderSim++;
   #ifndef NOHW
-  m_rightEncoder.GetDistance();
+  encoderDistance = m_rightEncoder.GetDistance();
   #endif
-  frc::SmartDashboard::PutNumber("Right Encoder Distance", encoderDistance);
+  LogEncoder();
   return encoderDistance;
 }
 
@@ -61,4 +61,5 @@ void DriveTrainSubsystemRocky::ResetEncoder()
 
   m_rightEncoderSim = 0.0;
   m_leftEncoderSim = 0.0;
+  LogEncoder();
 }

@@ -26,6 +26,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   void Stop();
   void Forward(double speed);
   void ForwardInInch(double speed, double inch);
+  void LogEncoder();
   virtual void Init() {}
   virtual void SetMotorL(double speed) {}
   virtual void SetMotorR(double speed) {}
@@ -37,7 +38,9 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
 
  const double PULSE_PER_REVOLUTION = 256.0;
 
- private:
+ protected:
+  int m_leftEncoderSim = 0;
+  int m_rightEncoderSim = 0;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

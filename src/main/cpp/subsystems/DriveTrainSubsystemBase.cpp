@@ -15,6 +15,14 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
 { 
     leftY = Util::Limit(leftY, -.7, .7);
     rightY = Util::Limit(rightY, -.7, .7);
+    if(leftY > 0.1 || leftY < -0.1)
+    {
+        GetLeftEncoderInch();
+    }
+    if(rightY > 0.1 || rightY < -0.1)
+    {
+        GetRightEncoderInch();    
+    }
     frc::SmartDashboard::PutNumber("Drive Left", leftY);
     frc::SmartDashboard::PutNumber("Drive Right", rightY);
 
@@ -27,6 +35,12 @@ void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
     double leftY = X + Y;
     double rightY = X - Y;
     MoveTank(leftY, rightY);
+}
+
+void DriveTrainSubsystemBase::LogEncoder()
+{
+    frc::SmartDashboard::PutNumber("Right Encoder Distance", m_rightEncoderSim);
+    frc::SmartDashboard::PutNumber("Left Encoder Distance", m_leftEncoderSim);
 }
 
 void DriveTrainSubsystemBase::Stop()
@@ -46,6 +60,7 @@ void DriveTrainSubsystemBase::ForwardInInch(double speed, double inch)
     while(currentDistance < inch)
     {
         currentDistance = GetLeftEncoderInch();
+        Util::DelayInSeconds(1.0);
     }
     if(currentDistance > inch)
     {

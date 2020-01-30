@@ -25,7 +25,7 @@ void SpinSubsystemBase::SpinSomeTimes(double R, double r, double revolutions)
     double seconds = (Util::PI*2*r / MOTORVELOCITY*GetMotorVoltage());
 
     SetSpinMotor();
-    Util::WaitInSeconds(seconds);
+    Util::DelayInSeconds(seconds);
     SetSpinMotor(0.0);
 }
 
@@ -40,6 +40,6 @@ void SpinSubsystemBase::SpinSomeTimesEncoders(double R, double r, double revolut
     double seconds = (Util::PI*2*r / MOTORVELOCITY*GetMotorVoltage());
 
     SetSpinMotor();
-    Util::WaitInSeconds(seconds);
+    Util::DelayInSeconds(seconds);
     SetSpinMotor(0.0);
 }
