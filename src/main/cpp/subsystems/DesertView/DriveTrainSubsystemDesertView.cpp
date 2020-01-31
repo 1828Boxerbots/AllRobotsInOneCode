@@ -17,6 +17,7 @@ void DriveTrainSubsystemDesertView::SetMotorL(double speed)
   PhotoTrigger();
   GetAnalogPhotoDiode();
   GetAnalogHallEffect();
+  GetHallEffectSwitch();
   #endif
 }
 
@@ -57,8 +58,18 @@ void DriveTrainSubsystemDesertView::GetAnalogHallEffect()
 
 void DriveTrainSubsystemDesertView::GetAnalogPhotoDiode()
 {
+  #ifndef NOHW
   double sensorval = m_analogPhotoDiode.GetVoltage();
   frc::SmartDashboard::PutNumber("Raw Analog PhotoDiode", sensorval);
+  #endif
+}
+
+void DriveTrainSubsystemDesertView::GetHallEffectSwitch()
+{
+  #ifndef NOHW
+  bool state = m_hallEffectSwitch.Get();
+  frc::SmartDashboard::PutBoolean("Near Magnet?", state);
+  #endif
 }
 
 void DriveTrainSubsystemDesertView::Init()
