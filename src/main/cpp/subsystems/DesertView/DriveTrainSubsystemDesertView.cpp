@@ -18,6 +18,7 @@ void DriveTrainSubsystemDesertView::SetMotorL(double speed)
   GetAnalogPhotoDiode();
   GetAnalogHallEffect();
   GetHallEffectSwitch();
+  GetHallEffectLatch();
   #endif
 }
 
@@ -67,8 +68,16 @@ void DriveTrainSubsystemDesertView::GetAnalogPhotoDiode()
 void DriveTrainSubsystemDesertView::GetHallEffectSwitch()
 {
   #ifndef NOHW
-  bool state = m_hallEffectSwitch.Get();
-  frc::SmartDashboard::PutBoolean("Near Magnet?", state);
+  bool state = !(m_hallEffectSwitch.Get());
+  frc::SmartDashboard::PutBoolean("Last Near South?", state);
+  #endif
+}
+
+void DriveTrainSubsystemDesertView::GetHallEffectLatch()
+{
+  #ifndef NOHW
+  bool state = !(m_hallEffectLatch.Get());
+  frc::SmartDashboard::PutBoolean("Last Near North?", state);
   #endif
 }
 
