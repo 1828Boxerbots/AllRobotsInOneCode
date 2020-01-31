@@ -35,6 +35,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual double GetLeftEncoderInch() {return -1.0;}
   virtual double GetRightEncoderInch() {return -1.0;}
   virtual void ResetEncoder() {}
+  virtual void ForwardInSeconds(double goalTime);
 
  const double PULSE_PER_REVOLUTION = 256.0;
 
