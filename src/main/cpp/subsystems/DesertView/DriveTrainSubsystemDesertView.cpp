@@ -19,6 +19,7 @@ void DriveTrainSubsystemDesertView::SetMotorL(double speed)
   GetAnalogHallEffect();
   GetHallEffectSwitch();
   GetHallEffectLatch();
+  GetHallEffectOmnipolar();
   #endif
 }
 
@@ -78,6 +79,16 @@ void DriveTrainSubsystemDesertView::GetHallEffectLatch()
   #ifndef NOHW
   bool state = !(m_hallEffectLatch.Get());
   frc::SmartDashboard::PutBoolean("Last Near North?", state);
+  #endif
+}
+
+
+// This one's basically a limit switch: true when near any pole.
+void DriveTrainSubsystemDesertView::GetHallEffectOmnipolar()
+{
+  #ifndef NOHW
+  bool state = !(m_hallEffectOmnipolar.Get());
+  frc::SmartDashboard::PutBoolean("Near Any Magnet?", state);
   #endif
 }
 

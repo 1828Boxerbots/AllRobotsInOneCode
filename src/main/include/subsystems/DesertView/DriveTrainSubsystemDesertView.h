@@ -24,6 +24,7 @@ class DriveTrainSubsystemDesertView : public DriveTrainSubsystemBase {
   void GetAnalogPhotoDiode();
   void GetHallEffectSwitch();
   void GetHallEffectLatch();
+  void GetHallEffectOmnipolar();
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -35,6 +36,7 @@ class DriveTrainSubsystemDesertView : public DriveTrainSubsystemBase {
   frc::DigitalInput m_photogate {DIO_PHOTOGATE_DESERTVIEW};
   frc::DigitalInput m_hallEffectSwitch {DIO_HALLEFFECT_SWITCH_DESERTVIEW};
   frc::DigitalInput m_hallEffectLatch {DIO_HALLEFFECT_LATCH_DESERTVIEW};
+  frc::DigitalInput m_hallEffectOmnipolar {DIO_HALLEFFECT_OMNIPOLAR_DESERTVIEW};
   frc::AnalogInput m_analogHallEffect {ANG_ANALOG_HALLEFFECT_DESERTVIEW};
   frc::AnalogInput m_analogPhotoDiode {ANG_ANALOG_PHOTODIODE_DESERTVIEW};
   #endif
