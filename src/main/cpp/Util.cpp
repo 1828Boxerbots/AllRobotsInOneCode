@@ -27,7 +27,7 @@ double Util::Limit(double value, double lowerLimit, double higherLimit)
 
 void Util::DelayInSeconds(double seconds)
 {
-     frc::Timer timer;
+    frc::Timer timer;
     //starts timer and gets start time and beginning current time
     timer.Start();
     double startTime = timer.Get();
@@ -41,16 +41,5 @@ void Util::DelayInSeconds(double seconds)
     //Stops and resets timer used for driving forward
     timer.Stop();
     timer.Reset();
-}
-void Util::TimeInSeconds(double time)
-{
-    double initialTime = m_time.Get();
-    double currentTime = m_time.Get();
-    if(time < 0){Stop();}
-    Forward();
-    while(currentTime-initialTime < time)
-    {
-        currentTime = m_time.Get();
-    }
 }
 

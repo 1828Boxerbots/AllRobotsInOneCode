@@ -71,9 +71,9 @@ void DriveTrainSubsystemBase::ForwardInInch(double speed, double inch)
 
 void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime)
 {
-    m_time.Reset();
+    /*m_time.Reset();
     m_time.Start();
     Util::TimeInSeconds(goalTime);
-    Stop();
+    Stop();*/
 }
 
