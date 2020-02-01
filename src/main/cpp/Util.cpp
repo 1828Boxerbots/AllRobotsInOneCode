@@ -43,3 +43,16 @@ void Util::DelayInSeconds(double seconds)
     timer.Reset();
 }
 
+bool Util::CompareDouble(double value, double requiredValue, double tolerance)
+{
+    if((value > requiredValue - tolerance) && (value < requiredValue + tolerance))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    //Another way to write this is
+    //return (value > requiredValue - tolerance) && (value < requiredValue + tolerance);
+}

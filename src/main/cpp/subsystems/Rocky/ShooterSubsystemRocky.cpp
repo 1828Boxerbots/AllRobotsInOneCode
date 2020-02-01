@@ -19,3 +19,12 @@ void ShooterSubsystemRocky::SetShootMotor(double speed)
     m_shooterMotor.Set(speed);
     #endif
 }
+
+double ShooterSubsystemRocky::GetSetPoint()
+{
+    #ifndef NOHW
+    return m_shooterMotor.Get();
+    #else
+    return 0.0;
+    #endif
+}

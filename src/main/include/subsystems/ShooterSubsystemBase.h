@@ -18,7 +18,9 @@ class ShooterSubsystemBase : public frc2::SubsystemBase {
 
   void Shoot(double shootSpeed);
   void ShootBump(bool bumpL, bool bumpR);
+  bool AtSetpoint(double position);
   virtual void SetShootMotor (double speed) {}
+  virtual double GetSetPoint() {return 0.0;}
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.

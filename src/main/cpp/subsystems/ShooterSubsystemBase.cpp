@@ -38,3 +38,8 @@ void ShooterSubsystemBase::ShootBump(bool bumpL, bool bumpR)
     }
 
 }
+
+bool ShooterSubsystemBase::AtSetpoint(double position)
+{
+    return Util::CompareDouble(GetSetPoint(), position);
+}

@@ -13,7 +13,10 @@
 #include "subsystems/Rocky/ShooterSubsystemRocky.h"
 #include "RobotContainerBase.h"
 #include "subsystems/CameraSubsystemBase.h"
-
+#include <frc2/command/SequentialCommandGroup.h>
+#include <frc2/command/RunCommand.h>
+#include <frc2/command/WaitUntilCommand.h>
+#include <frc2/command/InstantCommand.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -77,7 +80,16 @@ class RobotContainerRocky : public RobotContainerBase{
         direction = m_camera.WhereToTurn(); 
       }
       m_drive.Stop();
-    }, {&m_camera, &m_drive}}
+    }, {&m_camera, &m_drive,}},
+    //A function is used to get the correct Lidar Distance
+    //m_drive.MoveDistance(100);
+
+    frc2::InstantCommand {[this] {m_shooter.Shoot(ShooterSubsystemRocky::SHOOTER_SPEED_HIGH_TARGET);}, {&m_shooter}},
+    frc2::WaitUntilCommand {[this] {return m_shooter.AtSetpoint(ShooterSubsystemRocky::SHOOTER_SPEED_HIGH_TARGET);}},
+    frc2::InstantCommand {[this] {m_loader.LoadXY(false, true);}, {&m_loader}},
+    frc2::InstantCommand {[this] {Util::DelayInSeconds(3.0);}, {}},
+    frc2::InstantCommand {[this] {m_shooter.Shoot(0.0);}, {&m_shooter}},
+    frc2::InstantCommand {[this] {m_loader.LoadXY(false, false);}, {&m_loader}},
   };
 
   frc2::SequentialCommandGroup m_follower = frc2::SequentialCommandGroup
