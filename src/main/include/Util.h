@@ -6,15 +6,18 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
+#include <frc/Timer.h>
 
 namespace Util
 {
  double Limit(double value, double lowerLimit = -1.0, double higherLimit = 1.0);
 
  void DelayInSeconds(double seconds);
+ void TimeInSeconds(double time);
 
  //Other Constants 
  constexpr double PI = 3.141592653589793238462643383279502884197169399375105820974944;
+frc::Timer m_time;
 }
 
 

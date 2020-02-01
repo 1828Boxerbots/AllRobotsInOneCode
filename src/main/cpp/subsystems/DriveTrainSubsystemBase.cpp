@@ -67,4 +67,11 @@ void DriveTrainSubsystemBase::ForwardInInch(double speed, double inch)
         ResetEncoder();
     }
     Stop();
+    void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime)
+    {
+        m_time.Reset();
+        m_time.Start();
+        Util::TimeInSeconds(goalTime);
+        Stop();
+    }
 }

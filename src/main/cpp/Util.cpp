@@ -42,3 +42,15 @@ void Util::DelayInSeconds(double seconds)
     timer.Stop();
     timer.Reset();
 }
+void Util::TimeInSeconds(double time)
+{
+    double initialTime = m_time.Get();
+    double currentTime = m_time.Get();
+    if(time < 0){Stop();}
+    Forward();
+    while(currentTime-initialTime < time)
+    {
+        currentTime = m_time.Get();
+    }
+}
+
