@@ -32,7 +32,7 @@ void SpinSubsystemBase::SpinSomeTimes(double R, double r, double revolutions)
 
 void SpinSubsystemBase::SpinSomeTimesEncoders(double R, double r, double revolutions) 
 {
-    /** circumference of spin wheel (c)
+    /* circumference of spin wheel (c)
      * circumference of Wheel of Fortune (C)
      * target revolutions (V)
      * formula = VC/c

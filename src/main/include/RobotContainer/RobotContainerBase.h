@@ -79,4 +79,8 @@ class RobotContainerBase {
       }
     }, {m_pDrive, m_pDistance}}
   };
+  frc2::SequentialCommandGroup m_autoInFrontTargetZone = frc2::SequentialCommandGroup
+  {
+    frc2::InstantCommand{[this]  
+  }
 };

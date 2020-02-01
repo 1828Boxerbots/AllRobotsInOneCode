@@ -74,4 +74,38 @@ void DriveTrainSubsystemBase::ForwardInInch(double speed, double inch)
         Util::TimeInSeconds(goalTime);
         Stop();
     }
+    void DriveTrainSubsystemBase::TurnRight()
+    {
+        MoveTank(1.0,-1.0);
+    }
+    void DriveTrainSubsystemBase::TurnLeft()
+    {
+        MoveTank(-1.0,1.0);
+    }
+    void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
+    {
+        double startAngle = m_gyro.GetAngle();
+        double currentAngle = m_gyro.GetAngle();
+        if(relativeAngle > 0)
+        {
+            TurnRight();
+            while (currentAngle-startAngle < relativeAngle)
+            {
+                currentAngle = m_gyro.GetAngle();
+            }
+        }
+        if(relativeAngle < 0)
+        {
+            TurnLeft();
+            while (currentAngle-startAngle > relativeAngle)
+            {
+                currentAngle = m_gyro.GetAngle();
+            }
+        }
+    }
+    void DriveTrainSubsystemBase::Init()
+    {
+        m_gyro.Reset();
+        m_gyro.Calibrate();
+    }
 }
