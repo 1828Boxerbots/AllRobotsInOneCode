@@ -37,6 +37,16 @@ void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
     MoveTank(leftY, rightY);
 }
 
+void DriveTrainSubsystemBase::TurnRight(double speed)
+{
+    MoveTank(-speed*1.5, speed*1.5);
+}
+
+void DriveTrainSubsystemBase::TurnLeft(double speed)
+{
+    MoveTank(speed, -speed);
+}
+
 void DriveTrainSubsystemBase::LogEncoder()
 {
     frc::SmartDashboard::PutNumber("Right Encoder Distance", m_rightEncoderSim);

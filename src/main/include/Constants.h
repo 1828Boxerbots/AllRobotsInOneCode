@@ -11,6 +11,10 @@
 constexpr int USB_CONTROLLER_ONE        = 0;
 constexpr int USB_CONTROLLER_TWO        = 1;
 
+//Cameras
+constexpr int USB_CAMERA_ONE        = 0;
+constexpr int USB_CAMERA_TWO        = 1;
+
 //Rocky
 constexpr int PWM_LEFTMOTOR_ROCKY       = 2;
 constexpr int PWM_RIGHTMOTOR_ROCKY      = 3;
@@ -59,11 +63,11 @@ constexpr int ANG_ANALOG_HALLEFFECT_DESERTVIEW = 3;
 constexpr int ANG_ANALOG_PHOTODIODE_DESERTVIEW = 2;
 
 //LipALoop
-int constexpr PWM_RIGHTMOTOR_LIPALOOP = 4;
-int constexpr PWM_LEFTMOTOR_LIPALOOP = 3;
-int constexpr PWM_ARMSERVO_LIPALOOP = 0;
-int constexpr PWM_WRISTSERVO_LIPALOOP = 1;
-int constexpr PWM_HANDSERVO_LIPALOOP = 2;
+constexpr int PWM_RIGHTMOTOR_LIPALOOP = 4;
+constexpr int PWM_LEFTMOTOR_LIPALOOP = 3;
+constexpr int PWM_ARMSERVO_LIPALOOP = 0;
+constexpr int PWM_WRISTSERVO_LIPALOOP = 1;
+constexpr int PWM_HANDSERVO_LIPALOOP = 2;
 
 //2020 Robot
 constexpr int PWM_LEFTMOTOR_ROBOT2020 = 0;

@@ -10,11 +10,14 @@
 
 RobotContainerLipALoop::RobotContainerLipALoop()
  {
-  // Initialize all of your commands and subsystems here
 
   // Configure the button bindings
   ConfigureButtonBindings();
+
+  //Initializing all Subsystems
   m_drive.Init();
+  m_camera.Init();
+  //TeleOp Drive
   m_drive.SetDefaultCommand(frc2::RunCommand(
     [this] 
     {
@@ -26,6 +29,7 @@ RobotContainerLipALoop::RobotContainerLipALoop()
 
 void RobotContainerLipALoop::ConfigureButtonBindings()
 {
+  
     //Arm Controlls
     frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
     bumperR.WhenHeld(&m_armDown);
@@ -49,6 +53,10 @@ void RobotContainerLipALoop::ConfigureButtonBindings()
     frc2::Button buttonY{[this] {return m_controller.GetYButton();}};
     buttonY.WhenHeld(&m_handDown);
     buttonY.WhenReleased(&m_handStop);
+
+    //Allign Control
+    frc2::Button startButton{[this] {return m_controller.GetStartButton();}};
+    startButton.WhenPressed(&m_follower);
 }
 
 frc2::Command* RobotContainerLipALoop::GetAutonomousCommand() {

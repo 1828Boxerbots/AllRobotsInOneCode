@@ -30,8 +30,8 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual void Init() {}
   virtual void SetMotorL(double speed) {}
   virtual void SetMotorR(double speed) {}
-  virtual void TurnLeft(double speed = 1.0) {}
-  virtual void TurnRight(double speed = 1.0) {}
+  void TurnLeft(double speed = 1.0);
+  void TurnRight(double speed = 1.0);
   virtual double GetLeftEncoderInch() {return -1.0;}
   virtual double GetRightEncoderInch() {return -1.0;}
   virtual void ResetEncoder() {}

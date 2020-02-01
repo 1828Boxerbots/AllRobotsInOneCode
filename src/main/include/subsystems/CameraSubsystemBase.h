@@ -14,17 +14,22 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include "../Constants.h"
 using namespace cv;
 
-class CameraSubsystem : public frc2::SubsystemBase {
+class CameraSubsystemBase : public frc2::SubsystemBase {
  public:
-  CameraSubsystem();
+  CameraSubsystemBase();
 
+  void Init();
+  int WhereToTurn();
+  void Tick();
+
+protected:
   void InterlizeCamera(int port);
   void IntakeFrame();
   void FilterFrame();
   void CenterMomment();
-  int WhereToTurn();
   void PrintTurn(int turn);
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -34,6 +39,8 @@ class CameraSubsystem : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
+  int m_frameNumber = 1;
+
   Mat m_frame;
   Mat m_morp = cv::getStructuringElement(MORPH_CROSS, Size(3, 3), Point(-1, 1));
   VideoCapture m_video;

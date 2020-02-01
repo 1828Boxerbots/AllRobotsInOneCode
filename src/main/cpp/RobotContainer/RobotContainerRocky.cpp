@@ -52,10 +52,16 @@ void RobotContainerRocky::ConfigureButtonBindings()
   buttonY.WhenHeld(&m_loaderLoad);
   buttonY.WhenReleased(&m_loaderStop);
 
+/*
   frc2::Button startButton{[this] {return m_controller.GetStartButton();}};
   startButton.WhenPressed(&m_encoderTest);
   frc2::Button leftTrigger{[this] {return m_controller.GetTriggerAxis(frc::GenericHID::kLeftHand);}};
   leftTrigger.WhenPressed(&m_resetEncoder);
+  */
+
+ //Allign Control
+  frc2::Button startButton{[this] {return m_controller.GetStartButton();}};
+  startButton.WhenPressed(&m_follower);
   
 }
 
