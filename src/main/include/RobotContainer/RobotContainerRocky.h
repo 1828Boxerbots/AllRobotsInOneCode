@@ -12,7 +12,11 @@
 #include "subsystems/Rocky/LoaderSubsystemRocky.h"
 #include "subsystems/Rocky/ShooterSubsystemRocky.h"
 #include "RobotContainerBase.h"
-
+#include "subsystems/CameraSubsystemBase.h"
+#include <frc2/command/SequentialCommandGroup.h>
+#include <frc2/command/RunCommand.h>
+#include <frc2/command/WaitUntilCommand.h>
+#include <frc2/command/InstantCommand.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -35,6 +39,7 @@ class RobotContainerRocky : public RobotContainerBase{
   TurretSubsystemRocky m_turret;
   LoaderSubsystemRocky m_loader;
   ShooterSubsystemRocky m_shooter;
+  CameraSubsystemBase m_camera;
 
   frc2::RunCommand m_turretTurnLeft{[this] {m_turret.Turn(m_controller.GetAButton(), m_controller.GetBButton());}, {&m_turret}};
   frc2::RunCommand m_turretTurnRight{[this] {m_turret.Turn(m_controller.GetAButton(), m_controller.GetBButton());}, {&m_turret}};
@@ -52,4 +57,66 @@ class RobotContainerRocky : public RobotContainerBase{
   frc2::InstantCommand m_resetEncoder{[this] {m_drive.ResetEncoder();}, {&m_drive}};
 
   void ConfigureButtonBindings();
+
+  frc2::SequentialCommandGroup m_align = frc2::SequentialCommandGroup
+  {
+    frc2::InstantCommand {[this] {m_camera.Init();}, {&m_camera}},
+    frc2::InstantCommand{[this]
+    {
+      int direction = m_camera.WhereToTurn(); 
+      while(direction != 0)
+      {
+        m_camera.Tick();
+        if (direction == 1)
+        {
+          m_drive.TurnRight(0.1);
+          direction = m_camera.WhereToTurn(); 
+        }
+        else if (direction == -1)
+        {
+          m_drive.TurnLeft(0.1);
+          direction = m_camera.WhereToTurn(); 
+        }
+        direction = m_camera.WhereToTurn(); 
+      }
+      m_drive.Stop();
+    }, {&m_camera, &m_drive,}},
+    //A function is used to get the correct Lidar Distance
+    //m_drive.MoveDistance(100);
+
+    frc2::InstantCommand {[this] {m_shooter.Shoot(ShooterSubsystemRocky::SHOOTER_SPEED_HIGH_TARGET);}, {&m_shooter}},
+    frc2::WaitUntilCommand {[this] {return m_shooter.AtSetpoint(ShooterSubsystemRocky::SHOOTER_SPEED_HIGH_TARGET);}},
+    frc2::InstantCommand {[this] {m_loader.LoadXY(false, true);}, {&m_loader}},
+    frc2::InstantCommand {[this] {Util::DelayInSeconds(3.0);}, {}},
+    frc2::InstantCommand {[this] {m_shooter.Shoot(0.0);}, {&m_shooter}},
+    frc2::InstantCommand {[this] {m_loader.LoadXY(false, false);}, {&m_loader}},
+  };
+
+  frc2::SequentialCommandGroup m_follower = frc2::SequentialCommandGroup
+  {
+    frc2::InstantCommand {[this] {m_camera.Init();}, {&m_camera}},
+    frc2::InstantCommand{[this]
+    {
+      int direction = m_camera.WhereToTurn(); 
+      while(true)
+      {
+        m_camera.Tick();
+        if (direction == 1)
+        {
+          m_drive.TurnRight(0.3);
+          direction = m_camera.WhereToTurn(); 
+        }
+        else if (direction == -1)
+        {
+          m_drive.TurnLeft(0.3);
+          direction = m_camera.WhereToTurn(); 
+        }
+        else
+        {
+          m_drive.Stop();
+        }
+        direction = m_camera.WhereToTurn(); 
+      }
+    }, {&m_camera, &m_drive}}
+  };
 };

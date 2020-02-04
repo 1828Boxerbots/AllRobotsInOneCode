@@ -13,7 +13,7 @@ constexpr int USB_CONTROLLER_TWO        = 1;
 
 //Cameras
 constexpr int USB_CAMERA_ONE        = 0;
-constexpr int USB_CAMERA_TWO        = 1;  
+constexpr int USB_CAMERA_TWO        = 1;
 
 //Rocky
 constexpr int PWM_LEFTMOTOR_ROCKY       = 2;

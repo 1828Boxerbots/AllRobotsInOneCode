@@ -10,7 +10,7 @@
 
 namespace Util
 {
- double Limit(double value, double lowerLimit = -1.0, double higherLimit = 1.0);
+    double Limit(double value, double lowerLimit = -1.0, double higherLimit = 1.0);
 
  void DelayInSeconds(double seconds);
  bool CompareDouble(double value, double requiredValue, double tolerance = 0.001);

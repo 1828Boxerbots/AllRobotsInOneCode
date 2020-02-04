@@ -40,7 +40,7 @@ void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
 
 void DriveTrainSubsystemBase::TurnRight(double speed)
 {
-    MoveTank(-speed*1.5,speed*1.5);
+    MoveTank(-speed*1.5, speed*1.5);
 }
 
 void DriveTrainSubsystemBase::TurnLeft(double speed)
@@ -109,3 +109,12 @@ void DriveTrainSubsystemBase::Init()
     m_gyro.Reset();
     m_gyro.Calibrate();
 }
+
+void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime)
+{
+    /*m_time.Reset();
+    m_time.Start();
+    Util::TimeInSeconds(goalTime);
+    Stop();*/
+}
+
