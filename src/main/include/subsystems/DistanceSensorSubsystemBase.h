@@ -9,6 +9,7 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <frc/I2C.h>
+#include "DriveTrainSubsystemBase.h"
 
 class DistanceSensorSubsystemBase : public frc2::SubsystemBase {
  public:
@@ -17,6 +18,7 @@ class DistanceSensorSubsystemBase : public frc2::SubsystemBase {
   virtual void Init();
   virtual int GetDistanceInInch();
   virtual int GetDistanceInCM();
+  virtual void LidarDetection(double distanceLimit);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.

@@ -6,7 +6,6 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Util.h"
-#include <frc/Timer.h>
 
 double Util::Limit(double value, double lowerLimit, double higherLimit)
 {
@@ -27,7 +26,7 @@ double Util::Limit(double value, double lowerLimit, double higherLimit)
 
 void Util::DelayInSeconds(double seconds)
 {
-     frc::Timer timer;
+    frc::Timer timer;
     //starts timer and gets start time and beginning current time
     timer.Start();
     double startTime = timer.Get();
