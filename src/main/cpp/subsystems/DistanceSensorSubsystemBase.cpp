@@ -52,3 +52,13 @@ int DistanceSensorSubsystemBase::GetDistanceInInch()
 
     return (int)newDistance;
 }
+void DistanceSensorSubsystemBase::LidarDetection(double distanceLimit)
+{
+if(GetDistanceInInch() < distanceLimit)
+{
+    while(GetDistanceInInch() > distanceLimit)
+    {
+    DriveTrainSubsystemBase().Stop();
+    }
+}
+}
