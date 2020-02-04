@@ -35,19 +35,10 @@ double SpinSubsystemBase::GetNumberOfTicks(double R, double revolutions, double 
 
 void SpinSubsystemBase::Log()
 {
-<<<<<<< Updated upstream
-    /* circumference of spin wheel (c)
-     * circumference of Wheel of Fortune (C)
-     * target revolutions (V)
-     * formula = VC/c
-     */
-    double seconds = (Util::PI*2*r / MOTORVELOCITY*GetMotorVoltage());
-=======
     frc::SmartDashboard::PutNumber("Spin Encoder Value", m_encoder);
     frc::SmartDashboard::PutNumber("Current (sensor) Color", ReadColorSensor());
     frc::SmartDashboard::PutNumber("Current (field) Color", Map(ReadColorSensor()));
 }
->>>>>>> Stashed changes
 
 int SpinSubsystemBase::Map(int color)
 {
