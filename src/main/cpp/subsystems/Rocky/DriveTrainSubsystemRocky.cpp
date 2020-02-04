@@ -23,6 +23,17 @@ void DriveTrainSubsystemRocky::SetMotorR(double speed)
   #endif
 }
 
+double DriveTrainSubsystemRocky::GyroGetAngle()
+{
+  return m_gyro.GetAngle();
+}
+
+void DriveTrainSubsystemRocky::GyroInit()
+{
+  m_gyro.Reset();
+  m_gyro.Calibrate();
+}
+
 double DriveTrainSubsystemRocky::GetLeftEncoderInch()
 {
   m_leftEncoderSim++;

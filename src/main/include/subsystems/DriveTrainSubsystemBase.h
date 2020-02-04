@@ -12,7 +12,6 @@
 #include <frc/Spark.h>
 #include "../Util.h"
 #include "../Constants.h"
-#include <frc/ADXRS450_Gyro.h>
 
 class DriveTrainSubsystemBase : public frc2::SubsystemBase {
  public:
@@ -28,6 +27,8 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   void Forward(double speed);
   void ForwardInInch(double speed, double inch);
   void LogEncoder();
+  virtual double GyroGetAngle() {return -1.0;}
+  virtual void GyroInit() {}
   virtual void Init();
   virtual void SetMotorL(double speed) {}
   virtual void SetMotorR(double speed) {}
@@ -43,7 +44,6 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
  protected:
   int m_leftEncoderSim = 0;
   int m_rightEncoderSim = 0;
-  frc::ADXRS450_Gyro m_gyro;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

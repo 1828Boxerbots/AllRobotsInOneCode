@@ -92,14 +92,14 @@ void DriveTrainSubsystemBase::ForwardInInch(double speed, double inch)
 
 void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
 {
-    double startAngle = m_gyro.GetAngle();
-    double currentAngle = m_gyro.GetAngle();
+    double startAngle = GyroGetAngle();
+    double currentAngle = GyroGetAngle();
     if(relativeAngle > 0)
     {
         TurnRight();
         while (currentAngle-startAngle < relativeAngle)
         {
-            currentAngle = m_gyro.GetAngle();
+            currentAngle = GyroGetAngle();
         }
     }
     if(relativeAngle < 0)
@@ -107,7 +107,7 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
         TurnLeft();
         while (currentAngle-startAngle > relativeAngle)
         {
-            currentAngle = m_gyro.GetAngle();
+            currentAngle = GyroGetAngle();
         }
     }
 }
@@ -115,8 +115,7 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
 
 void DriveTrainSubsystemBase::Init()
 {
-    m_gyro.Reset();
-    m_gyro.Calibrate();
+    GyroInit();
 }
 
 
