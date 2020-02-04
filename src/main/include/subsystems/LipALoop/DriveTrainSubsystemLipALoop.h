@@ -7,18 +7,23 @@
 
 #pragma once
 
-#include <frc2/command/SubsystemBase.h>
+#include <frc/Victor.h>
+#include "../DriveTrainSubsystemBase.h"
 
-class DriveTrainSubsystemLipALoop : public frc2::SubsystemBase {
+class DriveTrainSubsystemLipALoop : public DriveTrainSubsystemBase {
  public:
   DriveTrainSubsystemLipALoop();
 
-  /**
-   * Will be called periodically whenever the CommandScheduler runs.
-   */
-  void Periodic();
+  virtual void SetMotorL(double speed);	
+  virtual void SetMotorR(double speed); 	
+  virtual void Init();
 
  private:
+  #ifndef NOHW	
+  frc::Victor m_leftMotor{PWM_LEFTMOTOR_LIPALOOP};	
+  frc::Victor m_rightMotor{PWM_RIGHTMOTOR_LIPALOOP};	
+  #endif	
+  double m_scale = 0.7;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

@@ -9,5 +9,24 @@
 
 DriveTrainSubsystemLipALoop::DriveTrainSubsystemLipALoop() {}
 
-// This method will be called once per scheduler run
-void DriveTrainSubsystemLipALoop::Periodic() {}
+void DriveTrainSubsystemLipALoop::SetMotorL(double speed)
+{
+  #ifndef NOHW	
+  m_leftMotor.Set(speed * m_scale);	
+  #endif	
+}	
+
+void DriveTrainSubsystemLipALoop::SetMotorR(double speed) 	
+{	
+  #ifndef NOHW	
+  m_rightMotor.Set(speed * m_scale);	
+  #endif	
+}	
+
+void DriveTrainSubsystemLipALoop::Init()	
+{	
+  #ifndef NOHW	
+  m_leftMotor.SetInverted(false);	
+  m_rightMotor.SetInverted(true);	
+  #endif	
+}

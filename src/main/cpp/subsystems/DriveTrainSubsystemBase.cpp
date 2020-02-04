@@ -12,6 +12,8 @@ DriveTrainSubsystemBase::DriveTrainSubsystemBase() {}
 
 // This method will be called once per scheduler run
 void DriveTrainSubsystemBase::Periodic() {}
+
+
 void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
 { 
     leftY = Util::Limit(leftY, -.5, .5);
@@ -31,6 +33,7 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
     SetMotorR(rightY);
 }
 
+
 void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
 {
     double leftY = X + Y;
@@ -38,15 +41,18 @@ void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
     MoveTank(leftY, rightY);
 }
 
+
 void DriveTrainSubsystemBase::TurnRight(double speed)
 {
     MoveTank(-speed*1.5, speed*1.5);
 }
 
+
 void DriveTrainSubsystemBase::TurnLeft(double speed)
 {
     MoveTank(speed, -speed);
 }
+
 
 void DriveTrainSubsystemBase::LogEncoder()
 {
@@ -54,15 +60,18 @@ void DriveTrainSubsystemBase::LogEncoder()
     frc::SmartDashboard::PutNumber("Left Encoder Distance", m_leftEncoderSim);
 }
 
+
 void DriveTrainSubsystemBase::Stop()
 {
     MoveTank(0.0, 0.0);
 }
 
+
 void DriveTrainSubsystemBase::Forward(double speed)
 {
     MoveTank(1.0, 1.0);
 }
+
 
 void DriveTrainSubsystemBase::ForwardInInch(double speed, double inch)
 {
@@ -79,10 +88,8 @@ void DriveTrainSubsystemBase::ForwardInInch(double speed, double inch)
     }
     Stop();
 }
-void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime)
-{
-    Util::DelayInSeconds(goalTime);
-}
+
+
 void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
 {
     double startAngle = m_gyro.GetAngle();
@@ -104,11 +111,14 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
         }
     }
 }
+
+
 void DriveTrainSubsystemBase::Init()
 {
     m_gyro.Reset();
     m_gyro.Calibrate();
 }
+
 
 void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime)
 {
