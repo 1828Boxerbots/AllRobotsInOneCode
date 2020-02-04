@@ -88,6 +88,7 @@ class RobotContainerBase {
   };
   frc2::SequentialCommandGroup m_autoBetweenTargetZoneLoadingZone = frc2::SequentialCommandGroup
   {
+    frc2::InstantCommand{[this] {m_driveTrain.Init();}, {&m_driveTrain}},
     frc2::InstantCommand{[this] {m_driveTrain.ForwardInInch(0.75, 12);}, {&m_driveTrain}},
     frc2::InstantCommand{[this] {m_driveTrain.TurnInDegrees(-90);}, {&m_driveTrain}},
     frc2::InstantCommand{[this] {m_driveTrain.ForwardInInch(0.75, 36);}, {&m_driveTrain}},
