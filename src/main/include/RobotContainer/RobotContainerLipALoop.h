@@ -33,7 +33,7 @@ class RobotContainerLipALoop : public RobotContainerBase
 
   //Controller
   DriveTrainSubsystemLipALoop m_drive;
-  //CameraSubsystemBase m_camera;
+  CameraSubsystemBase m_camera;
 
   //Arm Control
   ArmSubsystemLipALoop m_arm;
@@ -55,7 +55,7 @@ class RobotContainerLipALoop : public RobotContainerBase
 
   //Align Control
   void ConfigureButtonBindings();
-  /*
+  
   frc2::SequentialCommandGroup m_align = frc2::SequentialCommandGroup
   {
     frc2::InstantCommand {[this] {m_camera.Init();}, {&m_camera}},
@@ -107,5 +107,5 @@ class RobotContainerLipALoop : public RobotContainerBase
         direction = m_camera.WhereToTurn(); 
       }
     }, {&m_camera, &m_drive}}
-  };*/
+  };
 };

@@ -90,6 +90,11 @@ void CameraSubsystemBase::Tick()
 // This method will be called once per scheduler run
 void CameraSubsystemBase::Periodic() 
 {
+    //CameraPeriodic();
+}
+
+void CameraSubsystemBase::CameraPeriodic()
+{
     m_frameNumber++;
     frc::SmartDashboard::PutNumber("Camera Frame Number", m_frameNumber);
     Tick();

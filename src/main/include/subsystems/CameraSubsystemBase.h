@@ -27,6 +27,7 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   void Init();
   int WhereToTurn();
   void Tick();
+  void CameraPeriodic();
 
   const int GO_LEFT = -1;
   const int GO_RIGHT = +1;

@@ -16,7 +16,7 @@ RobotContainerLipALoop::RobotContainerLipALoop()
 
   //Initializing all Subsystems
   m_drive.Init();
-  //m_camera.Init();
+  m_camera.Init();
   //TeleOp Drive
   m_drive.SetDefaultCommand(frc2::RunCommand(
     [this] 
@@ -54,11 +54,10 @@ void RobotContainerLipALoop::ConfigureButtonBindings()
     buttonY.WhenHeld(&m_handDown);
     buttonY.WhenReleased(&m_handStop);
 
-  /*
     //Allign Control
     frc2::Button startButton{[this] {return m_controller.GetStartButton();}};
     startButton.WhenPressed(&m_follower);
-    */
+    
 }
 
 frc2::Command* RobotContainerLipALoop::GetAutonomousCommand() {
