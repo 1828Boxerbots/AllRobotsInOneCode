@@ -14,10 +14,9 @@ void CameraSubsystemBase::InterlizeCamera(int port)
     m_video.open(port);
 }
 
-void CameraSubsystemBase::IntakeFrame()
+  void CameraSubsystemBase::IntakeFrame()
 {
     m_video >> m_frame;
-
 }
 
 void CameraSubsystemBase::Init()
@@ -25,48 +24,60 @@ void CameraSubsystemBase::Init()
     InterlizeCamera(USB_CAMERA_ONE);
 }
 
+void CameraSubsystemBase::SetColor()
+{
+    inRange(m_frame, Scalar(0, 150, 0), Scalar(175, 255, 175), m_colorFiliter);//BGR
+}
+
 void CameraSubsystemBase::FilterFrame()
 {
-    inRange(m_frame, Scalar(0, 0, 200), Scalar(120, 120, 255), m_colorFilter);//BGR
-    morphologyEx(m_colorFilter, m_closeFilter, MORPH_CLOSE, m_morp,Point(-1,-1),4);
-    morphologyEx(m_colorFilter, m_openFilter, MORPH_OPEN, m_morp, Point(-1, -1), 4);
+    SetColor();
+    
+    morphologyEx(m_colorFiliter, m_openFilter, MORPH_OPEN, m_morp, Point(-1, -1), 4);
+    dilate(m_openFilter,m_dilution,m_morp);
+    morphologyEx(m_dilution, m_output, MORPH_CLOSE, m_morp,Point(-1,-1),4);
 }
 void CameraSubsystemBase::CenterMomment()
 {
-    m_moment = cv::moments(m_openFilter);
+    m_moment = cv::moments(m_output);
     m_center = cv::Point2f(m_moment.m10 / m_moment.m00, m_moment.m01 / m_moment.m00);
 
 }
 
 int CameraSubsystemBase::WhereToTurn()
 {
-    frc::SmartDashboard::PutNumber("Camera Center", m_center.x);
-    if (m_center.x < 270)
+    if ( m_center.x > GetLeftMin() && m_center.x <  GetLeftMax())
     {
-        // std::cout << "left" << std::endl;
         frc::SmartDashboard::PutString("Camera Turn To", "Left");
-        return -1;
+        return GO_LEFT;
     }
-    if(m_center.x  > 370)
+    if(m_center.x  > GetRightMin() && m_center.x < GetRightMax())
     {
-        //std::cout << "right" << std::endl;
         frc::SmartDashboard::PutString("Camera Turn To", "Right");
-        return 1;
+        return GO_RIGHT;
     }
-    if(m_center.x  < 370 && m_center.x  > 270)
+    if(m_center.x  < GetCenterMin() && m_center.x  > GetCenterMax())
     {
-        //std::cout << "m_center" << std::endl;
-        frc::SmartDashboard::PutString("Camera Turn To", "Cener");
-        return 0;
+        frc::SmartDashboard::PutString("Camera Turn To", "Center");
+        return STOP;
     }
-    return 0;
+    if (m_center.x < 0 || m_center.x > GetMaxResolutionX())
+    {
+        frc::SmartDashboard::PutString("Camera Turn To", "CANT SEE");
+        return STOP; 
+    }
+    return STOP;
 
 }
 
 void CameraSubsystemBase::PrintTurn(int turn)
 {
-    double print = turn;
-    frc::SmartDashboard::PutNumber("turn",print);
+    double printturn = turn;
+    m_printX = m_center.x;
+    frc::SmartDashboard::PutNumber("turn",printturn);
+    frc::SmartDashboard::PutNumber("center of x",m_printX);
+    //imshow("camera",Output);
+ 
 }
 
 void CameraSubsystemBase::Tick()

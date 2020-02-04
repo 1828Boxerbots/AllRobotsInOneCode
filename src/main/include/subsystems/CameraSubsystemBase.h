@@ -14,7 +14,10 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
 #include <frc/smartdashboard/SmartDashboard.h>
-#include "../Constants.h"
+#include <cameraserver/CameraServer.h>
+#include "Constants.h"
+
+
 using namespace cv;
 
 class CameraSubsystemBase : public frc2::SubsystemBase {
@@ -25,7 +28,22 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   int WhereToTurn();
   void Tick();
 
-protected:
+  const int GO_LEFT = -1;
+  const int GO_RIGHT = +1;
+  const int STOP = 0;
+
+  virtual int GetLeftMin() { return 10;}
+  virtual int GetLeftMax() { return 250;}
+  virtual int GetCenterMin() { return 250;}
+  virtual int GetCenterMax() { return 350;}
+  virtual int GetRightMin() { return 350;}
+  virtual int GetRightMax() { return 640;}
+  virtual int GetMaxResolutionX() { return 640;}
+  virtual int GetMaxResolutionY() { return 480;}
+  virtual void SetColor();
+
+  protected:
+
   void InterlizeCamera(int port);
   void IntakeFrame();
   void FilterFrame();
@@ -45,9 +63,14 @@ protected:
   Mat m_morp = cv::getStructuringElement(MORPH_CROSS, Size(3, 3), Point(-1, 1));
   VideoCapture m_video;
   Mat m_output;
-  Mat m_colorFilter;
-  Mat m_closeFilter;
+  Mat m_colorFiliter;
+  //Mat closeFilter;
+  //Mat m_output;
+  Mat m_dilution;
   Mat m_openFilter;
   cv::Moments m_moment;
   cv::Point m_center;
+  
+  double m_printX;
+  
 };
