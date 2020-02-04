@@ -94,3 +94,4 @@ void CameraSubsystemBase::Periodic()
     frc::SmartDashboard::PutNumber("Camera Frame Number", m_frameNumber);
     Tick();
 }
+
