@@ -116,7 +116,7 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
     if(relativeAngle < 0)
     {
         TurnRight();
-        while (currentAngle-startAngle < relativeAngle)
+        while (currentAngle-startAngle > relativeAngle)
         {
             currentAngle = GyroGetAngle();
         }
@@ -124,7 +124,7 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
     if(relativeAngle > 0)
     {
         TurnLeft();
-        while (currentAngle-startAngle > relativeAngle)
+        while (currentAngle-startAngle < relativeAngle)
         {
             currentAngle = GyroGetAngle();
         }
