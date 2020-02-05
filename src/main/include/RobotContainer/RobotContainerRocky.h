@@ -35,7 +35,7 @@ class RobotContainerRocky : public RobotContainerBase{
   // The robot's subsystems and commands are defined here...
 
   //Controller
-  DriveTrainSubsystemRocky m_drive;
+  //DriveTrainSubsystemRocky m_drive;
   TurretSubsystemRocky m_turret;
   LoaderSubsystemRocky m_loader;
   ShooterSubsystemRocky m_shooter;
@@ -53,8 +53,8 @@ class RobotContainerRocky : public RobotContainerBase{
   frc2::RunCommand m_shooterEject{[this] {m_shooter.ShootBump(true, false);}, {&m_shooter}};
   frc2::RunCommand m_shooterStop{[this] {m_shooter.ShootBump(false, false);}, {&m_shooter}};
 
-  frc2::InstantCommand m_encoderTest{[this] {m_drive.ForwardInInch(1.0, 30.0);}, {&m_drive}};
-  frc2::InstantCommand m_resetEncoder{[this] {m_drive.ResetEncoder();}, {&m_drive}};
+  frc2::InstantCommand m_encoderTest{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(1.0, 30.0);}, {m_pDrive}};
+  frc2::InstantCommand m_resetEncoder{[this] {if(m_pDrive != nullptr) m_pDrive->ResetEncoder();}, {m_pDrive}};
 
   void ConfigureButtonBindings();
 
@@ -69,20 +69,20 @@ class RobotContainerRocky : public RobotContainerBase{
         m_camera.Tick();
         if (direction == 1)
         {
-          m_drive.TurnRight(0.1);
+          m_pDrive->TurnRight(0.1);
           direction = m_camera.WhereToTurn(); 
         }
         else if (direction == -1)
         {
-          m_drive.TurnLeft(0.1);
+          m_pDrive->TurnLeft(0.1);
           direction = m_camera.WhereToTurn(); 
         }
         direction = m_camera.WhereToTurn(); 
       }
-      m_drive.Stop();
-    }, {&m_camera, &m_drive,}},
+      m_pDrive->Stop();
+    }, {&m_camera, m_pDrive,}},
     //A function is used to get the correct Lidar Distance
-    //m_drive.MoveDistance(100);
+    //m_pDrive->MoveDistance(100);
 
     frc2::InstantCommand {[this] {m_shooter.Shoot(ShooterSubsystemRocky::SHOOTER_SPEED_HIGH_TARGET);}, {&m_shooter}},
     frc2::WaitUntilCommand {[this] {return m_shooter.AtSetpoint(ShooterSubsystemRocky::SHOOTER_SPEED_HIGH_TARGET);}},
@@ -103,20 +103,20 @@ class RobotContainerRocky : public RobotContainerBase{
         m_camera.Tick();
         if (direction == 1)
         {
-          m_drive.TurnRight(0.3);
+          m_pDrive->TurnRight(0.3);
           direction = m_camera.WhereToTurn(); 
         }
         else if (direction == -1)
         {
-          m_drive.TurnLeft(0.3);
+          m_pDrive->TurnLeft(0.3);
           direction = m_camera.WhereToTurn(); 
         }
         else
         {
-          m_drive.Stop();
+          m_pDrive->Stop();
         }
         direction = m_camera.WhereToTurn(); 
       }
-    }, {&m_camera, &m_drive}}
+    }, {&m_camera, m_pDrive}}
   };
 };

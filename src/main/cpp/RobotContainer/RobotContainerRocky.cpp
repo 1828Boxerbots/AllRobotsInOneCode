@@ -10,15 +10,16 @@
 
 RobotContainerRocky::RobotContainerRocky()
  {
+   m_pDrive = new DriveTrainSubsystemRocky();
   // Configure the button bindings
   ConfigureButtonBindings();
-  m_drive.Init();
-  m_drive.SetDefaultCommand(frc2::RunCommand(
+   m_pDrive->Init();
+   m_pDrive->SetDefaultCommand(frc2::RunCommand(
     [this] 
     {
-      m_drive.MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand));
+      m_pDrive->MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand));
     }
-    ,{&m_drive}));
+    ,{m_pDrive}));
 
 }
 
@@ -67,5 +68,5 @@ void RobotContainerRocky::ConfigureButtonBindings()
 
 frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  return &m_autoTestOne;
+  return &m_autoInFrontTargetZone;
 }

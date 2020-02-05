@@ -26,7 +26,7 @@ class RobotContainerBase {
   RobotContainerBase();
 
   protected:
-  DriveTrainSubsystemBase m_driveTrain;
+  //DriveTrainSubsystemBase m_driveTrain;
     //Creating the controllers
     frc::XboxController m_controller{USB_CONTROLLER_ONE};
     frc::XboxController m_controller2{USB_CONTROLLER_TWO};
@@ -81,17 +81,20 @@ class RobotContainerBase {
   };
   frc2::SequentialCommandGroup m_autoInFrontTargetZone = frc2::SequentialCommandGroup
   {
-    frc2::InstantCommand{[this] {m_driveTrain.Init();}, {&m_driveTrain}},
-    frc2::InstantCommand{[this] {m_driveTrain.ForwardInInch(0.75, 12);}, {&m_driveTrain}},
-    frc2::InstantCommand{[this] {m_driveTrain.TurnInDegrees(180);}, {&m_driveTrain}},
-    frc2::InstantCommand{[this] {m_driveTrain.ForwardInInch(0.75, 24);}, {&m_driveTrain}}
+    frc2::InstantCommand{[this] {m_pDrive->Init();}, {m_pDrive}},
+    frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(0.75, 12);}, {m_pDrive}},
+    /*frc2::InstantCommand{[this] {m_driveTrain.TurnInDegrees(180);}, {&m_driveTrain}},
+    frc2::InstantCommand{[this] {m_driveTrain.ForwardInInch(0.75, 24);}, {&m_driveTrain}},
+    */
+   frc2::InstantCommand{[this] {m_pDrive->Stop();}, {m_pDrive}}
   };
   frc2::SequentialCommandGroup m_autoBetweenTargetZoneLoadingZone = frc2::SequentialCommandGroup
   {
-    frc2::InstantCommand{[this] {m_driveTrain.Init();}, {&m_driveTrain}},
-    frc2::InstantCommand{[this] {m_driveTrain.ForwardInInch(0.75, 12);}, {&m_driveTrain}},
-    frc2::InstantCommand{[this] {m_driveTrain.TurnInDegrees(-90);}, {&m_driveTrain}},
-    frc2::InstantCommand{[this] {m_driveTrain.ForwardInInch(0.75, 36);}, {&m_driveTrain}},
-    frc2::InstantCommand{[this] {m_driveTrain.TurnInDegrees(-90);}, {&m_driveTrain}}
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Init();}, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(0.75, 12);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(0.75, 36);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Stop();}, {m_pDrive}}
   };
 };

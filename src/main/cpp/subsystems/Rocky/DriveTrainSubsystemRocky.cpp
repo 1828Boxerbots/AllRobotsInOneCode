@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/Rocky/DriveTrainSubsystemRocky.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
 DriveTrainSubsystemRocky::DriveTrainSubsystemRocky() {}
 
@@ -26,10 +27,12 @@ void DriveTrainSubsystemRocky::SetMotorR(double speed)
 double DriveTrainSubsystemRocky::GyroGetAngle()
 {
   return m_gyro.GetAngle();
+  frc::SmartDashboard::PutNumber("GetAngle", m_gyro.GetAngle());
 }
 
 void DriveTrainSubsystemRocky::GyroInit()
 {
+  frc::SmartDashboard::PutBoolean("GyroInit", true);
   m_gyro.Reset();
   m_gyro.Calibrate();
 }
