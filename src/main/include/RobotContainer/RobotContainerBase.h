@@ -83,10 +83,9 @@ class RobotContainerBase {
   {
     frc2::InstantCommand{[this] {m_pDrive->Init();}, {m_pDrive}},
     frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(0.75, 12);}, {m_pDrive}},
-    /*frc2::InstantCommand{[this] {m_driveTrain.TurnInDegrees(180);}, {&m_driveTrain}},
-    frc2::InstantCommand{[this] {m_driveTrain.ForwardInInch(0.75, 24);}, {&m_driveTrain}},
-    */
-   frc2::InstantCommand{[this] {m_pDrive->Stop();}, {m_pDrive}}
+    frc2::InstantCommand{[this] {m_pDrive->TurnInDegrees(180);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(0.75, 24);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {m_pDrive->Stop();}, {m_pDrive}}
   };
   frc2::SequentialCommandGroup m_autoBetweenTargetZoneLoadingZone = frc2::SequentialCommandGroup
   {

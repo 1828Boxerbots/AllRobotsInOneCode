@@ -116,6 +116,7 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
 void DriveTrainSubsystemBase::Init()
 {
     GyroInit();
+    Init();
 }
 
 
