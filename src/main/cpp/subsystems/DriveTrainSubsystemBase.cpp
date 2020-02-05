@@ -7,7 +7,6 @@
 
 #include "subsystems/DriveTrainSubsystemBase.h"
 
-
 DriveTrainSubsystemBase::DriveTrainSubsystemBase() {}
 
 // This method will be called once per scheduler run
@@ -72,6 +71,26 @@ void DriveTrainSubsystemBase::Forward(double speed)
     MoveTank(1.0, 1.0);
 }
 
+void DriveTrainSubsystemBase::PID(double targetSpeed)
+{
+    double leftEncoder = GetLeftEncoderInch();
+    double rightEncoder = GetRightEncoderInch();
+    double errorL = targetSpeed - leftEncoder;
+    double errorR = targetSpeed - rightEncoder;
+    double leftSpeed = (errorL * m_kP) + (m_preErrorL * m_kD) + (m_sumErrorL * m_kI);
+    double rightSpeed = (errorR * m_kP) + (m_preErrorR * m_kD) + (m_sumErrorR * m_kI);
+    m_preErrorR = errorR;
+    m_sumErrorR += errorR;
+    m_preErrorL = errorL;
+    m_sumErrorL = errorL;
+    frc::SmartDashboard::PutNumber("PID left Speed", leftSpeed);
+    frc::SmartDashboard::PutNumber("PID right Speed", rightSpeed);
+    frc::SmartDashboard::PutNumber("PID preError Left", m_preErrorL);
+    frc::SmartDashboard::PutNumber("PID sumError Left", m_sumErrorL);
+    frc::SmartDashboard::PutNumber("PID preError Right", m_preErrorR);
+    frc::SmartDashboard::PutNumber("PID sumError Right", m_sumErrorR);
+    MoveTank(leftSpeed, rightSpeed);
+}
 
 void DriveTrainSubsystemBase::ForwardInInch(double speed, double inch)
 {
@@ -94,7 +113,7 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
 {
     double startAngle = GyroGetAngle();
     double currentAngle = GyroGetAngle();
-    if(relativeAngle > 0)
+    if(relativeAngle < 0)
     {
         TurnRight();
         while (currentAngle-startAngle < relativeAngle)
@@ -102,7 +121,7 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
             currentAngle = GyroGetAngle();
         }
     }
-    if(relativeAngle < 0)
+    if(relativeAngle > 0)
     {
         TurnLeft();
         while (currentAngle-startAngle > relativeAngle)
