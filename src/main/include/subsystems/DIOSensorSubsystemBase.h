@@ -5,9 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "subsystems/AnalogSensorBase.h"
+#pragma once
 
-AnalogSensorBase::AnalogSensorBase() {}
+#include <frc2/command/SubsystemBase.h>
 
-// This method will be called once per scheduler run
-void AnalogSensorBase::Periodic() {}
+class DIOSensorSubsystemBase : public frc2::SubsystemBase {
+ public:
+  DIOSensorSubsystemBase();
+
+  /**
+   * Will be called periodically whenever the CommandScheduler runs.
+   */
+  void Periodic();
+
+ private:
+  // Components (e.g. motor controllers and sensors) should generally be
+  // declared private and exposed only through public methods.
+};
