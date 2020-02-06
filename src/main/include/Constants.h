@@ -85,19 +85,22 @@ constexpr int PWM_HOOKMOTOR_ROBOT2020 = 8;
 *This is because the two distance sensors have to work together, whereas
 *The other sensors can run alone. This configuration works with the multiplexer.
 *This is also why the Right Distance Sensor is alone on the MXP.
+*
+* All frc/I2C calls require that the ports be const rather than constexpr.
 */
 static constexpr auto I2C_PORT_MULTIPLEXER_ROBOT2020 = frc::I2C::Port::kOnboard;
 static constexpr auto I2C_PORT_RIGHTDISTANCESENSOR_ROBOT2020 = frc::I2C::Port::kMXP;
 // Positions of the sensors on the multiplexer
-constexpr int I2C_PSTN_LIDAR_ROBOT2020 = 0;
-constexpr int I2C_PSTN_LEFTDISTANCESENSOR_ROBOT2020 = 1;
-constexpr int I2C_PSTN_COLORSENSOR_ROBOT2020 = 2;
+constexpr int I2C_LINE_LIDAR_ROBOT2020 = 0;
+constexpr int I2C_LINE_LEFTDISTANCESENSOR_ROBOT2020 = 1;
+constexpr int I2C_LINE_COLORSENSOR_ROBOT2020 = 2;
 // Addresses of the individual I2C sensors
 constexpr int I2C_ADDR_MULTIPLEXER_ROBOT2020 = 0x70;
-constexpr int I2C_ADDR_LIDAR_ROBOT2020 = 0x53;
+constexpr int I2C_ADDR_LIDAR_ROBOT2020 = 0x62;
 constexpr int I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020 = 0x52;
 constexpr int I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020 = 0x52;
 constexpr int I2C_ADDR_COLORSENSOR_ROBOT2020 = 0x52;
+
 
 //Allowing hardware to be used
 //#define NOHW
