@@ -27,12 +27,9 @@ constexpr int DIO_ENCODERLEFT_ROCKY_TWO = 9;
 constexpr int DIO_ENCODERRIGHT_ROCKY_ONE = 0;
 constexpr int DIO_ENCODERRIGHT_ROCKY_TWO = 1;
 
-
 //Laika
-constexpr int PWM_LEFTMOTOR_LAIKA_ONE   = 1;
-constexpr int PWM_LEFTMOTOR_LAIKA_TWO   = 2;
-constexpr int PWM_RIGHTMOTOR_LAIKA_ONE  = 3;
-constexpr int PWM_RIGHTMOTOR_LAIKA_TWO  = 4;
+constexpr int PWM_LEFTMOTOR_LAIKA   = 2;
+constexpr int PWM_RIGHTMOTOR_LAIKA  = 6;
 
 //Kurgan
 constexpr int PWM_LEFTMOTOR_KURGAN_ONE  = 1;
@@ -104,7 +101,7 @@ constexpr int I2C_ADDR_COLORSENSOR_ROBOT2020 = 0x52;
 
 //Allowing hardware to be used
 //#define NOHW
-#define SEND_VIDEO
+//#define SEND_VIDEO
 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide

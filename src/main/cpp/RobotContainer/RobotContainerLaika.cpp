@@ -10,6 +10,8 @@
 
 RobotContainerLaika::RobotContainerLaika()
  {
+  m_pShooter = new ShooterSubsystemBase;
+  m_pArm = new ArmSubsystemBase;
   m_pDrive = new DriveTrainSubsystemLaika;
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -19,10 +21,19 @@ RobotContainerLaika::RobotContainerLaika()
 
 void RobotContainerLaika::ConfigureButtonBindings()
 {
-  //Laika has no other functions than drive as of 1/21/20
+  //Laika Shooter - May not work rn - 2/5/20
+  SetLeftBumper();
+  SetRightBumper();
+
+  SetLiftButton();
 }
 
 frc2::Command* RobotContainerLaika::GetAutonomousCommand() {
   // An example command will be run in autonomous
   return 0;
+}
+
+void RobotContainerLaika::SetLiftButton()
+{
+  
 }

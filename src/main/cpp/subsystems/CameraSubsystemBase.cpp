@@ -68,7 +68,7 @@ void CameraSubsystemBase::SendImage()
     else
     {
         // Add a RED rectangle on the image
-        auto WHITE = cv::Scalar(255,255,255);
+        //auto WHITE = cv::Scalar(255,255,255);
         auto RED = cv::Scalar(255,0,0);
         int thickness = 5;
         rectangle(m_sendFrame,

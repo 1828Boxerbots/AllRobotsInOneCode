@@ -45,8 +45,8 @@ class RobotContainerBase {
   enum DriveStyles
   {
     TANK_STYLE,
-    ARCADE_STYLE,
-    WESTCOAST_STYLE
+    ARCADE_STYLE
+    //,WESTCOAST_STYLE
   };
 
   void SetDrive(DriveStyles style = TANK_STYLE);

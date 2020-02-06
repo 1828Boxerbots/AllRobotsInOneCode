@@ -25,6 +25,7 @@ class RobotContainerLaika : public RobotContainerBase {
 
   virtual void Init() {}
   virtual void DisableInit() {}
+  void SetLiftButton();
 
  private:
   // The robot's subsystems and commands are defined here...

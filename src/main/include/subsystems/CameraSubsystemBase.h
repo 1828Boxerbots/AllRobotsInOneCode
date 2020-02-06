@@ -80,10 +80,9 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   cv::Mat m_sendFrame;
   cs::CvSink m_cvSink;
   cs::CvSource m_outputStream;
-
+  #endif
   void SendImage();
   void InitSendImage();
-  #endif
   
   double m_printX;
   

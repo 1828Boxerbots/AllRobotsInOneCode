@@ -23,10 +23,8 @@ class DriveTrainSubsystemLaika : public DriveTrainSubsystemBase {
 
  private:
  #ifndef NOHW
-  frc::Spark m_leftMotor1{PWM_LEFTMOTOR_LAIKA_ONE};
-  frc::Spark m_leftMotor2{PWM_LEFTMOTOR_LAIKA_TWO};
-  frc::Spark m_rightMotor1{PWM_RIGHTMOTOR_LAIKA_ONE};
-  frc::Spark m_rightMotor2{PWM_RIGHTMOTOR_LAIKA_TWO};
+  frc::Spark m_leftMotor{PWM_LEFTMOTOR_LAIKA};
+  frc::Spark m_rightMotor{PWM_RIGHTMOTOR_LAIKA};
   #endif
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
