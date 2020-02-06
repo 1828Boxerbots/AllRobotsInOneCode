@@ -10,18 +10,11 @@
 
 RobotContainerLaika::RobotContainerLaika()
  {
-  // Initialize all of your commands and subsystems here
-
+  m_pDrive = new DriveTrainSubsystemLaika;
   // Configure the button bindings
   ConfigureButtonBindings();
-  m_drive.Init();
-  m_drive.SetDefaultCommand(frc2::RunCommand(
-    [this] 
-    {
-      m_drive.MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand));
-    }
-    ,{&m_drive}));
-
+  m_pDrive->Init();
+  SetDrive(ARCADE_STYLE);
 }
 
 void RobotContainerLaika::ConfigureButtonBindings()

@@ -10,21 +10,16 @@
 
 RobotContainerLipALoop::RobotContainerLipALoop()
  {
-
+  m_pDrive = new DriveTrainSubsystemLipALoop;
+  m_pCamera = new CameraSubsystemBase;
+  m_pArm = new ArmSubsystemLipALoop;
+  m_pWrist = new WristSubsystemLipALoop;
+  m_pHand = new HandSubsystemLipALoop;
   // Configure the button bindings
   ConfigureButtonBindings();
-
-  //Initializing all Subsystems
-  m_drive.Init();
-  m_camera.Init();
-  //TeleOp Drive
-  m_drive.SetDefaultCommand(frc2::RunCommand(
-    [this] 
-    {
-      m_drive.MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand));
-    }
-    ,{&m_drive}));
-
+  m_pCamera->Init();
+  m_pDrive->Init();
+  SetDrive();
 }
 
 void RobotContainerLipALoop::ConfigureButtonBindings()

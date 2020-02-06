@@ -11,31 +11,56 @@
 #include <frc/XboxController.h>
 #include <frc2/command/RunCommand.h>
 #include <frc2/command/InstantCommand.h>
+#include <frc2/command/SequentialCommandGroup.h>
+
 #include "Constants.h"
 #include "subsystems/DriveTrainSubsystemBase.h"
 #include "subsystems/LoaderSubsystemBase.h"
 #include "subsystems/ShooterSubsystemBase.h"
-#include "subsystems/Rocky/TurretSubsystemRocky.h"
 #include "subsystems/DistanceSensorSubsystemBase.h"
-//#include "subsystems/TurretSubsystemBase.h"
-#include <frc2/command/SequentialCommandGroup.h>
+#include "subsystems/CameraSubsystemBase.h"
+#include "subsystems/ArmSubsystemBase.h"
 
+#include "subsystems/LipALoop/WristSubsystemLipALoop.h"
+#include "subsystems/LipALoop/HandSubsystemLipALoop.h"
+#include "subsystems/Rocky/TurretSubsystemRocky.h"
 
 class RobotContainerBase {
  public:
   RobotContainerBase();
+
+  virtual void SetButtonA();
+  virtual void SetButtonB();
+  virtual void SetButtonX();
+  virtual void SetButtonY();
+  virtual void SetStartButton();
+  virtual void SetBackButton();
+  virtual void SetLeftBumper();
+  virtual void SetRightBumper();
+  virtual void SetLeftTrigger();
+  virtual void SetRightTrigger();
+
+  enum DriveStyles
+  {
+    TANK_STYLE,
+    ARCADE_STYLE,
+    WESTCOAST_STYLE
+  };
+
+  void SetDrive(DriveStyles style = TANK_STYLE);
 
   protected:
   //DriveTrainSubsystemBase m_driveTrain;
     //Creating the controllers
     frc::XboxController m_controller{USB_CONTROLLER_ONE};
     frc::XboxController m_controller2{USB_CONTROLLER_TWO};
+    CameraSubsystemBase* m_pCamera = nullptr;
 
     DistanceSensorSubsystemBase *m_pDistance = nullptr;
     //DriveTrain subsystem commands
     DriveTrainSubsystemBase *m_pDrive = nullptr;
-    frc2::RunCommand m_pDriveMoveTank   {[this] { if(m_pDrive != nullptr) m_pDrive->MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand)); }, {m_pDrive}};
-    frc2::RunCommand m_pDriveMoveArcade {[this] { if(m_pDrive != nullptr) m_pDrive->MoveArcade(m_controller.GetX(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kLeftHand)); }, {m_pDrive}};
+    frc2::RunCommand m_pDriveMoveTank       {[this] { if(m_pDrive != nullptr) m_pDrive->MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand)); }, {m_pDrive}};
+    frc2::RunCommand m_pDriveMoveArcade     {[this] { if(m_pDrive != nullptr) m_pDrive->MoveArcade(m_controller.GetX(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kLeftHand)); }, {m_pDrive}};
 
     // Loader subsystem commands
     LoaderSubsystemBase *m_pLoader = nullptr;
@@ -54,6 +79,24 @@ class RobotContainerBase {
     frc2::RunCommand m_turretTurnLeft       {[this] { if (m_pTurret!=nullptr) m_pTurret->Turn(m_controller.GetAButton(), m_controller.GetBButton());}, {m_pTurret}};
     frc2::RunCommand m_turretTurnRight      {[this] { if (m_pTurret!=nullptr) m_pTurret->Turn(m_controller.GetAButton(), m_controller.GetBButton());}, {m_pTurret}};
     frc2::RunCommand m_turretStop           {[this] { if (m_pTurret!=nullptr) m_pTurret->Turn(false, false);}, {m_pTurret}};
+
+    //Arm Control
+    ArmSubsystemBase *m_pArm = nullptr;
+    frc2::RunCommand m_armUp                {[this] { if(m_pArm != nullptr) m_pArm->LiftArmUp();}, {m_pArm}};
+    frc2::RunCommand m_armDown              {[this] { if(m_pArm != nullptr) m_pArm->LiftArmDown();}, {m_pArm}};
+    frc2::RunCommand m_armStop              {[this] { if(m_pArm != nullptr) m_pArm->MoveArmStop();}, {m_pArm}};
+
+    //Wrist Control
+    WristSubsystemLipALoop *m_pWrist = nullptr;
+    frc2::RunCommand m_wristUp              {[this] { if(m_pWrist != nullptr) m_pWrist->MoveWristUp();}, {m_pWrist}};
+    frc2::RunCommand m_wristDown            {[this] { if(m_pWrist != nullptr) m_pWrist->MoveWristDown();}, {m_pWrist}};
+    frc2::RunCommand m_wristStop            {[this] { if(m_pWrist != nullptr) m_pWrist->MoveWristStop();}, {m_pWrist}};
+
+    //Hand Control
+    HandSubsystemLipALoop *m_pHand = nullptr;
+    frc2::RunCommand m_handUp               {[this] { if(m_pHand != nullptr) m_pHand->MoveHandOpen();}, {m_pHand}};
+    frc2::RunCommand m_handDown             {[this] { if(m_pHand != nullptr) m_pHand->MoveHandClose();}, {m_pHand}};
+    frc2::RunCommand m_handStop             {[this] { if(m_pHand != nullptr) m_pHand->MoveHandStop();}, {m_pHand}};
 
   frc2::SequentialCommandGroup m_autoTestOne = frc2::SequentialCommandGroup
   {
@@ -95,5 +138,37 @@ class RobotContainerBase {
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(0.75, 36);}, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Stop();}, {m_pDrive}}
+  };
+
+  frc2::SequentialCommandGroup m_follower = frc2::SequentialCommandGroup
+  {
+    frc2::InstantCommand {[this] {if(m_pCamera != nullptr)m_pCamera->Init();}, {m_pCamera}},
+    frc2::InstantCommand{[this]
+    {
+      if(m_pCamera == nullptr || m_pDrive == nullptr)
+      {
+        return; 
+      }
+      int direction = m_pCamera->WhereToTurn(); 
+      while(true)
+      {
+        m_pCamera->Tick();
+        if (direction == 1)
+        {
+          m_pDrive->TurnRight(0.3);
+          direction = m_pCamera->WhereToTurn(); 
+        }
+        else if (direction == -1)
+        {
+          m_pDrive->TurnLeft(0.3);
+          direction = m_pCamera->WhereToTurn(); 
+        }
+        else
+        {
+          m_pDrive->Stop();
+        }
+        direction = m_pCamera->WhereToTurn(); 
+      }
+    }, {m_pCamera, m_pDrive}}
   };
 };

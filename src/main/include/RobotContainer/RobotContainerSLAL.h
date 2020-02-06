@@ -29,7 +29,6 @@ class RobotContainerSLAL : public RobotContainerBase{
   // The robot's subsystems and commands are defined here...
 
   //Controller
-  DriveTrainSubsystemSLAL m_drive;
   LiftSubsystemSLAL m_lift;
 
   frc2::RunCommand m_armLift  {[this] {m_lift.Raise(true) ;}, {&m_lift}};

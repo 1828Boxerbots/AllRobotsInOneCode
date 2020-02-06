@@ -25,11 +25,13 @@ class RobotContainerKurgan : public RobotContainerBase{
 
   frc2::Command* GetAutonomousCommand();
 
+  virtual void SetButtonA();
+  virtual void SetButtonB();
+
  private:
   // The robot's subsystems and commands are defined here...
 
   //Controller
-  DriveTrainSubsystemKurgan m_drive;
   LoaderSubsystemKurgan m_loader;
   ShooterSubsystemKurgan m_shooter;
 

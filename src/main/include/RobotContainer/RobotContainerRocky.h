@@ -35,7 +35,6 @@ class RobotContainerRocky : public RobotContainerBase{
   // The robot's subsystems and commands are defined here...
 
   //Controller
-  //DriveTrainSubsystemRocky m_drive;
   TurretSubsystemRocky m_turret;
   LoaderSubsystemRocky m_loader;
   ShooterSubsystemRocky m_shooter;

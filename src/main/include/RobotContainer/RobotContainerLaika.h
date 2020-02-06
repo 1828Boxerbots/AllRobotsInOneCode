@@ -27,7 +27,6 @@ class RobotContainerLaika : public RobotContainerBase {
   // The robot's subsystems and commands are defined here...
 
   //Controller
-  DriveTrainSubsystemLaika m_drive;
 
   void ConfigureButtonBindings();
 };

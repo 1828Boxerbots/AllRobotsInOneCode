@@ -10,19 +10,11 @@
 
 RobotContainerRobot2020::RobotContainerRobot2020()
  {
-  // Initialize all of your commands and subsystems here
-
+  m_pDrive = new DriveTrainSubsystemRobot2020;
   // Configure the button bindings
   ConfigureButtonBindings();
-  m_drive.Init();
-  m_drive.SetDefaultCommand(frc2::RunCommand(
-    [this] 
-    {
-      m_drive.MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand));
-      //m_drive.MoveArcade(m_controller.GetX(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kLeftHand));
-    }
-    ,{&m_drive}));
-
+  m_pDrive->Init();
+  SetDrive();
 }
 
 void RobotContainerRobot2020::ConfigureButtonBindings()

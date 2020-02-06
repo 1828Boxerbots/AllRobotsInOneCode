@@ -29,7 +29,6 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   // The robot's subsystems and commands are defined here...
 
   //Controller
-  DriveTrainSubsystemRobot2020 m_drive;
   LoaderSubsystemRobot2020 m_loader;
   ShooterSubsystemRobot2020 m_shooter;
 
