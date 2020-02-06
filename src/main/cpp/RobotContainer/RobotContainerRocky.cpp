@@ -10,12 +10,15 @@
 
 RobotContainerRocky::RobotContainerRocky()
  {
-   m_pDrive = new DriveTrainSubsystemRocky();
+  m_pDrive = new DriveTrainSubsystemRocky;
+  m_pTurret = new TurretSubsystemRocky;
+  m_pLoader = new LoaderSubsystemRocky;
+  m_pShooter = new ShooterSubsystemRocky;
   // Configure the button bindings
   ConfigureButtonBindings();
-   m_pDrive->Init();
-   SetDrive();
-
+  m_pShooter->Init();
+  m_pDrive->Init();
+  SetDrive();
 }
 
 void RobotContainerRocky::ConfigureButtonBindings()
@@ -26,7 +29,7 @@ void RobotContainerRocky::ConfigureButtonBindings()
   SetButtonA();
   SetButtonB();
 
-  SetLeftBumper();
+  //SetLeftBumper();
   SetRightBumper();
 
   SetButtonX();
@@ -40,4 +43,15 @@ void RobotContainerRocky::ConfigureButtonBindings()
 frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
   // An example command will be run in autonomous
   return &m_autoInFrontTargetZone;
+}
+
+void RobotContainerRocky::Init() 
+{
+  m_pDrive->Init();
+  m_pShooter->Init();
+}
+
+void RobotContainerRocky::DisableInit() 
+{
+  m_pShooter->DisableInit(); 
 }

@@ -43,3 +43,13 @@ bool ShooterSubsystemBase::AtSetpoint(double position)
 {
     return Util::CompareDouble(GetSetPoint(), position);
 }
+
+void ShooterSubsystemBase::Init()
+{
+    SetShootMotor(0.0);
+}
+
+void ShooterSubsystemBase::DisableInit()
+{
+    SetShootMotor(0.0);
+}

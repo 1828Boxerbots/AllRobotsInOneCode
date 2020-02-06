@@ -25,6 +25,9 @@ class RobotContainerSLAL : public RobotContainerBase{
 
   frc2::Command* GetAutonomousCommand();
 
+  virtual void Init() {}
+  virtual void DisableInit() {}
+
  private:
   // The robot's subsystems and commands are defined here...
 

@@ -39,6 +39,8 @@ class RobotContainerBase {
   virtual void SetRightBumper();
   virtual void SetLeftTrigger();
   virtual void SetRightTrigger();
+  virtual void Init() = 0;
+  virtual void DisableInit() = 0;
 
   enum DriveStyles
   {
@@ -64,9 +66,9 @@ class RobotContainerBase {
 
     // Loader subsystem commands
     LoaderSubsystemBase *m_pLoader = nullptr;
-    frc2::RunCommand m_loaderEject          {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadXY(m_controller.GetAButton(), m_controller.GetBButton());}, {m_pLoader}};
-    frc2::RunCommand m_loaderLoad           {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadXY(m_controller.GetAButton(), m_controller.GetBButton());}, {m_pLoader}};
-    frc2::RunCommand m_loaderStop           {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadXY(false, false);}, {m_pLoader}};
+    frc2::RunCommand m_loaderEject          {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(-1.0);}, {m_pLoader}};
+    frc2::RunCommand m_loaderLoad           {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(1.0);}, {m_pLoader}};
+    frc2::RunCommand m_loaderStop           {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(0.0);}, {m_pLoader}};
 
     // Shooter subsystem commands
     ShooterSubsystemBase *m_pShooter = nullptr;

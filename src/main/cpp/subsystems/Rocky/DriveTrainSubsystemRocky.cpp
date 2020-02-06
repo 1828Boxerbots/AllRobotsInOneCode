@@ -65,8 +65,8 @@ double DriveTrainSubsystemRocky::GetRightEncoderInch()
 void DriveTrainSubsystemRocky::Init()
 {
   #ifndef NOHW
-  m_leftMotor.SetInverted(false);
-  m_rightMotor.SetInverted(true);
+  m_leftMotor.SetInverted(true);
+  m_rightMotor.SetInverted(false);
   m_leftEncoder.Reset();
   m_rightEncoder.Reset();
   m_leftEncoder.SetReverseDirection(true);

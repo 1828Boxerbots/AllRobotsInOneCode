@@ -23,6 +23,9 @@ class RobotContainerRobot2020 : public RobotContainerBase {
  public:
   RobotContainerRobot2020();
 
+  virtual void Init() {}
+  virtual void DisableInit() {}
+
   frc2::Command* GetAutonomousCommand();
 
  private:

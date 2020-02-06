@@ -17,6 +17,7 @@ class ShooterSubsystemKurgan : public ShooterSubsystemBase {
 
   virtual void SetShootMotor (double speed);
 
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */

@@ -28,6 +28,9 @@ class RobotContainerKurgan : public RobotContainerBase{
   virtual void SetButtonA();
   virtual void SetButtonB();
 
+  virtual void Init() {}
+  virtual void DisableInit() {}
+
  private:
   // The robot's subsystems and commands are defined here...
 
