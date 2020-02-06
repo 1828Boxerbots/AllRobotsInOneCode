@@ -27,6 +27,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   void Forward(double speed);
   void ForwardInInch(double speed, double inch);
   void LogEncoder();
+  void PID(double targetSpeed);
   virtual double GyroGetAngle() {return -1.0;}
   virtual void GyroInit() {}
   virtual void Init();
@@ -44,6 +45,14 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
  protected:
   int m_leftEncoderSim = 0;
   int m_rightEncoderSim = 0;
+
+  double m_preErrorL = 0.0;
+  double m_sumErrorL = 0.0;
+  double m_preErrorR = 0.0;
+  double m_sumErrorR = 0.0;
+  double m_kP = 1.0;
+  double m_kD = 0.01;
+  double m_kI = 0.02;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

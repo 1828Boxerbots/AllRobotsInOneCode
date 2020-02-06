@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/CameraSubsystemBase.h"
+#include "Constants.h"
 
 CameraSubsystemBase::CameraSubsystemBase() {}
 
@@ -44,8 +45,48 @@ void CameraSubsystemBase::CenterMomment()
 
 }
 
+void CameraSubsystemBase::InitSendImage()
+{
+    #ifdef SEND_VIDEO
+    // Get a CvSink. This will capture Mats from the Camera
+    m_cvSink = frc::CameraServer::GetInstance()->GetVideo();
+    
+    // Setup a CvSource. This will send images back to the Dashboard
+    m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Rectangle", m_sendSizeHeight, m_sendSizeWidth);
+    #endif
+}
+
+void CameraSubsystemBase::SendImage()
+{
+    #ifdef SEND_VIDEO
+
+    if (m_cvSink.GrabFrame(m_sendFrame) == 0) 
+    {
+        // Send the output the error.
+        m_outputStream.NotifyError(m_cvSink.GetError());
+    }
+    else
+    {
+        // Add a RED rectangle on the image
+        auto WHITE = cv::Scalar(255,255,255);
+        auto RED = cv::Scalar(255,0,0);
+        int thickness = 5;
+        rectangle(m_sendFrame,
+                cv::Point(m_center.y - m_sendRectHeight/2, m_center.x - m_sendRectWidth/2),
+                cv::Point(m_center.y + m_sendRectHeight/2, m_center.x + m_sendRectWidth/2),
+                RED, thickness);
+
+        // Give the output stream a new image to display
+        m_outputStream.PutFrame(m_sendFrame);
+    }
+    
+    #endif
+}
+
 int CameraSubsystemBase::WhereToTurn()
 {
+    SendImage();
+
     if ( m_center.x > GetLeftMin() && m_center.x <  GetLeftMax())
     {
         frc::SmartDashboard::PutString("Camera Turn To", "Left");

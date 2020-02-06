@@ -29,7 +29,6 @@ double DriveTrainSubsystemRocky::GyroGetAngle()
   return m_gyro.GetAngle();
   frc::SmartDashboard::PutNumber("GetAngle", m_gyro.GetAngle());
 }
-
 void DriveTrainSubsystemRocky::GyroInit()
 {
   frc::SmartDashboard::PutBoolean("GyroInit", true);
@@ -66,8 +65,8 @@ double DriveTrainSubsystemRocky::GetRightEncoderInch()
 void DriveTrainSubsystemRocky::Init()
 {
   #ifndef NOHW
-  m_leftMotor.SetInverted(true);
-  m_rightMotor.SetInverted(false);
+  m_leftMotor.SetInverted(false);
+  m_rightMotor.SetInverted(true);
   m_leftEncoder.Reset();
   m_rightEncoder.Reset();
   m_leftEncoder.SetReverseDirection(true);

@@ -104,6 +104,7 @@ constexpr int I2C_ADDR_COLORSENSOR_ROBOT2020 = 0x52;
 
 //Allowing hardware to be used
 //#define NOHW
+#define SEND_VIDEO
 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
