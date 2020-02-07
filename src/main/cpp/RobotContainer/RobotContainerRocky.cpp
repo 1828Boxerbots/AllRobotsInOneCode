@@ -40,9 +40,27 @@ void RobotContainerRocky::ConfigureButtonBindings()
   
 }
 
+int RobotContainerRocky::ReadDioSwitch()
+{
+  return 1;
+}
 frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  return &m_autoInFrontTargetZone;
+  int dioAutoSwitcher = 1;
+  dioAutoSwitcher = ReadDioSwitch();
+  switch(dioAutoSwitcher)
+  {
+    case 1:
+      return &m_autoInFrontTargetZone;
+      return &m_follower;
+      break;
+    case 2:
+      return &m_autoBetweenTargetZoneLoadingZone;
+      break;
+    case 3:
+      return &m_autoInFrontLoadingZone;
+      break;
+  }
 }
 
 void RobotContainerRocky::Init() 

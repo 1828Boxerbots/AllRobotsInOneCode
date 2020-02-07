@@ -33,6 +33,7 @@ class RobotContainerRocky : public RobotContainerBase{
 
   virtual void Init();
   virtual void DisableInit();
+  int ReadDioSwitch();
 
  private:
   // The robot's subsystems and commands are defined here...
