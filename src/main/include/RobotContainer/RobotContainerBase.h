@@ -12,6 +12,7 @@
 #include <frc2/command/RunCommand.h>
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/SequentialCommandGroup.h>
+#include <frc/DriverStation.h>
 
 #include "Constants.h"
 #include "subsystems/DriveTrainSubsystemBase.h"
@@ -20,6 +21,7 @@
 #include "subsystems/DistanceSensorSubsystemBase.h"
 #include "subsystems/CameraSubsystemBase.h"
 #include "subsystems/ArmSubsystemBase.h"
+#include "subsystems/SpinSubsystemBase.h"
 
 #include "subsystems/LipALoop/WristSubsystemLipALoop.h"
 #include "subsystems/LipALoop/HandSubsystemLipALoop.h"
@@ -41,6 +43,7 @@ class RobotContainerBase {
   virtual void SetRightTrigger();
   virtual void Init() = 0;
   virtual void DisableInit() = 0;
+  std::string ReadFMS() {return frc::DriverStation::GetInstance().GetGameSpecificMessage();}
 
   enum DriveStyles
   {
@@ -99,6 +102,13 @@ class RobotContainerBase {
     frc2::RunCommand m_handUp               {[this] { if(m_pHand != nullptr) m_pHand->MoveHandOpen();}, {m_pHand}};
     frc2::RunCommand m_handDown             {[this] { if(m_pHand != nullptr) m_pHand->MoveHandClose();}, {m_pHand}};
     frc2::RunCommand m_handStop             {[this] { if(m_pHand != nullptr) m_pHand->MoveHandStop();}, {m_pHand}};
+
+    //Spin Control
+    SpinSubsystemBase *m_pSpin = nullptr;
+    frc2::RunCommand m_spinToColor          {[this] { if(m_pSpin != nullptr) m_pSpin->SpinUntilColor();}, {m_pSpin}};
+    frc2::RunCommand m_spin                 {[this] { if(m_pSpin != nullptr) m_pSpin->SpinWithEncoders();}, {m_pSpin}};
+
+
 
   frc2::SequentialCommandGroup m_autoTestOne = frc2::SequentialCommandGroup
   {

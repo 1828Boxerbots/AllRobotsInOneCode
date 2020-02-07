@@ -25,12 +25,6 @@ void SpinSubsystemRobot2020::Init()
 }
 
 
-int SpinSubsystemRobot2020::ReadColorSensor()
-{
-    return 0;
-}
-
-
 void SpinSubsystemRobot2020::SetSpinMotor (double speed)
 {
 
@@ -47,3 +41,4 @@ double SpinSubsystemRobot2020::GetEncoderTicks()
 {
     return 0.0;
 }
+

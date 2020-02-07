@@ -15,11 +15,11 @@
 
 class SpinSubsystemRobot2020 : public SpinSubsystemBase {
  public:
-  SpinSubsystemRobot2020();
+  
+    SpinSubsystemRobot2020();
 
   void MultiplexerSelect(int position);
   void Init() override;
-  int ReadColorSensor() override;
   void SetSpinMotor (double speed = 1.0) override;
   double GetNumberOfTicks(double R, double revolutions, double r) override; //inches
   double GetEncoderTicks() override;

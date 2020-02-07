@@ -10,6 +10,7 @@
 #include "subsystems/Robot2020/DriveTrainSubsystemRobot2020.h"
 #include "subsystems/Robot2020/LoaderSubsystemRobot2020.h"
 #include "subsystems/Robot2020/ShooterSubsystemRobot2020.h"
+#include "subsystems/Robot2020/SpinSubsystemRobot2020.h"
 #include "RobotContainerBase.h"
 
 /**
@@ -23,7 +24,7 @@ class RobotContainerRobot2020 : public RobotContainerBase {
  public:
   RobotContainerRobot2020();
 
-  virtual void Init() {}
+  void Init() override;
   virtual void DisableInit() {}
 
   frc2::Command* GetAutonomousCommand();
@@ -34,6 +35,7 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   //Controller
   LoaderSubsystemRobot2020 m_loader;
   ShooterSubsystemRobot2020 m_shooter;
+  SpinSubsystemRobot2020 m_spinner;
 
   void ConfigureButtonBindings();
 

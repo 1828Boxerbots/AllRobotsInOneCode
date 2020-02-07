@@ -43,3 +43,8 @@ frc2::Command* RobotContainerRobot2020::GetAutonomousCommand() {
   // An example command will be run in autonomous
   return 0;
 }
+
+void RobotContainerRobot2020::Init()
+{
+  m_spinner.InterpretFMS(ReadFMS());
+}
