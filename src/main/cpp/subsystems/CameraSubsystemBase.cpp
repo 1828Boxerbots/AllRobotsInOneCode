@@ -12,6 +12,7 @@ CameraSubsystemBase::CameraSubsystemBase() {}
 void CameraSubsystemBase::InterlizeCamera(int port)
 {
     m_video.open(port);
+    m_frameWidth = m_video.get(CV_CAP_PROP_FRAME_WIDTH);
 }
 
   void CameraSubsystemBase::IntakeFrame()
@@ -46,22 +47,28 @@ void CameraSubsystemBase::CenterMomment()
 
 int CameraSubsystemBase::WhereToTurn()
 {
+<<<<<<< Updated upstream
     if ( m_center.x > GetLeftMin() && m_center.x <  GetLeftMax())
+=======
+    SendImage();
+
+    if ( m_center.x > 0 && m_center.x <  GetCenterMin())
+>>>>>>> Stashed changes
     {
         frc::SmartDashboard::PutString("Camera Turn To", "Left");
         return GO_LEFT;
     }
-    if(m_center.x  > GetRightMin() && m_center.x < GetRightMax())
+    if(m_center.x  > GetCenterMax() && m_center.x < m_frameWidth)
     {
         frc::SmartDashboard::PutString("Camera Turn To", "Right");
         return GO_RIGHT;
     }
-    if(m_center.x  < GetCenterMin() && m_center.x  > GetCenterMax())
+    if(m_center.x  > GetCenterMin() && m_center.x  < GetCenterMax())
     {
         frc::SmartDashboard::PutString("Camera Turn To", "Center");
         return STOP;
     }
-    if (m_center.x < 0 || m_center.x > GetMaxResolutionX())
+    if (m_center.x < 0 || m_center.x > m_frameWidth)
     {
         frc::SmartDashboard::PutString("Camera Turn To", "CANT SEE");
         return STOP; 

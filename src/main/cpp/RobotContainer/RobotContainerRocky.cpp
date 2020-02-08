@@ -10,6 +10,14 @@
 
 RobotContainerRocky::RobotContainerRocky()
  {
+<<<<<<< Updated upstream
+=======
+  m_pDrive = new DriveTrainSubsystemRocky;
+  m_pTurret = new TurretSubsystemRocky;
+  m_pLoader = new LoaderSubsystemRocky;
+  m_pShooter = new ShooterSubsystemRocky;
+  //m_pCamera = new CameraSubsystemRocky;
+>>>>>>> Stashed changes
   // Configure the button bindings
   ConfigureButtonBindings();
   m_drive.Init();

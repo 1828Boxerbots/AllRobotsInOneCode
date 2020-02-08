@@ -27,6 +27,7 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
    */
 
  private:
+
  #ifndef NOHW
   frc::Spark m_leftMotor{PWM_LEFTMOTOR_ROCKY};
   frc::Spark m_rightMotor{PWM_RIGHTMOTOR_ROCKY};

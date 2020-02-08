@@ -11,6 +11,7 @@
 #include "subsystems/Rocky/TurretSubsystemRocky.h"
 #include "subsystems/Rocky/LoaderSubsystemRocky.h"
 #include "subsystems/Rocky/ShooterSubsystemRocky.h"
+#include "subsystems/Rocky/CameraSubsystemRocky.h"
 #include "RobotContainerBase.h"
 #include "subsystems/CameraSubsystemBase.h"
 #include <frc2/command/SequentialCommandGroup.h>
