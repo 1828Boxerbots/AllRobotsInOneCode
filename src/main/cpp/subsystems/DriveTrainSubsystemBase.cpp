@@ -15,6 +15,7 @@ void DriveTrainSubsystemBase::Periodic() {}
 
 void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
 { 
+    GyroGetAngle();
     leftY = Util::Limit(leftY, -.5, .5);
     rightY = Util::Limit(rightY, -.5, .5);
     if(leftY > 0.1 || leftY < -0.1)
