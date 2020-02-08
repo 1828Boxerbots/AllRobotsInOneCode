@@ -44,7 +44,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual void ForwardInSeconds(double goalTime);
   virtual void TurnInDegrees(double relativeAngle);
 
- const double PULSE_PER_REVOLUTION = 256.0;
+ const double PULSE_PER_REVOLUTION = 256.0 * Util::ToInches;
  protected:
   bool m_isColliding = false;
 
