@@ -7,30 +7,31 @@
 
 #pragma once
 
-#include <frc2/command/SubsystemBase.h>
-#include <frc/I2C.h>
-#include "DriveTrainSubsystemBase.h"
+#include "../DistanceSensorSubsystemBase.h"
 
-class DistanceSensorSubsystemBase : public frc2::SubsystemBase {
+
+class DistanceSensorSubsystemRocky : public DistanceSensorSubsystemBase {
  public:
-  DistanceSensorSubsystemBase();
+  DistanceSensorSubsystemRocky();
+  double GetDistanceForward() override;
+  double GetDistanceInInch() override;
+  void Init() override;
+  void ForwardDetectionSensor(double distance) override;
 
-  virtual void Init() {}
-  virtual double GetDistanceInInch() {return -1.0;}
-  virtual double GetDistanceInCM() {return -1.0;}
-
-  virtual double GetDistanceForward() {return -1.0;}
-  virtual double GetDistanceLeft() {return -1.0;}
-  virtual double GetDistanceRight() {return -1.0;}
-  virtual double GetDistanceBackward() {return -1.0;}
-  virtual void ForwardDetectionSensor(double distance);
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic();
 
- protected:
- double m_distance = 0.0;
+ private:
+  const int LIDAR_ADDRESS = 0x62;
+  frc::I2C m_device {frc::I2C::Port::kOnboard, LIDAR_ADDRESS};
+  const int ACQ_COMMAND = 0x00;
+  const int ACQ_CONFIG_REG = 0x04;
+  const int STATUS = 0x01;
+  const int FULL_DELAY_HIGH = 0x0f;
+  const int FULL_DELAY_LOW = 0x10;
+  const double CMtoIN = 0.393701;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };
