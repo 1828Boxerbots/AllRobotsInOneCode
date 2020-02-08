@@ -31,7 +31,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   void LogEncoder();
   bool MoveAlignPID(double targetDistance, double heading, double speed = 1.0);
   void SetCollision(bool colliding = true) {m_isColliding = colliding;}
-  virtual double GyroGetAngle() {return -1.0;}
+  virtual double GyroGetAngle() {return m_gyroAngle;}
   virtual void GyroInit() {}
   virtual void Init();
   virtual void SetMotorL(double speed) {}
@@ -44,7 +44,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual void ForwardInSeconds(double goalTime);
   virtual void TurnInDegrees(double relativeAngle);
 
- const double PULSE_PER_REVOLUTION = 256.0 * Util::ToInches;
+ const double PULSE_PER_REVOLUTION = 360;
  protected:
   bool m_isColliding = false;
 
@@ -52,6 +52,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
 
   int m_leftEncoderSim = 0;
   int m_rightEncoderSim = 0;
+  double m_gyroAngle = 0.0;
 
   const double LOOPTIME = 0.020;
   double m_deadZone = 24.0;
