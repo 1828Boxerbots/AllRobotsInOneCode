@@ -104,7 +104,7 @@ class RobotContainerBase {
     frc2::RunCommand m_handStop             {[this] { if(m_pHand != nullptr) m_pHand->MoveHandStop();}, {m_pHand}};
 
     //Spin Control
-    SpinSubsystemBase *m_pSpin =  nullptr;
+    SpinSubsystemBase *m_pSpin = nullptr;
     frc2::RunCommand m_spinToColor          {[this] { if(m_pSpin != nullptr) m_pSpin->SpinUntilColor();}, {m_pSpin}};
     frc2::RunCommand m_spin                 {[this] { if(m_pSpin != nullptr) m_pSpin->SpinWithEncoders();}, {m_pSpin}};
 
