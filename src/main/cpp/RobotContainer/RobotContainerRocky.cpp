@@ -7,6 +7,7 @@
 
 #include "../include/RobotContainer/RobotContainerRocky.h"
 #include <frc2/command/button/JoystickButton.h>
+#include <frc/SmartDashboard/SmartDashboard.h>
 
 RobotContainerRocky::RobotContainerRocky()
  {
@@ -46,20 +47,31 @@ int RobotContainerRocky::ReadDioSwitch()
 }
 
 frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
-  // An example command will be run in autonomous
+  //DIO variable meant to switch the autonomous scenario
   int dioAutoSwitcher = 1;
   dioAutoSwitcher = ReadDioSwitch();
+  frc::SmartDashboard::PutBoolean("Case 1", false);
+  frc::SmartDashboard::PutBoolean("Case 2", false);
+  frc::SmartDashboard::PutBoolean("Case 3", false);
+  frc::SmartDashboard::PutBoolean("Case Default", false);
   switch(dioAutoSwitcher)
   {
     case 1:
       return &m_autoInFrontTargetZone;
       return &m_follower;
+      frc::SmartDashboard::PutBoolean("Case 1", true);
       break;
     case 2:
       return &m_autoBetweenTargetZoneLoadingZone;
+      frc::SmartDashboard::PutBoolean("Case 2", true);
       break;
     case 3:
       return &m_autoInFrontLoadingZone;
+      frc::SmartDashboard::PutBoolean("Case 3", true);
+      break;
+    default:
+      return &m_autoInFrontTargetZone;
+      frc::SmartDashboard::PutBoolean("Case Default", true);
       break;
   }
   return nullptr;
