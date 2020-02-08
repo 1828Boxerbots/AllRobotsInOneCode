@@ -27,9 +27,10 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   void MoveArcade(double X, double Y);
   void Stop();
   void Forward(double speed);
-  void ForwardInInch(double speed, double inch);
+  void ForwardInInch(double inch, double angle, double speed);
   void LogEncoder();
   bool MoveAlignPID(double targetDistance, double heading, double speed = 1.0);
+  void SetCollision(bool colliding = true) {m_isColliding = colliding;}
   virtual double GyroGetAngle() {return -1.0;}
   virtual void GyroInit() {}
   virtual void Init();
@@ -45,6 +46,8 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
 
  const double PULSE_PER_REVOLUTION = 256.0;
  protected:
+  bool m_isColliding = false;
+
   frc::Timer m_autoTimer;
 
   int m_leftEncoderSim = 0;

@@ -138,27 +138,27 @@ class RobotContainerBase {
   frc2::SequentialCommandGroup m_autoInFrontTargetZone = frc2::SequentialCommandGroup
   {
     frc2::InstantCommand{[this] {m_pDrive->Init();}, {m_pDrive}},
-    frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(0.75, 12);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
     frc2::InstantCommand{[this] {m_pDrive->TurnInDegrees(180);}, {m_pDrive}},
-    frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(0.75, 24);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(24, 180.0, 0.75);}, {m_pDrive}},
     frc2::InstantCommand{[this] {m_pDrive->Stop();}, {m_pDrive}}
   };
   
   frc2::SequentialCommandGroup m_autoBetweenTargetZoneLoadingZone = frc2::SequentialCommandGroup
   {
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Init();}, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(0.75, 12);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(0.75, 36);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(36, -90.0, 0.75);}, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Stop();}, {m_pDrive}}
   };
   frc2::SequentialCommandGroup m_autoInFrontLoadingZone = frc2::SequentialCommandGroup
   {
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Init();}, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(0.75, 12);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(0.75, 72);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(72, -90.0, 0.75);}, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Stop();}, {m_pDrive}}
   };
