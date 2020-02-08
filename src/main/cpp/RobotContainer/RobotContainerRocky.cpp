@@ -44,6 +44,7 @@ int RobotContainerRocky::ReadDioSwitch()
 {
   return 1;
 }
+
 frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
   // An example command will be run in autonomous
   int dioAutoSwitcher = 1;
@@ -61,6 +62,7 @@ frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
       return &m_autoInFrontLoadingZone;
       break;
   }
+  return nullptr;
 }
 
 void RobotContainerRocky::Init() 

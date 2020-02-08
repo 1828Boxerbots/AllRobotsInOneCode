@@ -11,12 +11,14 @@
 namespace Util
 {
     double Limit(double value, double lowerLimit = -1.0, double higherLimit = 1.0);
+    double AbsMin(double input, double minValue);
+    double AbsMax(double input, double maxValue);
+    
+    void DelayInSeconds(double seconds);
+    bool CompareDouble(double value, double requiredValue, double tolerance = 0.001);
 
- void DelayInSeconds(double seconds);
- bool CompareDouble(double value, double requiredValue, double tolerance = 0.001);
-
- //Other Constants 
- constexpr double PI = 3.141592653589793238462643383279502884197169399375105820974944;
+    //Other Constants 
+    constexpr double PI = 3.141592653589793238462643383279502884197169399375105820974944;
 }
 
 

@@ -71,25 +71,90 @@ void DriveTrainSubsystemBase::Forward(double speed)
     MoveTank(1.0, 1.0);
 }
 
-void DriveTrainSubsystemBase::PID(double targetSpeed)
+bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading, double maxSpeed)
 {
+    //
+    //Distance
+    //
+
+    // Get Encoder values [Inches]
     double leftEncoder = GetLeftEncoderInch();
     double rightEncoder = GetRightEncoderInch();
-    double errorL = targetSpeed - leftEncoder;
-    double errorR = targetSpeed - rightEncoder;
-    double leftSpeed = (errorL * m_kP) + (m_preErrorL * m_kD) + (m_sumErrorL * m_kI);
-    double rightSpeed = (errorR * m_kP) + (m_preErrorR * m_kD) + (m_sumErrorR * m_kI);
-    m_preErrorR = errorR;
-    m_sumErrorR += errorR;
-    m_preErrorL = errorL;
-    m_sumErrorL = errorL;
-    frc::SmartDashboard::PutNumber("PID left Speed", leftSpeed);
-    frc::SmartDashboard::PutNumber("PID right Speed", rightSpeed);
-    frc::SmartDashboard::PutNumber("PID preError Left", m_preErrorL);
-    frc::SmartDashboard::PutNumber("PID sumError Left", m_sumErrorL);
-    frc::SmartDashboard::PutNumber("PID preError Right", m_preErrorR);
-    frc::SmartDashboard::PutNumber("PID sumError Right", m_sumErrorR);
-    MoveTank(leftSpeed, rightSpeed);
+
+    // If an encoder fails, we assume that it stops generating pulses
+    // so use the larger of the two (absolute distance)
+    double encoderDistance;
+    if (std::abs(leftEncoder) > std::abs(rightEncoder))
+    {
+        encoderDistance = leftEncoder;
+    } 
+    else
+    {
+        encoderDistance = rightEncoder;
+    }
+
+    // Get Control Loop Period
+    double loopTime = LOOPTIME;
+    
+    double error = targetDistance - encoderDistance;
+    
+    // Linear-Proportional control
+    
+    // Linear-Integral control
+    if (error < m_deadZone) 
+    {
+        m_sumError += error / loopTime;
+    } 
+    else
+    {
+        m_sumError = 0;
+    }
+
+    // Linear-Derivative control
+    double dError = (error - m_preError) / loopTime;
+
+    double lin = (m_kP * error) + (m_kI * m_sumError) + (m_kD * dError);
+
+    m_preError = error;
+
+    // Ramp up to speed to reduce wheel slippage
+    double max_ramp_up = 0.075;
+    if (lin > m_preLin + max_ramp_up)
+    {
+        lin = m_preLin + max_ramp_up;
+    }
+    m_preLin = lin;
+
+    // Limit max speed
+    lin = Util::AbsMax(lin, maxSpeed);
+
+    //
+    // Rotation
+    //
+
+    m_kP_rot = maxSpeed / m_slowAngle; //Start slowing down at X degree
+    double errorRotation = heading - GyroGetAngle();
+    double rotation = errorRotation * m_kP_rot;
+
+    //Max Rotation Speed
+    rotation = Util::AbsMax(rotation, maxSpeed);
+
+    //Nothing left but to fo it...
+    MoveArcade(lin, rotation);
+
+    //Determine if the robot made it to the target
+    //and then wait a bit so that it can be correct any overshoot.
+    if(error > 2 || errorRotation > 3.0)
+    {
+        m_autoTimer.Reset();
+    }
+    else if(m_autoTimer.Get() > 0.75)
+    {
+        return true;
+    }
+
+    //Keep trying...
+    return false;
 }
 
 void DriveTrainSubsystemBase::ForwardInInch(double speed, double inch)

@@ -134,6 +134,7 @@ class RobotContainerBase {
       }
     }, {m_pDrive, m_pDistance}}
   };
+
   frc2::SequentialCommandGroup m_autoInFrontTargetZone = frc2::SequentialCommandGroup
   {
     frc2::InstantCommand{[this] {m_pDrive->Init();}, {m_pDrive}},
@@ -142,6 +143,7 @@ class RobotContainerBase {
     frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(0.75, 24);}, {m_pDrive}},
     frc2::InstantCommand{[this] {m_pDrive->Stop();}, {m_pDrive}}
   };
+  
   frc2::SequentialCommandGroup m_autoBetweenTargetZoneLoadingZone = frc2::SequentialCommandGroup
   {
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Init();}, {m_pDrive}},

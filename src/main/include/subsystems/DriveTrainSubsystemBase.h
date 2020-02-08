@@ -10,6 +10,8 @@
 #include <frc2/command/SubsystemBase.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/Spark.h>
+#include <math.h>
+#include <frc/Timer.h>
 #include "../Util.h"
 #include "../Constants.h"
 
@@ -27,7 +29,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   void Forward(double speed);
   void ForwardInInch(double speed, double inch);
   void LogEncoder();
-  void PID(double targetSpeed);
+  bool MoveAlignPID(double targetDistance, double heading, double speed = 1.0);
   virtual double GyroGetAngle() {return -1.0;}
   virtual void GyroInit() {}
   virtual void Init();
@@ -43,16 +45,23 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
 
  const double PULSE_PER_REVOLUTION = 256.0;
  protected:
+  frc::Timer m_autoTimer;
+
   int m_leftEncoderSim = 0;
   int m_rightEncoderSim = 0;
 
-  double m_preErrorL = 0.0;
-  double m_sumErrorL = 0.0;
-  double m_preErrorR = 0.0;
-  double m_sumErrorR = 0.0;
-  double m_kP = 1.0;
-  double m_kD = 0.01;
-  double m_kI = 0.02;
+  const double LOOPTIME = 0.020;
+  double m_deadZone = 24.0;
+  double m_preLin = 0.0;
+  double m_slowAngle = 45.0;
+
+  double m_preError = 0.0;
+  double m_sumError = 0.0;
+  double m_kP = .0311;
+  double m_kD = 0.004;
+  double m_kI = 0.00;
+
+  double m_kP_rot;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };
