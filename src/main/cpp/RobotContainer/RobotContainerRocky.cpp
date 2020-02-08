@@ -63,6 +63,7 @@ frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
       return &m_autoInFrontLoadingZone;
       break;
   }
+  return nullptr;
 }
 
 void RobotContainerRocky::Init() 
