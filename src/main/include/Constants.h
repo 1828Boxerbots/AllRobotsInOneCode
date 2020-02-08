@@ -77,6 +77,7 @@ constexpr int PWM_LOADMOTORTOP_ROBOT2020 = 5;
 constexpr int PWM_ARMMOTOR_ROBOT2020 = 6;
 constexpr int PWM_SPINNERMOTOR_ROBOT2020 = 7;
 constexpr int PWM_HOOKMOTOR_ROBOT2020 = 8;
+constexpr int DIO_PHOTOGATE_ROBOT2020 = 9;
 /**
 *The Multiplexer includes Lidar, Color Sensor, and Left distance sensor.
 *This is because the two distance sensors have to work together, whereas

@@ -9,12 +9,14 @@
 
 #include <frc/Spark.h>
 #include "../LoaderSubsystemBase.h"
+#include "../../Drivers/PhotogateDriver.h"
 
 class LoaderSubsystemRobot2020 : public LoaderSubsystemBase {
  public:
   LoaderSubsystemRobot2020();
 
   virtual void SetLoadMotor(double speed);
+  virtual void PhotogateStop(double speed);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -25,6 +27,8 @@ class LoaderSubsystemRobot2020 : public LoaderSubsystemBase {
   frc::Spark m_loaderMotorBottom {PWM_LOADMOTORBOTTOM_ROBOT2020};
   frc::Spark m_loaderMotorMiddle {PWM_LOADMOTORMIDDLE_ROBOT2020};
   frc::Spark m_loaderMotorTop {PWM_LOADMOTORTOP_ROBOT2020};
+
+  PhotogateDriver m_photogate{DIO_PHOTOGATE_ROBOT2020};
   #endif
   
   // Components (e.g. motor controllers and sensors) should generally be
