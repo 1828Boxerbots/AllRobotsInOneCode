@@ -11,6 +11,13 @@
 RobotContainerRobot2020::RobotContainerRobot2020()
  {
   m_pDrive = new DriveTrainSubsystemRobot2020;
+  //m_pSpin = new SpinSubsystemRobot2020;
+  //m_pLoader = new LoaderSubsystemRobot2020;
+  //m_pShooter = new ShooterSubsystemRobot2020;
+  //m_pCamera = new CameraSubsystemRobot2020;
+  //m_pArm = new ArmSubsystemRobot2020;
+  //m_pDistance = new DistanceSensorSubsystemRobot2020;
+
   // Configure the button bindings
   ConfigureButtonBindings();
   m_pDrive->Init();
@@ -20,22 +27,11 @@ RobotContainerRobot2020::RobotContainerRobot2020()
 void RobotContainerRobot2020::ConfigureButtonBindings()
 {
   //Robot2020
-  frc2::Button bumperL{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
-  bumperL.WhenHeld(&m_shooterEject);
-  bumperL.WhenReleased(&m_shooterStop);
+  SetLeftBumper();
+  SetRightBumper();
 
-  frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
-  bumperR.WhenHeld(&m_shooterSpin);
-  bumperR.WhenReleased(&m_shooterStop);
-
-  frc2::Button buttonX{[this] {return m_controller.GetXButton();}};
-  buttonX.WhenHeld(&m_loaderEject);
-  buttonX.WhenReleased(&m_loaderStop);
-  frc2::Button buttonY{[this] {return m_controller.GetYButton();}};
-  buttonY.WhenHeld(&m_loaderLoad);
-  buttonY.WhenReleased(&m_loaderStop);
-
-
+  SetButtonX();
+  SetButtonY();
 
 }
 
@@ -46,5 +42,6 @@ frc2::Command* RobotContainerRobot2020::GetAutonomousCommand() {
 
 void RobotContainerRobot2020::Init()
 {
-  m_spinner.InterpretFMS(ReadFMS());
+  if(m_pSpin != nullptr) m_pSpin->InterpretFMS(ReadFMS());
+  m_pDrive->Init();
 }
