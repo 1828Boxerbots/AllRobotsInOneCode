@@ -157,8 +157,9 @@ bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading
     return false;
 }
 
-void DriveTrainSubsystemBase::ForwardInInch(double speed, double inch)
+void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double speed)
 {
+    /*
     MoveTank(speed, speed);
     double currentDistance = GetLeftEncoderInch();
     while(currentDistance < inch)
@@ -170,6 +171,28 @@ void DriveTrainSubsystemBase::ForwardInInch(double speed, double inch)
     {
         ResetEncoder();
     }
+    Stop();
+    */
+
+    //Creates and Starts Timer
+    frc::Timer timer;
+    timer.Reset();
+    timer.Start();
+
+    //Checks to see if Robot has made it to destination
+    while(MoveAlignPID(inch, angle, speed) != true)
+    {
+        //Checks what time it is
+        frc::SmartDashboard::PutNumber("MoveAlignPID Timer", timer.Get());
+
+        if(m_isColliding == true)
+        {
+            break;
+        }
+    }
+
+    //Stops Timer and Motors
+    timer.Stop();
     Stop();
 }
 
