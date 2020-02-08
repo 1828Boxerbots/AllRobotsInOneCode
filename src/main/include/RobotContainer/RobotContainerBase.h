@@ -138,9 +138,9 @@ class RobotContainerBase {
   frc2::SequentialCommandGroup m_autoInFrontTargetZone = frc2::SequentialCommandGroup
   {
     frc2::InstantCommand{[this] {m_pDrive->Init();}, {m_pDrive}},
-    frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(30.48, 0.0, 0.75);}, {m_pDrive}},
     frc2::InstantCommand{[this] {m_pDrive->TurnInDegrees(180);}, {m_pDrive}},
-    frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(24, 180.0, 0.75);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(60.96, 180.0, 0.75);}, {m_pDrive}},
     frc2::InstantCommand{[this] {m_pDrive->Stop();}, {m_pDrive}}
   };
   

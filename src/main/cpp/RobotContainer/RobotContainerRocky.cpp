@@ -57,22 +57,17 @@ frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
   switch(dioAutoSwitcher)
   {
     case 1:
+    frc::SmartDashboard::PutBoolean("Case 1", true);
       return &m_autoInFrontTargetZone;
-      return &m_follower;
-      frc::SmartDashboard::PutBoolean("Case 1", true);
-      break;
     case 2:
-      return &m_autoBetweenTargetZoneLoadingZone;
       frc::SmartDashboard::PutBoolean("Case 2", true);
-      break;
+      return &m_autoBetweenTargetZoneLoadingZone;
     case 3:
-      return &m_autoInFrontLoadingZone;
       frc::SmartDashboard::PutBoolean("Case 3", true);
-      break;
+      return &m_autoInFrontLoadingZone;
     default:
-      return &m_autoInFrontTargetZone;
       frc::SmartDashboard::PutBoolean("Case Default", true);
-      break;
+      return &m_autoInFrontTargetZone;
   }
   return nullptr;
 }
