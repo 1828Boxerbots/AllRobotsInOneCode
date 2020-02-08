@@ -32,6 +32,7 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   const int GO_LEFT = -1;
   const int GO_RIGHT = +1;
   const int STOP = 0;
+  const int CANT_FIND_IMAGE = -2;
 
   virtual int GetLeftMin() { return 10;}
   virtual int GetLeftMax() { return 250;}

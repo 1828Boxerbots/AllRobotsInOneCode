@@ -105,7 +105,7 @@ int CameraSubsystemBase::WhereToTurn()
     if (m_center.x < 0 || m_center.x > GetMaxResolutionX())
     {
         frc::SmartDashboard::PutString("Camera Turn To", "CANT SEE");
-        return STOP; 
+        return CANT_FIND_IMAGE; 
     }
     return STOP;
 
