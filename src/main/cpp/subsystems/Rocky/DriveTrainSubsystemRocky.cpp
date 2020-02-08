@@ -26,8 +26,9 @@ void DriveTrainSubsystemRocky::SetMotorR(double speed)
 
 double DriveTrainSubsystemRocky::GyroGetAngle()
 {
-  return m_gyro.GetAngle();
-  frc::SmartDashboard::PutNumber("GetAngle", m_gyro.GetAngle());
+  m_gyroAngle = m_gyro.GetAngle();
+  frc::SmartDashboard::PutNumber("GyroAngle", m_gyroAngle);
+  return m_gyroAngle;
 }
 
 void DriveTrainSubsystemRocky::GyroInit()
@@ -72,8 +73,10 @@ void DriveTrainSubsystemRocky::Init()
   m_rightEncoder.Reset();
   m_leftEncoder.SetReverseDirection(true);
   m_rightEncoder.SetReverseDirection(true);
-  m_leftEncoder.SetDistancePerPulse((WHEELDIAMETER*Util::PI)/PULSE_PER_REVOLUTION);
-  m_rightEncoder.SetDistancePerPulse((WHEELDIAMETER*Util::PI)/PULSE_PER_REVOLUTION);
+  //m_leftEncoder.SetDistancePerPulse((WHEELDIAMETER*Util::PI)/PULSE_PER_REVOLUTION);
+  //m_rightEncoder.SetDistancePerPulse((WHEELDIAMETER*Util::PI)/PULSE_PER_REVOLUTION);
+  m_leftEncoder.SetDistancePerPulse( 1.0 / PULSE_PER_REVOLUTION * 2.0 * Util::PI * (WHEELDIAMETER/2));
+  m_rightEncoder.SetDistancePerPulse( 1.0 / PULSE_PER_REVOLUTION * 2.0 * Util::PI * (WHEELDIAMETER/2));
   #endif
 }
 

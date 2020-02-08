@@ -22,3 +22,12 @@ void LoaderSubsystemRobot2020::SetLoadMotor(double speed)
     m_loaderMotorMiddle.Set(speed);
     #endif
 }
+
+void LoaderSubsystemRobot2020::PhotogateStop(double speed)
+{
+    SetLoadMotor(speed);
+    while(m_photogate.Get() != true)
+    {
+        
+    }
+}
