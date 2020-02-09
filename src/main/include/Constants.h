@@ -152,28 +152,20 @@ static constexpr auto I2C_PORT_MULTIPLEXER_ROBOT2020 = frc::I2C::Port::kOnboard;
 static constexpr auto I2C_PORT_RIGHTDISTANCESENSOR_ROBOT2020 = frc::I2C::Port::kMXP;
 
 // Positions of the sensors on the multiplexer
-constexpr int I2C_LINE_LIDAR_ROBOT2020 = 0;
+constexpr int I2C_LINE_LIDAR_ROBOT2020              = 0;
 constexpr int I2C_LINE_LEFTDISTANCESENSOR_ROBOT2020 = 1;
-constexpr int I2C_LINE_COLORSENSOR_ROBOT2020 = 2;
+constexpr int I2C_LINE_COLORSENSOR_ROBOT2020        = 2;
 
 // Addresses of the individual I2C sensors
-constexpr int I2C_ADDR_MULTIPLEXER_ROBOT2020 = 0x70;
-constexpr int I2C_ADDR_LIDAR_ROBOT2020 = 0x62;
-constexpr int I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020 = 0x52;
+constexpr int I2C_ADDR_MULTIPLEXER_ROBOT2020         = 0x70;
+constexpr int I2C_ADDR_LIDAR_ROBOT2020               = 0x62;
+constexpr int I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020  = 0x52;
 constexpr int I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020 = 0x52;
-constexpr int I2C_ADDR_COLORSENSOR_ROBOT2020 = 0x52;
+constexpr int I2C_ADDR_COLORSENSOR_ROBOT2020         = 0x52;
 
 
 //Allowing hardware to be used
 //#define NOHW
 //#define SEND_VIDEO
 
-/**
- * The Constants header provides a convenient place for teams to hold robot-wide
- * numerical or boolean constants.  This should not be used for any other
- * purpose.
- *
- * It is generally a good idea to place constants into subsystem- or
- * command-specific namespaces within this header, which can then be used where
- * they are needed.
- */
+
