@@ -15,9 +15,10 @@ class HallEffectSwitchDriver {
  public:
   HallEffectSwitchDriver(int port);
 
-
   /*
-  * This sensor returns true whenever any magnet is applied to it.
+  *  Hall Effect Switch
+  *  This Sensor will latch low with a south pole magnetic field and will be high
+  *  impedance with a north pole present
   */
   bool Get();
   void Init() {}

@@ -7,7 +7,20 @@
 
 #pragma once
 
+#include <frc/DigitalInput.h>
+
 class HallEffectOmnipolarDriver {
  public:
-  HallEffectOmnipolarDriver();
+  HallEffectOmnipolarDriver(int port);
+
+ /*
+  * Hall Effect Omnipolar
+  * This sensor will be driven low when any magnetic pole is detected. 
+  * Use this sensor as a magnetic limit switch.
+  */
+  bool Get();
+  void Init();
+ 
+ private:
+  frc::DigitalInput *m_pDevice = nullptr;
 };

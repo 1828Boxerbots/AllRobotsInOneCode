@@ -7,7 +7,20 @@
 
 #pragma once
 
+#include <frc/DigitalInput.h>
+
 class HallEffectLatchDriver {
  public:
-  HallEffectLatchDriver();
+  HallEffectLatchDriver(int port);
+
+ /*
+  * Hall Effect Latch
+  * This sensor will pull the output low when a south pole is applied to the sensor. 
+  * It will stay low until a north pole is applied.
+  */
+  bool Get();
+  void Init();
+
+ private:
+  frc::DigitalInput *m_pDevice = nullptr;
 };

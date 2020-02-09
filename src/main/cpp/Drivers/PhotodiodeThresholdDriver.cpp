@@ -7,4 +7,13 @@
 
 #include "Drivers/PhotodiodeThresholdDriver.h"
 
-PhotodiodeThresholdDriver::PhotodiodeThresholdDriver() {}
+PhotodiodeThresholdDriver::PhotodiodeThresholdDriver(int port) 
+{
+    m_pDevice = new frc::DigitalInput(port);
+}
+
+
+bool PhotodiodeThresholdDriver::Get()
+{
+    return m_pDevice->Get();
+}

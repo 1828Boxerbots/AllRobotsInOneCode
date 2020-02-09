@@ -7,7 +7,19 @@
 
 #pragma once
 
+#include <frc/AnalogInput.h>
+
 class PhotodiodeAnalogDriver {
  public:
-  PhotodiodeAnalogDriver();
+  PhotodiodeAnalogDriver(int port);
+
+  /**
+  * Analog Hall Effect Example
+  * This sensor outputs a voltage based on the brighness shone on the sensor. 0V for little light. 5v for high intensity
+  */
+  double Get();
+  void Init();
+
+  private:
+  frc::AnalogInput *m_pDevice = nullptr;
 };

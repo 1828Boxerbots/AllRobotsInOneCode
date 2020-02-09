@@ -7,7 +7,19 @@
 
 #pragma once
 
+#include <frc/DigitalInput.h>
+
 class PhotodiodeThresholdDriver {
  public:
-  PhotodiodeThresholdDriver();
+  PhotodiodeThresholdDriver(int port);
+
+  /*
+  * Digital Light Sensor
+  * This sensor will be driven low based on light level
+  */
+  bool Get();
+  void Init();
+
+  private:
+  frc::DigitalInput *m_pDevice = nullptr;
 };
