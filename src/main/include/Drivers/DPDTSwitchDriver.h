@@ -7,7 +7,23 @@
 
 #pragma once
 
+#include <frc/DigitalInput.h>
+
 class DPDTSwitchDriver {
  public:
-  DPDTSwitchDriver();
+  DPDTSwitchDriver(int CHANNEL_A, int CHANNEL_B);
+
+  /**
+   * This is the switch that we will be using to determine the autononous scenarios.
+   * The Get() function will return an integer based on the position of the switch.
+   * Up position: 1
+   * Middle Position: 2
+   * Down Position: 3
+   */
+  int Get();
+  void Init();
+
+  private:
+  frc::DigitalInput *m_pChannelA = nullptr;
+  frc::DigitalInput *m_pChannelB = nullptr;
 };

@@ -6,5 +6,32 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Drivers/DPDTSwitchDriver.h"
+#include <frc/DriverStation.h>
 
-DPDTSwitchDriver::DPDTSwitchDriver() {}
+DPDTSwitchDriver::DPDTSwitchDriver(int CHANNEL_A, int CHANNEL_B) 
+{
+    m_pChannelA = new frc::DigitalInput(CHANNEL_A);
+    m_pChannelB = new frc::DigitalInput(CHANNEL_B);
+}
+
+
+int DPDTSwitchDriver::Get()
+{
+    if(m_pChannelA->Get() && !(m_pChannelB->Get()))
+    {
+        return 1;
+    }
+    else if (!(m_pChannelA->Get()) && !(m_pChannelB->Get()))
+    {
+        return 2;
+    }
+    else if (!(m_pChannelA->Get()) && m_pChannelB->Get())
+    {
+        return 3;
+    }
+    else
+    {
+        frc::DriverStation::ReportError("Autonomous Switch returning multiple positions");
+        return -1;
+    }
+}
