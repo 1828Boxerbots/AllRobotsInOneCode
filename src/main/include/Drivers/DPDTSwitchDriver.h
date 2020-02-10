@@ -19,6 +19,8 @@ class DPDTSwitchDriver {
    * Up position: 1
    * Middle Position: 2
    * Down Position: 3
+   * 
+   * If for some reason the sensor breaks, it will return -1 and throw an error at the driver station.
    */
   int Get();
   void Init();
