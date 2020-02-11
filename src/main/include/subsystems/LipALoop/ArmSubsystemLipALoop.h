@@ -22,6 +22,7 @@ class ArmSubsystemLipALoop : public ArmSubsystemBase {
   virtual double GetMinLimit();	
   virtual double GetMaxLimit();	
   virtual void Init();	
+  virtual void DisableInit();
   virtual void LiftMotor(double angle);	
   virtual void MoveArmStop();
 

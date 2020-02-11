@@ -7,31 +7,31 @@
 
 #pragma once
 
-#include <frc2/command/SubsystemBase.h>
-#include <frc/smartdashboard/SmartDashboard.h>
-#include "../Util.h"
-#include "../Constants.h"
+#include "../ArmSubsystemBase.h"
+#include <frc/Talon.h>
+#include <frc/DigitalInput.h>
 
-class LiftSubsystemBase : public frc2::SubsystemBase {
+class ArmSubsystemSLAL : public ArmSubsystemBase {
  public:
-  LiftSubsystemBase();
+  ArmSubsystemSLAL();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-  void Periodic();
-  void Lift(double armSpeed);
-  void Raise(bool bump);
-  void Lower(bool bump);
-  void StopMotor() {LiftMotor(0.0);}
-  void LimitedLift(double speed);
-  virtual bool UpperLimitHit() {return false;}
-  virtual bool LowerLimitHit() {return false;}
-  virtual void LiftMotor(double speed) {}
+  virtual void LiftMotor(double speed);
+  //void SwitchCheck(bool bumperL, bool bumperR);
+  virtual bool UpperLimitHit();
+  virtual bool LowerLimitHit();
+  void Init() override {}
+  void DisableInit() override {}
 
  private:
- protected:
- const double LIFTSPEED = 1.0;
+ #ifndef NOHW
+  frc::Talon m_liftMotorOne{PWM_ARM_SLAL_ONE};
+  frc::Talon m_liftMotorTwo{PWM_ARM_SLAL_TWO};
+  frc::DigitalInput m_topSwitch{DIO_TOPSWITCH_SLAL};
+  frc::DigitalInput m_bottomSwitch{DIO_BOTTOMSWITCH_SLAL};
+  #endif
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };
