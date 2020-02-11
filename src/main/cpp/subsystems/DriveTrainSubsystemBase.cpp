@@ -44,7 +44,7 @@ void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
 
 void DriveTrainSubsystemBase::TurnRight(double speed)
 {
-    MoveTank(-speed*1.5, speed*1.5);
+    MoveTank(-speed, speed);
 }
 
 
@@ -200,24 +200,31 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
 
 void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
 {
+    frc::SmartDashboard::PutBoolean("In Place", true);
     double startAngle = GyroGetAngle();
     double currentAngle = GyroGetAngle();
-    if(relativeAngle < 0)
+    frc::SmartDashboard::PutNumber("Relative Angle", relativeAngle);
+    double motorSpeed = 0.75;
+    if(relativeAngle > 0)
     {
-        TurnRight();
+        SetMotorL(motorSpeed);
+        SetMotorR(-motorSpeed);
         while (currentAngle-startAngle > relativeAngle)
         {
             currentAngle = GyroGetAngle();
         }
     }
-    if(relativeAngle > 0)
+    else if(relativeAngle < 0)
     {
-        TurnLeft();
+        SetMotorL(-motorSpeed);
+        SetMotorR(motorSpeed);
         while (currentAngle-startAngle < relativeAngle)
         {
             currentAngle = GyroGetAngle();
         }
     }
+    frc::SmartDashboard::PutBoolean("In Place", false);
+    Stop();
 }
 
 

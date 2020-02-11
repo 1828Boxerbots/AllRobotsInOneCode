@@ -15,6 +15,7 @@ void DriveTrainSubsystemRocky::SetMotorL(double speed)
   #ifndef NOHW
   m_leftMotor.Set(speed);
   #endif
+  frc::SmartDashboard::PutNumber("Drive Left", speed);
 }
 
 void DriveTrainSubsystemRocky::SetMotorR(double speed) 
@@ -22,6 +23,7 @@ void DriveTrainSubsystemRocky::SetMotorR(double speed)
   #ifndef NOHW
   m_rightMotor.Set(speed);
   #endif
+  frc::SmartDashboard::PutNumber("Drive Right", speed);
 }
 
 double DriveTrainSubsystemRocky::GyroGetAngle()

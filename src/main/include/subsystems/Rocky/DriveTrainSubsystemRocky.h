@@ -16,14 +16,14 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
  public:
   DriveTrainSubsystemRocky();
 
-  virtual void SetMotorL(double speed);
-  virtual void SetMotorR(double speed); 
-  virtual double GyroGetAngle();
-  virtual void GyroInit();
-  virtual void Init();
-  virtual double GetLeftEncoderInch();
-  virtual double GetRightEncoderInch();
-  virtual void ResetEncoder();
+  void SetMotorL(double speed) override;
+  void SetMotorR(double speed) override; 
+  double GyroGetAngle() override;
+  void GyroInit() override;
+  void Init() override;
+  double GetLeftEncoderInch() override;
+  double GetRightEncoderInch() override;
+  void ResetEncoder() override;
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.

@@ -31,9 +31,14 @@ int DPDTSwitchDriver::Get()
     {
         return 3;
     }
-    else
+    else if (m_pChannelA->Get() && m_pChannelB->Get())
     {
         frc::DriverStation::ReportError("Autonomous Switch returning multiple positions");
         return -1;
+    }
+    else
+    {
+      frc::DriverStation::ReportError("Autonomous Switch unresponsive");  
+      return -2;
     }
 }

@@ -46,7 +46,8 @@ int RobotContainerRocky::ReadDioSwitch()
 {
    //Object hooked up to double pole double throw switch driver {Channel A, Channel B}
   DPDTSwitchDriver dpdtSwitch{2,3};
-  return dpdtSwitch.Get();
+  return 2;
+  //return dpdtSwitch.Get();
 
 }
 
@@ -62,7 +63,7 @@ frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
   {
     case 1:
     frc::SmartDashboard::PutBoolean("Case 1", true);
-      //return &m_autoInFrontTargetZone;
+      return &m_autoInFrontTargetZone;
       break;
 
     case 2:
@@ -70,7 +71,7 @@ frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
       return &m_autoBetweenTargetZoneLoadingZone;
     case 3:
       frc::SmartDashboard::PutBoolean("Case 3", true);
-      //return &m_autoInFrontLoadingZone;
+      return &m_autoInFrontLoadingZone;
       break;
     default:
       frc::SmartDashboard::PutBoolean("Case Default", true);
