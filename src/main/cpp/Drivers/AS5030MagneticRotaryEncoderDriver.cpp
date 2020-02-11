@@ -5,19 +5,6 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Drivers/UltrasonicDriver.h"
+#include "Drivers/AS5030MagneticRotaryEncoderDriver.h"
 
-UltrasonicDriver::UltrasonicDriver(int port) 
-{
-    m_pDevice = new frc::AnalogInput(port);
-}
-
-double UltrasonicDriver::GetDistanceInCM()
-{
-    return m_pDevice->GetVoltage() * m_calibration;
-}
-
-double UltrasonicDriver::GetDistanceInInch()
-{
-    return GetDistanceInCM() * CMtoIN;
-}
+AS5030MagneticRotaryEncoderDriver::AS5030MagneticRotaryEncoderDriver() {}
