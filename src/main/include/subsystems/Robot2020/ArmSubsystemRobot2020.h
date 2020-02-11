@@ -15,6 +15,10 @@ class ArmSubsystemRobot2020 : public ArmSubsystemBase {
  public:
   ArmSubsystemRobot2020();
 
+  virtual void Init();
+  virtual void LiftMotor(double speed);
+  virtual void DisableInit();
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */

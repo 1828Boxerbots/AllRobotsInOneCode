@@ -5,14 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "subsystems/SLAL/LiftSubsystemSLAL.h"
+#include "subsystems/SLAL/ArmSubsystemSLAL.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-LiftSubsystemSLAL::LiftSubsystemSLAL() {}
+ArmSubsystemSLAL::ArmSubsystemSLAL() {}
 
 // This method will be called once per scheduler run
 
-void LiftSubsystemSLAL::LiftMotor(double speed)
+void ArmSubsystemSLAL::LiftMotor(double speed)
 {
     #ifndef NOHW
     m_liftMotorOne.Set(speed);
@@ -20,7 +20,7 @@ void LiftSubsystemSLAL::LiftMotor(double speed)
     #endif 
 }
 
-bool LiftSubsystemSLAL::UpperLimitHit()
+bool ArmSubsystemSLAL::UpperLimitHit()
 {
    #ifndef NOHW
    return m_topSwitch.Get();
@@ -29,7 +29,7 @@ bool LiftSubsystemSLAL::UpperLimitHit()
    #endif
 }
 
-bool LiftSubsystemSLAL::LowerLimitHit()
+bool ArmSubsystemSLAL::LowerLimitHit()
 {
    #ifndef NOHW
    return m_bottomSwitch.Get();

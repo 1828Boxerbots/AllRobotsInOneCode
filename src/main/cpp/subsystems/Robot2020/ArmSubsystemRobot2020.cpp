@@ -11,3 +11,20 @@ ArmSubsystemRobot2020::ArmSubsystemRobot2020() {}
 
 // This method will be called once per scheduler run
 void ArmSubsystemRobot2020::Periodic() {}
+
+void ArmSubsystemRobot2020::Init()
+{
+
+}
+
+void ArmSubsystemRobot2020::DisableInit()
+{
+    
+}
+
+void ArmSubsystemRobot2020::LiftMotor(double speed)
+{
+    #ifndef NOHW
+    m_armMotor.Set(speed);
+    #endif
+}

@@ -87,9 +87,14 @@ class RobotContainerBase {
 
     //Arm Control
     ArmSubsystemBase *m_pArm = nullptr;
-    frc2::RunCommand m_armUp                {[this] { if(m_pArm != nullptr) m_pArm->LiftArmUp();}, {m_pArm}};
-    frc2::RunCommand m_armDown              {[this] { if(m_pArm != nullptr) m_pArm->LiftArmDown();}, {m_pArm}};
-    frc2::RunCommand m_armStop              {[this] { if(m_pArm != nullptr) m_pArm->MoveArmStop();}, {m_pArm}};
+    //LipALoop
+    frc2::RunCommand m_armUp_Servo          {[this] { if(m_pArm != nullptr) m_pArm->LiftArmUp();}, {m_pArm}};
+    frc2::RunCommand m_armDown_Servo        {[this] { if(m_pArm != nullptr) m_pArm->LiftArmDown();}, {m_pArm}};
+    frc2::RunCommand m_armStop_Servo        {[this] { if(m_pArm != nullptr) m_pArm->MoveArmStop();}, {m_pArm}};
+    //SLAL
+    frc2::RunCommand m_armLift_Motor        {[this] {if(m_pArm != nullptr) m_pArm->Raise(true);}, {m_pArm}};
+    frc2::RunCommand m_armLower_Motor       {[this] {if(m_pArm != nullptr) m_pArm->Lower(true);}, {m_pArm}};
+    frc2::RunCommand m_armStop_Motor        {[this] {if(m_pArm != nullptr) m_pArm->Raise(false);}, {m_pArm}};
 
     //Wrist Control
     WristSubsystemLipALoop *m_pWrist = nullptr;
