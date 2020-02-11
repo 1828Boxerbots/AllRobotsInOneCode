@@ -24,6 +24,8 @@ class ArmSubsystemLipALoop : public ArmSubsystemBase {
   virtual void Init();	
   virtual void DisableInit();
   virtual void LiftMotor(double angle);	
+  virtual void LiftArmUp();
+  virtual void LiftArmDown();
   virtual void MoveArmStop();
 
   private:

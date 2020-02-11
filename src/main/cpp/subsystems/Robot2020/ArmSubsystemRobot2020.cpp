@@ -22,7 +22,9 @@ void ArmSubsystemRobot2020::DisableInit()
     
 }
 
-void ArmSubsystemRobot2020::LiftMotor(double angle)
+void ArmSubsystemRobot2020::LiftMotor(double speed)
 {
-    
+    #ifndef NOHW
+    m_armMotor.Set(speed);
+    #endif
 }

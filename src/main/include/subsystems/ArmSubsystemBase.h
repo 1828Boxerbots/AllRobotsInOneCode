@@ -26,15 +26,14 @@ class ArmSubsystemBase : public frc2::SubsystemBase {
   virtual double GetMaxLimit() {return 180.0;}	
   virtual void MoveArmStop() {}	
   virtual void Init() = 0;
-  virtual void LiftServo(double angle) {}	
   virtual void DisableInit() = 0;
 
 //From SLAL
   void Lift(double armSpeed);
-  virtual void Raise(bool bump);
-  virtual void Lower(bool bump);
+  virtual void Raise(bool bump) {}
+  virtual void Lower(bool bump) {}
   void StopMotor() {LiftMotor(0.0);}
-  virtual void LimitedLift(double speed);
+  virtual void LimitedLift(double speed) {}
   virtual bool UpperLimitHit() {return false;}
   virtual bool LowerLimitHit() {return false;}
   virtual void LiftMotor(double speed) {}

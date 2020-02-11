@@ -28,7 +28,7 @@ void ArmSubsystemLipALoop::DisableInit()
     frc::SmartDashboard::PutNumber("Arm Servo", m_armAngle);
 }
 
-void ArmSubsystemLipALoop::LiftServo(double angle)	
+void ArmSubsystemLipALoop::LiftMotor(double angle)	
 {	
     m_armAngle = angle;	
     #ifndef NOHW	

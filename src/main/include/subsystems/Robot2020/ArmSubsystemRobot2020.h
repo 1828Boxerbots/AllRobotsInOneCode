@@ -16,7 +16,7 @@ class ArmSubsystemRobot2020 : public ArmSubsystemBase {
   ArmSubsystemRobot2020();
 
   virtual void Init();
-  virtual void LiftMotor(double angle);
+  virtual void LiftMotor(double speed);
   virtual void DisableInit();
 
   /**
