@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Drivers/DPDTSwitchDriver.h"
+#include "Util.h"
 #include <frc/DriverStation.h>
 
 DPDTSwitchDriver::DPDTSwitchDriver(int CHANNEL_A, int CHANNEL_B) 
@@ -17,6 +18,7 @@ DPDTSwitchDriver::DPDTSwitchDriver(int CHANNEL_A, int CHANNEL_B)
 
 int DPDTSwitchDriver::Get()
 {
+    Util::DelayInSeconds(3);
     if(m_pChannelA->Get() && !(m_pChannelB->Get()))
     {
         return 1;
