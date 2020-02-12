@@ -20,6 +20,16 @@ void ArmSubsystemSLAL::LiftMotor(double speed)
     #endif 
 }
 
+void ArmSubsystemSLAL::Raise(double speed)
+{
+   LiftMotor(speed);
+}
+
+void ArmSubsystemSLAL::Lower(double speed)
+{
+   LiftMotor(-speed);
+}
+
 bool ArmSubsystemSLAL::UpperLimitHit()
 {
    #ifndef NOHW
@@ -36,4 +46,36 @@ bool ArmSubsystemSLAL::LowerLimitHit()
    #else
    return false;
    #endif
+}
+
+void ArmSubsystemSLAL::ArmPosition(int pos)
+{
+   switch (pos)
+   {
+   case 0:
+      LiftMotor(m_liftSpeed);
+      while(UpperLimitHit() != true)
+      {
+         LiftMotor(m_liftSpeed);
+      }
+      StopMotor();
+      break;
+   
+   case 1:
+      LiftMotor(-m_liftSpeed);
+      while(LowerLimitHit() != true)
+      {
+         LiftMotor(-m_liftSpeed);
+      }
+      StopMotor();
+
+   default:
+      LiftMotor(m_liftSpeed);
+      while(UpperLimitHit() != true)
+      {
+         LiftMotor(m_liftSpeed);
+      }
+      StopMotor();
+      break;
+   }
 }

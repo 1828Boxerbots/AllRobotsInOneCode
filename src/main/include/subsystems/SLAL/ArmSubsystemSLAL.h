@@ -24,6 +24,9 @@ class ArmSubsystemSLAL : public ArmSubsystemBase {
   virtual bool LowerLimitHit();
   void Init() override {}
   void DisableInit() override {}
+  virtual void ArmPosition(int pos);
+  virtual void Raise(double speed = 1.0);
+  virtual void Lower(double speed = 1.0);
 
  private:
  #ifndef NOHW
@@ -32,6 +35,8 @@ class ArmSubsystemSLAL : public ArmSubsystemBase {
   frc::DigitalInput m_topSwitch{DIO_TOPSWITCH_SLAL};
   frc::DigitalInput m_bottomSwitch{DIO_BOTTOMSWITCH_SLAL};
   #endif
+  const double ARM_UP = 1.0;
+  const double ARM_DOWN = -1.0;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

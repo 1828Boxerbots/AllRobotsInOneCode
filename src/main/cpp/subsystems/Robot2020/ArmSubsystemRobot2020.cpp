@@ -28,3 +28,70 @@ void ArmSubsystemRobot2020::LiftMotor(double speed)
     m_armMotor.Set(speed);
     #endif
 }
+
+void ArmSubsystemRobot2020::Raise(double speed)
+{
+    LiftMotor(speed);
+}
+
+void ArmSubsystemRobot2020::Lower(double speed)
+{
+    LiftMotor(-speed);
+}
+
+void ArmSubsystemRobot2020::ArmPosition(int pos)
+{
+    switch (pos)
+    {
+    case UPPER_POS:
+        Raise();
+        while(m_hallEffectUpper.Get() != true)
+        {
+        }
+        StopMotor();
+        break;
+    case LOWER_POS:
+        Lower();
+        while(m_hallEffectLower.Get() != true)
+        {
+        }
+        StopMotor();
+        break;
+    case MIDDLE_POS:
+        /*
+        while(m_hallEffectMiddle.Get() != true)
+        {
+            if(m_hallEffectUpper.Get() == true)
+            {
+                Lower();
+                if(m_hallEffectLower.Get() == true)
+                {
+                    Raise();
+                }
+            }
+            else if(m_hallEffectUpper.Get() != false)
+            {
+                Raise();
+            }
+
+        }
+        */
+       Raise();
+       while(m_hallEffectMiddle.Get() != true)
+        {
+            if ( m_hallEffectUpper.Get() == true)
+            {
+                Lower();
+            }
+            if (m_hallEffectLower.Get() == true)
+            {
+                Raise();
+            }
+        }
+        StopMotor();
+        break;
+       
+    default:
+        break;
+    }
+}
