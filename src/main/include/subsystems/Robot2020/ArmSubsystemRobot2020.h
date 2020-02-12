@@ -7,31 +7,28 @@
 
 #pragma once
 
-#include <frc2/command/SubsystemBase.h>
-#include <frc/smartdashboard/SmartDashboard.h>
-#include "../Util.h"
-#include "../Constants.h"
+#include "../ArmSubsystemBase.h"
+#include <frc/Victor.h>
 
-class LiftSubsystemBase : public frc2::SubsystemBase {
+
+class ArmSubsystemRobot2020 : public ArmSubsystemBase {
  public:
-  LiftSubsystemBase();
+  ArmSubsystemRobot2020();
+
+  virtual void Init();
+  virtual void LiftMotor(double speed);
+  virtual void DisableInit();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic();
-  void Lift(double armSpeed);
-  void Raise(bool bump);
-  void Lower(bool bump);
-  void StopMotor() {LiftMotor(0.0);}
-  void LimitedLift(double speed);
-  virtual bool UpperLimitHit() {return false;}
-  virtual bool LowerLimitHit() {return false;}
-  virtual void LiftMotor(double speed) {}
 
  private:
- protected:
- const double LIFTSPEED = 1.0;
+ #ifndef NOHW
+  frc::Victor m_armMotor{PWM_ARMMOTOR_ROBOT2020};
+  
+ #endif
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

@@ -5,35 +5,9 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "subsystems/SLAL/LiftSubsystemSLAL.h"
-#include <frc/smartdashboard/SmartDashboard.h>
+#include "subsystems/Robot2020/DistanceSensorSubsystemRobot2020.h"
 
-LiftSubsystemSLAL::LiftSubsystemSLAL() {}
+DistanceSensorSubsystemRobot2020::DistanceSensorSubsystemRobot2020() {}
 
 // This method will be called once per scheduler run
-
-void LiftSubsystemSLAL::LiftMotor(double speed)
-{
-    #ifndef NOHW
-    m_liftMotorOne.Set(speed);
-    m_liftMotorTwo.Set(-speed);
-    #endif 
-}
-
-bool LiftSubsystemSLAL::UpperLimitHit()
-{
-   #ifndef NOHW
-   return m_topSwitch.Get();
-   #else
-   return false;
-   #endif
-}
-
-bool LiftSubsystemSLAL::LowerLimitHit()
-{
-   #ifndef NOHW
-   return m_bottomSwitch.Get();
-   #else
-   return false;
-   #endif
-}
+void DistanceSensorSubsystemRobot2020::Periodic() {}

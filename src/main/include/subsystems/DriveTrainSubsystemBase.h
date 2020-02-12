@@ -10,6 +10,8 @@
 #include <frc2/command/SubsystemBase.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/Spark.h>
+#include <math.h>
+#include <frc/Timer.h>
 #include "../Util.h"
 #include "../Constants.h"
 
@@ -25,10 +27,11 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   void MoveArcade(double X, double Y);
   void Stop();
   void Forward(double speed);
-  void ForwardInInch(double speed, double inch);
+  void ForwardInInch(double inch, double angle, double speed);
   void LogEncoder();
-  void PID(double targetSpeed);
-  virtual double GyroGetAngle() {return -1.0;}
+  bool MoveAlignPID(double targetDistance, double heading, double speed = 1.0);
+  void SetCollision(bool colliding = true) {m_isColliding = colliding;}
+  virtual double GyroGetAngle() {return m_gyroAngle;}
   virtual void GyroInit() {}
   virtual void Init();
   virtual void SetMotorL(double speed) {}
@@ -41,18 +44,28 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual void ForwardInSeconds(double goalTime);
   virtual void TurnInDegrees(double relativeAngle);
 
- const double PULSE_PER_REVOLUTION = 256.0;
+ const double PULSE_PER_REVOLUTION = 360;
  protected:
+  bool m_isColliding = false;
+
+  frc::Timer m_autoTimer;
+
   int m_leftEncoderSim = 0;
   int m_rightEncoderSim = 0;
+  double m_gyroAngle = 0.0;
 
-  double m_preErrorL = 0.0;
-  double m_sumErrorL = 0.0;
-  double m_preErrorR = 0.0;
-  double m_sumErrorR = 0.0;
-  double m_kP = 1.0;
-  double m_kD = 0.01;
-  double m_kI = 0.02;
+  const double LOOPTIME = 0.020;
+  double m_deadZone = 24.0;
+  double m_preLin = 0.0;
+  double m_slowAngle = 45.0;
+
+  double m_preError = 0.0;
+  double m_sumError = 0.0;
+  double m_kP = .0311;
+  double m_kD = 0.004;
+  double m_kI = 0.00;
+
+  double m_kP_rot;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

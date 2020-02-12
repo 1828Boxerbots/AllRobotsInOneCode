@@ -7,7 +7,8 @@
 
 #include "../include/RobotContainer/RobotContainerRocky.h"
 #include <frc2/command/button/JoystickButton.h>
-#
+#include <frc/SmartDashboard/SmartDashboard.h>
+#include "../include/Drivers/DPDTSwitchDriver.h"
 
 RobotContainerRocky::RobotContainerRocky()
  {
@@ -44,23 +45,38 @@ void RobotContainerRocky::ConfigureButtonBindings()
 
 int RobotContainerRocky::ReadDioSwitch()
 {
-  return 1;
+   //Object hooked up to double pole double throw switch driver {Channel A, Channel B}
+  DPDTSwitchDriver dpdtSwitch{2,3};
+  return 2;
+  //return dpdtSwitch.Get();
+
 }
+
 frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
-  // An example command will be run in autonomous
+  //DIO variable meant to switch the autonomous scenario
   int dioAutoSwitcher = 1;
   dioAutoSwitcher = ReadDioSwitch();
+  frc::SmartDashboard::PutBoolean("Case 1", false);
+  frc::SmartDashboard::PutBoolean("Case 2", false);
+  frc::SmartDashboard::PutBoolean("Case 3", false);
+  frc::SmartDashboard::PutBoolean("Case Default", false);
   switch(dioAutoSwitcher)
   {
     case 1:
+    frc::SmartDashboard::PutBoolean("Case 1", true);
       return &m_autoInFrontTargetZone;
-      return &m_follower;
       break;
+
     case 2:
+      frc::SmartDashboard::PutBoolean("Case 2", true);
       return &m_autoBetweenTargetZoneLoadingZone;
-      break;
     case 3:
+      frc::SmartDashboard::PutBoolean("Case 3", true);
       return &m_autoInFrontLoadingZone;
+      break;
+    default:
+      frc::SmartDashboard::PutBoolean("Case Default", true);
+      //return &m_autoInFrontTargetZone;
       break;
   }
   return nullptr;

@@ -16,14 +16,14 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
  public:
   DriveTrainSubsystemRocky();
 
-  virtual void SetMotorL(double speed);
-  virtual void SetMotorR(double speed); 
-  virtual double GyroGetAngle();
-  virtual void GyroInit();
-  virtual void Init();
-  virtual double GetLeftEncoderInch();
-  virtual double GetRightEncoderInch();
-  virtual void ResetEncoder();
+  void SetMotorL(double speed) override;
+  void SetMotorR(double speed) override; 
+  double GyroGetAngle() override;
+  void GyroInit() override;
+  void Init() override;
+  double GetLeftEncoderInch() override;
+  double GetRightEncoderInch() override;
+  void ResetEncoder() override;
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -33,8 +33,8 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
  #ifndef NOHW
   frc::Spark m_leftMotor{PWM_LEFTMOTOR_ROCKY};
   frc::Spark m_rightMotor{PWM_RIGHTMOTOR_ROCKY};
-  frc::Encoder m_leftEncoder{DIO_ENCODERLEFT_ROCKY_ONE, DIO_ENCODERLEFT_ROCKY_TWO};
-  frc::Encoder m_rightEncoder{DIO_ENCODERRIGHT_ROCKY_ONE, DIO_ENCODERRIGHT_ROCKY_TWO};
+  frc::Encoder m_leftEncoder{DIO_LEFTENCODER_ROCKY_ONE, DIO_LEFTENCODER_ROCKY_TWO};
+  frc::Encoder m_rightEncoder{DIO_RIGHTENCODER_ROCKY_ONE, DIO_RIGHTENCODER_ROCKY_TWO};
   frc::ADXRS450_Gyro m_gyro;
   #endif
   const double WHEELDIAMETER = 8.0;

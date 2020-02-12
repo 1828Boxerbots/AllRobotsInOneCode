@@ -7,13 +7,13 @@
 
 #pragma once
 
-#include "../LiftSubsystemBase.h"
+#include "../ArmSubsystemBase.h"
 #include <frc/Talon.h>
 #include <frc/DigitalInput.h>
 
-class LiftSubsystemSLAL : public LiftSubsystemBase {
+class ArmSubsystemSLAL : public ArmSubsystemBase {
  public:
-  LiftSubsystemSLAL();
+  ArmSubsystemSLAL();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -22,6 +22,8 @@ class LiftSubsystemSLAL : public LiftSubsystemBase {
   //void SwitchCheck(bool bumperL, bool bumperR);
   virtual bool UpperLimitHit();
   virtual bool LowerLimitHit();
+  void Init() override {}
+  void DisableInit() override {}
 
  private:
  #ifndef NOHW

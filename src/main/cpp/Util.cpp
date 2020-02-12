@@ -56,3 +56,30 @@ bool Util::CompareDouble(double value, double requiredValue, double tolerance)
     //Another way to write this is
     //return (value > requiredValue - tolerance) && (value < requiredValue + tolerance);
 }
+
+double Util::AbsMax(double input, double maxValue) 
+{
+    // Just in case the max is negative
+    maxValue = std::abs(maxValue);
+
+    if (input > 0)
+    {
+        return std::min(input, maxValue);
+    }
+    else
+    {
+        return std::max(input, -maxValue);
+    }
+}
+	
+double Util::AbsMin(double input, double minValue) 
+{
+
+    // Just in case the max is negative
+    minValue = std::abs(minValue);
+
+    if (input > 0)
+        return std::max(input, minValue);
+    else
+        return std::min(input, -minValue);
+}
