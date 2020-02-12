@@ -18,7 +18,6 @@
 #include "subsystems/DriveTrainSubsystemBase.h"
 #include "subsystems/LoaderSubsystemBase.h"
 #include "subsystems/ShooterSubsystemBase.h"
-#include "subsystems/DistanceSensorSubsystemBase.h"
 #include "subsystems/CameraSubsystemBase.h"
 #include "subsystems/ArmSubsystemBase.h"
 #include "subsystems/SpinSubsystemBase.h"
@@ -61,7 +60,6 @@ class RobotContainerBase {
     frc::XboxController m_controller2{USB_CONTROLLER_TWO};
     CameraSubsystemBase* m_pCamera = nullptr;
 
-    DistanceSensorSubsystemBase *m_pDistance = nullptr;
     //DriveTrain subsystem commands
     DriveTrainSubsystemBase *m_pDrive = nullptr;
     frc2::RunCommand m_pDriveMoveTank       {[this] { if(m_pDrive != nullptr) m_pDrive->MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand)); }, {m_pDrive}};
@@ -115,36 +113,12 @@ class RobotContainerBase {
 
 
 
-  frc2::SequentialCommandGroup m_autoTestOne = frc2::SequentialCommandGroup
-  {
-    frc2::InstantCommand{[this]
-    { if(m_pDrive != nullptr && m_pDistance != nullptr) 
-      {
-        double travelDistance = 60.0;
-        double tolerance = 2.0;
-        double currentDistance = m_pDistance->GetDistanceInInch();
-        while(currentDistance < travelDistance-tolerance || currentDistance > travelDistance+tolerance)
-        {
-          if(currentDistance > travelDistance)
-          {
-            m_pDrive->Forward(1.0);
-          }
-          else
-          {
-            m_pDrive->Forward(-1.0);
-          }
-          currentDistance = m_pDistance->GetDistanceInInch();
-        }
-        m_pDrive->Stop();
-      }
-    }, {m_pDrive, m_pDistance}}
-  };
 
   frc2::SequentialCommandGroup m_autoInFrontTargetZone = frc2::SequentialCommandGroup
   {
     frc2::InstantCommand{[this] {m_pDrive->Init();}, {m_pDrive}},
     //frc2::InstantCommand{[this] {m_pLidar->}}
-    frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(0.75, 12);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
     frc2::InstantCommand{[this] {m_pDrive->TurnInDegrees(180);}, {m_pDrive}},
     frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(24, 180.0, 0.75);}, {m_pDrive}},
     frc2::InstantCommand{[this] {m_pDrive->Stop();}, {m_pDrive}}
@@ -153,7 +127,7 @@ class RobotContainerBase {
   frc2::SequentialCommandGroup m_autoBetweenTargetZoneLoadingZone = frc2::SequentialCommandGroup
   {
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Init();}, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(600, 0.0, 0.75);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90.0);}, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(24, -90.0, 0.75);}, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
