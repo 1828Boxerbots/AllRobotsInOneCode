@@ -46,14 +46,13 @@ int RobotContainerRocky::ReadDioSwitch()
 {
    //Object hooked up to double pole double throw switch driver {Channel A, Channel B}
   DPDTSwitchDriver dpdtSwitch{2,3};
-  return 2;
-  //return dpdtSwitch.Get();
+  return dpdtSwitch.Get();
 
 }
 
 frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
   //DIO variable meant to switch the autonomous scenario
-  int dioAutoSwitcher = 1;
+  int dioAutoSwitcher;
   dioAutoSwitcher = ReadDioSwitch();
   frc::SmartDashboard::PutBoolean("Case 1", false);
   frc::SmartDashboard::PutBoolean("Case 2", false);

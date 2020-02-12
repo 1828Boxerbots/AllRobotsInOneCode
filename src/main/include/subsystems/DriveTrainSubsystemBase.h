@@ -22,7 +22,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-  void Periodic();
+  virtual void Periodic();
   void MoveTank(double leftY, double rightY);
   void MoveArcade(double X, double Y);
   void Stop();
@@ -43,6 +43,9 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual void ResetEncoder() {}
   virtual void ForwardInSeconds(double goalTime);
   virtual void TurnInDegrees(double relativeAngle);
+  
+  //Temp Function meant to test turning function
+  virtual void ForwardIninchTurn(double inch, double angle, double speed);
 
  const double PULSE_PER_REVOLUTION = 360;
  protected:

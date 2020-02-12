@@ -93,3 +93,12 @@ void DriveTrainSubsystemRocky::ResetEncoder()
   m_leftEncoderSim = 0.0;
   LogEncoder();
 }
+void DriveTrainSubsystemRocky::GetHallEffect()
+{
+  frc::SmartDashboard::PutBoolean("Detecting Magnet?", m_hallEffect.Get());
+}
+
+void DriveTrainSubsystemRock::Periodic()
+{
+  GetHallEffect();  
+}

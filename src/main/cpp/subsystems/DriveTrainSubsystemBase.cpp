@@ -160,7 +160,6 @@ bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading
 
 void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double speed)
 {
-    /*
     MoveTank(speed, speed);
     double currentDistance = GetLeftEncoderInch();
     while(currentDistance < inch)
@@ -173,10 +172,11 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
         ResetEncoder();
     }
     Stop();
-    */
-
+}
+void DriveTrainSubsystemBase::ForwardIninchTurn(double inch, double angle, double speed)
+{
     //Creates and Starts Timer
-    frc::Timer timer;
+   frc::Timer timer;
     timer.Reset();
     timer.Start();
 
@@ -197,7 +197,6 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
     Stop();
 }
 
-
 void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
 {
     frc::SmartDashboard::PutBoolean("In Place", true);
@@ -207,19 +206,19 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
     double motorSpeed = 0.75;
     if(relativeAngle > 0)
     {
-        SetMotorL(motorSpeed);
-        SetMotorR(-motorSpeed);
-        while (currentAngle-startAngle > relativeAngle)
+        TurnLeft(.5);
+        while (currentAngle-startAngle < relativeAngle)
         {
+            frc::SmartDashboard::PutNumber("Current Angle", currentAngle);
             currentAngle = GyroGetAngle();
         }
     }
-    else if(relativeAngle < 0)
+    else //if(relativeAngle < 0)
     {
-        SetMotorL(-motorSpeed);
-        SetMotorR(motorSpeed);
-        while (currentAngle-startAngle < relativeAngle)
+        TurnRight(.5);
+        while(currentAngle-startAngle > relativeAngle)
         {
+            frc::SmartDashboard::PutNumber("Current Angle", currentAngle);
             currentAngle = GyroGetAngle();
         }
     }
