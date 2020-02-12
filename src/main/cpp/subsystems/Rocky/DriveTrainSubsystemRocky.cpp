@@ -45,6 +45,7 @@ double DriveTrainSubsystemRocky::GetLeftEncoderInch()
   m_leftEncoderSim++;
   #ifndef NOHW
   m_leftEncoderSim = m_leftEncoder.GetDistance();
+  frc::SmartDashboard::PutNumber("LeftEncoder Distance", m_leftEncoderSim);
   frc::SmartDashboard::PutNumber("LeftEncoder Raw", m_leftEncoder.Get());
   frc::SmartDashboard::PutBoolean("LeftEncoder Direction", m_leftEncoder.GetDirection());
   frc::SmartDashboard::PutBoolean("LeftEncoder Running", m_leftEncoder.GetStopped());
@@ -58,6 +59,7 @@ double DriveTrainSubsystemRocky::GetRightEncoderInch()
   m_rightEncoderSim++;
   #ifndef NOHW
   m_rightEncoderSim = m_rightEncoder.GetDistance();
+  frc::SmartDashboard::PutNumber("RightEncoder Distance", m_rightEncoderSim);
   frc::SmartDashboard::PutNumber("RightEncoder Raw", m_rightEncoder.Get());
   frc::SmartDashboard::PutBoolean("RightEncoder Direction", m_rightEncoder.GetDirection());
   frc::SmartDashboard::PutBoolean("RightEncoder Running", m_rightEncoder.GetStopped());
@@ -98,7 +100,22 @@ void DriveTrainSubsystemRocky::GetHallEffect()
   frc::SmartDashboard::PutBoolean("Detecting Magnet?", m_hallEffect.Get());
 }
 
-void DriveTrainSubsystemRock::Periodic()
+void DriveTrainSubsystemRocky::Periodic()
 {
   GetHallEffect();  
 }
+/*double DriveTrainSubsystemRocky::DistanceDetection()
+{
+  double startDistance = lidar.GetDistanceInInches();
+  double currentDistance = lidar.GetDistanceInInches();
+  if(currentDistance-startDistance < detectionDistance)
+  {
+    while(currentDistance-startDistance < distance)
+    {
+      currentDistance = lidar.GetDistanceInInches();
+    }
+    break;
+  }
+return Stop();
+}
+*/
