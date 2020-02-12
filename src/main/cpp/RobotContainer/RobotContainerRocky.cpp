@@ -16,6 +16,7 @@ RobotContainerRocky::RobotContainerRocky()
   m_pTurret = new TurretSubsystemRocky;
   m_pLoader = new LoaderSubsystemRocky;
   m_pShooter = new ShooterSubsystemRocky;
+  //m_pLidar = new DistanceSensorSubsystemBase();
   // Configure the button bindings
   ConfigureButtonBindings();
   m_pShooter->Init();
