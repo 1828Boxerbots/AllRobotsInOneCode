@@ -22,7 +22,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-  void Periodic();
+  virtual void Periodic();
   void MoveTank(double leftY, double rightY);
   void MoveArcade(double X, double Y);
   void Stop();
@@ -41,8 +41,9 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual double GetLeftEncoderInch() {return -1.0;}
   virtual double GetRightEncoderInch() {return -1.0;}
   virtual void ResetEncoder() {}
-  virtual void ForwardInSeconds(double goalTime);
+  //virtual void ForwardInSeconds(double goalTime);
   virtual void TurnInDegrees(double relativeAngle);
+  //virtual double DistanceDetection(double detectionDistance) {return 0;}
 
  const double PULSE_PER_REVOLUTION = 360;
  protected:
