@@ -11,6 +11,7 @@
 #include <frc/DigitalInput.h>
 #include <frc/AnalogInput.h>
 #include "../DriveTrainSubsystemBase.h"
+#include <frc/I2C.h>
 
 class DriveTrainSubsystemDesertView : public DriveTrainSubsystemBase {
  public:
@@ -25,6 +26,7 @@ class DriveTrainSubsystemDesertView : public DriveTrainSubsystemBase {
   void GetHallEffectSwitch();
   void GetHallEffectLatch();
   void GetHallEffectOmnipolar();
+  void MultiplexerSelect(int position);
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -39,6 +41,7 @@ class DriveTrainSubsystemDesertView : public DriveTrainSubsystemBase {
   frc::DigitalInput m_hallEffectOmnipolar {DIO_HALLEFFECT_OMNIPOLAR_DESERTVIEW};
   frc::AnalogInput m_analogHallEffect {ANG_ANALOG_HALLEFFECT_DESERTVIEW};
   frc::AnalogInput m_analogPhotoDiode {ANG_ANALOG_PHOTODIODE_DESERTVIEW};
+  frc::I2C m_multiplexer {I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_MULTIPLEXER_ROBOT2020};
   #endif
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
