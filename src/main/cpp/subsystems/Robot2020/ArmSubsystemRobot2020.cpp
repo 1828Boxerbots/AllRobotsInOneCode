@@ -41,57 +41,26 @@ void ArmSubsystemRobot2020::Lower(double speed)
 
 void ArmSubsystemRobot2020::ArmPosition(int pos)
 {
+    //Switch Statement to check what position we want to go to
     switch (pos)
     {
-    case UPPER_POS:
-        Raise();
-        while(m_hallEffectUpper.Get() != true)
-        {
-        }
-        StopMotor();
-        break;
     case LOWER_POS:
-        Lower();
-        while(m_hallEffectLower.Get() != true)
+    //Checks if either the HallEffect or encoder is true and moves the arm up until it is
+        while(m_hallEffectLower.Get() != true || m_armEncoder.Get() != m_lowValue)
         {
+            LiftArmDown();
         }
-        StopMotor();
         break;
-    case MIDDLE_POS:
-        /*
-        while(m_hallEffectMiddle.Get() != true)
+    case UPPER_POS:
+    //Checks if either the HallEffect or encoder is true and moves the arm down until it is
+        while(m_hallEffectUpper.Get() != true || m_armEncoder.Get() != m_highValue)
         {
-            if(m_hallEffectUpper.Get() == true)
-            {
-                Lower();
-                if(m_hallEffectLower.Get() == true)
-                {
-                    Raise();
-                }
-            }
-            else if(m_hallEffectUpper.Get() != false)
-            {
-                Raise();
-            }
-
+            LiftArmUp();
         }
-        */
-       Raise();
-       while(m_hallEffectMiddle.Get() != true)
-        {
-            if ( m_hallEffectUpper.Get() == true)
-            {
-                Lower();
-            }
-            if (m_hallEffectLower.Get() == true)
-            {
-                Raise();
-            }
-        }
-        StopMotor();
         break;
-       
     default:
+        //If position is not 0 or 1 the arm motor will stop
+        StopMotor();
         break;
     }
 }

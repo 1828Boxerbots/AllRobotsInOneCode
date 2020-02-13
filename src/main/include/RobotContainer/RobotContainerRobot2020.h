@@ -26,6 +26,8 @@ class RobotContainerRobot2020 : public RobotContainerBase {
 
   void Init() override;
   virtual void DisableInit() {}
+  void SetButtonA() override;
+  void SetButtonB() override;
 
   frc2::Command* GetAutonomousCommand();
 

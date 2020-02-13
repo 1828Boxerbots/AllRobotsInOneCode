@@ -9,6 +9,7 @@
 
 #include "../ArmSubsystemBase.h"
 #include <frc/Victor.h>
+#include <frc/Encoder.h>
 #include "../../Drivers/HallEffectOmnipolarDriver.h"
 #include "../../Drivers/AM3313HallEffectDriver.h"
 
@@ -34,8 +35,11 @@ class ArmSubsystemRobot2020 : public ArmSubsystemBase {
   frc::Victor m_armMotor{PWM_ARMMOTOR_ROBOT2020};
   HallEffectOmnipolarDriver m_hallEffectLower{1};
   HallEffectOmnipolarDriver m_hallEffectUpper{2};
-  AM3313HallEffectDriver m_hallEffectMiddle{3};
+  frc::Encoder m_armEncoder{1,0};
  #endif
+  double m_lowValue = 0.0;
+  double m_highValue = 150.0;
+
 enum Robot2020Positions
 {
   UPPER_POS

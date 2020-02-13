@@ -30,8 +30,8 @@ class ArmSubsystemBase : public frc2::SubsystemBase {
   virtual void DisableInit() = 0;
 
   void Lift(double armSpeed);
-  virtual void Raise(double speed) {}
-  virtual void Lower(double speed) {}
+  virtual void Raise(double speed = 1.0) {}
+  virtual void Lower(double speed = 1.0) {}
   void StopMotor() {LiftMotor(0.0);}
   virtual void LimitedLift(double speed) {}
   virtual bool UpperLimitHit() {return false;}

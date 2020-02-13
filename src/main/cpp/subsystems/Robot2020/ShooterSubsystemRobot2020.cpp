@@ -19,3 +19,22 @@ void ShooterSubsystemRobot2020::SetShootMotor(double speed)
     m_shooterMotor.Set(speed);
     #endif
 }
+
+void ShooterSubsystemRobot2020::Init()
+{
+    #ifndef NOHW
+    m_shooterEncoder.Reset();
+    #endif
+}
+
+void ShooterSubsystemRobot2020::DisableInit()
+{
+
+}
+
+double ShooterSubsystemRobot2020::GetEncoderSpeed()
+{
+    #ifndef NOHW
+    m_shooterEncoder.GetRate();
+    #endif
+}
