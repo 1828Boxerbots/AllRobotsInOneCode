@@ -16,7 +16,8 @@ class ArmSubsystemBase : public frc2::SubsystemBase {
  public:	
   ArmSubsystemBase();	
 
-//From LipALoop
+  virtual void ArmPosition(int pos) {}
+
   virtual void LiftArmUp() {}
   virtual void LiftArmDown() {}
   virtual void ResetToZero() {}	
@@ -28,10 +29,9 @@ class ArmSubsystemBase : public frc2::SubsystemBase {
   virtual void Init() = 0;
   virtual void DisableInit() = 0;
 
-//From SLAL
   void Lift(double armSpeed);
-  virtual void Raise(bool bump) {}
-  virtual void Lower(bool bump) {}
+  virtual void Raise(double speed) {}
+  virtual void Lower(double speed) {}
   void StopMotor() {LiftMotor(0.0);}
   virtual void LimitedLift(double speed) {}
   virtual bool UpperLimitHit() {return false;}

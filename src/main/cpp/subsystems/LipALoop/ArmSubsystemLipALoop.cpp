@@ -86,3 +86,19 @@ double ArmSubsystemLipALoop::GetMinLimit()
 {	
     return ARM_MIN;	
 }	
+
+void ArmSubsystemLipALoop::ArmPosition(int pos)
+{
+    switch (pos)
+    {
+    case 0:
+        m_armServo.Set(ARM_MAX);
+        break;
+    case 1:
+        m_armServo.Set(ARM_MIN);
+        break;
+    default:
+        m_armServo.Set(ARM_MAX);
+        break;
+    }
+}

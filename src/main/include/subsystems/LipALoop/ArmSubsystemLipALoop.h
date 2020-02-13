@@ -28,6 +28,8 @@ class ArmSubsystemLipALoop : public ArmSubsystemBase {
   virtual void LiftArmDown();
   virtual void MoveArmStop();
 
+  virtual void ArmPosition(int pos);
+
   private:
   //object
 
