@@ -14,12 +14,12 @@ void ArmSubsystemRobot2020::Periodic() {}
 
 void ArmSubsystemRobot2020::Init()
 {
-
+    ArmPosition(LOWER_POS);
 }
 
 void ArmSubsystemRobot2020::DisableInit()
 {
-    
+    ArmPosition(LOWER_POS);
 }
 
 void ArmSubsystemRobot2020::LiftMotor(double speed)

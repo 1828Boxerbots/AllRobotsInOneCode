@@ -108,5 +108,5 @@ void DriveTrainSubsystemDesertView::MultiplexerSelect(int position)
     m_multiplexer.Read(0x01, 2, arr);
     uint16_t val = (arr[1] << 8) | arr[0];
     frc::SmartDashboard::PutNumber("Mux Value", val);
-    frc::SmartDashboard::PutBoolean("Valid MUX", m_multiplexer.Read(0x01, 2, arr))
+    frc::SmartDashboard::PutBoolean("Valid MUX", m_multiplexer.Read(0x01, 2, arr));
 }
