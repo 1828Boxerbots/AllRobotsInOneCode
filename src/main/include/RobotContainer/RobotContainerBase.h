@@ -12,6 +12,8 @@
 #include <frc2/command/RunCommand.h>
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/SequentialCommandGroup.h>
+#include <frc2/command/WaitUntilCommand.h>
+#include <frc2/command/WaitCommand.h>
 #include <frc/DriverStation.h>
 
 #include "Constants.h"
@@ -154,12 +156,22 @@ class RobotContainerBase {
   
   frc2::SequentialCommandGroup m_autoBetweenTargetZoneLoadingZone = frc2::SequentialCommandGroup
   {
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Init();}, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90.0);}, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(24, -90.0, 0.75);}, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Stop();}, {m_pDrive}}
+    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->GyroInit();}, {m_pDrive}},
+    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->Init();}, {m_pDrive}},
+    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
+    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(12, 0.0, 0.5);}, {m_pDrive}},
+    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90.0);}, {m_pDrive}},
+    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(24, -90.0, 0.75);}, {m_pDrive}},
+    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
+    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->Shoot(.75);}, {m_pShooter}},
+    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->WaitShooter(3);}, {m_pShooter}}, 
+    //frc2::WaitUntilCommand{{return m_pShooter->AutoShooterRunTime();},
+    frc2::InstantCommand{  [this] {if(m_pLoader != nullptr)  m_pLoader->SetLoadMotor(.5);}, {m_pLoader}},
+    frc2::InstantCommand{  [this] {if(m_pLoader != nullptr)  m_pLoader->WaitLoader(3);}, {m_pLoader}},
+    //frc2::WaitUntilCommand{{return m_pLoader->AutoLoaderRunTime();},
+    frc2::InstantCommand{  [this] {if(m_pLoader != nullptr)  m_pLoader->SetLoadMotor(0.0);}, {m_pLoader}},
+    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->Shoot(0.0);}, {m_pShooter}},
+    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->Stop();}, {m_pDrive}}
   };
   frc2::SequentialCommandGroup m_autoInFrontLoadingZone = frc2::SequentialCommandGroup
   {

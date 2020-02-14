@@ -15,7 +15,8 @@ class LoaderSubsystemRocky : public LoaderSubsystemBase {
   LoaderSubsystemRocky();
 
   virtual void SetLoadMotor(double speed);
-
+  bool AutoLoaderRunTime() override;
+  void WaitLoader(double waitTime) override;
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
