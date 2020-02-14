@@ -16,13 +16,14 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <cameraserver/CameraServer.h>
 #include "Constants.h"
+#include "subsystems/DriveTrainSubsystemBase.h"
 
 
 using namespace cv;
 
 class CameraSubsystemBase : public frc2::SubsystemBase {
  public:
-  CameraSubsystemBase();
+  CameraSubsystemBase(DriveTrainSubsystemBase *pDrive);
 
   void Init();
   int WhereToTurn();
@@ -43,6 +44,7 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   virtual int GetMaxResolutionX() { return 640;}
   virtual int GetMaxResolutionY() { return 480;}
   virtual void SetColor();
+  void AutoCameraTurn();
 
   protected:
 
@@ -86,5 +88,6 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   void InitSendImage();
   
   double m_printX;
+  DriveTrainSubsystemBase *m_pDriveObject = nullptr;
   
 };

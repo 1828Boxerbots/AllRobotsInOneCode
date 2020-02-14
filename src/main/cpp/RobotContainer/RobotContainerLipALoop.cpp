@@ -11,7 +11,7 @@
 RobotContainerLipALoop::RobotContainerLipALoop()
  {
   m_pDrive = new DriveTrainSubsystemLipALoop;
-  m_pCamera = new CameraSubsystemBase;
+  //m_pCamera = new CameraSubsystemBase;
   m_pArm = new ArmSubsystemLipALoop;
   m_pWrist = new WristSubsystemLipALoop;
   m_pHand = new HandSubsystemLipALoop;

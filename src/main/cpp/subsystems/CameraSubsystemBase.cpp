@@ -7,8 +7,9 @@
 
 #include "subsystems/CameraSubsystemBase.h"
 #include "Constants.h"
+#include "subsystems/DriveTrainSubsystemBase.h"
 
-CameraSubsystemBase::CameraSubsystemBase() {}
+CameraSubsystemBase::CameraSubsystemBase(DriveTrainSubsystemBase *pDrive) {m_pDriveObject = pDrive;}
 
 void CameraSubsystemBase::InterlizeCamera(int port)
 {
@@ -140,5 +141,15 @@ void CameraSubsystemBase::CameraPeriodic()
     m_frameNumber++;
     frc::SmartDashboard::PutNumber("Camera Frame Number", m_frameNumber);
     Tick();
+}
+void CameraSubsystemBase::AutoCameraTurn()
+{
+    int dir = WhereToTurn();
+    while (dir != 0)
+    {
+        if (dir == +1) m_pDriveObject->TurnRight();
+        if (dir == -1) m_pDriveObject->TurnLeft();
+        dir = WhereToTurn();
+    }
 }
 
