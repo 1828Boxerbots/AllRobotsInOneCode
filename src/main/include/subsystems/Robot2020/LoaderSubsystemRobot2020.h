@@ -15,12 +15,13 @@ class LoaderSubsystemRobot2020 : public LoaderSubsystemBase {
  public:
   LoaderSubsystemRobot2020();
 
-  virtual void SetLoadMotor(double speed);
-  virtual void PhotogateStop(double speed);
+  enum LoaderMotors
+  {
+    INVALID_MOTOR = -1, MOTOR_TOP, MOTOR_MIDDLE, MOTOR_BOTTOM
+  };
 
-  /**
-   * Will be called periodically whenever the CommandScheduler runs.
-   */
+  void SetLoadMotor(double speed = 1.0, int motorNumber = INVALID_MOTOR) override;
+  void PhotogateStop(double speed = 1.0) override;
 
  private:
   #ifndef NOHW
