@@ -160,7 +160,6 @@ bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading
 
 void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double speed)
 {
-    /*
     MoveTank(speed, speed);
     double currentDistance = GetLeftEncoderInch();
     while(currentDistance < inch)
@@ -173,8 +172,8 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
         ResetEncoder();
     }
     Stop();
-    */
-
+    
+/*
     //Creates and Starts Timer
     frc::Timer timer;
     timer.Reset();
@@ -195,25 +194,28 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
     //Stops Timer and Motors
     timer.Stop();
     Stop();
+    */
 }
 
 
 void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
 {
+    frc::SmartDashboard::PutNumber("Current Angle", relativeAngle);
+    frc::SmartDashboard::PutBoolean("Gyro Working", true);
     double startAngle = GyroGetAngle();
     double currentAngle = GyroGetAngle();
-    if(relativeAngle < 0)
+    if(relativeAngle > 0)
     {
         TurnRight();
-        while (currentAngle-startAngle > relativeAngle)
+        while (currentAngle-startAngle < relativeAngle)
         {
             currentAngle = GyroGetAngle();
         }
     }
-    if(relativeAngle > 0)
+    if(relativeAngle < 0)
     {
         TurnLeft();
-        while (currentAngle-startAngle < relativeAngle)
+        while (currentAngle-startAngle > relativeAngle)
         {
             currentAngle = GyroGetAngle();
         }
