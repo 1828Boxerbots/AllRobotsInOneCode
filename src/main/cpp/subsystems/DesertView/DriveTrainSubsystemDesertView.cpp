@@ -20,6 +20,7 @@ void DriveTrainSubsystemDesertView::SetMotorL(double speed)
   GetHallEffectSwitch();
   GetHallEffectLatch();
   GetHallEffectOmnipolar();
+  MultiplexerSelect(5);
   #endif
 }
 
@@ -98,4 +99,14 @@ void DriveTrainSubsystemDesertView::Init()
   m_leftMotor.SetInverted(false);
   m_rightMotor.SetInverted(true);
   #endif
+}
+
+void DriveTrainSubsystemDesertView::MultiplexerSelect(int position)
+{
+    uint8_t arr[2];  
+    m_multiplexer.Write(1 << position, 0x00);
+    m_multiplexer.Read(0x01, 2, arr);
+    uint16_t val = (arr[1] << 8) | arr[0];
+    frc::SmartDashboard::PutNumber("Mux Value", val);
+    frc::SmartDashboard::PutBoolean("Valid MUX", m_multiplexer.Read(0x01, 2, arr));
 }

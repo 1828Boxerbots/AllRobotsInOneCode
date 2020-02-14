@@ -20,7 +20,6 @@
 #include "subsystems/DriveTrainSubsystemBase.h"
 #include "subsystems/LoaderSubsystemBase.h"
 #include "subsystems/ShooterSubsystemBase.h"
-#include "subsystems/DistanceSensorSubsystemBase.h"
 #include "subsystems/CameraSubsystemBase.h"
 #include "subsystems/ArmSubsystemBase.h"
 #include "subsystems/SpinSubsystemBase.h"
@@ -64,7 +63,6 @@ class RobotContainerBase {
     frc::XboxController m_controller2{USB_CONTROLLER_TWO};
     CameraSubsystemBase* m_pCamera = nullptr;
 
-    DistanceSensorSubsystemBase *m_pDistance = nullptr;
     //DriveTrain subsystem commands
     DriveTrainSubsystemBase *m_pDrive = nullptr;
     frc2::RunCommand m_pDriveMoveTank       {[this] { if(m_pDrive != nullptr) m_pDrive->MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand)); }, {m_pDrive}};
@@ -91,9 +89,18 @@ class RobotContainerBase {
 
     //Arm Control
     ArmSubsystemBase *m_pArm = nullptr;
-    frc2::RunCommand m_armUp                {[this] { if(m_pArm != nullptr) m_pArm->LiftArmUp();}, {m_pArm}};
-    frc2::RunCommand m_armDown              {[this] { if(m_pArm != nullptr) m_pArm->LiftArmDown();}, {m_pArm}};
-    frc2::RunCommand m_armStop              {[this] { if(m_pArm != nullptr) m_pArm->MoveArmStop();}, {m_pArm}};
+    //LipALoop
+    frc2::RunCommand m_armUp_Servo          {[this] { if(m_pArm != nullptr) m_pArm->LiftArmUp();}, {m_pArm}};
+    frc2::RunCommand m_armDown_Servo        {[this] { if(m_pArm != nullptr) m_pArm->LiftArmDown();}, {m_pArm}};
+    frc2::RunCommand m_armStop_Servo        {[this] { if(m_pArm != nullptr) m_pArm->MoveArmStop();}, {m_pArm}};
+    //SLAL
+    frc2::RunCommand m_armLift_Motor        {[this] {if(m_pArm != nullptr) m_pArm->Raise();}, {m_pArm}};
+    frc2::RunCommand m_armLower_Motor       {[this] {if(m_pArm != nullptr) m_pArm->Lower();}, {m_pArm}};
+    frc2::RunCommand m_armStop_Motor        {[this] {if(m_pArm != nullptr) m_pArm->Raise(0.0);}, {m_pArm}};
+    //Robot2020
+    frc2::RunCommand m_armPosition0         {[this] {if(m_pArm != nullptr) m_pArm->ArmPosition(0);}, {m_pArm}};
+    frc2::RunCommand m_armPosition1         {[this] {if(m_pArm != nullptr) m_pArm->ArmPosition(1);}, {m_pArm}};
+      //frc2::Runcommand m_armPosition_Stop     {[this] {if(m_pArm != nullptr) m_pArm->ArmPosition(3);}, {m_pArm}};
 
     //Wrist Control
     WristSubsystemLipALoop *m_pWrist = nullptr;
@@ -114,30 +121,6 @@ class RobotContainerBase {
 
 
 
-  frc2::SequentialCommandGroup m_autoTestOne = frc2::SequentialCommandGroup
-  {
-    frc2::InstantCommand{[this]
-    { if(m_pDrive != nullptr && m_pDistance != nullptr) 
-      {
-        double travelDistance = 60.0;
-        double tolerance = 2.0;
-        double currentDistance = m_pDistance->GetDistanceInInch();
-        while(currentDistance < travelDistance-tolerance || currentDistance > travelDistance+tolerance)
-        {
-          if(currentDistance > travelDistance)
-          {
-            m_pDrive->Forward(1.0);
-          }
-          else
-          {
-            m_pDrive->Forward(-1.0);
-          }
-          currentDistance = m_pDistance->GetDistanceInInch();
-        }
-        m_pDrive->Stop();
-      }
-    }, {m_pDrive, m_pDistance}}
-  };
 
   frc2::SequentialCommandGroup m_autoInFrontTargetZone = frc2::SequentialCommandGroup
   {

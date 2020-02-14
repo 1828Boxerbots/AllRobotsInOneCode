@@ -19,6 +19,15 @@ void ArmSubsystemLipALoop::Init()
     frc::SmartDashboard::PutNumber("Arm Servo", m_armAngle);	
 }	
 
+void ArmSubsystemLipALoop::DisableInit()
+{
+    ResetToZero();	
+    #ifndef NOHW	
+    m_armAngle = m_armServo.Get();	
+    #endif	
+    frc::SmartDashboard::PutNumber("Arm Servo", m_armAngle);
+}
+
 void ArmSubsystemLipALoop::LiftMotor(double angle)	
 {	
     m_armAngle = angle;	
@@ -27,6 +36,20 @@ void ArmSubsystemLipALoop::LiftMotor(double angle)
     #endif	
     frc::SmartDashboard::PutNumber("Arm Servo", m_armAngle);	
 }	
+
+void ArmSubsystemLipALoop::LiftArmUp()
+{
+    m_armAngle += GetOneDegree() * GetScale();	
+    m_armAngle = Util::Limit(m_armAngle, GetMinLimit(), GetMaxLimit());	
+    LiftMotor(m_armAngle);	
+}
+
+void ArmSubsystemLipALoop::LiftArmDown()
+{
+    m_armAngle -= GetOneDegree() * GetScale();	
+    m_armAngle = Util::Limit(m_armAngle, GetMinLimit(), GetMaxLimit());	
+    LiftMotor(m_armAngle);	
+}
 
 void ArmSubsystemLipALoop::MoveArmStop()	
 {	
@@ -63,3 +86,19 @@ double ArmSubsystemLipALoop::GetMinLimit()
 {	
     return ARM_MIN;	
 }	
+
+void ArmSubsystemLipALoop::ArmPosition(int pos)
+{
+    switch (pos)
+    {
+    case 0:
+        m_armServo.Set(ARM_MAX);
+        break;
+    case 1:
+        m_armServo.Set(ARM_MIN);
+        break;
+    default:
+        m_armServo.Set(ARM_MAX);
+        break;
+    }
+}

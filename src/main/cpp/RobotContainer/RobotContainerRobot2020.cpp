@@ -26,12 +26,18 @@ RobotContainerRobot2020::RobotContainerRobot2020()
 
 void RobotContainerRobot2020::ConfigureButtonBindings()
 {
-  //Robot2020
+//Robot2020
+  //Shooter
   SetLeftBumper();
   SetRightBumper();
 
+  //Loader
   SetButtonX();
   SetButtonY();
+
+  //Control Panel Arm
+  SetButtonA();
+  SetButtonB();
 
 }
 
@@ -44,4 +50,16 @@ void RobotContainerRobot2020::Init()
 {
   if(m_pSpin != nullptr) m_pSpin->InterpretFMS(ReadFMS());
   m_pDrive->Init();
+}
+
+void RobotContainerRobot2020::SetButtonA()
+{
+    frc2::Button buttonA{[this] {return m_controller.GetAButton();}};
+    buttonA.WhileHeld(&m_armPosition0);
+}
+
+void RobotContainerRobot2020::SetButtonB()
+{
+    frc2::Button buttonB{[this] {return m_controller.GetBButton();}};
+    buttonB.WhileHeld(&m_armPosition1);
 }

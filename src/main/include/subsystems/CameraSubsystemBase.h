@@ -73,7 +73,7 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   cv::Moments m_moment;
   cv::Point m_center;
 
-  #ifdef SEND_VIDEO
+ 
   int m_sendSizeWidth = 480;
   int m_sendSizeHeight = 640;
   int m_sendRectWidth = m_sendSizeWidth/2;
@@ -81,7 +81,7 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   cv::Mat m_sendFrame;
   cs::CvSink m_cvSink;
   cs::CvSource m_outputStream;
-  #endif
+
   void SendImage();
   void InitSendImage();
   
