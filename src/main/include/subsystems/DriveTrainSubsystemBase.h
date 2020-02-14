@@ -45,7 +45,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual void TurnInDegrees(double relativeAngle);
   
   //Temp Function meant to test turning function
-  virtual void ForwardIninchTurn(double inch, double angle, double speed);
+  virtual void ForwardIninchTurn(double inch, double angle, double speed) {}
 
  const double PULSE_PER_REVOLUTION = 360;
  protected:

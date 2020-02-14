@@ -11,7 +11,6 @@ ArmSubsystemRobot2020::ArmSubsystemRobot2020() {}
 
 // This method will be called once per scheduler run
 void ArmSubsystemRobot2020::Periodic() {}
-<<<<<<< HEAD
 
 void ArmSubsystemRobot2020::Init()
 {
@@ -87,5 +86,3 @@ void ArmSubsystemRobot2020::SetPosition(int pos)
         break;
     }
 }
-=======
->>>>>>> c7c9617f0c5954d55d533c1af7ed69617e1556af

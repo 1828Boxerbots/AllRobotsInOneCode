@@ -32,8 +32,8 @@ class ArmSubsystemSLAL : public ArmSubsystemBase {
 
  private:
  #ifndef NOHW
-  frc::Talon m_armMotorOne{PWM_ARM_SLAL_ONE};
-  frc::Talon m_armMotorTwo{PWM_ARM_SLAL_TWO};
+  frc::Talon m_liftMotorOne{PWM_ARM_SLAL_ONE};
+  frc::Talon m_liftMotorTwo{PWM_ARM_SLAL_TWO};
   frc::DigitalInput m_topSwitch{DIO_TOPSWITCH_SLAL};
   frc::DigitalInput m_bottomSwitch{DIO_BOTTOMSWITCH_SLAL};
   #endif
