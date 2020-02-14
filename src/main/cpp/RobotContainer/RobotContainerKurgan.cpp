@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "../include/RobotContainer/RobotContainerKurgan.h"
-#include <frc2/command/button/JoystickButton.h>
+#include <frc2/command/button/Button.h>
 
 RobotContainerKurgan::RobotContainerKurgan()
  {
@@ -28,9 +28,10 @@ void RobotContainerKurgan::ConfigureButtonBindings()
   SetRightBumper();
 }
 
-frc2::Command* RobotContainerKurgan::GetAutonomousCommand() {
+frc2::Command* RobotContainerKurgan::GetAutonomousCommand() 
+{
   // An example command will be run in autonomous
-  return 0;
+  return nullptr;
 }
 
 void RobotContainerKurgan::SetButtonA()
@@ -45,4 +46,14 @@ void RobotContainerKurgan::SetButtonB()
   frc2::Button buttonB{[this] {return m_controller.GetBButton();}};
   buttonB.WhenHeld(&m_loaderLoad);
   buttonB.WhenReleased(&m_loaderStop);
+}
+
+void RobotContainerKurgan::Init()
+{
+
+}
+
+void RobotContainerKurgan::DisableInit()
+{
+
 }

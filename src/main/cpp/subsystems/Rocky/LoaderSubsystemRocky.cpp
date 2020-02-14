@@ -20,3 +20,11 @@ void LoaderSubsystemRocky::SetLoadMotor(double speed)
     m_loaderMotor.Set(speed);
     #endif
 }
+bool LoaderSubsystemRocky::AutoLoaderRunTime()
+{
+    bool loaderComplete = false;
+    double loaderTime = 2;
+    Util::DelayInSeconds(loaderTime);
+    return loaderComplete = true;
+}
+

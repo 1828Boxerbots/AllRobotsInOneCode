@@ -16,6 +16,7 @@ class ShooterSubsystemRocky : public ShooterSubsystemBase {
 
   virtual void SetShootMotor(double speed);
   virtual double GetSetPoint();
+  bool AutoShooterRunTime() override;
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.

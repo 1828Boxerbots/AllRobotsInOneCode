@@ -39,6 +39,10 @@ void DriveTrainSubsystemRocky::GyroInit()
   m_gyro.Reset();
   m_gyro.Calibrate();
 }
+void DriveTrainSubsystemRocky::GyroReset()
+{
+  m_gyro.Reset();
+}
 
 double DriveTrainSubsystemRocky::GetLeftEncoderInch()
 {
@@ -75,6 +79,7 @@ void DriveTrainSubsystemRocky::Init()
   m_rightEncoder.Reset();
   m_leftEncoder.SetReverseDirection(true);
   m_rightEncoder.SetReverseDirection(true);
+  GyroReset();
   //m_leftEncoder.SetDistancePerPulse((WHEELDIAMETER*Util::PI)/PULSE_PER_REVOLUTION);
   //m_rightEncoder.SetDistancePerPulse((WHEELDIAMETER*Util::PI)/PULSE_PER_REVOLUTION);
   m_leftEncoder.SetDistancePerPulse( 1.0 / PULSE_PER_REVOLUTION * 2.0 * Util::PI * (WHEELDIAMETER/2));

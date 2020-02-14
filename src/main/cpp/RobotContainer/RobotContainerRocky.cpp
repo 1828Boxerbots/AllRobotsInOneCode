@@ -28,8 +28,10 @@ void RobotContainerRocky::ConfigureButtonBindings()
 
   // Configure your button bindings here
 
-  SetButtonA();
-  SetButtonB();
+  //SetButtonA();
+  //SetButtonB();
+   frc2::Button buttonA{[this] {return m_controller.GetAButton();}};
+    buttonA.WhenPressed(m_DriveInit);
 
   //SetLeftBumper();
   SetRightBumper();
