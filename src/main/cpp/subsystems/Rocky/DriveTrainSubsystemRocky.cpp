@@ -98,7 +98,7 @@ void DriveTrainSubsystemRocky::GetHallEffect()
   frc::SmartDashboard::PutBoolean("Detecting Magnet?", m_hallEffect.Get());
 }
 
-void DriveTrainSubsystemRock::Periodic()
+void DriveTrainSubsystemRocky::Periodic()
 {
   GetHallEffect();  
 }
