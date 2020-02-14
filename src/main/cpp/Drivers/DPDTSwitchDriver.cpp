@@ -23,7 +23,7 @@ int DPDTSwitchDriver::Get()
     {
         return 1;
     }
-    else if (m_pChannelA->Get() && m_pChannelB->Get())
+    else if (!(m_pChannelA->Get()) && !(m_pChannelB->Get()))
     {
         return 2;
     }
@@ -35,10 +35,5 @@ int DPDTSwitchDriver::Get()
     {
         frc::DriverStation::ReportError("Autonomous Switch unresponsive");
         return -1;
-    }
-    else
-    {
-      frc::DriverStation::ReportError("Autonomous Switch unresponsive");  
-      return -2;
     }
 }
