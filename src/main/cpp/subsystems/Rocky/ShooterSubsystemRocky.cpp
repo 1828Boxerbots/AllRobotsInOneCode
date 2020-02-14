@@ -28,3 +28,14 @@ double ShooterSubsystemRocky::GetSetPoint()
     return 0.0;
     #endif
 }
+bool ShooterSubsystemRocky::AutoShooterRunTime()
+{
+     bool shooterComplete = false;
+    double shooterTime = 2;
+    Util::DelayInSeconds(shooterTime);
+    return shooterComplete = true;
+}
+void ShooterSubsystemRocky::WaitShooter(double waitTime)
+{
+     Util::DelayInSeconds(waitTime);
+}
