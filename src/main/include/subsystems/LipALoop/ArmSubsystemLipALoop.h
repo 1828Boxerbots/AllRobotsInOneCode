@@ -16,14 +16,21 @@ class ArmSubsystemLipALoop : public ArmSubsystemBase {
  public:
   ArmSubsystemLipALoop();
 
-  virtual void ResetToZero();	
-  virtual double GetOneDegree();	
-  virtual double GetScale();	
-  virtual double GetMinLimit();	
-  virtual double GetMaxLimit();	
-  virtual void Init();	
-  virtual void LiftMotor(double angle);	
-  virtual void MoveArmStop();
+  void ResetToZero() override;	
+  double GetOneDegree() override;	
+  double GetScale() override;	
+  double GetMinLimit() override;	
+  double GetMaxLimit() override;	
+  void Init() override;	
+  void DisableInit() override;
+  void SetMotor(double angle) override;	
+  double GetMotor() override;
+  void LiftArmUp() override;
+  void LiftArmDown() override;
+  void StopMotor() override;
+
+  void SetPosition(int pos) override;
+  int GetPosition() override;
 
   private:
   //object

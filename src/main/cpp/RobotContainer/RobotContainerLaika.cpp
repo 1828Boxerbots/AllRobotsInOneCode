@@ -10,8 +10,7 @@
 
 RobotContainerLaika::RobotContainerLaika()
  {
-  m_pShooter = new ShooterSubsystemBase;
-  m_pArm = new ArmSubsystemBase;
+
   m_pDrive = new DriveTrainSubsystemLaika;
   // Configure the button bindings
   ConfigureButtonBindings();

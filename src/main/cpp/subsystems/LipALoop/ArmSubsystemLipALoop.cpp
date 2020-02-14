@@ -4,8 +4,8 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */	
 /* the project.                                                               */	
 /*----------------------------------------------------------------------------*/	
-#include "subsystems/LipALoop/ArmSubsystemLipALoop.h"
 
+#include "subsystems/LipALoop/ArmSubsystemLipALoop.h"
 
 ArmSubsystemLipALoop::ArmSubsystemLipALoop() {}
 
@@ -19,7 +19,16 @@ void ArmSubsystemLipALoop::Init()
     frc::SmartDashboard::PutNumber("Arm Servo", m_armAngle);	
 }	
 
-void ArmSubsystemLipALoop::LiftMotor(double angle)	
+void ArmSubsystemLipALoop::DisableInit()
+{
+    ResetToZero();	
+    #ifndef NOHW	
+    m_armAngle = m_armServo.Get();	
+    #endif	
+    frc::SmartDashboard::PutNumber("Arm Servo", m_armAngle);
+}
+
+void ArmSubsystemLipALoop::SetMotor(double angle)	
 {	
     m_armAngle = angle;	
     #ifndef NOHW	
@@ -28,9 +37,31 @@ void ArmSubsystemLipALoop::LiftMotor(double angle)
     frc::SmartDashboard::PutNumber("Arm Servo", m_armAngle);	
 }	
 
-void ArmSubsystemLipALoop::MoveArmStop()	
+double ArmSubsystemLipALoop::GetMotor()
+{
+    #ifndef NOHW
+    m_armAngle = m_armServo.Get();
+    #endif
+    return m_armAngle;
+}
+
+void ArmSubsystemLipALoop::LiftArmUp()
+{
+    m_armAngle += GetOneDegree() * GetScale();	
+    m_armAngle = Util::Limit(m_armAngle, GetMinLimit(), GetMaxLimit());	
+    SetMotor(m_armAngle);	
+}
+
+void ArmSubsystemLipALoop::LiftArmDown()
+{
+    m_armAngle -= GetOneDegree() * GetScale();	
+    m_armAngle = Util::Limit(m_armAngle, GetMinLimit(), GetMaxLimit());	
+    SetMotor(m_armAngle);	
+}
+
+void ArmSubsystemLipALoop::StopMotor()	
 {	
-    LiftMotor(m_armAngle);	
+    SetMotor(m_armAngle);	
 }	
 
 void ArmSubsystemLipALoop::ResetToZero()	
@@ -63,3 +94,33 @@ double ArmSubsystemLipALoop::GetMinLimit()
 {	
     return ARM_MIN;	
 }	
+
+int ArmSubsystemLipALoop::GetPosition()
+{
+    if(m_armServo.Get() == GetMaxLimit())
+    {
+        return HIGHEST_POS;
+    }
+    else if(m_armServo.Get() == GetMinLimit())
+    {
+        return LOWEST_POS;
+    }
+    
+    return INVALID_POS;
+}
+
+void ArmSubsystemLipALoop::SetPosition(int pos)
+{
+    switch (pos)
+    {
+    case LOWEST_POS:
+        m_armServo.Set(ARM_MIN);
+        break;
+    case HIGHEST_POS:
+        m_armServo.Set(ARM_MAX);
+        break;
+    default:
+        m_armServo.Set(ARM_MAX);
+        break;
+    }
+}

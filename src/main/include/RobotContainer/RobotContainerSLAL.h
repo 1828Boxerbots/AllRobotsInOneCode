@@ -8,7 +8,7 @@
 #pragma once
 
 #include "subsystems/SLAL/DriveTrainSubsystemSLAL.h"
-#include "subsystems/SLAL/LiftSubsystemSLAL.h"
+#include "subsystems/SLAL/ArmSubsystemSLAL.h"
 #include "RobotContainerBase.h"
 
 
@@ -27,16 +27,11 @@ class RobotContainerSLAL : public RobotContainerBase{
 
   virtual void Init() {}
   virtual void DisableInit() {}
+  void SetRightBumper() override;
+  void SetLeftBumper() override;
 
  private:
   // The robot's subsystems and commands are defined here...
-
-  //Controller
-  LiftSubsystemSLAL m_lift;
-
-  frc2::RunCommand m_armLift  {[this] {m_lift.Raise(true) ;}, {&m_lift}};
-  frc2::RunCommand m_armLower {[this] {m_lift.Lower(true) ;}, {&m_lift}};
-  frc2::RunCommand m_armStop  {[this] {m_lift.Raise(false);}, {&m_lift}};
 
   void ConfigureButtonBindings();
 };

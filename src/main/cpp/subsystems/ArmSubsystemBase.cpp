@@ -11,16 +11,15 @@ ArmSubsystemBase::ArmSubsystemBase() {}
 
 // This method will be called once per scheduler run	
 
-void ArmSubsystemBase::LiftArmUp()	
-{	
-    m_armAngle += GetOneDegree() * GetScale();	
-    m_armAngle = Util::Limit(m_armAngle, GetMinLimit(), GetMaxLimit());	
-    LiftMotor(m_armAngle);	
-}	
 
-void ArmSubsystemBase::LiftArmDown()	
-{	
-    m_armAngle -= GetOneDegree() * GetScale();	
-    m_armAngle = Util::Limit(m_armAngle, GetMinLimit(), GetMaxLimit());	
-    LiftMotor(m_armAngle);	
+
+//
+//LiftSubsystem
+//
+
+void ArmSubsystemBase::Lift(double armSpeed)
+{
+    armSpeed = Util::Limit(armSpeed);
+    frc::SmartDashboard::PutNumber("Lift Power", armSpeed);
+    SetMotor(armSpeed);
 }
