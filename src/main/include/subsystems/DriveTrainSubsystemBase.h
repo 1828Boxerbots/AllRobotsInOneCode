@@ -41,9 +41,11 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual double GetLeftEncoderInch() {return -1.0;}
   virtual double GetRightEncoderInch() {return -1.0;}
   virtual void ResetEncoder() {}
-  //virtual void ForwardInSeconds(double goalTime);
+  virtual void ForwardInSeconds(double goalTime);
   virtual void TurnInDegrees(double relativeAngle);
-  //virtual double DistanceDetection(double detectionDistance) {return 0;}
+  
+  //Temp Function meant to test turning function
+  virtual void ForwardIninchTurn(double inch, double angle, double speed);
 
  const double PULSE_PER_REVOLUTION = 360;
  protected:

@@ -16,8 +16,6 @@ void DriveTrainSubsystemBase::Periodic() {}
 void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
 { 
     GyroGetAngle();
-    GetLeftEncoderInch();
-    GetRightEncoderInch();
     leftY = Util::Limit(leftY, -.5, .5);
     rightY = Util::Limit(rightY, -.5, .5);
     if(leftY > 0.1 || leftY < -0.1)
@@ -167,15 +165,17 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
     while(currentDistance < inch)
     {
         currentDistance = GetLeftEncoderInch();
-        Util::DelayInSeconds(.1);
+        Util::DelayInSeconds(1.0);
     }
     if(currentDistance > inch)
     {
         ResetEncoder();
     }
     Stop();
-   /*
-     //Creates and Starts Timer
+}
+void DriveTrainSubsystemBase::ForwardIninchTurn(double inch, double angle, double speed)
+{
+    //Creates and Starts Timer
    frc::Timer timer;
     timer.Reset();
     timer.Start();
@@ -195,7 +195,6 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
     //Stops Timer and Motors
     timer.Stop();
     Stop();
-    */
 }
 
 void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
@@ -204,7 +203,7 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
     double startAngle = GyroGetAngle();
     double currentAngle = GyroGetAngle();
     frc::SmartDashboard::PutNumber("Relative Angle", relativeAngle);
-    //double motorSpeed = 0.75;
+    double motorSpeed = 0.75;
     if(relativeAngle > 0)
     {
         TurnLeft(.5);
@@ -227,17 +226,19 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
     Stop();
 }
 
+
 void DriveTrainSubsystemBase::Init()
 {
     GyroInit();
     Init();
 }
 
-//void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime)
-//{
-    //m_time.Reset();
-    //m_time.Start();
-    //Util::TimeInSeconds(goalTime);
-    //Stop();
-//}
+
+void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime)
+{
+    /*m_time.Reset();
+    m_time.Start();
+    Util::TimeInSeconds(goalTime);
+    Stop();*/
+}
 

@@ -7,24 +7,25 @@
 
 #pragma once
 
-#include "../ArmSubsystemBase.h"
-#include <frc/Victor.h>
+#include <frc2/command/SubsystemBase.h>
+#include <frc/I2C.h>
+#include "DriveTrainSubsystemBase.h"
 
-
-class ArmSubsystemRobot2020 : public ArmSubsystemBase {
+class DistanceSensorSubsystemBase : public frc2::SubsystemBase {
  public:
-  ArmSubsystemRobot2020();
+  DistanceSensorSubsystemBase();
+
+  virtual void Init() {}
+  virtual double GetDistanceInInch() {return -1.0;}
+  virtual double GetDistanceInCM() {return -1.0;}
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic();
 
- private:
- #ifndef NOHW
-  frc::Victor m_armMotor{PWM_ARMMOTOR_ROBOT2020};
-  
- #endif
+ protected:
+ double m_distance = 0.0;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

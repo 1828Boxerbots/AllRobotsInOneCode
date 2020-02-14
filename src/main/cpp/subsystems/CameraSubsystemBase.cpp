@@ -47,22 +47,20 @@ void CameraSubsystemBase::CenterMomment()
 
 void CameraSubsystemBase::InitSendImage()
 {
-    
+    #ifdef SEND_VIDEO
     // Get a CvSink. This will capture Mats from the Camera
-    //m_cvSink = frc::CameraServer::GetInstance()->GetVideo();
+    m_cvSink = frc::CameraServer::GetInstance()->GetVideo();
     
     // Setup a CvSource. This will send images back to the Dashboard
-    
-    m_outputStream = frc::CameraServer::GetInstance()->PutVideo("camera" , m_sendSizeHeight, m_sendSizeWidth);
-
+    m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Rectangle", m_sendSizeHeight, m_sendSizeWidth);
+    #endif
 }
 
 void CameraSubsystemBase::SendImage()
-
 {
-    /*
+    #ifdef SEND_VIDEO
 
-    if (m_cvSink.GrabFrame(m_sendFrame) == 0s) 
+    if (m_cvSink.GrabFrame(m_sendFrame) == 0) 
     {
         // Send the output the error.
         m_outputStream.NotifyError(m_cvSink.GetError());
@@ -75,17 +73,14 @@ void CameraSubsystemBase::SendImage()
         int thickness = 5;
         rectangle(m_sendFrame,
                 cv::Point(m_center.y - m_sendRectHeight/2, m_center.x - m_sendRectWidth/2),
-                cv::Point(m_center.y + m_sendRectHeight/2, m_center.x + m_sendRectWidth/2),RED, thickness);
+                cv::Point(m_center.y + m_sendRectHeight/2, m_center.x + m_sendRectWidth/2),
+                RED, thickness);
 
         // Give the output stream a new image to display
         m_outputStream.PutFrame(m_sendFrame);
     }
-    */
     
-
-    m_outputStream.PutFrame(m_frame);
-
-
+    #endif
 }
 
 int CameraSubsystemBase::WhereToTurn()

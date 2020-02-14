@@ -11,7 +11,6 @@
 RobotContainerSLAL::RobotContainerSLAL()
  {
   m_pDrive = new DriveTrainSubsystemSLAL;
-  m_pArm = new ArmSubsystemSLAL;
   // Configure the button bindings
   ConfigureButtonBindings();
   m_pDrive->Init();
@@ -20,22 +19,12 @@ RobotContainerSLAL::RobotContainerSLAL()
 
 void RobotContainerSLAL::ConfigureButtonBindings()
 {
-  SetLeftBumper();
-  SetRightBumper();
-}
-
-void RobotContainerSLAL::SetLeftBumper()
-{
-  frc2::Button bumperL{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
-  bumperL.WhenHeld(&m_armLower_Motor);
-  bumperL.WhenReleased(&m_armStop_Motor);
-}
-
-void RobotContainerSLAL::SetRightBumper()
-{
-  frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
-  bumperR.WhenHeld(&m_armLift_Motor);
-  bumperR.WhenReleased(&m_armStop_Motor); 
+    frc2::Button bumperL{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
+    bumperL.WhenHeld(&m_armLower);
+    bumperL.WhenReleased(&m_armStop);
+    frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
+    bumperR.WhenHeld(&m_armLift);
+    bumperR.WhenReleased(&m_armStop); 
 }
 
 frc2::Command* RobotContainerSLAL::GetAutonomousCommand() {

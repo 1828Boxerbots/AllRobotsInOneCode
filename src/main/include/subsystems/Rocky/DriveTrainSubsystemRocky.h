@@ -12,7 +12,6 @@
 #include "../DriveTrainSubsystemBase.h"
 #include <frc/ADXRS450_Gyro.h>
 #include "../../Drivers/AM3313HallEffectDriver.h"
-#include "../../Drivers/LidarDriver.h"
 
 class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
  public:
@@ -28,7 +27,6 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
   void ResetEncoder() override;
   void GetHallEffect();
   void Periodic() override;
-  //double DistanceDetection() override;
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -43,7 +41,6 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
   frc::ADXRS450_Gyro m_gyro;
 
   AM3313HallEffectDriver m_hallEffect{6};
-  //LidarDriver lidar;
   #endif
   const double WHEELDIAMETER = 8.0;
   double m_scaleRocky = 0.2;

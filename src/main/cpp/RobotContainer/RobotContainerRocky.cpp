@@ -16,7 +16,6 @@ RobotContainerRocky::RobotContainerRocky()
   m_pTurret = new TurretSubsystemRocky;
   m_pLoader = new LoaderSubsystemRocky;
   m_pShooter = new ShooterSubsystemRocky;
-  //m_pLidar = new DistanceSensorSubsystemBase();
   // Configure the button bindings
   ConfigureButtonBindings();
   m_pShooter->Init();
@@ -64,14 +63,18 @@ frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
     case 1:
     frc::SmartDashboard::PutBoolean("Case 1", true);
       return &m_autoInFrontTargetZone;
+      break;
+
     case 2:
       frc::SmartDashboard::PutBoolean("Case 2", true);
       return &m_autoBetweenTargetZoneLoadingZone;
     case 3:
       frc::SmartDashboard::PutBoolean("Case 3", true);
       return &m_autoInFrontLoadingZone;
+      break;
     default:
       frc::SmartDashboard::PutBoolean("Case Default", true);
+      //return &m_autoInFrontTargetZone;
       break;
   }
   return nullptr;

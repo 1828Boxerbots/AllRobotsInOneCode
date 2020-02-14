@@ -7,13 +7,11 @@
 
 #pragma once
 
-#include "../ArmSubsystemBase.h"
-#include <frc/Victor.h>
+#include "../DistanceSensorSubsystemBase.h"
 
-
-class ArmSubsystemRobot2020 : public ArmSubsystemBase {
+class DistanceSensorSubsystemRobot2020 : public DistanceSensorSubsystemBase {
  public:
-  ArmSubsystemRobot2020();
+  DistanceSensorSubsystemRobot2020();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -21,10 +19,6 @@ class ArmSubsystemRobot2020 : public ArmSubsystemBase {
   void Periodic();
 
  private:
- #ifndef NOHW
-  frc::Victor m_armMotor{PWM_ARMMOTOR_ROBOT2020};
-  
- #endif
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

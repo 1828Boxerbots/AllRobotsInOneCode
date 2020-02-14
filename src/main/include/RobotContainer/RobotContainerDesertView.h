@@ -8,6 +8,7 @@
 #pragma once
 
 #include "subsystems/DesertView/DriveTrainSubsystemDesertView.h"
+#include "subsystems/DesertView/LidarDistanceSubsystem.h"
 #include "RobotContainerBase.h"
 
 /**
@@ -30,6 +31,7 @@ class RobotContainerDesertView : public RobotContainerBase {
   // The robot's subsystems and commands are defined here...
 
   //Controller
+  LidarDistanceSubsystem m_lidar;
 
   void ConfigureButtonBindings();
 };

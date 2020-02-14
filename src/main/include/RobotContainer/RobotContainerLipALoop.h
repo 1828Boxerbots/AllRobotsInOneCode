@@ -28,10 +28,8 @@ class RobotContainerLipALoop : public RobotContainerBase
 
   frc2::Command* GetAutonomousCommand();
 
-  void Init() override;
-  void DisableInit() override;
-  void SetLeftBumper() override ; 
-  void SetRightBumper() override;
+  virtual void Init() {}
+  virtual void DisableInit() {}
 
  private:
   // The robot's subsystems and commands are defined here...

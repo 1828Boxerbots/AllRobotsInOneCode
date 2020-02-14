@@ -5,17 +5,35 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "../include/subsystems/Robot2020/ShooterSubsystemRobot2020.h"
+#include "subsystems/SLAL/LiftSubsystemSLAL.h"
 #include <frc/smartdashboard/SmartDashboard.h>
-#include "../include/Util.h"
 
-ShooterSubsystemRobot2020::ShooterSubsystemRobot2020() {}
+LiftSubsystemSLAL::LiftSubsystemSLAL() {}
 
 // This method will be called once per scheduler run
 
-void ShooterSubsystemRobot2020::SetShootMotor(double speed)
+void LiftSubsystemSLAL::LiftMotor(double speed)
 {
     #ifndef NOHW
-    m_shooterMotor.Set(speed);
-    #endif
+    m_liftMotorOne.Set(speed);
+    m_liftMotorTwo.Set(-speed);
+    #endif 
+}
+
+bool LiftSubsystemSLAL::UpperLimitHit()
+{
+   #ifndef NOHW
+   return m_topSwitch.Get();
+   #else
+   return false;
+   #endif
+}
+
+bool LiftSubsystemSLAL::LowerLimitHit()
+{
+   #ifndef NOHW
+   return m_bottomSwitch.Get();
+   #else
+   return false;
+   #endif
 }

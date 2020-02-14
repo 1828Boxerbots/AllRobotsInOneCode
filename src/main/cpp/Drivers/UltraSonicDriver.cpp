@@ -5,19 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Drivers/UltrasonicDriver.h"
+#include "Drivers/UltraSonicDriver.h"
 
-UltrasonicDriver::UltrasonicDriver(int port) 
+UltraSonicDriver::UltraSonicDriver(int port) 
 {
     m_pDevice = new frc::AnalogInput(port);
 }
 
-double UltrasonicDriver::GetDistanceInCM()
+double UltraSonicDriver::GetDistanceInCM()
 {
     return m_pDevice->GetVoltage() * m_calibration;
 }
 
-double UltrasonicDriver::GetDistanceInInch()
+double UltraSonicDriver::GetDistanceInInch()
 {
     return GetDistanceInCM() * CMtoIN;
 }

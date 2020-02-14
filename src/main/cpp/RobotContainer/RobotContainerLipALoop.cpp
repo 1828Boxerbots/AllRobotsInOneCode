@@ -26,8 +26,12 @@ void RobotContainerLipALoop::ConfigureButtonBindings()
 {
   
     //Arm Controlls
-    SetRightBumper();
-    SetLeftBumper();
+    frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
+    bumperR.WhenHeld(&m_armDown);
+    bumperR.WhenReleased(&m_armStop);
+    frc2::Button bumperL{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
+    bumperL.WhenHeld(&m_armUp);
+    bumperL.WhenReleased(&m_armStop);
 
     //Wrist Controlls
     frc2::Button buttonA{[this] {return m_controller.GetAButton();}};
@@ -49,30 +53,6 @@ void RobotContainerLipALoop::ConfigureButtonBindings()
     frc2::Button startButton{[this] {return m_controller.GetStartButton();}};
     startButton.WhenPressed(&m_follower);
     
-}
-
-void RobotContainerLipALoop::SetLeftBumper()
-{
-  frc2::Button bumperL{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
-  bumperL.WhenHeld(&m_armUp_Servo);
-  bumperL.WhenReleased(&m_armStop_Servo);
-}
-
-void RobotContainerLipALoop::SetRightBumper()
-{
-  frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
-  bumperR.WhenHeld(&m_armDown_Servo);
-  bumperR.WhenReleased(&m_armStop_Servo); 
-}
-
-void RobotContainerLipALoop::Init()
-{
-  
-}
-
-void RobotContainerLipALoop::DisableInit()
-{
-  
 }
 
 frc2::Command* RobotContainerLipALoop::GetAutonomousCommand() {

@@ -9,9 +9,9 @@
 
 #include <frc/AnalogInput.h>
 
-class UltrasonicDriver {
+class UltraSonicDriver {
  public:
-  UltrasonicDriver(int port);
+  UltraSonicDriver(int port);
 
   double GetDistanceInCM();
   double GetDistanceInInch();
