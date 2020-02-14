@@ -85,6 +85,7 @@ void CameraSubsystemBase::SendImage()
 
 int CameraSubsystemBase::WhereToTurn()
 {
+    frc::SmartDashboard::PutBoolean("ABC", true);
     SendImage();
 
     if ( m_center.x > GetLeftMin() && m_center.x <  GetLeftMax())
