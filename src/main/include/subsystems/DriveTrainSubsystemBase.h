@@ -33,8 +33,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   void SetCollision(bool colliding = true) {m_isColliding = colliding;}
   virtual double GyroGetAngle() {return m_gyroAngle;}
   virtual void GyroInit() {}
-  virtual void Init() {}
-  virtual void GyroReset() {}
+  virtual void Init();
   virtual void SetMotorL(double speed) {}
   virtual void SetMotorR(double speed) {}
   virtual void TurnLeft(double speed = 1.0);

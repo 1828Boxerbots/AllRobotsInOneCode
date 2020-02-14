@@ -23,7 +23,6 @@ class ShooterSubsystemBase : public frc2::SubsystemBase {
   virtual void DisableInit();
   virtual void SetShootMotor (double speed) {}
   virtual double GetSetPoint() {return 0.0;}
-  virtual bool AutoShooterRunTime() {return false;}
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.

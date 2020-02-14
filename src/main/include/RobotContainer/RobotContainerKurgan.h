@@ -25,11 +25,11 @@ class RobotContainerKurgan : public RobotContainerBase{
 
   frc2::Command* GetAutonomousCommand();
 
-  void SetButtonA() override;
-  void SetButtonB() override;
+  virtual void SetButtonA();
+  virtual void SetButtonB();
 
-  void Init() override;
-  void DisableInit() override;
+  virtual void Init() {}
+  virtual void DisableInit() {}
 
  private:
   // The robot's subsystems and commands are defined here...

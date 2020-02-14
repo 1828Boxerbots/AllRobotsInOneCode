@@ -20,7 +20,6 @@ class LoaderSubsystemBase : public frc2::SubsystemBase {
   void LoadXY(bool xButton, bool yButton);
   virtual void SetLoadMotor(double speed) {}
   virtual void PhotogateStop() {}
-  virtual bool AutoLoaderRunTime() {return false;}
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.

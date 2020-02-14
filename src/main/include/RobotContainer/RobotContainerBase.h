@@ -12,8 +12,6 @@
 #include <frc2/command/RunCommand.h>
 #include <frc2/command/InstantCommand.h>
 #include <frc2/command/SequentialCommandGroup.h>
-#include <frc2/command/WaitUntilCommand.h>
-#include <frc2/command/WaitCommand.h>
 #include <frc/DriverStation.h>
 
 #include "Constants.h"
@@ -44,7 +42,6 @@ class RobotContainerBase {
   virtual void SetRightTrigger();
   virtual void Init() = 0;
   virtual void DisableInit() = 0;
-
   std::string ReadFMS() {return frc::DriverStation::GetInstance().GetGameSpecificMessage();}
 
   enum DriveStyles
@@ -67,7 +64,6 @@ class RobotContainerBase {
     DriveTrainSubsystemBase *m_pDrive = nullptr;
     frc2::RunCommand m_pDriveMoveTank       {[this] { if(m_pDrive != nullptr) m_pDrive->MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand)); }, {m_pDrive}};
     frc2::RunCommand m_pDriveMoveArcade     {[this] { if(m_pDrive != nullptr) m_pDrive->MoveArcade(m_controller.GetX(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kLeftHand)); }, {m_pDrive}};
-    frc2::RunCommand m_DriveInit            {[this] { if(m_pDrive != nullptr) m_pDrive->Init(); }, {m_pDrive}};
 
     // Loader subsystem commands
     LoaderSubsystemBase *m_pLoader = nullptr;
@@ -124,34 +120,24 @@ class RobotContainerBase {
 
   frc2::SequentialCommandGroup m_autoInFrontTargetZone = frc2::SequentialCommandGroup
   {
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->GyroInit();}, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Init();}, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(24, 0.0, 0.5);}, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(180);}, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(24, 180.0, 0.75);}, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Stop();}, {m_pDrive}}
+    frc2::InstantCommand{[this] {m_pDrive->Init();}, {m_pDrive}},
+    frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(600, 0.0, 0.75);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {m_pDrive->TurnInDegrees(180);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {m_pDrive->ForwardInInch(24, 180.0, 0.75);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {m_pDrive->Stop();}, {m_pDrive}}
   };
   
   frc2::SequentialCommandGroup m_autoBetweenTargetZoneLoadingZone = frc2::SequentialCommandGroup
   {
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr) m_pDrive->GyroInit();}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr) m_pDrive->Init();}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(12, 0.0, 0.5);}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90.0);}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(24, -90.0, 0.75);}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->Shoot(.75);}, {m_pShooter}},
-    frc2::WaitUntilCommand{{return m_pShooter->AutoShooterRunTime();},
-    frc2::InstantCommand{  [this] {if(m_pLoader != nullptr) m_pLoader->SetLoadMotor(.5);}, {m_pLoader}},
-    frc2::WaitUntilCommand{{return m_pLoader->AutoLoaderRunTime();},
-    frc2::InstantCommand{  [this] {if(m_pLoader != nullptr) m_pLoader->SetLoadMotor(0.0);}, {m_pLoader}},
-    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->Shoot(0.0);}, {m_pShooter}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr) m_pDrive->Stop();}, {m_pDrive}}
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Init();}, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90.0);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(24, -90.0, 0.75);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Stop();}, {m_pDrive}}
   };
   frc2::SequentialCommandGroup m_autoInFrontLoadingZone = frc2::SequentialCommandGroup
   {
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->GyroInit();}, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Init();}, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
