@@ -30,6 +30,13 @@ class RobotContainerLipALoop : public RobotContainerBase
 
   virtual void Init() {}
   virtual void DisableInit() {}
+  void SetRightBumper() override;
+  void SetLeftBumper() override;
+  void SetButtonA() override;
+  void SetButtonB() override;
+  void SetButtonX() override;
+  void SetButtonY() override;
+  void SetStartButton() override;
 
  private:
   // The robot's subsystems and commands are defined here...

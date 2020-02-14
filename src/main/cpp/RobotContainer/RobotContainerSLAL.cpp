@@ -19,15 +19,25 @@ RobotContainerSLAL::RobotContainerSLAL()
 
 void RobotContainerSLAL::ConfigureButtonBindings()
 {
-    frc2::Button bumperL{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
-    bumperL.WhenHeld(&m_armLower);
-    bumperL.WhenReleased(&m_armStop);
-    frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
-    bumperR.WhenHeld(&m_armLift);
-    bumperR.WhenReleased(&m_armStop); 
+  SetRightBumper();
+  SetLeftBumper();
 }
 
 frc2::Command* RobotContainerSLAL::GetAutonomousCommand() {
   // An example command will be run in autonomous
   return 0;
+}
+
+void RobotContainerSLAL::SetRightBumper()
+{
+  frc2::Button bumperL{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
+  bumperL.WhenHeld(&m_armLift_Motor);
+  bumperL.WhenReleased(&m_armStop);
+}
+
+void RobotContainerSLAL::SetLeftBumper()
+{
+  frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
+  bumperR.WhenHeld(&m_armLower_Motor);
+  bumperR.WhenReleased(&m_armStop);
 }

@@ -203,7 +203,7 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
     double startAngle = GyroGetAngle();
     double currentAngle = GyroGetAngle();
     frc::SmartDashboard::PutNumber("Relative Angle", relativeAngle);
-    double motorSpeed = 0.75;
+    //double motorSpeed = 0.75;
     if(relativeAngle > 0)
     {
         TurnLeft(.5);
