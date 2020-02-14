@@ -44,7 +44,7 @@ void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
 
 void DriveTrainSubsystemBase::TurnRight(double speed)
 {
-    MoveTank(-speed, speed);
+    MoveTank(-speed*1.5, speed*1.5);
 }
 
 
@@ -160,6 +160,7 @@ bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading
 
 void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double speed)
 {
+    /*
     MoveTank(speed, speed);
     double currentDistance = GetLeftEncoderInch();
     while(currentDistance < inch)
@@ -172,11 +173,10 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
         ResetEncoder();
     }
     Stop();
-}
-void DriveTrainSubsystemBase::ForwardIninchTurn(double inch, double angle, double speed)
-{
+    */
+
     //Creates and Starts Timer
-   frc::Timer timer;
+    frc::Timer timer;
     timer.Reset();
     timer.Start();
 
@@ -197,33 +197,27 @@ void DriveTrainSubsystemBase::ForwardIninchTurn(double inch, double angle, doubl
     Stop();
 }
 
+
 void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
 {
-    frc::SmartDashboard::PutBoolean("In Place", true);
     double startAngle = GyroGetAngle();
     double currentAngle = GyroGetAngle();
-    frc::SmartDashboard::PutNumber("Relative Angle", relativeAngle);
-    //double motorSpeed = 0.75;
+    if(relativeAngle < 0)
+    {
+        TurnRight();
+        while (currentAngle-startAngle > relativeAngle)
+        {
+            currentAngle = GyroGetAngle();
+        }
+    }
     if(relativeAngle > 0)
     {
-        TurnLeft(.5);
+        TurnLeft();
         while (currentAngle-startAngle < relativeAngle)
         {
-            frc::SmartDashboard::PutNumber("Current Angle", currentAngle);
             currentAngle = GyroGetAngle();
         }
     }
-    else //if(relativeAngle < 0)
-    {
-        TurnRight(.5);
-        while(currentAngle-startAngle > relativeAngle)
-        {
-            frc::SmartDashboard::PutNumber("Current Angle", currentAngle);
-            currentAngle = GyroGetAngle();
-        }
-    }
-    frc::SmartDashboard::PutBoolean("In Place", false);
-    Stop();
 }
 
 
