@@ -36,4 +36,6 @@ int DPDTSwitchDriver::Get()
         frc::DriverStation::ReportError("Autonomous Switch unresponsive");
         return -1;
     }
+
+    return -1;
 }
