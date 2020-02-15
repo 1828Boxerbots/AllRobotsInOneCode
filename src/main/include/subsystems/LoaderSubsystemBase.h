@@ -22,6 +22,7 @@ class LoaderSubsystemBase : public frc2::SubsystemBase {
   virtual void PhotogateStop(double speed = 1.0) {}
   virtual bool AutoLoaderRunTime() {return false;}
   virtual void WaitLoader(double waitTime) {}
+  virtual void Init() {}
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.

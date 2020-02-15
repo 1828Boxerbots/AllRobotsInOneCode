@@ -25,29 +25,18 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   RobotContainerRobot2020();
 
   void Init() override;
-  virtual void DisableInit() {}
+  void DisableInit() override;
+
+  void SetButtonA() override;
+  void SetButtonB() override;
+  void SetButtonX() override;
+  void SetButtonY() override;
 
   frc2::Command* GetAutonomousCommand();
 
  private:
   // The robot's subsystems and commands are defined here...
 
-  //Controller
-  /*
-  LoaderSubsystemRobot2020 m_loader;
-  ShooterSubsystemRobot2020 m_shooter;
-  SpinSubsystemRobot2020 m_spinner;
-  */
-
   void ConfigureButtonBindings();
 
-/*
-  frc2::RunCommand m_loaderEject{[this] {m_loader.LoadXY(m_controller.GetXButton(), m_controller.GetYButton());}, {&m_loader}};
-  frc2::RunCommand m_loaderLoad{[this] {m_loader.LoadXY(m_controller.GetXButton(), m_controller.GetYButton());}, {&m_loader}};
-  frc2::RunCommand m_loaderStop{[this] {m_loader.LoadXY(false, false);}, {&m_loader}};
-
-  frc2::RunCommand m_shooterSpin{[this] {m_shooter.ShootBump(false, true);}, {&m_shooter}};
-  frc2::RunCommand m_shooterEject{[this] {m_shooter.ShootBump(true, false);}, {&m_shooter}};
-  frc2::RunCommand m_shooterStop{[this] {m_shooter.ShootBump(false, false);}, {&m_shooter}};
-  */
 };

@@ -51,3 +51,12 @@ void LoaderSubsystemRobot2020::PhotogateStop(double speed)
     }
     SetLoadMotor(0.0);
 }
+
+void LoaderSubsystemRobot2020::Init()
+{
+    #ifndef NOHW
+    m_loaderMotorTop.SetInverted(false);
+    m_loaderMotorBottom.SetInverted(false);
+    m_loaderMotorMiddle.SetInverted(true);
+    #endif
+}

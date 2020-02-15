@@ -71,9 +71,19 @@ class RobotContainerBase {
 
     // Loader subsystem commands
     LoaderSubsystemBase *m_pLoader = nullptr;
+    //Every Other Robot
     frc2::RunCommand m_loaderEject          {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(-1.0);}, {m_pLoader}};
     frc2::RunCommand m_loaderLoad           {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(1.0);}, {m_pLoader}};
     frc2::RunCommand m_loaderStop           {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(0.0);}, {m_pLoader}};
+    //Robot2020
+    frc2::RunCommand m_loaderFeed           {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(1.0, 2);}, {m_pLoader}};
+    frc2::RunCommand m_loaderFeedStop       {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(0.0, 2);}, {m_pLoader}};
+    frc2::RunCommand m_loaderMiddle         {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(1.0, 1);}, {m_pLoader}};
+    frc2::RunCommand m_loaderMiddleStop     {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(0.0, 1);}, {m_pLoader}};
+    frc2::RunCommand m_loaderTop            {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(1.0, 0);}, {m_pLoader}};
+    frc2::RunCommand m_loaderTopStop        {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(0.0, 0);}, {m_pLoader}};
+    frc2::RunCommand m_loaderAllEject       {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0);}, {m_pLoader}};
+    frc2::RunCommand m_loaderAllStop        {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(0.0);}, {m_pLoader}};
 
     // Shooter subsystem commands
     ShooterSubsystemBase *m_pShooter = nullptr;
