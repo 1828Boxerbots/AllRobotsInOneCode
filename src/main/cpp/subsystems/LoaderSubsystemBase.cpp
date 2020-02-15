@@ -18,7 +18,7 @@ void LoaderSubsystemBase::LoadMotor(double loadSpeed)
 {
     loadSpeed = Util::Limit(loadSpeed);
     loadSpeed = loadSpeed * m_scale;
-    frc::SmartDashboard::PutNumber("Motor Speed", loadSpeed);
+    frc::SmartDashboard::PutNumber("Load Speed", loadSpeed);
     SetLoadMotor(loadSpeed);
 }
 

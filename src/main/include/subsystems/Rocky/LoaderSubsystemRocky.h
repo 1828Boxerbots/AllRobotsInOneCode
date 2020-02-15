@@ -14,7 +14,7 @@ class LoaderSubsystemRocky : public LoaderSubsystemBase {
  public:
   LoaderSubsystemRocky();
 
-  virtual void SetLoadMotor(double speed);
+  void SetLoadMotor(double speed = 1.0, int motorNumber = -1) override;
   bool AutoLoaderRunTime() override;
   void WaitLoader(double waitTime) override;
   /**

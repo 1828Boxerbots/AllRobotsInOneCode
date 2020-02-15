@@ -14,7 +14,7 @@ LoaderSubsystemRocky::LoaderSubsystemRocky() {}
 // This method will be called once per scheduler run
 
 
-void LoaderSubsystemRocky::SetLoadMotor(double speed)
+void LoaderSubsystemRocky::SetLoadMotor(double speed, int motorNumber)
 {
     #ifndef NOHW
     m_loaderMotor.Set(speed);

@@ -32,7 +32,7 @@ void RobotContainerRocky::ConfigureButtonBindings()
   SetButtonA();
   SetButtonB();
 
-  //SetLeftBumper();
+  SetLeftBumper();
   SetRightBumper();
 
   SetButtonX();

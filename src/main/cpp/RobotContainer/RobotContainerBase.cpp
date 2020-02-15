@@ -18,7 +18,7 @@ void RobotContainerBase::SetDrive(DriveStyles driveStyle)
             m_pDrive->SetDefaultCommand(frc2::RunCommand(
             [this] 
             {
-                m_pDrive->MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand));
+                m_pDrive->MoveTank(-m_controller.GetY(frc::GenericHID::kLeftHand), -m_controller.GetY(frc::GenericHID::kRightHand));
             }
             ,{m_pDrive}));
             break;
