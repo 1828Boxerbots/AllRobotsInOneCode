@@ -22,7 +22,7 @@
             "version": "2020.r1",
             "libName": "libadis16448imu",
             "headerClassifier": "headers",
-            "sharedLibrary": false,
+            "sharedLibrary": true,
             "skipInvalidPlatforms": true,
             "binaryPlatforms": [
                 "linuxathena"

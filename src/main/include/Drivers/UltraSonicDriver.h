@@ -9,9 +9,9 @@
 
 #include <frc/AnalogInput.h>
 
-class UltraSonicDriver {
+class UltrasonicDriver {
  public:
-  UltraSonicDriver(int port);
+  UltrasonicDriver(int port);
 
   double GetDistanceInCM();
   double GetDistanceInInch();
@@ -22,3 +22,5 @@ class UltraSonicDriver {
     const double CMtoIN = 0.393701;
     double m_calibration = 1.0;
 };
+
+// Renamed: 2/14/20

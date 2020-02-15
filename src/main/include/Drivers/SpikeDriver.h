@@ -5,19 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Drivers/UltrasonicDriver.h"
+#pragma once
 
-UltrasonicDriver::UltrasonicDriver(int port) 
-{
-    m_pDevice = new frc::AnalogInput(port);
-}
+#include <frc/Relay.h>
 
-double UltrasonicDriver::GetDistanceInCM()
-{
-    return m_pDevice->GetVoltage() * m_calibration;
-}
+class SpikeDriver {
+ public:
+  SpikeDriver();
+};
 
-double UltrasonicDriver::GetDistanceInInch()
-{
-    return GetDistanceInCM() * CMtoIN;
-}
+// 2/14/20

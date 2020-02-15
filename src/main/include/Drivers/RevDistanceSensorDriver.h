@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "rev/Rev2mDistanceSensor.h"
+
 class RevDistanceSensorDriver {
  public:
   RevDistanceSensorDriver();
