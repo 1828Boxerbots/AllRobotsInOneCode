@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Drivers/LidarDriver.h"
+#include "frc/smartdashboard/SmartDashboard.h"
 
 /*
  * Gives the device your passed in parameters. 
@@ -51,5 +52,19 @@ double LidarDriver::GetDistanceInInches()
 {
     return GetDistanceInCM()*CMtoIN;
 }
-
-
+/*double LidarDriver::LidarDetectionSoftware(double detectionDistance)
+{
+    double currentDetection = GetDistanceInInches();
+    double startDetection = GetDistanceInInches();
+    bool tooClose = false;
+    frc::SmartDashboard::PutBoolean("DistanceDetection", false);
+    while(currentDetection - startDetection < detectionDistance)
+    {
+        if(currentDetection - startDetection > detectionDistance)
+        {
+            frc::SmartDashboard::PutBoolean("DistanceDetection", true);
+            tooClose = true;
+        }
+    }
+}
+*/

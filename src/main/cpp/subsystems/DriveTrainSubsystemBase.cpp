@@ -29,10 +29,40 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
     frc::SmartDashboard::PutNumber("Drive Left", leftY);
     frc::SmartDashboard::PutNumber("Drive Right", rightY);
 
-    SetMotorL(leftY);
-    SetMotorR(rightY);
+    if (GetDetectionDistance() > 5.0 && m_hasAntiCollision == true )
+    {
+        if(leftY < -0.1 || rightY < -0.1)
+        {
+            SetMotorL(leftY);
+            SetMotorR(rightY);
+        }
+        else if (GetDetectionDistance() < m_collisionBuffer)
+        {
+            if(leftY < -0.1 || rightY < -0.1)
+            {
+                SetMotorL(leftY);
+                SetMotorR(rightY);
+            }
+            else
+            {
+                SetMotorL(0.0);
+                SetMotorR(0.0);
+            }
+                
+        }   
+        else
+        {
+            SetMotorL(leftY);
+            SetMotorR(rightY);
+        }
+    }
+    else
+    {
+        SetMotorL(leftY);
+        SetMotorR(rightY);
+    }
+    
 }
-
 
 void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
 {
@@ -44,7 +74,7 @@ void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
 
 void DriveTrainSubsystemBase::TurnRight(double speed)
 {
-    MoveTank(-speed*1.5, speed*1.5);
+    MoveTank(-speed, speed);
 }
 
 
@@ -160,12 +190,12 @@ bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading
 
 void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double speed)
 {
-    MoveTank(speed, speed);
     double currentDistance = GetLeftEncoderInch();
     while(currentDistance < inch)
     {
+        MoveTank(speed, speed);
         currentDistance = GetLeftEncoderInch();
-        Util::DelayInSeconds(1.0);
+        //Util::DelayInSeconds(1.0);
     }
     if(currentDistance > inch)
     {
@@ -201,12 +231,12 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
 void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
 {
     frc::SmartDashboard::PutNumber("Current Angle", relativeAngle);
-    frc::SmartDashboard::PutBoolean("Gyro Working", true);
+    frc::SmartDashboard::PutBoolean("In Place", true);
     double startAngle = GyroGetAngle();
     double currentAngle = GyroGetAngle();
     if(relativeAngle > 0)
     {
-        TurnRight();
+        TurnLeft(.75);
         while (currentAngle-startAngle < relativeAngle)
         {
             currentAngle = GyroGetAngle();
@@ -214,7 +244,7 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
     }
     if(relativeAngle < 0)
     {
-        TurnLeft();
+        TurnRight(.75);
         while (currentAngle-startAngle > relativeAngle)
         {
             currentAngle = GyroGetAngle();

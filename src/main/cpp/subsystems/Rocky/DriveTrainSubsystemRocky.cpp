@@ -102,3 +102,37 @@ void DriveTrainSubsystemRocky::Periodic()
 {
   GetHallEffect();  
 }
+double DriveTrainSubsystemRocky::GetDetectionDistance()
+{
+  double val = m_lidar.GetDistanceInInches();
+   frc::SmartDashboard::PutNumber("DriveTrain Lidar", val);
+  return val;
+}
+void DriveTrainSubsystemRocky::DetectionSoftware(double detectionDistance)
+{
+    frc::SmartDashboard::PutNumber("Lidar Distance", GetDetectionDistance());
+    double currentDetection = GetDetectionDistance();
+    frc::SmartDashboard::PutBoolean("DistanceDetection", false);
+        if(currentDetection < detectionDistance)
+        {
+            frc::SmartDashboard::PutBoolean("DistanceDetection", true);
+            //Stop();
+        }
+}
+void DriveTrainSubsystemRocky::PrecisionMovementLidar(double wantedDistance)
+{
+  const double DEAD_ZONE = 5.0;
+  double currentDistance = m_lidar.GetDistanceInInches();
+  while(wantedDistance <  currentDistance + DEAD_ZONE && wantedDistance > currentDistance - DEAD_ZONE)
+  {
+    if(currentDistance < wantedDistance)
+    {
+      MoveTank(-.5,-.5);
+    }
+    if(currentDistance > wantedDistance)
+    {
+      MoveTank(.5,.5);
+    }
+    currentDistance = m_lidar.GetDistanceInInches();
+  }
+}
