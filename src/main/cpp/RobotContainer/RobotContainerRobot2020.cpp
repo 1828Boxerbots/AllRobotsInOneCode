@@ -58,27 +58,29 @@ void RobotContainerRobot2020::DisableInit()
 void RobotContainerRobot2020::SetButtonA()
 {
   frc2::Button buttonA{[this] {return m_controller.GetAButton();}};
-  buttonA.WhileHeld(&m_loaderFeed);
+  buttonA.WhileHeld(&m_loaderFeed);  
   buttonA.WhenReleased(&m_loaderFeedStop);
 }
 
 void RobotContainerRobot2020::SetButtonB()
 {
   frc2::Button buttonB{[this] {return m_controller.GetBButton();}};
-  buttonB.WhenHeld(&m_loaderMiddle);
-  buttonB.WhenReleased(&m_loaderMiddleStop);
+  buttonB.WhenHeld(&m_loaderAllIntake);
+  buttonB.WhenReleased(&m_loaderAllStop);
 }
 
 void RobotContainerRobot2020::SetButtonX()
 {
   frc2::Button buttonX{[this] {return m_controller.GetXButton();}};
-  buttonX.WhenHeld(&m_loaderTop);
-  buttonX.WhenReleased(&m_loaderTopStop);
+  buttonX.WhenHeld(&m_loaderMiddle);
+  buttonX.WhenReleased(&m_loaderMiddleStop);
 }
 
 void RobotContainerRobot2020::SetButtonY()
 {
   frc2::Button buttonY{[this] {return m_controller.GetYButton();}};
-  buttonY.WhenHeld(&m_loaderAllEject);
-  buttonY.WhenReleased(&m_loaderAllStop);
+  buttonY.WhenHeld(&m_loaderTop);
+  buttonY.WhenReleased(&m_loaderTopStop);
 }
+
+
