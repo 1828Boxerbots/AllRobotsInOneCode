@@ -25,3 +25,5 @@ class HallEffectSwitchDriver {
  private:
   frc::DigitalInput *m_pDevice = nullptr;
 };
+
+// 2/14/20

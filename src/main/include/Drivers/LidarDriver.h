@@ -14,12 +14,6 @@ class LidarDriver {
   LidarDriver(frc::I2C::Port port, int address);
 
   /* 
-  *  Required init function: Writes the command bit to the Lidar.
-  *  This must be called or else you will not get any return from 
-  *  the sensor.
-  */ 
-
-  /* 
   *  Reads the raw distance from the Lidar.
   *  MUST BE CALLED AFTER INIT.
   */
@@ -61,3 +55,5 @@ class LidarDriver {
   // I2C Object
   frc::I2C *m_pDevice = nullptr;
 };
+
+// 2/14/10

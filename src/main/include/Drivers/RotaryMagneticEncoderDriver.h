@@ -5,19 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Drivers/UltrasonicDriver.h"
+#pragma once
 
-UltrasonicDriver::UltrasonicDriver(int port) 
-{
-    m_pDevice = new frc::AnalogInput(port);
-}
+// Might actually be analog, but not important yet.
+#include <frc/Encoder.h>
 
-double UltrasonicDriver::GetDistanceInCM()
-{
-    return m_pDevice->GetVoltage() * m_calibration;
-}
+class RotaryMagneticEncoderDriver {
+ public:
+  RotaryMagneticEncoderDriver();
+};
 
-double UltrasonicDriver::GetDistanceInInch()
-{
-    return GetDistanceInCM() * CMtoIN;
-}
+// 2/14/20
