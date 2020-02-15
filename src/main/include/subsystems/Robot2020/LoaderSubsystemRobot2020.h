@@ -22,6 +22,7 @@ class LoaderSubsystemRobot2020 : public LoaderSubsystemBase {
 
   void SetLoadMotor(double speed = 1.0, int motorNumber = INVALID_MOTOR) override;
   void PhotogateStop(double speed = 1.0) override;
+  void Init() override;
 
  private:
   #ifndef NOHW

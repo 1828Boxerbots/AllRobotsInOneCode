@@ -94,16 +94,16 @@ constexpr int PWM_WRISTSERVO_LIPALOOP = 1;
 constexpr int PWM_HANDSERVO_LIPALOOP  = 2;
 
 //2020 Robot
-constexpr int PWM_LEFTMOTOR_ROBOT2020       = 0;
-constexpr int PWM_RIGHTMOTOR_ROBOT2020      = 1;
-constexpr int PWM_SHOOTMOTOR_ROBOT2020      = 2;
-constexpr int PWM_LOADMOTORBOTTOM_ROBOT2020 = 3;
-constexpr int PWM_LOADMOTORMIDDLE_ROBOT2020 = 4;
-constexpr int PWM_LOADMOTORTOP_ROBOT2020    = 5;
-constexpr int PWM_ARMMOTOR_ROBOT2020        = 6;
-constexpr int PWM_SPINNERMOTOR_ROBOT2020    = 7;
-constexpr int PWM_HOOKMOTOR_ROBOT2020       = 8;
-constexpr int DIO_PHOTOGATE_ROBOT2020       = 9;
+constexpr int PWM_LEFTMOTOR_ROBOT2020       = 1;
+constexpr int PWM_RIGHTMOTOR_ROBOT2020      = 0;
+constexpr int PWM_SHOOTMOTOR_ROBOT2020      = 3;
+constexpr int PWM_LOADMOTORBOTTOM_ROBOT2020 = 4;
+constexpr int PWM_LOADMOTORMIDDLE_ROBOT2020 = 5;
+constexpr int PWM_LOADMOTORTOP_ROBOT2020    = 6;
+constexpr int PWM_ARMMOTOR_ROBOT2020        = 7;
+constexpr int PWM_SPINNERMOTOR_ROBOT2020    = 8;
+constexpr int PWM_HOOKMOTOR_ROBOT2020       = 9;
+constexpr int DIO_PHOTOGATE_ROBOT2020       = 10;
 
 //Vision Bounds (Remember, the InRange function is in BGR format)
 constexpr int LOW_BLUE   = 0;
@@ -167,5 +167,4 @@ constexpr int I2C_ADDR_COLORSENSOR_ROBOT2020         = 0x52;
 //Allowing hardware to be used
 //#define NOHW
 //#define SEND_VIDEO
-
 
