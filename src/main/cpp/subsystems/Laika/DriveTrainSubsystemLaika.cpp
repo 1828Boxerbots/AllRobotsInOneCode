@@ -12,14 +12,14 @@ DriveTrainSubsystemLaika::DriveTrainSubsystemLaika() {}
 void DriveTrainSubsystemLaika::SetMotorL(double speed) 
 {
   #ifndef NOHW
-  m_leftMotor.Set(speed);
+  m_leftMotor.Set(speed * m_scale);
   #endif
 }
 
 void DriveTrainSubsystemLaika::SetMotorR(double speed) 
 {
   #ifndef NOHW
-  m_rightMotor.Set(speed);
+  m_rightMotor.Set(speed * m_scale);
   #endif
 }
 

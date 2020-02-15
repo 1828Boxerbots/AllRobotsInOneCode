@@ -43,7 +43,7 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
   AM3313HallEffectDriver m_hallEffect{6};
   #endif
   const double WHEELDIAMETER = 8.0;
-  double m_scaleRocky = 0.2;
+  double m_scale = 0.7;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

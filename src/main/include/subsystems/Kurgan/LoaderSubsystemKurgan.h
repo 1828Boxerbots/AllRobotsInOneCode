@@ -14,7 +14,7 @@ class LoaderSubsystemKurgan : public LoaderSubsystemBase {
  public:
   LoaderSubsystemKurgan();
 
-  virtual void SetLoadMotor(double speed);
+  void SetLoadMotor(double speed = 1.0, int motorNumber = -1) override;
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.

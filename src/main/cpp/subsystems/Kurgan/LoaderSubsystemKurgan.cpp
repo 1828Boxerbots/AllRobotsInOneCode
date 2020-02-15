@@ -14,7 +14,7 @@ LoaderSubsystemKurgan::LoaderSubsystemKurgan() {}
 // This method will be called once per scheduler run
 
 
-void LoaderSubsystemKurgan::SetLoadMotor(double speed)
+void LoaderSubsystemKurgan::SetLoadMotor(double speed, int motorNumber)
 {
     #ifndef NOHW
     m_loaderMotor.Set(speed);

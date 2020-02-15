@@ -25,26 +25,14 @@ class RobotContainerKurgan : public RobotContainerBase{
 
   frc2::Command* GetAutonomousCommand();
 
-  virtual void SetButtonA();
-  virtual void SetButtonB();
+  void SetButtonA() override;
+  void SetButtonB() override;
 
-  virtual void Init() {}
-  virtual void DisableInit() {}
+  virtual void Init() { m_pDrive->Init(); m_pLoader->SetLoadMotor(0.0);}
+  virtual void DisableInit() {m_pLoader->SetLoadMotor(0.0);}
 
  private:
   // The robot's subsystems and commands are defined here...
-
-  //Controller
-  LoaderSubsystemKurgan m_loader;
-  ShooterSubsystemKurgan m_shooter;
-
-  frc2::RunCommand m_loaderEject{[this] {m_loader.LoadXY(m_controller.GetAButton(), m_controller.GetBButton());}, {&m_loader}};
-  frc2::RunCommand m_loaderLoad{[this] {m_loader.LoadXY(m_controller.GetAButton(), m_controller.GetBButton());}, {&m_loader}};
-  frc2::RunCommand m_loaderStop{[this] {m_loader.LoadXY(false, false);}, {&m_loader}};
-
-  frc2::RunCommand m_shooterSpin{[this] {m_shooter.ShootBump(false, true);}, {&m_shooter}};
-  frc2::RunCommand m_shooterEject{[this] {m_shooter.ShootBump(true, false);}, {&m_shooter}};
-  frc2::RunCommand m_shooterStop{[this] {m_shooter.ShootBump(false, false);}, {&m_shooter}};
 
   void ConfigureButtonBindings();
 };

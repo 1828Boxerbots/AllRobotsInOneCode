@@ -13,7 +13,7 @@ DriveTrainSubsystemRocky::DriveTrainSubsystemRocky() {}
 void DriveTrainSubsystemRocky::SetMotorL(double speed) 
 {
   #ifndef NOHW
-  m_leftMotor.Set(speed);
+  m_leftMotor.Set(speed * m_scale);
   #endif
   frc::SmartDashboard::PutNumber("Drive Left", speed);
 }
@@ -21,7 +21,7 @@ void DriveTrainSubsystemRocky::SetMotorL(double speed)
 void DriveTrainSubsystemRocky::SetMotorR(double speed) 
 {
   #ifndef NOHW
-  m_rightMotor.Set(speed);
+  m_rightMotor.Set(speed * m_scale);
   #endif
   frc::SmartDashboard::PutNumber("Drive Right", speed);
 }

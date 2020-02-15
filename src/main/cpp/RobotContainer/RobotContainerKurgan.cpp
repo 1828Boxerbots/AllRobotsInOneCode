@@ -11,6 +11,8 @@
 RobotContainerKurgan::RobotContainerKurgan()
  {
   m_pDrive = new DriveTrainSubsystemKurgan;
+  m_pLoader = new LoaderSubsystemKurgan;
+  m_pShooter = new ShooterSubsystemKurgan;
   // Configure the button bindings
   ConfigureButtonBindings();
   m_pDrive->Init();
