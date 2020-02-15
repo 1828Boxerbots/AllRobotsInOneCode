@@ -190,12 +190,12 @@ bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading
 
 void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double speed)
 {
-    MoveTank(speed, speed);
     double currentDistance = GetLeftEncoderInch();
     while(currentDistance < inch)
     {
+        MoveTank(speed, speed);
         currentDistance = GetLeftEncoderInch();
-        Util::DelayInSeconds(1.0);
+        //Util::DelayInSeconds(1.0);
     }
     if(currentDistance > inch)
     {

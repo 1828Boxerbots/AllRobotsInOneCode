@@ -30,6 +30,7 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
   void Periodic() override;
   void DetectionSoftware(double detectionDistance) override;
   double GetDetectionDistance() override;
+  void PrecisionMovementLidar(double wantedDistance) override;
 
 
   /**

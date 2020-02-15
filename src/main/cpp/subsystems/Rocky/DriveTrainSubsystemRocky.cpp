@@ -119,3 +119,20 @@ void DriveTrainSubsystemRocky::DetectionSoftware(double detectionDistance)
             //Stop();
         }
 }
+void DriveTrainSubsystemRocky::PrecisionMovementLidar(double wantedDistance)
+{
+  const double DEAD_ZONE = 5.0;
+  double currentDistance = m_lidar.GetDistanceInInches();
+  while(wantedDistance <  currentDistance + DEAD_ZONE && wantedDistance > currentDistance - DEAD_ZONE)
+  {
+    if(currentDistance < wantedDistance)
+    {
+      MoveTank(-.5,-.5);
+    }
+    if(currentDistance > wantedDistance)
+    {
+      MoveTank(.5,.5);
+    }
+    currentDistance = m_lidar.GetDistanceInInches();
+  }
+}
