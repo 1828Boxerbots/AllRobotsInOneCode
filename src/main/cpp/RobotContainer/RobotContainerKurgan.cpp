@@ -17,13 +17,14 @@ RobotContainerKurgan::RobotContainerKurgan()
   ConfigureButtonBindings();
   m_pDrive->Init();
   SetDrive();
-}
+} 
 
 void RobotContainerKurgan::ConfigureButtonBindings()
 {
   //Loader Controlls
-  SetButtonA();
-  SetButtonB();
+  //This is disable due to kurgean broken loader(vail pride day 2/15/20) - Aidan Clark
+  //SetButtonA();
+  //SetButtonB();
 
   //Shooter Controlls
   SetLeftBumper();
