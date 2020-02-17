@@ -18,4 +18,4 @@ bool HallEffectSwitchDriver::Get()
     return m_pDevice->Get();
 }
 
-
+// 2/15/20

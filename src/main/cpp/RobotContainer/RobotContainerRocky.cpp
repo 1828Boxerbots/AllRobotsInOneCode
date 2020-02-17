@@ -52,7 +52,7 @@ int RobotContainerRocky::ReadDioSwitch()
 }
 
 frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
-  /*
+
   //DIO variable meant to switch the autonomous scenario
   int dioAutoSwitcher;
   dioAutoSwitcher = ReadDioSwitch();
@@ -80,7 +80,6 @@ frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
       break;
   }
   return nullptr;
-  */
 }
 
 void RobotContainerRocky::Init() 

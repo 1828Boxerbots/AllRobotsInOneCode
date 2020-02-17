@@ -21,7 +21,7 @@ class LidarDriver {
 
   // Utilizes a conversion factor to get Inches.
   double GetDistanceInInches();
-
+  //double LidarDetectionSoftware(double detectionDistance);
  private:
 
   /* 
@@ -35,8 +35,9 @@ class LidarDriver {
   const double CMtoIN = 0.393701;
 
   // Default I2C Address
-  const int LIDAR_ADDRESS = 0x62;
-
+  public:
+  static const int LIDAR_ADDRESS = 0x62;
+  private:
   // Command Bit
   const int ACQ_COMMAND = 0x00;
   

@@ -43,7 +43,12 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual void ResetEncoder() {}
   virtual void ForwardInSeconds(double goalTime);
   virtual void TurnInDegrees(double relativeAngle);
-  
+  virtual void DetectionSoftware(double detectionDistance) {}
+  virtual double GetDetectionDistance() {return 0.0;}
+  virtual void PrecisionMovementLidar(double wantedDistance) {}
+
+  void EnableAnticollision(bool enable = true) { m_hasAntiCollision = enable; }
+
   //Temp Function meant to test turning function
   virtual void ForwardIninchTurn(double inch, double angle, double speed) {}
 
@@ -71,4 +76,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   double m_kP_rot;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
+
+  bool m_hasAntiCollision = true;
+  double m_collisionBuffer = 70.0;
 };

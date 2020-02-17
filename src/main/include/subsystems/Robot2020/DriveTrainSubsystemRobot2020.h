@@ -26,6 +26,8 @@ class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
   frc::Spark m_leftMotor{PWM_LEFTMOTOR_ROBOT2020};
   frc::Spark m_rightMotor{PWM_RIGHTMOTOR_ROBOT2020};
   #endif
+
+  double speedLimit = 0.5;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };
