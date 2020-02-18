@@ -7,4 +7,9 @@
 
 #include "Drivers/I2CMultiplexerDriver.h"
 
-I2CMultiplexerDriver::I2CMultiplexerDriver() {}
+I2CMultiplexerDriver::I2CMultiplexerDriver(int address, frc::I2C::Port port) 
+{
+    m_pDevice = new frc::I2C(port, address);
+}
+
+// 2/15/20

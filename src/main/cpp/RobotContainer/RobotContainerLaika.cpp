@@ -15,7 +15,7 @@ RobotContainerLaika::RobotContainerLaika()
   // Configure the button bindings
   ConfigureButtonBindings();
   m_pDrive->Init();
-  SetDrive(ARCADE_STYLE);
+  SetDrive();
 }
 
 void RobotContainerLaika::ConfigureButtonBindings()

@@ -11,7 +11,12 @@
 
 class I2CMultiplexerDriver {
  public:
-  I2CMultiplexerDriver();
+  I2CMultiplexerDriver(int address, frc::I2C::Port port);
+
+  void MultiplexerSelect() {}; 
+
+  private:
+  frc::I2C *m_pDevice = nullptr;
 };
 
 // 2/14/20

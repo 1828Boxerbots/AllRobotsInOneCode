@@ -12,14 +12,14 @@ DriveTrainSubsystemRobot2020::DriveTrainSubsystemRobot2020() {}
 void DriveTrainSubsystemRobot2020::SetMotorL(double speed) 
 {
   #ifndef NOHW
-  m_leftMotor.Set(speed);
+  m_leftMotor.Set(speed * speedLimit);
   #endif
 }
 
 void DriveTrainSubsystemRobot2020::SetMotorR(double speed) 
 {
   #ifndef NOHW
-  m_rightMotor.Set(speed);
+  m_rightMotor.Set(speed * speedLimit);
   #endif
 }
 

@@ -16,3 +16,5 @@ bool HallEffectAnalogDriver::Get()
 {
     return m_pDevice->GetVoltage();
 }
+
+// 2/15/20
