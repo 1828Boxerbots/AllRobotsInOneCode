@@ -7,12 +7,14 @@
 
 #pragma once
 
-#include <frc/Spark.h>
 #include "../ShooterSubsystemBase.h"
+#include <frc/Victor.h>
+#include <frc/Encoder.h>
 
 class ShooterSubsystemRobot2020 : public ShooterSubsystemBase {
  public:
   ShooterSubsystemRobot2020();
+  void Init() override;
 
   virtual void SetShootMotor(double speed);
 
@@ -23,7 +25,8 @@ class ShooterSubsystemRobot2020 : public ShooterSubsystemBase {
  private:
 
  #ifndef NOHW
- frc::Spark m_shooterMotor {PWM_SHOOTMOTOR_ROBOT2020};
+ frc::Victor m_shooterMotor{PWM_SHOOTMOTOR_ROBOT2020};
+ frc::Encoder m_shooterEncoder{DIO_SHOOTER_ENCODER_TWO, DIO_SHOOTER_ENCODER_ONE};
  #endif
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.

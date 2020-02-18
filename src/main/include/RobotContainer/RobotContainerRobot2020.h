@@ -31,6 +31,8 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   void SetButtonB() override;
   void SetButtonX() override;
   void SetButtonY() override;
+  void SetRightTrigger() override;
+
 
   frc2::Command* GetAutonomousCommand();
 
