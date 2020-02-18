@@ -11,5 +11,12 @@
 
 class RevDistanceSensorDriver {
  public:
-  RevDistanceSensorDriver();
+  RevDistanceSensorDriver(rev::Rev2mDistanceSensor::Port port = rev::Rev2mDistanceSensor::Port::kOnboard, rev::Rev2mDistanceSensor::DistanceUnit unit = rev::Rev2mDistanceSensor::DistanceUnit::kInches);
+  void Init();
+  void DisableInit();
+  double GetDistance();
+  private:
+  rev::Rev2mDistanceSensor *m_pDevice = nullptr;
 };
+
+// Finished 2/17/20. Untested
