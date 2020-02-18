@@ -38,7 +38,7 @@ class Robot : public frc::TimedRobot {
 
   RobotContainerRocky m_container;
   //RobotContainerSLAL m_container;
-  RobotContainerKurgan m_container;
+  //RobotContainerKurgan m_container;
   //RobotContainerLaika m_container;
   //RobotContainerDesertView m_container;
   //RobotContainerLipALoop m_container;
