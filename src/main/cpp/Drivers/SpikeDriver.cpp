@@ -7,4 +7,19 @@
 
 #include "Drivers/SpikeDriver.h"
 
-SpikeDriver::SpikeDriver() {}
+SpikeDriver::SpikeDriver(int port) 
+{
+    m_pDevice = new frc::Relay(port);
+}
+
+void SpikeDriver::TurnSpikeOn()
+{
+    m_pDevice->Set(frc::Relay::kForward);
+}
+
+void SpikeDriver::TurnSpikeOff() 
+{
+    m_pDevice->Set(frc::Relay::kOff);
+}
+
+// 2/18/2020

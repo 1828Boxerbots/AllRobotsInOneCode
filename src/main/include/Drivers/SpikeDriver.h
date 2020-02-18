@@ -11,7 +11,12 @@
 
 class SpikeDriver {
  public:
-  SpikeDriver();
+  SpikeDriver(int port);
+  void TurnSpikeOn();
+  void TurnSpikeOff();
+
+ private:
+ frc::Relay *m_pDevice = nullptr;
 };
 
 // 2/14/20
