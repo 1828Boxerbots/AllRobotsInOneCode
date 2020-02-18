@@ -13,7 +13,7 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   m_pDrive = new DriveTrainSubsystemRobot2020;
   m_pLoader = new LoaderSubsystemRobot2020;
   //m_pSpin = new SpinSubsystemRobot2020;
-  //m_pShooter = new ShooterSubsystemRobot2020;
+  m_pShooter = new ShooterSubsystemRobot2020;
   //m_pCamera = new CameraSubsystemRobot2020;
   //m_pArm = new ArmSubsystemRobot2020;
   //m_pDistance = new DistanceSensorSubsystemRobot2020;
@@ -34,6 +34,8 @@ void RobotContainerRobot2020::ConfigureButtonBindings()
   SetButtonB();
   SetButtonX();
   SetButtonY();
+
+  SetRightTrigger();
 
 }
 
@@ -83,4 +85,9 @@ void RobotContainerRobot2020::SetButtonY()
   buttonY.WhenReleased(&m_loaderTopStop);
 }
 
-
+void RobotContainerRobot2020::SetRightTrigger()
+{
+  frc2::Button buttonRT{[this] {return m_controller.GetTriggerAxis(frc::GenericHID::kRightHand);}};
+  buttonRT.WhenHeld(&m_shooterSpin);
+  buttonRT.WhenReleased(&m_shooterStop);
+}

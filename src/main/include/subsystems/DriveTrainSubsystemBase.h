@@ -77,6 +77,6 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 
-  bool m_hasAntiCollision = true;
+  bool m_hasAntiCollision = false;
   double m_collisionBuffer = 70.0;
 };

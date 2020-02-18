@@ -16,7 +16,7 @@ class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
 
   virtual void SetMotorL(double speed);
   virtual void SetMotorR(double speed); 
-  virtual void Init();
+  void Init() override;
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
