@@ -108,12 +108,12 @@ constexpr int PWM_HOOKMOTOR_ROBOT2020       = 9;
 constexpr int DIO_PHOTOGATE_ROBOT2020       = 10;
 
 //Vision Bounds (Remember, the InRange function is in BGR format)
-constexpr int LOW_BLUE   = 0;
-constexpr int LOW_GREEN  = 0;
-constexpr int LOW_RED    = 0;
-constexpr int HIGH_BLUE  = 0;
-constexpr int HIGH_GREEN = 0;
-constexpr int HIGH_RED   = 0;
+constexpr int LOW_BLUE   = 64;
+constexpr int LOW_GREEN  = 52;
+constexpr int LOW_RED    = 141;
+constexpr int HIGH_BLUE  = 104;
+constexpr int HIGH_GREEN = 75;
+constexpr int HIGH_RED   = 211;
 
 //Color Detection Bounds
 constexpr double RED_LOW_R     = 0.0;
