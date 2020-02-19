@@ -9,7 +9,10 @@
 #include "Constants.h"
 #include "subsystems/DriveTrainSubsystemBase.h"
 
-CameraSubsystemBase::CameraSubsystemBase(DriveTrainSubsystemBase *pDrive) {m_pDriveObject = pDrive;}
+CameraSubsystemBase::CameraSubsystemBase(DriveTrainSubsystemBase *pDrive) 
+{
+//    m_pDriveObject = pDrive;
+}
 
 void CameraSubsystemBase::InterlizeCamera(int port)
 {
@@ -28,16 +31,16 @@ void CameraSubsystemBase::Init()
 
 void CameraSubsystemBase::SetColor()
 {
-    inRange(m_frame, Scalar(LOW_BLUE, LOW_GREEN, LOW_RED), Scalar(HIGH_BLUE, HIGH_GREEN, HIGH_RED), m_colorFiliter);//BGR
+    cv::inRange(m_frame, cv::Scalar(LOW_BLUE, LOW_GREEN, LOW_RED), cv::Scalar(HIGH_BLUE, HIGH_GREEN, HIGH_RED), m_colorFiliter);//BGR
 }
 
 void CameraSubsystemBase::FilterFrame()
 {
     SetColor();
     
-    morphologyEx(m_colorFiliter, m_openFilter, MORPH_OPEN, m_morp, Point(-1, -1), 4);
-    dilate(m_openFilter,m_dilution,m_morp);
-    morphologyEx(m_dilution, m_output, MORPH_CLOSE, m_morp,Point(-1,-1),4);
+    cv::morphologyEx(m_colorFiliter, m_openFilter, cv::MORPH_OPEN, m_morp, cv::Point(-1, -1), 4);
+    cv::dilate(m_openFilter,m_dilution,m_morp);
+    cv::morphologyEx(m_dilution, m_output, cv::MORPH_CLOSE, m_morp,cv::Point(-1,-1),4);
 }
 
 void CameraSubsystemBase::CenterMomment()
@@ -50,18 +53,20 @@ void CameraSubsystemBase::CenterMomment()
 void CameraSubsystemBase::InitSendImage()
 {
     #ifdef SEND_VIDEO
+    /*
     // Get a CvSink. This will capture Mats from the Camera
     m_cvSink = frc::CameraServer::GetInstance()->GetVideo();
     
     // Setup a CvSource. This will send images back to the Dashboard
     m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Rectangle", m_sendSizeHeight, m_sendSizeWidth);
+    */
     #endif
 }
 
 void CameraSubsystemBase::SendImage()
 {
     #ifdef SEND_VIDEO
-
+/*
     if (m_cvSink.GrabFrame(m_sendFrame) == 0) 
     {
         // Send the output the error.
@@ -81,7 +86,7 @@ void CameraSubsystemBase::SendImage()
         // Give the output stream a new image to display
         m_outputStream.PutFrame(m_sendFrame);
     }
-    
+*/    
     #endif
 }
 
@@ -134,7 +139,7 @@ void CameraSubsystemBase::Tick()
 // This method will be called once per scheduler run
 void CameraSubsystemBase::Periodic() 
 {
-    //CameraPeriodic();
+    CameraPeriodic();
 }
 
 void CameraSubsystemBase::CameraPeriodic()
@@ -146,12 +151,16 @@ void CameraSubsystemBase::CameraPeriodic()
 
 void CameraSubsystemBase::AutoCameraTurn()
 {
+    /*
     int dir = WhereToTurn();
     while (dir != 0)
     {
+        frc::SmartDashboard::PutNumber("Camera Direction", dir);
         if (dir == +1) m_pDriveObject->TurnRight();
         if (dir == -1) m_pDriveObject->TurnLeft();
+        if(dir != -1 && dir != +1) m_pDriveObject->TurnLeft();
         dir = WhereToTurn();
     }
+    */
 }
 
