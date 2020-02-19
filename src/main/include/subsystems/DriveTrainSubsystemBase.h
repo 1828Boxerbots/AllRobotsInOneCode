@@ -31,6 +31,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   void LogEncoder();
   bool MoveAlignPID(double targetDistance, double heading, double speed = 1.0);
   void SetCollision(bool colliding = true) {m_isColliding = colliding;}
+  virtual double GetPulsesPerRevolution() {return 0.0001;}//Random Small Number
   virtual double GyroGetAngle() {return m_gyroAngle;}
   virtual void GyroInit() {}
   virtual void Init();
@@ -52,7 +53,6 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   //Temp Function meant to test turning function
   virtual void ForwardIninchTurn(double inch, double angle, double speed) {}
 
- const double PULSE_PER_REVOLUTION = 360;
  protected:
   bool m_isColliding = false;
 

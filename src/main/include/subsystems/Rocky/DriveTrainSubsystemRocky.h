@@ -31,6 +31,7 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
   void DetectionSoftware(double detectionDistance) override;
   double GetDetectionDistance() override;
   void PrecisionMovementLidar(double wantedDistance) override;
+  double GetPulsesPerRevolution() override {return PULSE_PER_REVOLUTION;}
 
 
   /**
@@ -47,6 +48,8 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
 LidarDriver m_lidar{frc::I2C::Port::kOnboard, LidarDriver::LIDAR_ADDRESS};
   AM3313HallEffectDriver m_hallEffect{6};
   #endif
+
+  const double PULSE_PER_REVOLUTION = 240;
   const double WHEELDIAMETER = 8.0;
   double m_scale = 0.7;
   // Components (e.g. motor controllers and sensors) should generally be
