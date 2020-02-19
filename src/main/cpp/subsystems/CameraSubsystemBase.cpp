@@ -11,7 +11,7 @@
 
 CameraSubsystemBase::CameraSubsystemBase(DriveTrainSubsystemBase *pDrive) {m_pDriveObject = pDrive;}
 
-void CameraSubsystemBase::InterlizeCamera(int port)
+void CameraSubsystemBase::InitializeCamera(int port)
 {
     m_video.open(port);
 }
@@ -23,7 +23,7 @@ void CameraSubsystemBase::IntakeFrame()
 
 void CameraSubsystemBase::Init()
 {
-    InterlizeCamera(USB_CAMERA_ONE);
+    InitializeCamera(USB_CAMERA_ONE);
 }
 
 void CameraSubsystemBase::SetColor()
@@ -35,9 +35,9 @@ void CameraSubsystemBase::FilterFrame()
 {
     SetColor();
     
-    morphologyEx(m_colorFilter, m_openFilter, cv::MORPH_OPEN, m_morp, cv::Point(-1, -1), 4);
-    dilate(m_openFilter,m_dilution,m_morp);
-    morphologyEx(m_dilution, m_output, cv::MORPH_CLOSE, m_morp, cv::Point(-1,-1),4);
+    morphologyEx(m_colorFilter, m_openFilter, cv::MORPH_OPEN, m_morph, cv::Point(-1, -1), 4);
+    dilate(m_openFilter,m_dilution,m_morph);
+    morphologyEx(m_dilution, m_output, cv::MORPH_CLOSE, m_morph, cv::Point(-1,-1),4);
 }
 
 void CameraSubsystemBase::CenterMoment()
@@ -111,7 +111,6 @@ int CameraSubsystemBase::WhereToTurn()
         return CANT_FIND_IMAGE; 
     }
     return STOP;
-
 }
 
 void CameraSubsystemBase::PrintTurn(int turn)
@@ -121,7 +120,6 @@ void CameraSubsystemBase::PrintTurn(int turn)
     frc::SmartDashboard::PutNumber("turn",printturn);
     frc::SmartDashboard::PutNumber("center of x",m_printX);
     //imshow("camera",Output);
- 
 }
 
 void CameraSubsystemBase::Tick()

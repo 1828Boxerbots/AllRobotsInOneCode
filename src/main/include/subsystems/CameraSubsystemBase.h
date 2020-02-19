@@ -47,7 +47,7 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
 
   protected:
 
-  void InterlizeCamera(int port);
+  void InitializeCamera(int port);
   void IntakeFrame();
   void FilterFrame();
   void CenterMoment();
@@ -63,7 +63,7 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   int m_frameNumber = 1;
 
   cv::Mat m_frame;
-  cv::Mat m_morp = cv::getStructuringElement(cv::MORPH_CROSS, cv::Size(3, 3), cv::Point(-1, 1));
+  cv::Mat m_morph = cv::getStructuringElement(cv::MORPH_CROSS, cv::Size(3, 3), cv::Point(-1, 1));
   cv::VideoCapture m_video;
   cv::Mat m_output;
   cv::Mat m_colorFilter;
