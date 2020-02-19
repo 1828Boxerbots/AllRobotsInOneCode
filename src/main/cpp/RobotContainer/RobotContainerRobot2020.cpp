@@ -27,15 +27,19 @@ RobotContainerRobot2020::RobotContainerRobot2020()
 void RobotContainerRobot2020::ConfigureButtonBindings()
 {
   //Robot2020
-  //SetLeftBumper();
-  //SetRightBumper();
 
+  //Loader
   SetButtonA();
   SetButtonB();
   SetButtonX();
   SetButtonY();
 
-  SetRightTrigger();
+  //Shooter
+  //SetRightTrigger();
+  SetStartButton();
+  SetBackButton();
+  //Shooter Encoder
+  SetLeftBumper();
 
 }
 
@@ -50,11 +54,15 @@ void RobotContainerRobot2020::Init()
   m_pDrive->Init();
   if(m_pLoader != nullptr) m_pLoader->SetLoadMotor(0.0);
   m_pLoader->Init();
+  frc::SmartDashboard::PutBoolean("Is Enabled", true);
+  m_pShooter->Init();
 }
 
 void RobotContainerRobot2020::DisableInit()
 {
   if(m_pLoader != nullptr) m_pLoader->SetLoadMotor(0.0);
+  m_pShooter->Init();
+  frc::SmartDashboard::PutBoolean("Is Enabled", false);
 }
 
 void RobotContainerRobot2020::SetButtonA()
@@ -90,4 +98,25 @@ void RobotContainerRobot2020::SetRightTrigger()
   frc2::Button buttonRT{[this] {return m_controller.GetTriggerAxis(frc::GenericHID::kRightHand);}};
   buttonRT.WhenHeld(&m_shooterSpin);
   buttonRT.WhenReleased(&m_shooterStop);
+}
+
+void RobotContainerRobot2020::SetLeftBumper()
+{
+  frc2::Button buttonLB{[this] {return m_controller.GetTriggerAxis(frc::GenericHID::kLeftHand);}};
+  buttonLB.WhenPressed(&m_shooterEncoderReset);
+  buttonLB.WhenReleased(&m_shooterEncoderReset);
+}
+
+void RobotContainerRobot2020::SetStartButton()
+{
+  frc2::Button startButton{[this] {return m_controller.GetStartButton();}};
+  startButton.WhenPressed(&m_shooterSpinMax);
+  startButton.WhenReleased(&m_shooterStop);
+}
+
+void RobotContainerRobot2020::SetBackButton()
+{
+  frc2::Button backButton{[this] {return m_controller.GetBackButton();}};
+  backButton.WhenPressed(&m_shooterSpinHalf);
+  backButton.WhenReleased(&m_shooterStop);
 }

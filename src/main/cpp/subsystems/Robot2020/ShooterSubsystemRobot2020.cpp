@@ -9,9 +9,31 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "../include/Util.h"
 
-ShooterSubsystemRobot2020::ShooterSubsystemRobot2020() {Init();}
+ShooterSubsystemRobot2020::ShooterSubsystemRobot2020() 
+{
+    Init();
+    m_timer.Start();
+    m_timer.Reset();
+    m_shooterEncoder.Reset();
+    m_startTime = m_timer.Get();
+    m_encoderRawStart = m_shooterEncoder.GetRaw();
+}
 
 // This method will be called once per scheduler run
+void ShooterSubsystemRobot2020::Periodic()
+{
+    double difTime = m_timer.Get() -  m_startTime;
+    double difRaw = m_shooterEncoder.GetRaw() - m_encoderRawStart;
+    frc::SmartDashboard::PutNumber("Robot2020 Shooter Time Dif", difTime);
+    frc::SmartDashboard::PutNumber("Robot2020 Shooter Raw Dif", difRaw);
+    double speed = difRaw / difTime;
+    frc::SmartDashboard::PutNumber("Robot2020 Shooter Speed", speed);
+    frc::SmartDashboard::PutNumber("Robot2020 Shooter Encoder", m_shooterEncoder.GetDistance());
+    frc::SmartDashboard::PutNumber("Robot2020 Shooter Encoder RAW", m_shooterEncoder.GetRaw());
+    frc::SmartDashboard::PutNumber("Robot2020 Shooter Encoder RATE", m_shooterEncoder.GetRate());
+    m_encoderRawStart = m_shooterEncoder.GetRaw();
+    m_startTime = m_timer.Get();
+}
 
 void ShooterSubsystemRobot2020::SetShootMotor(double speed)
 {
@@ -23,7 +45,22 @@ void ShooterSubsystemRobot2020::SetShootMotor(double speed)
 
     #endif
 }
+
 void ShooterSubsystemRobot2020::Init()
 {
-    m_shooterEncoder.SetDistancePerPulse(1/256);
+    #ifndef NOHW
+    m_shooterEncoder.Reset();
+    m_shooterEncoder.SetDistancePerPulse(1/PULSES_PER_ROTATION);
+    m_shooterEncoder.SetReverseDirection(true);
+    #endif
+}
+
+void ShooterSubsystemRobot2020::ResetEncoder()
+{
+    #ifndef NOHW
+    m_shooterEncoder.Reset();
+    frc::SmartDashboard::PutNumber("Robot2020 Shooter Encoder", m_shooterEncoder.GetDistance());
+    frc::SmartDashboard::PutNumber("Robot2020 Shooter Encoder RAW", m_shooterEncoder.GetRaw());
+    frc::SmartDashboard::PutNumber("Robot2020 Shooter Encoder RATE", m_shooterEncoder.GetRate());
+    #endif
 }

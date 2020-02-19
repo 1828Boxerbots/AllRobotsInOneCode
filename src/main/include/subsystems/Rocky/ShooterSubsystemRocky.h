@@ -22,7 +22,7 @@ class ShooterSubsystemRocky : public ShooterSubsystemBase {
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-
+  
  private:
  #ifndef NOHW
  frc::Spark m_shooterMotor {PWM_SHOOTMOTOR_ROCKY};
