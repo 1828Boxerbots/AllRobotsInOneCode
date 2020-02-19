@@ -14,7 +14,7 @@ CameraSubsystemBase::CameraSubsystemBase(DriveTrainSubsystemBase *pDrive)
 //    m_pDriveObject = pDrive;
 }
 
-void CameraSubsystemBase::InterlizeCamera(int port)
+void CameraSubsystemBase::InitializeCamera(int port)
 {
     m_video.open(port);
 }
@@ -26,24 +26,24 @@ void CameraSubsystemBase::IntakeFrame()
 
 void CameraSubsystemBase::Init()
 {
-    InterlizeCamera(USB_CAMERA_ONE);
+    InitializeCamera(USB_CAMERA_ONE);
 }
 
 void CameraSubsystemBase::SetColor()
 {
-    cv::inRange(m_frame, cv::Scalar(LOW_BLUE, LOW_GREEN, LOW_RED), cv::Scalar(HIGH_BLUE, HIGH_GREEN, HIGH_RED), m_colorFiliter);//BGR
+    cv::inRange(m_frame, cv::Scalar(LOW_BLUE, LOW_GREEN, LOW_RED), cv::Scalar(HIGH_BLUE, HIGH_GREEN, HIGH_RED), m_colorFilter);//BGR
 }
 
 void CameraSubsystemBase::FilterFrame()
 {
     SetColor();
     
-    cv::morphologyEx(m_colorFiliter, m_openFilter, cv::MORPH_OPEN, m_morp, cv::Point(-1, -1), 4);
-    cv::dilate(m_openFilter,m_dilution,m_morp);
-    cv::morphologyEx(m_dilution, m_output, cv::MORPH_CLOSE, m_morp,cv::Point(-1,-1),4);
+    cv::morphologyEx(m_colorFilter, m_openFilter, cv::MORPH_OPEN, m_morph, cv::Point(-1, -1), 4);
+    cv::dilate(m_openFilter,m_dilution,m_morph);
+    cv::morphologyEx(m_dilution, m_output, cv::MORPH_CLOSE, m_morph, cv::Point(-1,-1),4);
 }
 
-void CameraSubsystemBase::CenterMomment()
+void CameraSubsystemBase::CenterMoment()
 {
     m_moment = cv::moments(m_output);
     m_center = cv::Point2f(m_moment.m10 / m_moment.m00, m_moment.m01 / m_moment.m00);
@@ -116,7 +116,6 @@ int CameraSubsystemBase::WhereToTurn()
         return CANT_FIND_IMAGE; 
     }
     return STOP;
-
 }
 
 void CameraSubsystemBase::PrintTurn(int turn)
@@ -126,14 +125,13 @@ void CameraSubsystemBase::PrintTurn(int turn)
     frc::SmartDashboard::PutNumber("turn",printturn);
     frc::SmartDashboard::PutNumber("center of x",m_printX);
     //imshow("camera",Output);
- 
 }
 
 void CameraSubsystemBase::Tick()
 {
     IntakeFrame();
     FilterFrame();
-    CenterMomment();
+    CenterMoment();
 }
 
 // This method will be called once per scheduler run

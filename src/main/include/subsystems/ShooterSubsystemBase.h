@@ -19,21 +19,24 @@ class ShooterSubsystemBase : public frc2::SubsystemBase {
   void Shoot(double shootSpeed);
   void ShootBump(bool bumpL, bool bumpR);
   bool AtSetpoint(double position);
+  double GetEncoderSpeed() {return m_speed;}
   virtual void Init() {}
   virtual void DisableInit();
   virtual void SetShootMotor (double speed) {}
   virtual double GetSetPoint() {return 0.0;}
   virtual bool AutoShooterRunTime() {return false;}
   virtual void WaitShooter(double waitTime) {}
+  virtual void ResetEncoder() {}
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-  void Periodic();
+  virtual void Periodic();
 
  private:
  protected:
  const double SHOOTSPEED = 1.0;
+double m_speed = 0.0;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

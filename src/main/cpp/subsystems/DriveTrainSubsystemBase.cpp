@@ -188,6 +188,24 @@ bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading
     return false;
 }
 
+void DriveTrainSubsystemBase::FixRotation(double wantedAngle, double speed)
+{
+    double currentAngle = GyroGetAngle();
+    while(currentAngle != wantedAngle)
+    {
+        currentAngle = GyroGetAngle();
+        if(currentAngle > wantedAngle)
+        {
+            TurnRight(speed);
+        }
+        else
+        {
+            TurnLeft(speed);
+        }
+    }
+    Stop();
+}
+
 void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double speed)
 {
     double startDistance = GetLeftEncoderInch();

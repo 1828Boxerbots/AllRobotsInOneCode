@@ -139,6 +139,10 @@ class RobotContainerBase {
     frc2::RunCommand m_shooterSpin          {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(-m_controller.GetTriggerAxis(frc::GenericHID::kRightHand));}, {m_pShooter}};
     frc2::RunCommand m_shooterEject         {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(m_controller.GetTriggerAxis(frc::GenericHID::kRightHand));}, {m_pShooter}};
     frc2::RunCommand m_shooterStop          {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(0.0);}, {m_pShooter}};
+    frc2::RunCommand m_shooterEncoderReset  {[this] { if(m_pShooter!=nullptr) m_pShooter->ResetEncoder();}, {m_pShooter}};
+
+    frc2::RunCommand m_shooterSpinMax       {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(1.0);}, {m_pShooter}};
+    frc2::RunCommand m_shooterSpinHalf      {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(0.5);}, {m_pShooter}};
 
     //TurretSubsystemBase *m_*pTurret = nullptr;
     TurretSubsystemRocky *m_pTurret = nullptr;
