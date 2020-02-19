@@ -16,7 +16,7 @@ void CameraSubsystemBase::InterlizeCamera(int port)
     m_video.open(port);
 }
 
-  void CameraSubsystemBase::IntakeFrame()
+void CameraSubsystemBase::IntakeFrame()
 {
     m_video >> m_frame;
 }
@@ -28,7 +28,7 @@ void CameraSubsystemBase::Init()
 
 void CameraSubsystemBase::SetColor()
 {
-    inRange(m_frame, Scalar(0, 150, 0), Scalar(175, 255, 175), m_colorFiliter);//BGR
+    inRange(m_frame, Scalar(LOW_BLUE, LOW_GREEN, LOW_RED), Scalar(HIGH_BLUE, HIGH_GREEN, HIGH_RED), m_colorFiliter);//BGR
 }
 
 void CameraSubsystemBase::FilterFrame()
@@ -39,6 +39,7 @@ void CameraSubsystemBase::FilterFrame()
     dilate(m_openFilter,m_dilution,m_morp);
     morphologyEx(m_dilution, m_output, MORPH_CLOSE, m_morp,Point(-1,-1),4);
 }
+
 void CameraSubsystemBase::CenterMomment()
 {
     m_moment = cv::moments(m_output);
@@ -142,6 +143,7 @@ void CameraSubsystemBase::CameraPeriodic()
     frc::SmartDashboard::PutNumber("Camera Frame Number", m_frameNumber);
     Tick();
 }
+
 void CameraSubsystemBase::AutoCameraTurn()
 {
     int dir = WhereToTurn();
