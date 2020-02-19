@@ -40,7 +40,7 @@ void CameraSubsystemBase::FilterFrame()
     morphologyEx(m_dilution, m_output, cv::MORPH_CLOSE, m_morp, cv::Point(-1,-1),4);
 }
 
-void CameraSubsystemBase::CenterMomment()
+void CameraSubsystemBase::CenterMoment()
 {
     m_moment = cv::moments(m_output);
     m_center = cv::Point2f(m_moment.m10 / m_moment.m00, m_moment.m01 / m_moment.m00);
@@ -128,7 +128,7 @@ void CameraSubsystemBase::Tick()
 {
     IntakeFrame();
     FilterFrame();
-    CenterMomment();
+    CenterMoment();
 }
 
 // This method will be called once per scheduler run

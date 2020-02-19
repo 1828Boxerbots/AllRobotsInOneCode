@@ -50,7 +50,7 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   void InterlizeCamera(int port);
   void IntakeFrame();
   void FilterFrame();
-  void CenterMomment();
+  void CenterMoment();
   void PrintTurn(int turn);
   /**
    * Will be called periodically whenever the CommandScheduler runs.
