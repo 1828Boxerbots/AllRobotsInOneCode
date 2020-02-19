@@ -28,16 +28,16 @@ void CameraSubsystemBase::Init()
 
 void CameraSubsystemBase::SetColor()
 {
-    inRange(m_frame, Scalar(LOW_BLUE, LOW_GREEN, LOW_RED), Scalar(HIGH_BLUE, HIGH_GREEN, HIGH_RED), m_colorFiliter);//BGR
+    inRange(m_frame, cv::Scalar(LOW_BLUE, LOW_GREEN, LOW_RED), cv::Scalar(HIGH_BLUE, HIGH_GREEN, HIGH_RED), m_colorFilter);//BGR
 }
 
 void CameraSubsystemBase::FilterFrame()
 {
     SetColor();
     
-    morphologyEx(m_colorFiliter, m_openFilter, MORPH_OPEN, m_morp, Point(-1, -1), 4);
+    morphologyEx(m_colorFilter, m_openFilter, cv::MORPH_OPEN, m_morp, cv::Point(-1, -1), 4);
     dilate(m_openFilter,m_dilution,m_morp);
-    morphologyEx(m_dilution, m_output, MORPH_CLOSE, m_morp,Point(-1,-1),4);
+    morphologyEx(m_dilution, m_output, cv::MORPH_CLOSE, m_morp, cv::Point(-1,-1),4);
 }
 
 void CameraSubsystemBase::CenterMomment()

@@ -19,7 +19,6 @@
 #include "subsystems/DriveTrainSubsystemBase.h"
 
 
-using namespace cv;
 
 class CameraSubsystemBase : public frc2::SubsystemBase {
  public:
@@ -63,15 +62,15 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   // declared private and exposed only through public methods.
   int m_frameNumber = 1;
 
-  Mat m_frame;
-  Mat m_morp = cv::getStructuringElement(MORPH_CROSS, Size(3, 3), Point(-1, 1));
-  VideoCapture m_video;
-  Mat m_output;
-  Mat m_colorFiliter;
+  cv::Mat m_frame;
+  cv::Mat m_morp = cv::getStructuringElement(cv::MORPH_CROSS, cv::Size(3, 3), cv::Point(-1, 1));
+  cv::VideoCapture m_video;
+  cv::Mat m_output;
+  cv::Mat m_colorFilter;
   //Mat closeFilter;
   //Mat m_output;
-  Mat m_dilution;
-  Mat m_openFilter;
+  cv::Mat m_dilution;
+  cv::Mat m_openFilter;
   cv::Moments m_moment;
   cv::Point m_center;
 
