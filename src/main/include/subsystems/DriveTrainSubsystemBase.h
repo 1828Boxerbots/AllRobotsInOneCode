@@ -31,6 +31,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   void LogEncoder();
   bool MoveAlignPID(double targetDistance, double heading, double speed = 1.0);
   void SetCollision(bool colliding = true) {m_isColliding = colliding;}
+  void FixRotation(double wantedAngle, double speed = 1.0);
   virtual double GetPulsesPerRevolution() {return 0.0001;}//Random Small Number
   virtual double GyroGetAngle() {return m_gyroAngle;}
   virtual void GyroInit() {}
