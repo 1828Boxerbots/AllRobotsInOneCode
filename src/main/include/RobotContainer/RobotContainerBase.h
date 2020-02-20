@@ -57,6 +57,8 @@ class RobotContainerBase {
     //,WESTCOAST_STYLE
   };
 
+  double MAX_MOTOR = 1.0;
+  double NEG_MAX_MOTOR = -1.0;
   double LOAD = 1.0;
   double EJECT = -1.0;
   double STOP = 0.0;
@@ -87,9 +89,9 @@ class RobotContainerBase {
     // Loader subsystem commands
     LoaderSubsystemBase *m_pLoader = nullptr;
     //Every Other Robot
-    frc2::RunCommand m_loaderEject          {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(-1.0);}, {m_pLoader}};
-    frc2::RunCommand m_loaderLoad           {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(1.0);}, {m_pLoader}};
-    frc2::RunCommand m_loaderStop           {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(0.0);}, {m_pLoader}};
+    frc2::RunCommand m_loaderEject          {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(NEG_MAX_MOTOR);}, {m_pLoader}};
+    frc2::RunCommand m_loaderLoad           {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(MAX_MOTOR);}, {m_pLoader}};
+    frc2::RunCommand m_loaderStop           {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(STOP);}, {m_pLoader}};
     
     //Robot2020
     frc2::RunCommand m_loaderFeed           {[this] {
@@ -138,22 +140,22 @@ class RobotContainerBase {
     frc2::RunCommand m_loaderTopStop        {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP, 0);}, {m_pLoader}};
     frc2::RunCommand m_loaderAllStop        {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP);}, {m_pLoader}};
 
-    frc2::RunCommand m_loaderAllEject       {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0);}, {m_pLoader}};
-    frc2::RunCommand m_loaderMiddleEject    {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0, 1);}, {m_pLoader}};
-    frc2::RunCommand m_loaderBottomEject    {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0, 2);}, {m_pLoader}};
-    frc2::RunCommand m_loaderTopEject       {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0, 0);}, {m_pLoader}};
-    frc2::InstantCommand m_loaderLoadMax    {[this] { if(m_pLoader != nullptr) m_pLoader->SetLoadMotor(1.0);}, {m_pLoader}};
+    frc2::RunCommand m_loaderAllEject       {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(NEG_MAX_MOTOR);}, {m_pLoader}};
+    frc2::RunCommand m_loaderMiddleEject    {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(NEG_MAX_MOTOR, 1);}, {m_pLoader}};
+    frc2::RunCommand m_loaderBottomEject    {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(NEG_MAX_MOTOR, 2);}, {m_pLoader}};
+    frc2::RunCommand m_loaderTopEject       {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(NEG_MAX_MOTOR, 0);}, {m_pLoader}};
+    frc2::InstantCommand m_loaderLoadMax    {[this] { if(m_pLoader != nullptr) m_pLoader->SetLoadMotor(MAX_MOTOR);}, {m_pLoader}};
     frc2::InstantCommand m_loaderWait5      {[this] { if(m_pLoader != nullptr) m_pLoader->WaitLoader(5);}, {m_pLoader}};
 
     // Shooter subsystem commands
     ShooterSubsystemBase *m_pShooter = nullptr;
     frc2::RunCommand m_shooterSpin          {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(-m_controller.GetTriggerAxis(frc::GenericHID::kRightHand));}, {m_pShooter}};
     frc2::RunCommand m_shooterEject         {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(m_controller.GetTriggerAxis(frc::GenericHID::kRightHand));}, {m_pShooter}};
-    frc2::RunCommand m_shooterStop          {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(0.0);}, {m_pShooter}};
+    frc2::RunCommand m_shooterStop          {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(STOP);}, {m_pShooter}};
     frc2::RunCommand m_shooterEncoderReset  {[this] { if(m_pShooter!=nullptr) m_pShooter->ResetEncoder();}, {m_pShooter}};
-    frc2::RunCommand m_shooterSpinMax       {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(1.0);}, {m_pShooter}};
+    frc2::RunCommand m_shooterSpinMax       {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(MAX_MOTOR);}, {m_pShooter}};
     frc2::RunCommand m_shooterSpinHalf      {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(0.5);}, {m_pShooter}};
-    frc2::InstantCommand m_shooterShootMax  {[this] { if(m_pShooter != nullptr) m_pShooter->Shoot(1.0);}, {m_pShooter}};
+    frc2::InstantCommand m_shooterShootMax  {[this] { if(m_pShooter != nullptr) m_pShooter->Shoot(MAX_MOTOR);}, {m_pShooter}};
     frc2::InstantCommand m_shooterWait5     {[this] { if(m_pShooter != nullptr) m_pShooter->WaitShooter(5);}, {m_pShooter}};
 
     //TurretSubsystemBase *m_*pTurret = nullptr;
@@ -195,32 +197,6 @@ class RobotContainerBase {
     frc2::RunCommand m_spinToColor          {[this] { if(m_pSpin != nullptr) m_pSpin->SpinUntilColor();}, {m_pSpin}};
     frc2::RunCommand m_spin                 {[this] { if(m_pSpin != nullptr) m_pSpin->SpinWithEncoders();}, {m_pSpin}};
 
-
-
-  frc2::SequentialCommandGroup m_autoTestOne = frc2::SequentialCommandGroup
-  {
-    frc2::InstantCommand{[this]
-    { if(m_pDrive != nullptr && m_pDistance != nullptr) 
-      {
-        double travelDistance = 60.0;
-        double tolerance = 2.0;
-        double currentDistance = m_pDistance->GetDistanceInInch();
-        while(currentDistance < travelDistance-tolerance || currentDistance > travelDistance+tolerance)
-        {
-          if(currentDistance > travelDistance)
-          {
-            m_pDrive->Forward(1.0);
-          }
-          else
-          {
-            m_pDrive->Forward(-1.0);
-          }
-          currentDistance = m_pDistance->GetDistanceInInch();
-        }
-        m_pDrive->Stop();
-      }
-    }, {m_pDrive, m_pDistance}}
-  };
 
   frc2::SequentialCommandGroup m_autoInFrontTargetZone = frc2::SequentialCommandGroup
   {
@@ -277,44 +253,6 @@ class RobotContainerBase {
     frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->Shoot(0.0);}, {m_pShooter}},
     
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Stop();}, {m_pDrive}}
-  };
-  frc2::SequentialCommandGroup m_follower = frc2::SequentialCommandGroup
-  {
-    frc2::InstantCommand {[this] {if(m_pCamera != nullptr)m_pCamera->Init();}, {m_pCamera}},
-    frc2::InstantCommand{[this]
-    {
-      if(m_pCamera == nullptr || m_pDrive == nullptr)
-      {
-        return; 
-      }
-      int direction = m_pCamera->WhereToTurn(); 
-      while(true)
-      {
-        m_pCamera->Tick();
-        if (direction == 1)
-        {
-          m_pDrive->TurnRight(0.3);
-          direction = m_pCamera->WhereToTurn(); 
-        }
-        else if (direction == -1)
-        {
-          m_pDrive->TurnLeft(0.3);
-          direction = m_pCamera->WhereToTurn(); 
-        }
-        else
-        {
-          m_pDrive->Stop();
-        }
-        direction = m_pCamera->WhereToTurn(); 
-      }
-    }, {m_pCamera, m_pDrive}}
-  };
-
-  frc2::SequentialCommandGroup m_autoTitoTest = frc2::SequentialCommandGroup
-  {
-    m_driveInit,
-    m_driveForward12In0Deg,
-    m_driveStop
   };
 
 };
