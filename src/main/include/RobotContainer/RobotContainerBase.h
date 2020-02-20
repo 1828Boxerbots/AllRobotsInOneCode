@@ -25,8 +25,8 @@
 #include "subsystems/ArmSubsystemBase.h"
 #include "subsystems/SpinSubsystemBase.h"
 
-#include "subsystems/LipALoop/WristSubsystemLipALoop.h"
-#include "subsystems/LipALoop/HandSubsystemLipALoop.h"
+//#include "subsystems/LipALoop/WristSubsystemLipALoop.h"
+//#include "subsystems/LipALoop/HandSubsystemLipALoop.h"
 #include "subsystems/Rocky/TurretSubsystemRocky.h"
 
 class RobotContainerBase {
@@ -164,6 +164,7 @@ class RobotContainerBase {
     frc2::RunCommand m_armPosition1         {[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::HIGHEST_POS);}, {m_pArm}};
       //frc2::Runcommand m_armPosition_Stop     {[this] {if(m_pArm != nullptr) m_pArm->ArmPosition(3);}, {m_pArm}};
 
+#ifdef xxx
     //Wrist Control
     WristSubsystemLipALoop *m_pWrist = nullptr;
     frc2::RunCommand m_wristUp              {[this] { if(m_pWrist != nullptr) m_pWrist->MoveWristUp();}, {m_pWrist}};
@@ -175,6 +176,7 @@ class RobotContainerBase {
     frc2::RunCommand m_handUp               {[this] { if(m_pHand != nullptr) m_pHand->MoveHandOpen();}, {m_pHand}};
     frc2::RunCommand m_handDown             {[this] { if(m_pHand != nullptr) m_pHand->MoveHandClose();}, {m_pHand}};
     frc2::RunCommand m_handStop             {[this] { if(m_pHand != nullptr) m_pHand->MoveHandStop();}, {m_pHand}};
+#endif // #ifdef xxx
 
     //Spin Control
     SpinSubsystemBase *m_pSpin = nullptr;
