@@ -72,8 +72,15 @@ class RobotContainerBase {
     DistanceSensorSubsystemBase *m_pDistance = nullptr;
     //DriveTrain subsystem commands
     DriveTrainSubsystemBase *m_pDrive = nullptr;
-    frc2::RunCommand m_pDriveMoveTank       {[this] { if(m_pDrive != nullptr) m_pDrive->MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand)); }, {m_pDrive}};
-    frc2::RunCommand m_pDriveMoveArcade     {[this] { if(m_pDrive != nullptr) m_pDrive->MoveArcade(m_controller.GetX(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kLeftHand)); }, {m_pDrive}};
+    frc2::RunCommand m_driveMoveTank       {[this] { if(m_pDrive != nullptr) m_pDrive->MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand)); }, {m_pDrive}};
+    frc2::RunCommand m_driveMoveArcade     {[this] { if(m_pDrive != nullptr) m_pDrive->MoveArcade(m_controller.GetX(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kLeftHand)); }, {m_pDrive}};
+    frc2::InstantCommand m_driveGyroInit   {[this] {if(m_pDrive != nullptr)   m_pDrive->GyroInit();}, {m_pDrive}};
+    frc2::InstantCommand m_driveInit       {[this] { if(m_pDrive != nullptr)   m_pDrive->Init();}, {m_pDrive}};
+    frc2::InstantCommand m_driveEnableAntiCollision {[this] {if(m_pDrive != nullptr)   m_pDrive->EnableAnticollision();}, {m_pDrive}};
+    frc2::InstantCommand m_driveForward12in0Deg     {[this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}};
+    frc2::InstantCommand m_driveTurnLeft90Deg       {[this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90);}, {m_pDrive}};
+    frc2::InstantCommand m_driveForward24in90Deg    {[this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(24, -90.0, 0.75);}, {m_pDrive}};
+    frc2::InstantCommand m_driveStop                {[this] {if(m_pDrive != nullptr)   m_pDrive->Stop();}, {m_pDrive}};
 
     // Loader subsystem commands
     LoaderSubsystemBase *m_pLoader = nullptr;
@@ -133,6 +140,8 @@ class RobotContainerBase {
     frc2::RunCommand m_loaderMiddleEject    {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0, 1);}, {m_pLoader}};
     frc2::RunCommand m_loaderBottomEject    {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0, 2);}, {m_pLoader}};
     frc2::RunCommand m_loaderTopEject       {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0, 0);}, {m_pLoader}};
+    frc2::InstantCommand m_loaderLoadMax    {[this] { if(m_pLoader != nullptr) m_pLoader->SetLoadMotor(1.0);}, {m_pLoader}};
+    frc2::InstantCommand m_loaderWait5      {[this] { if(m_pLoader != nullptr) m_pLoader->WaitLoader(5);}, {m_pLoader}};
 
     // Shooter subsystem commands
     ShooterSubsystemBase *m_pShooter = nullptr;
@@ -140,9 +149,10 @@ class RobotContainerBase {
     frc2::RunCommand m_shooterEject         {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(m_controller.GetTriggerAxis(frc::GenericHID::kRightHand));}, {m_pShooter}};
     frc2::RunCommand m_shooterStop          {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(0.0);}, {m_pShooter}};
     frc2::RunCommand m_shooterEncoderReset  {[this] { if(m_pShooter!=nullptr) m_pShooter->ResetEncoder();}, {m_pShooter}};
-
     frc2::RunCommand m_shooterSpinMax       {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(1.0);}, {m_pShooter}};
     frc2::RunCommand m_shooterSpinHalf      {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(0.5);}, {m_pShooter}};
+    frc2::InstantCommand m_shooterShootMax  {[this] { if(m_pShooter != nullptr) m_pShooter->Shoot(1.0);}, {m_pShooter}};
+    frc2::InstantCommand m_shooterWait5     {[this] { if(m_pShooter != nullptr) m_pShooter->WaitShooter(5);}, {m_pShooter}};
 
     //TurretSubsystemBase *m_*pTurret = nullptr;
     TurretSubsystemRocky *m_pTurret = nullptr;
