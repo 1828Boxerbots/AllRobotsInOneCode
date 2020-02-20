@@ -25,8 +25,10 @@
 #include "subsystems/ArmSubsystemBase.h"
 #include "subsystems/SpinSubsystemBase.h"
 
-//#include "subsystems/LipALoop/WristSubsystemLipALoop.h"
-//#include "subsystems/LipALoop/HandSubsystemLipALoop.h"
+#ifdef xxx
+#include "subsystems/LipALoop/WristSubsystemLipALoop.h"
+#include "subsystems/LipALoop/HandSubsystemLipALoop.h"
+#endif // #ifdef xxx
 #include "subsystems/Rocky/TurretSubsystemRocky.h"
 
 class RobotContainerBase {
@@ -77,7 +79,7 @@ class RobotContainerBase {
     frc2::InstantCommand m_driveGyroInit   {[this] {if(m_pDrive != nullptr)   m_pDrive->GyroInit();}, {m_pDrive}};
     frc2::InstantCommand m_driveInit       {[this] { if(m_pDrive != nullptr)   m_pDrive->Init();}, {m_pDrive}};
     frc2::InstantCommand m_driveEnableAntiCollision {[this] {if(m_pDrive != nullptr)   m_pDrive->EnableAnticollision();}, {m_pDrive}};
-    frc2::InstantCommand m_driveForward12in0Deg     {[this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}};
+    frc2::InstantCommand m_driveForward12In0Deg     {[this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}};
     frc2::InstantCommand m_driveTurnLeft90Deg       {[this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90);}, {m_pDrive}};
     frc2::InstantCommand m_driveForward24in90Deg    {[this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(24, -90.0, 0.75);}, {m_pDrive}};
     frc2::InstantCommand m_driveStop                {[this] {if(m_pDrive != nullptr)   m_pDrive->Stop();}, {m_pDrive}};
@@ -307,4 +309,12 @@ class RobotContainerBase {
       }
     }, {m_pCamera, m_pDrive}}
   };
+
+  frc2::SequentialCommandGroup m_autoTitoTest = frc2::SequentialCommandGroup
+  {
+    m_driveInit,
+    m_driveForward12In0Deg,
+    m_driveStop
+  };
+
 };

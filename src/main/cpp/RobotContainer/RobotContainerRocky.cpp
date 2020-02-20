@@ -52,14 +52,18 @@ int RobotContainerRocky::ReadDioSwitch()
 
 }
 
+const int TITO_TEST = 4;
 frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
 
   //DIO variable meant to switch the autonomous scenario
   int dioAutoSwitcher;
   dioAutoSwitcher = ReadDioSwitch();
+
+  dioAutoSwitcher = TITO_TEST;
   frc::SmartDashboard::PutBoolean("Case 1", false);
   frc::SmartDashboard::PutBoolean("Case 2", false);
   frc::SmartDashboard::PutBoolean("Case 3", false);
+  frc::SmartDashboard::PutBoolean("Case 4", false);
   frc::SmartDashboard::PutBoolean("Case Default", false);
   switch(dioAutoSwitcher)
   {
@@ -74,6 +78,10 @@ frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
     case 3:
       frc::SmartDashboard::PutBoolean("Case 3", true);
       return &m_autoInFrontLoadingZone;
+      break;
+    case TITO_TEST:
+      frc::SmartDashboard::PutBoolean("Case 4", true);
+      return &m_autoTitoTest;
       break;
     default:
       frc::SmartDashboard::PutBoolean("Case Default", true);
