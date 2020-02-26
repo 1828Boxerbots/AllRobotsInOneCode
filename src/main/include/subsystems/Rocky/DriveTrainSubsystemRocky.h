@@ -45,7 +45,7 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
   frc::Encoder m_leftEncoder{DIO_LEFTENCODER_ROCKY_ONE, DIO_LEFTENCODER_ROCKY_TWO};
   frc::Encoder m_rightEncoder{DIO_RIGHTENCODER_ROCKY_ONE, DIO_RIGHTENCODER_ROCKY_TWO};
   frc::ADXRS450_Gyro m_gyro;
-LidarDriver m_lidar{frc::I2C::Port::kOnboard, LidarDriver::LIDAR_ADDRESS};
+  LidarDriver m_lidar{frc::I2C::Port::kOnboard, LidarDriver::LIDAR_ADDRESS};
   AM3313HallEffectDriver m_hallEffect{6};
   #endif
 

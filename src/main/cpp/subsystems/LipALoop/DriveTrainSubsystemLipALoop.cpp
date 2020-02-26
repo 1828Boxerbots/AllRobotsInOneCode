@@ -26,7 +26,7 @@ void DriveTrainSubsystemLipALoop::SetMotorR(double speed)
 void DriveTrainSubsystemLipALoop::Init()	
 {	
   #ifndef NOHW	
-  m_leftMotor.SetInverted(false);	
-  m_rightMotor.SetInverted(true);	
+  m_leftMotor.SetInverted(true);	
+  m_rightMotor.SetInverted(false);	
   #endif	
 }

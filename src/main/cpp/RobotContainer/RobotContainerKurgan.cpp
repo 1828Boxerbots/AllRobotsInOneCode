@@ -11,7 +11,8 @@
 RobotContainerKurgan::RobotContainerKurgan()
  {
   m_pDrive = new DriveTrainSubsystemKurgan;
-  m_pLoader = new LoaderSubsystemKurgan;
+  //This is disable due to kurgean broken loader(vail pride day 2/15/20) - Aidan Clark
+  //m_pLoader = new LoaderSubsystemKurgan;
   m_pShooter = new ShooterSubsystemKurgan;
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -22,9 +23,8 @@ RobotContainerKurgan::RobotContainerKurgan()
 void RobotContainerKurgan::ConfigureButtonBindings()
 {
   //Loader Controlls
-  //This is disable due to kurgean broken loader(vail pride day 2/15/20) - Aidan Clark
-  //SetButtonA();
-  //SetButtonB();
+  SetButtonA();
+  SetButtonB();
 
   //Shooter Controlls
   SetLeftBumper();
