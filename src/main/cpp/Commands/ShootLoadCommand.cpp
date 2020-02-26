@@ -29,6 +29,7 @@ void ShootLoadCommand::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ShootLoadCommand::Execute() 
 {
+  // set shooter motor
   if (m_motorSpeed != 0.0)
   {
     m_pShooter->SetShootMotor(m_motorSpeed);
@@ -37,13 +38,17 @@ void ShootLoadCommand::Execute()
   {
     m_pShooter->SetShootMotor(1.0);
   }
+  
+  // wait until encoder speed is valid
   double encoderSpeed = m_pShooter->GetEncoderSpeed();
-  while (encoderSpeed < m_encoderSetting)
+  if (encoderSpeed != 0.0) // if an encoder exists
   {
-    frc::SmartDashboard::PutNumber("ShootLoadCommand- encoder", encoderSpeed);
-    encoderSpeed = m_pShooter->GetEncoderSpeed();
+    while (encoderSpeed < m_encoderSetting)
+    {
+      frc::SmartDashboard::PutNumber("ShootLoadCommand- encoder", encoderSpeed);
+      encoderSpeed = m_pShooter->GetEncoderSpeed();
+    }
   }
-  m_pLoader->SetLoadMotor(1.0);
   /*
   while (m_pLoader->HasBallLoaded())
   {
@@ -52,16 +57,18 @@ void ShootLoadCommand::Execute()
   frc::SmartDashboard::PutBoolean("ShootLoadCommand- HasBallLoaded", true);
   */
   m_pLoader->SetLoadMotor(0.0);
+  m_isFinished = true;
 }
 
 // Called once the command ends or is interrupted.
 void ShootLoadCommand::End(bool interrupted) 
 {
-
+  m_pLoader->SetLoadMotor(0.0);
+  m_pShooter->SetShootMotor(0.0);
 }
 
 // Returns true when the command should end.
 bool ShootLoadCommand::IsFinished() 
 { 
-  return false; 
+  return m_isFinished; 
 }

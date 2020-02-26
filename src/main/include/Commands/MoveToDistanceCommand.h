@@ -9,8 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "..\subsystems\LoaderSubsystemBase.h"
-#include "..\subsystems\ShooterSubsystemBase.h"
+#include "../subsystems/DriveTrainSubsystemBase.h"
 
 /**
  * An example command.
@@ -19,11 +18,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ShootLoadCommand
-    : public frc2::CommandHelper<frc2::CommandBase, ShootLoadCommand> {
+class MoveToDistanceCommand
+    : public frc2::CommandHelper<frc2::CommandBase, MoveToDistanceCommand> {
  public:
-  ShootLoadCommand(LoaderSubsystemBase *pLoader, ShooterSubsystemBase *pShooter
-  , double encoderSetting, double motorSpeed = 0.0);
+  MoveToDistanceCommand(DriveTrainSubsystemBase *pDrive, double targetDistance = 0.0);
 
   void Initialize() override;
 
@@ -34,10 +32,7 @@ class ShootLoadCommand
   bool IsFinished() override;
 
 private:
-  LoaderSubsystemBase *m_pLoader = nullptr;
-  ShooterSubsystemBase *m_pShooter = nullptr;
-  double m_encoderSetting = 0.0;
-  double m_motorSpeed = 0.0;
-
+  DriveTrainSubsystemBase *m_pDrive = nullptr;
   bool m_isFinished = false;
+  double m_targetDistance = 0.0;
 };

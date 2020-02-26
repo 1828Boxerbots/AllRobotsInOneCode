@@ -17,7 +17,7 @@ RobotContainerLipALoop::RobotContainerLipALoop()
   m_pHand = new HandSubsystemLipALoop;
   // Configure the button bindings
   ConfigureButtonBindings();
-  m_pCamera->Init();
+  //if(m_pCamera != nullptr) m_pCamera->Init();
   m_pDrive->Init();
   SetDrive();
 }
@@ -25,14 +25,14 @@ RobotContainerLipALoop::RobotContainerLipALoop()
 void RobotContainerLipALoop::ConfigureButtonBindings()
 {
   
-    SetRightBumper();
-    SetLeftBumper();
+  SetRightBumper();
+  SetLeftBumper();
 
-    SetButtonA();
-    SetButtonB();
+  SetButtonA();
+  SetButtonB();
 
-    SetButtonX();
-    SetButtonY();
+  SetButtonX();
+  SetButtonY();
     
     
 }
