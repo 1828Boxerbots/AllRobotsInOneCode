@@ -11,11 +11,15 @@
 
 class I2CMultiplexerDriver {
  public:
-  I2CMultiplexerDriver(int address, frc::I2C::Port port);
+  I2CMultiplexerDriver(frc::I2C::Port i2cPort, int breakoutAddress = breakoutAddress_base);
 
-  void MultiplexerSelect() {}; 
+  bool SetChannel(uint8_t channel);
+  uint8_t GetChannel();
 
   private:
+  
+  static const uint8_t breakoutAddress_base = 0x70;
+  uint8_t m_current_channel; 
   frc::I2C *m_pDevice = nullptr;
 };
 
