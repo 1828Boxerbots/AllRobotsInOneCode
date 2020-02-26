@@ -9,14 +9,14 @@
 #include <frc/SmartDashboard/SmartDashboard.h>
 
 ShootLoadCommand::ShootLoadCommand(LoaderSubsystemBase *pLoader, ShooterSubsystemBase *pShooter, 
-  double encoderSetting, double motorSpeed) 
+double encoderWanted, double motorSpeed) 
 {
   m_pLoader = pLoader;
   m_pShooter = pShooter;
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(pLoader);
   AddRequirements(pShooter);
-  m_encoderSetting = encoderSetting;
+  m_encoderWanted = encoderWanted;
   m_motorSpeed = motorSpeed;
 }
 
@@ -36,28 +36,16 @@ void ShootLoadCommand::Execute()
   } 
   else
   {
-    m_pShooter->SetShootMotor(1.0);
+    m_pShooter->SetShootMotor(m_motorSpeed);
   }
+
+  if(m_pLoader->GetPhotogate())
+  {
+    m_pShooter->Stop();
+    m_isFinished = true;
+  }  
   
-  // wait until encoder speed is valid
-  double encoderSpeed = m_pShooter->GetEncoderSpeed();
-  if (encoderSpeed != 0.0) // if an encoder exists
-  {
-    while (encoderSpeed < m_encoderSetting)
-    {
-      frc::SmartDashboard::PutNumber("ShootLoadCommand- encoder", encoderSpeed);
-      encoderSpeed = m_pShooter->GetEncoderSpeed();
-    }
-  }
-  /*
-  while (m_pLoader->HasBallLoaded())
-  {
-    frc::SmartDashboard::PutBoolean("ShootLoadCommand- HasBallLoaded", false);
-  }
-  frc::SmartDashboard::PutBoolean("ShootLoadCommand- HasBallLoaded", true);
-  */
-  m_pLoader->SetLoadMotor(0.0);
-  m_isFinished = true;
+  
 }
 
 // Called once the command ends or is interrupted.

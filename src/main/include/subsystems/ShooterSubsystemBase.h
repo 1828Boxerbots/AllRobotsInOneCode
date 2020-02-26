@@ -17,6 +17,7 @@ class ShooterSubsystemBase : public frc2::SubsystemBase {
   ShooterSubsystemBase();
 
   void Shoot(double shootSpeed);
+  void Stop() {Shoot(0.0);}
   void ShootBump(bool bumpL, bool bumpR);
   bool AtSetpoint(double position);
   double GetEncoderSpeed() {return m_speed;}
