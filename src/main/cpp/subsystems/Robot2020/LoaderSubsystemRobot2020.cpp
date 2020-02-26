@@ -12,7 +12,19 @@
 LoaderSubsystemRobot2020::LoaderSubsystemRobot2020() {}
 
 // This method will be called once per scheduler run
-
+void LoaderSubsystemRobot2020::Periodic()
+{
+    #ifndef NOHW
+    if (m_photogate.Get())
+    {
+        m_spike.TurnSpikeOn();
+    }
+    else
+    {
+        m_spike.TurnSpikeOff();
+    }
+    #endif
+}
 
 void LoaderSubsystemRobot2020::SetLoadMotor(double speed, int motorNumber)
 {

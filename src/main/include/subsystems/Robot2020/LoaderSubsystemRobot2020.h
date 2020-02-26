@@ -10,6 +10,7 @@
 #include <frc/Spark.h>
 #include "../LoaderSubsystemBase.h"
 #include "../../Drivers/PhotogateDriver.h"
+#include "../../Drivers/SpikeDriver.h"
 
 class LoaderSubsystemRobot2020 : public LoaderSubsystemBase {
  public:
@@ -23,6 +24,7 @@ class LoaderSubsystemRobot2020 : public LoaderSubsystemBase {
   void SetLoadMotor(double speed = 1.0, int motorNumber = INVALID_MOTOR) override;
   void PhotogateStop(double speed = 1.0) override;
   void Init() override;
+  void Periodic() override;
 
  private:
   #ifndef NOHW
@@ -31,6 +33,7 @@ class LoaderSubsystemRobot2020 : public LoaderSubsystemBase {
   frc::Spark m_loaderMotorTop {PWM_LOADMOTORTOP_ROBOT2020};
 
   PhotogateDriver m_photogate{DIO_PHOTOGATE_ROBOT2020};
+  SpikeDriver m_spike{RLY_SPIKE_ROBOT2020};
   #endif
   
   // Components (e.g. motor controllers and sensors) should generally be

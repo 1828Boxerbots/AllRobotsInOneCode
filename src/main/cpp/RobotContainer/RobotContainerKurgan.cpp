@@ -11,7 +11,7 @@
 RobotContainerKurgan::RobotContainerKurgan()
  {
   m_pDrive = new DriveTrainSubsystemKurgan;
-  //This is disable due to kurgean broken loader(vail pride day 2/15/20) - Aidan Clark
+  //This is disable due to kurgan broken loader(vail pride day 2/15/20) - Aidan Clark
   //m_pLoader = new LoaderSubsystemKurgan;
   m_pShooter = new ShooterSubsystemKurgan;
   // Configure the button bindings
