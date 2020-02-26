@@ -5,7 +5,6 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Drivers/ColorSensorDriver.h"
+#include "Drivers/MuxDrivers/MuxDistanceSensorDriver.h"
 
-ColorSensorDriver::ColorSensorDriver() {}
-
+MuxDistanceSensorDriver::MuxDistanceSensorDriver() {}

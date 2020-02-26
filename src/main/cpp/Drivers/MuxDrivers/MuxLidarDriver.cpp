@@ -5,7 +5,6 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Drivers/ColorSensorDriver.h"
+#include "Drivers/MuxDrivers/MuxLidarDriver.h"
 
-ColorSensorDriver::ColorSensorDriver() {}
-
+MuxLidarDriver::MuxLidarDriver() {}

@@ -5,7 +5,9 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Drivers/ColorSensorDriver.h"
+#pragma once
 
-ColorSensorDriver::ColorSensorDriver() {}
-
+class MuxColorSensorDriver {
+ public:
+  MuxColorSensorDriver();
+};
