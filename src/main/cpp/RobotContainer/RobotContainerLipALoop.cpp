@@ -87,6 +87,6 @@ void RobotContainerLipALoop::SetButtonY()
 
 void RobotContainerLipALoop::SetStartButton()
 {
-  frc2::Button startButton{[this] {return m_controller.GetStartButton();}};
-  startButton.WhenPressed(&m_follower);
+  //frc2::Button startButton{[this] {return m_controller.GetStartButton();}};
+  //startButton.WhenPressed(&m_follower);
 }

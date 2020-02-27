@@ -16,7 +16,7 @@ RobotContainerRocky::RobotContainerRocky()
   m_pTurret = new TurretSubsystemRocky;
   m_pLoader = new LoaderSubsystemRocky;
   m_pShooter = new ShooterSubsystemRocky;
-  //m_pCamera = new CameraSubsystemBase(m_pDrive);
+  m_pCamera = new CameraSubsystemBase(m_pDrive);
 
   // Configure the button bindings
   ConfigureButtonBindings();
