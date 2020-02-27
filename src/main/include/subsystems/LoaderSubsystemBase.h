@@ -19,6 +19,8 @@ class LoaderSubsystemBase : public frc2::SubsystemBase {
   void Load(double loadSpeed, double ejectSpeed = 0.0);
   void Eject(double ejectSpeed) {Load(0.0, ejectSpeed);}
   void Stop() {LoadMotor(0.0);}
+  void SetInverted(bool isInverted) {m_isInverted = isInverted;}
+  bool GetInverted() {return m_isInverted;}
   void LoadXY(bool xButton, bool yButton);
   virtual void SetLoadMotor(double speed = 1.0, int motorNumber = -1) {}
   virtual void PhotogateStop(double speed = 1.0) {}
@@ -35,6 +37,7 @@ class LoaderSubsystemBase : public frc2::SubsystemBase {
 
  private:
  protected:
+  bool m_isInverted = false; 
   double m_scale = 1.0;
   const double LOADSPEED = 1.0;
   const double EJECTSPEED = -1.0;
