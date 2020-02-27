@@ -21,7 +21,7 @@
 class MoveToDistanceCommand
     : public frc2::CommandHelper<frc2::CommandBase, MoveToDistanceCommand> {
  public:
-  MoveToDistanceCommand(DriveTrainSubsystemBase *pDrive, double targetDistance = 0.0);
+  MoveToDistanceCommand(DriveTrainSubsystemBase *pDrive, double targetDistance = 0.0, double speed = 1.0);
 
   void Initialize() override;
 
@@ -35,4 +35,5 @@ private:
   DriveTrainSubsystemBase *m_pDrive = nullptr;
   bool m_isFinished = false;
   double m_targetDistance = 0.0;
+  double m_toleranceValue = 10.0;
 };
