@@ -29,30 +29,64 @@ void ShootLoadCommand::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ShootLoadCommand::Execute() 
 {
-  // set shooter motor
+  if(m_isBusy == true)
+  {
+    return;
+  }
+
+  m_isBusy = true;
+  double encoderLowTol = m_encoderWanted - m_encoderTolerance;
+  double encoderHighTol = m_encoderWanted + m_encoderTolerance;
+  //Set shooter motor
   if (m_motorSpeed != 0.0)
   {
     m_pShooter->SetShootMotor(m_motorSpeed);
   } 
   else
   {
-    m_pShooter->SetShootMotor(m_motorSpeed);
+    m_pShooter->SetShootMotor(1.0);
   }
 
-  if(m_pLoader->GetPhotogate())
+  //Check if there isn't a ball in the Photogate
+  if(m_pLoader->GetPhotogate() != true)
   {
+    //If there isn't a ball there do nothing
     m_pShooter->Stop();
     m_isFinished = true;
+    m_isBusy = false;
+    return;
   }  
+
+  double shooterSpeed = m_pShooter->GetEncoderSpeed();
+  while(shooterSpeed < encoderLowTol && shooterSpeed > encoderHighTol)
+  {
+    if(shooterSpeed < encoderLowTol)
+    {
+      m_motorSpeed += 0.1;
+    }
+    else if(shooterSpeed > encoderHighTol)
+    {
+      m_motorSpeed -= 0.1;
+    }
+
+    shooterSpeed = m_pShooter->GetEncoderSpeed();
+  }
+
+  m_pLoader->Load(1.0);
+  Util::DelayInSeconds(m_oneBallTime);
+  m_pLoader->Stop();
+  //Not Sure yet if we should have this
+  m_pShooter->Stop();
   
-  
+  m_isBusy = false;
+  m_isFinished = true;
 }
 
 // Called once the command ends or is interrupted.
 void ShootLoadCommand::End(bool interrupted) 
 {
-  m_pLoader->SetLoadMotor(0.0);
-  m_pShooter->SetShootMotor(0.0);
+  m_pLoader->Stop();
+  m_pShooter->Stop();
 }
 
 // Returns true when the command should end.

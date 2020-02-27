@@ -16,7 +16,9 @@ class LoaderSubsystemBase : public frc2::SubsystemBase {
   LoaderSubsystemBase();
 
   void LoadMotor(double loadSpeed);
-  void Load(double loadSpeed, double ejectSpeed);
+  void Load(double loadSpeed, double ejectSpeed = 0.0);
+  void Eject(double ejectSpeed) {Load(0.0, ejectSpeed);}
+  void Stop() {LoadMotor(0.0);}
   void LoadXY(bool xButton, bool yButton);
   virtual void SetLoadMotor(double speed = 1.0, int motorNumber = -1) {}
   virtual void PhotogateStop(double speed = 1.0) {}

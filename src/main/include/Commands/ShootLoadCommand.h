@@ -39,6 +39,8 @@ private:
   double m_encoderWanted = 1000.0;
   double m_motorSpeed = 1.0;
   double m_encoderTolerance = 50.0;
+  double m_oneBallTime = 0.2;
 
   bool m_isFinished = false;
+  bool m_isBusy = false;
 };
