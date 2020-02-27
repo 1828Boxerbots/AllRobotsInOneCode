@@ -64,8 +64,10 @@ void RobotContainerBase::SetButtonY()
 
 void RobotContainerBase::SetStartButton()
 {
+    /*
     frc2::Button startButton{[this] {return m_controller.GetStartButton();}};
     startButton.WhenPressed(&m_follower);
+    */
 }
 
 void RobotContainerBase::SetBackButton()

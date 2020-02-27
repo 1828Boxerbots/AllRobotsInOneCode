@@ -31,7 +31,7 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   void CameraPeriodic();
 
   static const int GO_LEFT = -1;
-  static const int GO_RIGHT = +1;
+  static const int GO_RIGHT = 1;
   static const int STOP = 0;
   static const int CANT_FIND_IMAGE = -2;
 
@@ -74,6 +74,7 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   cv::Mat m_openFilter;
   cv::Moments m_moment;
   cv::Point m_center;
+  bool m_isInitialized = false;
 
   #ifdef SEND_VIDEO
   /*
