@@ -45,7 +45,7 @@ class RobotContainerBase {
   virtual void SetRightTrigger();
   virtual void Init() = 0;
   virtual void DisableInit() = 0;
-  bool GetRightBumper() {return m_controller.GetBumper(frc::GenericHID::JoystickHand::kRightHand);};
+  
   std::string ReadFMS() {return frc::DriverStation::GetInstance().GetGameSpecificMessage();}
 
   enum DriveStyles
@@ -83,44 +83,63 @@ class RobotContainerBase {
     frc2::RunCommand m_loaderStop           {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(0.0);}, {m_pLoader}};
     
     //Robot2020
-    frc2::RunCommand m_loaderFeed           {[this] {
-      if (GetRightBumper())
+    frc2::RunCommand m_loaderFeed           {[this]
+    {
+      if(m_pLoader!=nullptr)
       {
-          if (m_pLoader != nullptr) m_pLoader->SetLoadMotor(EJECT, 2); 
-      } 
-      else 
-      {
-        if (m_pLoader != nullptr) m_pLoader->SetLoadMotor(LOAD, 2);
+        if(m_pLoader->GetInverted() != true)
+        {
+          m_pLoader->SetLoadMotor(EJECT, 2); 
+        } 
+        else 
+        {
+          m_pLoader->SetLoadMotor(LOAD, 2);
+        }
       }
     }, {m_pLoader}};
-    frc2::RunCommand m_loaderMiddle           {[this] {
-      if (GetRightBumper())
+
+    frc2::RunCommand m_loaderMiddle           {[this]
+    {
+      if(m_pLoader!=nullptr)
       {
-          if (m_pLoader != nullptr) m_pLoader->SetLoadMotor(EJECT, 1); 
-      } 
-      else 
-      {
-        if (m_pLoader != nullptr) m_pLoader->SetLoadMotor(LOAD, 1);
+        if(m_pLoader->GetInverted() != true)
+        {
+          m_pLoader->SetLoadMotor(EJECT, 1); 
+        } 
+        else 
+        {
+          m_pLoader->SetLoadMotor(LOAD, 1);
+        }
       }
     }, {m_pLoader}};
-    frc2::RunCommand m_loaderTop             {[this] {
-      if (GetRightBumper())
+
+    frc2::RunCommand m_loaderTop             {[this]
+    {
+      if(m_pLoader!=nullptr)
       {
-          if (m_pLoader != nullptr) m_pLoader->SetLoadMotor(EJECT, 0); 
-      } 
-      else 
-      {
-        if (m_pLoader != nullptr) m_pLoader->SetLoadMotor(LOAD, 0);
+        if(m_pLoader->GetInverted() != true)
+        {
+          m_pLoader->SetLoadMotor(EJECT, 0); 
+        } 
+        else 
+        {
+          m_pLoader->SetLoadMotor(LOAD, 0);
+        }
       }
     }, {m_pLoader}};
-    frc2::RunCommand m_loaderAllIntake           {[this] {
-      if (GetRightBumper())
+
+    frc2::RunCommand m_loaderAllIntake           {[this]
+    {
+      if(m_pLoader!=nullptr)
       {
-          if (m_pLoader != nullptr) m_pLoader->SetLoadMotor(EJECT); 
-      } 
-      else 
-      {
-        if (m_pLoader != nullptr) m_pLoader->SetLoadMotor(LOAD);
+        if (m_pLoader->GetInverted() != true)
+        {
+          m_pLoader->SetLoadMotor(EJECT); 
+        } 
+        else 
+        {
+          m_pLoader->SetLoadMotor(LOAD);
+        }
       }
     }, {m_pLoader}};
 
@@ -133,6 +152,9 @@ class RobotContainerBase {
     frc2::RunCommand m_loaderMiddleEject    {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0, 1);}, {m_pLoader}};
     frc2::RunCommand m_loaderBottomEject    {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0, 2);}, {m_pLoader}};
     frc2::RunCommand m_loaderTopEject       {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0, 0);}, {m_pLoader}};
+
+    frc2::InstantCommand m_loaderSetInverted{[this] { if(m_pLoader!=nullptr) m_pLoader->SetInverted(true);}, {m_pLoader}};
+    frc2::InstantCommand m_loaderResetInverted{[this]{ if(m_pLoader!=nullptr) m_pLoader->SetInverted(false);}, {m_pLoader}};
 
     // Shooter subsystem commands
     ShooterSubsystemBase *m_pShooter = nullptr;
@@ -182,8 +204,6 @@ class RobotContainerBase {
     SpinSubsystemBase *m_pSpin = nullptr;
     frc2::RunCommand m_spinToColor          {[this] { if(m_pSpin != nullptr) m_pSpin->SpinUntilColor();}, {m_pSpin}};
     frc2::RunCommand m_spin                 {[this] { if(m_pSpin != nullptr) m_pSpin->SpinWithEncoders();}, {m_pSpin}};
-
-
 
   frc2::SequentialCommandGroup m_autoTestOne = frc2::SequentialCommandGroup
   {

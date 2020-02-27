@@ -12,6 +12,7 @@
 #include "subsystems/Robot2020/ShooterSubsystemRobot2020.h"
 #include "subsystems/Robot2020/SpinSubsystemRobot2020.h"
 #include "RobotContainerBase.h"
+#include "../Commands/ShootLoadCommand.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -33,12 +34,15 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   void SetButtonY() override;
   void SetRightTrigger() override;
   void SetLeftBumper() override;
+  void SetRightBumper() override;
   void SetStartButton() override;
   void SetBackButton() override;
 
   frc2::Command* GetAutonomousCommand();
 
  private:
+
+ ShootLoadCommand* m_pShootLoad = nullptr;
   // The robot's subsystems and commands are defined here...
 
   void ConfigureButtonBindings();
