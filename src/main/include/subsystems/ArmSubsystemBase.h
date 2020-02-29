@@ -22,9 +22,10 @@ class ArmSubsystemBase : public frc2::SubsystemBase {
     INVALID_POS=-1, LOWEST_POS, HIGHEST_POS
   };
 
-  void Log(std::string title, double num) { }
-  void Log(std::string title, int num) { }
-  void Log(std::string title, bool flag) { }
+  void Log(std::string title, double num);
+  void Log(std::string title, int num);
+  void Log(std::string title, bool flag);
+  void Log(std::string title, std::string phrase);
 
   // Sets arm to a certain position
   // parm1: pos- sets arm to certain position on robot

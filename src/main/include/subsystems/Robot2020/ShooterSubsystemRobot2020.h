@@ -28,7 +28,7 @@ class ShooterSubsystemRobot2020 : public ShooterSubsystemBase {
 
  #ifndef NOHW
  frc::Victor m_shooterMotor{PWM_SHOOTMOTOR_ROBOT2020};
- frc::Encoder m_shooterEncoder{DIO_ARM_ENCODER_ONE_ROBOT2020, DIO_ARM_ENCODER_TWO_ROBOT2020};
+ frc::Encoder m_shooterEncoder{DIO_SHOOTER_ENCODER_ONE_ROBOT2020, DIO_SHOOTER_ENCODER_TWO_ROBOT2020};
  #endif
 
  const int PULSES_PER_ROTATION = 80;

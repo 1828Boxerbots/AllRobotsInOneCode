@@ -30,4 +30,6 @@ class SpinSubsystemRobot2020 : public SpinSubsystemBase {
   frc::I2C m_multiplexer {I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_MULTIPLEXER_ROBOT2020};
   frc::I2C m_rightDistanceSensor {I2C_PORT_RIGHTDISTANCESENSOR_ROBOT2020, I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020};
  #endif
+
+ double m_scale = 1.0;
 };

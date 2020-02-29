@@ -10,6 +10,7 @@
 #include "../ArmSubsystemBase.h"
 #include <frc/Victor.h>
 #include <frc/Encoder.h>
+#include <frc/AnalogEncoder.h>
 #include "../../Drivers/HallEffectOmnipolarDriver.h"
 
 class ArmSubsystemRobot2020 : public ArmSubsystemBase {
@@ -35,11 +36,11 @@ class ArmSubsystemRobot2020 : public ArmSubsystemBase {
  private:
  #ifndef NOHW
   frc::Victor m_armMotor{PWM_ARMMOTOR_ROBOT2020};
-  frc::Encoder m_armEncoder{DIO_ARM_ENCODER_ONE_ROBOT2020, DIO_ARM_ENCODER_TWO_ROBOT2020};
-  HallEffectOmnipolarDriver m_hallEffectLower{0};
-  HallEffectOmnipolarDriver m_hallEffectUpper{1};
+  frc::Encoder m_armEncoder{DIO_ARM_ENCODER_ONE_ROBOT2020, false, k1X};
+  HallEffectOmnipolarDriver m_hallEffectLower{DIO_HALLEFFECT_LOWER_ROBOT2020};
+  HallEffectOmnipolarDriver m_hallEffectUpper{DIO_HALLEFFECT_UPPER_ROBOT2020};
  #endif
-  double m_scale = 0.1;
+  double m_scale = 0.5;
   double m_lowValue = 0.0;
   double m_highValue = 150.0;
   

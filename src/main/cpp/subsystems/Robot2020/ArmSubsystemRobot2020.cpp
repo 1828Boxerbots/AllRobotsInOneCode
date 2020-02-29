@@ -10,16 +10,25 @@
 ArmSubsystemRobot2020::ArmSubsystemRobot2020() {}
 
 // This method will be called once per scheduler run
-void ArmSubsystemRobot2020::Periodic() {}
+void ArmSubsystemRobot2020::Periodic() 
+{
+    //Log the Halleffects
+    Log("Lower HallEffect", m_hallEffectLower.Get());
+    Log("Upper HallEffect", m_hallEffectUpper.Get());
+
+    //Log The Arm Encoder
+    Log("Encoder Raw", m_armEncoder.GetRaw());
+}
 
 void ArmSubsystemRobot2020::Init()
 {
-    SetPosition(LOWEST_POS);
+    //SetPosition(LOWEST_POS);
+    m_armEncoder.Reset();
 }
 
 void ArmSubsystemRobot2020::DisableInit()
 {
-    SetPosition(LOWEST_POS);
+    //SetPosition(LOWEST_POS);
 }
 
 void ArmSubsystemRobot2020::SetMotor(double speed)
@@ -73,26 +82,32 @@ int ArmSubsystemRobot2020::GetPosition()
 
 void ArmSubsystemRobot2020::SetPosition(int pos)
 {
+    Log("Pos", pos);
+    Log("Lower HallEffect", m_hallEffectLower.Get());
+    Log("Upper HallEffect", m_hallEffectUpper.Get());
     //Switch Statement to check what position we want to go to
     switch (pos)
     {
     case LOWEST_POS:
     //Checks if either the HallEffect or encoder is true and moves the arm up until it is
-        while(m_hallEffectLower.Get() != true /*|| m_armEncoder.Get() != m_lowValue*/)
+        while(m_hallEffectLower.Get() == true /*|| m_armEncoder.Get() != m_lowValue*/)
         {
             LiftArmDown(m_scale);
-            frc::SmartDashboard::PutString("Arm Condition", "Moving Down");
+            frc::SmartDashboard::PutString("Condition", "Moving Down");
         }
-        frc::SmartDashboard::PutString("Arm Condition", "Done");
+        StopMotor();
+        frc::SmartDashboard::PutString("Condition", "Done");
         break;
     case HIGHEST_POS:
     //Checks if either the HallEffect or encoder is true and moves the arm down until it is
-        while(m_hallEffectUpper.Get() != true /*|| m_armEncoder.Get() != m_highValue*/)
+        while(m_hallEffectUpper.Get() == true /*|| m_armEncoder.Get() != m_highValue*/)
         {
             LiftArmUp(m_scale);
-            frc::SmartDashboard::PutString("Arm Condition", "Moving Up");
+            frc::SmartDashboard::PutString("Condition", "Moving Up");
         }
-        frc::SmartDashboard::PutString("Arm Condition", "Done");
+        Util::DelayInSeconds(.15);
+        StopMotor();
+        frc::SmartDashboard::PutString("Condition", "Done");
         break;
     default:
         //If position is not 0 or 1 the arm motor will stop

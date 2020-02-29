@@ -28,9 +28,9 @@ class LoaderSubsystemRobot2020 : public LoaderSubsystemBase {
 
  private:
   #ifndef NOHW
-  frc::Spark m_loaderMotorIntake {PWM_LOADMOTORINTAKE_ROBOT2020};
-  frc::Spark m_loaderMotorBottom {PWM_LOADMOTORBOTTOM_ROBOT2020};
-  frc::Spark m_loaderMotorTop {PWM_LOADMOTORTOP_ROBOT2020};
+  frc::Spark m_loaderMotorIntake {PWM_LOADMOTOR_INTAKE_ROBOT2020};
+  frc::Spark m_loaderMotorBottom {PWM_LOADMOTOR_BOTTOM_ROBOT2020};
+  frc::Spark m_loaderMotorTop {PWM_LOADMOTOR_TOP_ROBOT2020};
 
   PhotogateDriver m_photogate{DIO_PHOTOGATE_ROBOT2020};
   SpikeDriver m_spike{RLY_SPIKE_ROBOT2020};

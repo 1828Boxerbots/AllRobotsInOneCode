@@ -27,9 +27,10 @@ void SpinSubsystemRobot2020::Init()
 
 void SpinSubsystemRobot2020::SetSpinMotor (double speed)
 {
-
+    m_spinMotor.Set(speed * m_scale);
 }
 
+//void SpinSubsystemRobot2020::SpinNumber(double speed, int )
 
 double SpinSubsystemRobot2020::GetNumberOfTicks(double R, double revolutions, double r) 
 {
