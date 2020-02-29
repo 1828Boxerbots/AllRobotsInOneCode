@@ -212,7 +212,7 @@ void CameraSubsystemBase::CameraPeriodic()
     frc::SmartDashboard::PutNumber("Camera Frame Number", m_frameNumber);
     Tick();
 }
-
+//Loop that turns the robot based on camera input
 void CameraSubsystemBase::AutoCameraTurn()
 {
     
@@ -228,7 +228,9 @@ void CameraSubsystemBase::AutoCameraTurn()
         frc::SmartDashboard::PutNumber("Shadow", 2);
         m_frameNumber++;
         frc::SmartDashboard::PutNumber("CameraWork frameNum", m_frameNumber);
-
+        if(dir == 0)
+            break;
+        }
         frc::SmartDashboard::PutNumber("Shadow", 3);
         if (dir == 1) 
         {

@@ -90,16 +90,16 @@ void DriveTrainSubsystemBase::LogEncoder()
     frc::SmartDashboard::PutNumber("Left Encoder Distance", m_leftEncoderSim);
 }
 
-
+//Stops robot
 void DriveTrainSubsystemBase::Stop()
 {
     MoveTank(0.0, 0.0);
 }
 
-
+//Moves robot forward
 void DriveTrainSubsystemBase::Forward(double speed)
 {
-    MoveTank(1.0, 1.0);
+    MoveTank(speed, speed);
 }
 
 bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading, double maxSpeed)
@@ -170,7 +170,7 @@ bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading
     //Max Rotation Speed
     rotation = Util::AbsMax(rotation, maxSpeed);
 
-    //Nothing left but to fo it...
+    //Nothing left but to for it...
     MoveArcade(lin, rotation);
 
     //Determine if the robot made it to the target
@@ -205,9 +205,10 @@ void DriveTrainSubsystemBase::FixRotation(double wantedAngle, double speed)
     }
     Stop();
 }
-
+//Pretty buggy, two versions of it: PIDS control and regular control. PIDS makes sure the robot is straight, regular just moves forward
 void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double speed)
 {
+    //This is Regular
     double startDistance = GetLeftEncoderInch();
     double currentDistance = GetLeftEncoderInch();
     while(currentDistance-startDistance < inch)
@@ -222,6 +223,7 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
     }
     Stop();
     
+    //This is PIDS
 /*
     //Creates and Starts Timer
     frc::Timer timer;
@@ -246,13 +248,15 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
     */
 }
 
-
+//Used to turn the robot a certain amount of degrees(RelativeAngle is user's wanted angle)
 void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
 {
+    //troubleshooting values, use these for testing what makes the robot go to the relative angle
     frc::SmartDashboard::PutNumber("Current Angle", relativeAngle);
     frc::SmartDashboard::PutBoolean("In Place", true);
     double startAngle = GyroGetAngle();
     double currentAngle = GyroGetAngle();
+    //logic used to turn the robot left or right and keeping it turned
     if(relativeAngle > 0)
     {
         TurnLeft(.75);
@@ -278,7 +282,7 @@ void DriveTrainSubsystemBase::Init()
     Init();
 }
 
-
+//Dead function used to turn the robot in seconds; Use at your own risk
 void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime)
 {
     /*m_time.Reset();

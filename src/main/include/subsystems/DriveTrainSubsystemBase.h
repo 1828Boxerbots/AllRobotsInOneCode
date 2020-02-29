@@ -26,7 +26,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   void MoveTank(double leftY, double rightY);
   void MoveArcade(double X, double Y);
   void Stop();
-  void Forward(double speed);
+  void Forward(double speed = 1.0);
   void ForwardInInch(double inch, double angle, double speed);
   void LogEncoder();
   bool MoveAlignPID(double targetDistance, double heading, double speed = 1.0);
