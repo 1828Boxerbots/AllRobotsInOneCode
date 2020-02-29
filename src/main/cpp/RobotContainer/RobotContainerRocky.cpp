@@ -18,10 +18,14 @@ RobotContainerRocky::RobotContainerRocky()
   m_pShooter = new ShooterSubsystemRocky;
   m_pCamera = new CameraSubsystemBase(m_pDrive);
 
+  frc::SmartDashboard::PutString("test","test");
+
   // Configure the button bindings
   ConfigureButtonBindings();
   m_pShooter->Init();
   m_pDrive->Init();
+  m_pCamera->Init();
+  frc::SmartDashboard::PutString("test","test2");
   SetDrive();
 }
 

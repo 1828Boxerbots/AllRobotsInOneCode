@@ -36,7 +36,10 @@ void CameraSubsystemBase::Log(std::string title, std::string str)
 void CameraSubsystemBase::InitializeCamera(int port)
 {
     m_video.open(port);
-    m_isInitialized = true;
+    m_widthCamera = m_video.get(CV_CAP_PROP_FRAME_WIDTH);
+    m_heightCamera = m_video.get(CV_CAP_PROP_FRAME_HEIGHT);
+    frc::SmartDashboard::PutNumber("Camera Width:", GetMaxResolutionX());
+    frc::SmartDashboard::PutNumber("Camera Height:", GetMaxResolutionY());
 }
 
 void CameraSubsystemBase::IntakeFrame()
@@ -46,6 +49,7 @@ void CameraSubsystemBase::IntakeFrame()
         return;
     }
     m_video >> m_frame;
+    
 }
 
 void CameraSubsystemBase::Init()

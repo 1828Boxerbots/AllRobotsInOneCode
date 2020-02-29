@@ -48,8 +48,8 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   virtual int GetCenterMax() { return GetMaxResolutionX()/2 + PIXELCOUNT;}
   virtual int GetRightMin() { return GetMaxResolutionX()/2 + PIXELCOUNT + 1;}
   virtual int GetRightMax() { return GetMaxResolutionX();}
-  virtual int GetMaxResolutionX() { return 640;}
-  virtual int GetMaxResolutionY() { return 480;}
+  virtual int GetMaxResolutionX() { return m_widthCamera;};
+  virtual int GetMaxResolutionY() { return m_heightCamera;};
   virtual void SetColor();
   void AutoCameraTurn();
 
@@ -69,7 +69,8 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
   int m_frameNumber = 1;
-
+  int m_widthCamera = 0;
+  int m_heightCamera = 0;
   cv::Mat m_frame;
   cv::Mat m_morph = cv::getStructuringElement(cv::MORPH_CROSS, cv::Size(3, 3), cv::Point(-1, 1));
   cv::VideoCapture m_video;
