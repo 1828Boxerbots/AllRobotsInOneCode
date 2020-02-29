@@ -7,7 +7,7 @@
 
 #include "Commands/MoveToDistanceCommand.h"
 
-MoveToDistanceCommand::MoveToDistanceCommand(DriveTrainSubsystemBase *pDrive, double targetDistance) 
+MoveToDistanceCommand::MoveToDistanceCommand(DriveTrainSubsystemBase *pDrive, double targetDistance, double speed) 
 {
   m_pDrive = pDrive;
   m_targetDistance = targetDistance;
@@ -24,15 +24,24 @@ void MoveToDistanceCommand::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void MoveToDistanceCommand::Execute() 
 {
-  // move forward
-  m_pDrive->MoveTank(1.0, 1.0);
-
-  // get distance to target
-  double dist = m_pDrive->GetDetectionDistance();
-  if (dist < 5.0) // dead zone 
+  double lowTolerance = m_targetDistance - m_toleranceValue;
+  double highTolerance = m_targetDistance + m_toleranceValue;
+  double currentDistance = m_pDrive->GetDetectionDistance();
+  while (currentDistance < lowTolerance || currentDistance > highTolerance)
   {
-
+    if(currentDistance < lowTolerance)
+    {
+      m_pDrive->MoveTank(-1.0, -1.0);
+    }
+    else if(currentDistance > highTolerance)
+    {
+      m_pDrive->MoveTank(1.0, 1.0);
+    }
+    currentDistance = m_pDrive->GetDetectionDistance();
   }
+
+  m_pDrive->Stop();
+  m_isFinished = true;
 }
 
 // Called once the command ends or is interrupted.

@@ -25,8 +25,8 @@ class ArmSubsystemLipALoop : public ArmSubsystemBase {
   void DisableInit() override;
   void SetMotor(double angle) override;	
   double GetMotor() override;
-  void LiftArmUp() override;
-  void LiftArmDown() override;
+  void LiftArmUp(double scale = 0, double speed = 0) override;
+  void LiftArmDown(double scale = 0, double speed = 0) override;
   void StopMotor() override;
 
   void SetPosition(int pos) override;

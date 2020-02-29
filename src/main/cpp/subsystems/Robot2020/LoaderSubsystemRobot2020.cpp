@@ -35,19 +35,19 @@ void LoaderSubsystemRobot2020::SetLoadMotor(double speed, int motorNumber)
         m_loaderMotorTop.Set(speed);
         break;
     
-    case MOTOR_MIDDLE:
-        m_loaderMotorMiddle.Set(speed);
+    case MOTOR_BOTTOM:
+        m_loaderMotorBottom.Set(speed);
         break;
         
 
-    case MOTOR_BOTTOM:
-        m_loaderMotorBottom.Set(speed);
+    case MOTOR_INTAKE:
+        m_loaderMotorIntake.Set(speed);
         break;
 
     default:
         m_loaderMotorTop.Set(speed);
+        m_loaderMotorIntake.Set(speed);
         m_loaderMotorBottom.Set(speed);
-        m_loaderMotorMiddle.Set(speed);
         break;
     }
     #endif
@@ -68,7 +68,7 @@ void LoaderSubsystemRobot2020::Init()
 {
     #ifndef NOHW
     m_loaderMotorTop.SetInverted(false);
-    m_loaderMotorBottom.SetInverted(false);
-    m_loaderMotorMiddle.SetInverted(true);
+    m_loaderMotorIntake.SetInverted(false);
+    m_loaderMotorBottom.SetInverted(true);
     #endif
 }
