@@ -229,6 +229,7 @@ void CameraSubsystemBase::AutoCameraTurn()
         m_frameNumber++;
         frc::SmartDashboard::PutNumber("CameraWork frameNum", m_frameNumber);
         if(dir == 0)
+        {
             break;
         }
         frc::SmartDashboard::PutNumber("Shadow", 3);
