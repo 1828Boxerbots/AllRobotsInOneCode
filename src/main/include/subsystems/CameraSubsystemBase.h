@@ -29,18 +29,25 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   int WhereToTurn();
   void Tick();
   void CameraPeriodic();
+  void Log(std::string title, double num);
+  void Log(std::string title, int  num);
+  void Log(std::string title, bool flag);
+  void Log(std::string title, std::string str);
 
-  static const int GO_LEFT = -1;
-  static const int GO_RIGHT = 1;
+  static const int GO_LEFT = 1;
+  static const int GO_RIGHT = -1;
+  //static onst int GO_RIGHT = 1;
+  //static const int GO_LEFT = -1;
   static const int STOP = 0;
   static const int CANT_FIND_IMAGE = -2;
 
-  virtual int GetLeftMin() { return 10;}
-  virtual int GetLeftMax() { return 250;}
-  virtual int GetCenterMin() { return 250;}
-  virtual int GetCenterMax() { return 350;}
-  virtual int GetRightMin() { return 350;}
-  virtual int GetRightMax() { return 640;}
+  const int PIXELCOUNT = 100;
+  virtual int GetLeftMin() { return 0;}
+  virtual int GetLeftMax() { return GetMaxResolutionX()/2 - PIXELCOUNT;}
+  virtual int GetCenterMin() { return GetMaxResolutionX()/2 - PIXELCOUNT+1;}
+  virtual int GetCenterMax() { return GetMaxResolutionX()/2 + PIXELCOUNT;}
+  virtual int GetRightMin() { return GetMaxResolutionX()/2 + PIXELCOUNT + 1;}
+  virtual int GetRightMax() { return GetMaxResolutionX();}
   virtual int GetMaxResolutionX() { return 640;}
   virtual int GetMaxResolutionY() { return 480;}
   virtual void SetColor();
@@ -77,7 +84,7 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   bool m_isInitialized = false;
 
   #ifdef SEND_VIDEO
-  /*
+
   int m_sendSizeWidth = 480;
   int m_sendSizeHeight = 640;
   int m_sendRectWidth = m_sendSizeWidth/2;
@@ -85,7 +92,7 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   cv::Mat m_sendFrame;
   cs::CvSink m_cvSink;
   cs::CvSource m_outputStream;
-  */
+  
   #endif
   void SendImage();
   void InitSendImage();

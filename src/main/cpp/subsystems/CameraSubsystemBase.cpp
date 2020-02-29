@@ -8,11 +8,30 @@
 #include "subsystems/CameraSubsystemBase.h"
 #include "Constants.h"
 #include "subsystems/DriveTrainSubsystemBase.h"
+#include <cameraserver/CameraServer.h>
 
 CameraSubsystemBase::CameraSubsystemBase(DriveTrainSubsystemBase *pDrive) 
 {
     m_pDriveObject = pDrive;
 }
+
+void CameraSubsystemBase::Log(std::string title, double num)
+{
+    frc::SmartDashboard::PutNumber("Camera " + title, num);
+}
+void CameraSubsystemBase::Log(std::string title, int  num)
+{
+    frc::SmartDashboard::PutNumber("Camera " + title, num);
+}
+void CameraSubsystemBase::Log(std::string title, bool flag)
+{
+    frc::SmartDashboard::PutBoolean("Camera " + title, flag);
+}
+void CameraSubsystemBase::Log(std::string title, std::string str)
+{
+    frc::SmartDashboard::PutString("Camera " + title, str);
+}
+
 
 void CameraSubsystemBase::InitializeCamera(int port)
 {
@@ -36,6 +55,10 @@ void CameraSubsystemBase::Init()
         return;
     }
     InitializeCamera(USB_CAMERA_ONE);
+    frc::CameraServer *ucamInst = frc::CameraServer::GetInstance();
+    // cs::UsbCamera *ucamObj = new cs::UsbCamera("USB Camera 0", 0);
+    // ucamInst->AddCamera(ucamObj);
+    ucamInst->StartAutomaticCapture(0);
     m_isInitialized = true;
 }
 
@@ -75,20 +98,20 @@ void CameraSubsystemBase::CenterMoment()
 void CameraSubsystemBase::InitSendImage()
 {
     #ifdef SEND_VIDEO
-    /*
+    
     // Get a CvSink. This will capture Mats from the Camera
-    m_cvSink = frc::CameraServer::GetInstance()->GetVideo();
+   // m_cvSink = frc::CameraServer::GetInstance()->GetVideo();
     
     // Setup a CvSource. This will send images back to the Dashboard
-    m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Rectangle", m_sendSizeHeight, m_sendSizeWidth);
-    */
+    //m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Rectangle", m_sendSizeHeight, m_sendSizeWidth);
+    
     #endif
 }
 
 void CameraSubsystemBase::SendImage()
 {
     #ifdef SEND_VIDEO
-/*
+    /*
     if (m_cvSink.GrabFrame(m_sendFrame) == 0) 
     {
         // Send the output the error.
@@ -107,41 +130,46 @@ void CameraSubsystemBase::SendImage()
 
         // Give the output stream a new image to display
         m_outputStream.PutFrame(m_sendFrame);
-    }
-*/    
+    } 
+    */  
     #endif
 }
 
 int CameraSubsystemBase::WhereToTurn()
 {
+    Log("centerX", m_center.x);
+    Log("maxRes", GetMaxResolutionX());
+
     frc::SmartDashboard::PutNumber("CodeRun", false);
     frc::SmartDashboard::PutBoolean("ABC", false);
     if (m_isInitialized == false) 
     {
+        frc::SmartDashboard::PutString("Camera Turn To", "Not initialized");
         frc::SmartDashboard::PutBoolean("ABC", true);
         return CANT_FIND_IMAGE; 
     }
     SendImage();
     Tick();
-    if ( m_center.x > GetLeftMin() && m_center.x <  GetLeftMax())
-    {
-        frc::SmartDashboard::PutString("Camera Turn To", "Left");
-        frc::SmartDashboard::PutBoolean("ABC", true);
-        return GO_LEFT;
-    }
-    if(m_center.x  > GetRightMin() && m_center.x < GetRightMax())
-    {
-        frc::SmartDashboard::PutString("Camera Turn To", "Right");
-        frc::SmartDashboard::PutBoolean("ABC", true);
-        return GO_RIGHT;
-    }
-    if(m_center.x  < GetCenterMin() && m_center.x  > GetCenterMax())
+    if(m_center.x  >= GetCenterMin() && m_center.x  < GetCenterMax())
+    //if(m_center.x  >= 0 && m_center.x  < GetMaxResolutionX())
     {
         frc::SmartDashboard::PutString("Camera Turn To", "Center");
         frc::SmartDashboard::PutBoolean("ABC", true);
         return STOP;
     }
-    if (m_center.x < 0 || m_center.x > GetMaxResolutionX())
+    else if ( m_center.x >= GetLeftMin() && m_center.x <  GetLeftMax())
+    {
+        frc::SmartDashboard::PutString("Camera Turn To", "Left");
+        frc::SmartDashboard::PutBoolean("ABC", true);
+        return GO_LEFT;
+    } 
+    else if(m_center.x  >= GetRightMin() && m_center.x < GetRightMax())
+    {
+        frc::SmartDashboard::PutString("Camera Turn To", "Right");
+        frc::SmartDashboard::PutBoolean("ABC", true);
+        return GO_RIGHT;
+    }
+    else if (m_center.x < 0 || m_center.x > GetMaxResolutionX())
     {
         frc::SmartDashboard::PutString("Camera Turn To", "CANT SEE");
         frc::SmartDashboard::PutBoolean("ABC", true);
@@ -187,43 +215,52 @@ void CameraSubsystemBase::CameraPeriodic()
 
 void CameraSubsystemBase::AutoCameraTurn()
 {
-
+    
     frc::SmartDashboard::PutBoolean("CameraWork", false);
     int dir;
     m_frameNumber++;
     frc::SmartDashboard::PutNumber("CameraWork frameNum", m_frameNumber);
     do
     {
-frc::SmartDashboard::PutNumber("Shadow", 1);
+        frc::SmartDashboard::PutNumber("Code Broke", false);
+        frc::SmartDashboard::PutNumber("Shadow", 1);
         dir = WhereToTurn();
-        frc::SmartDashboard::PutNumber("Camera Direction", dir);
-
-frc::SmartDashboard::PutNumber("Shadow", 2);
+        frc::SmartDashboard::PutNumber("Shadow", 2);
         m_frameNumber++;
         frc::SmartDashboard::PutNumber("CameraWork frameNum", m_frameNumber);
 
-frc::SmartDashboard::PutNumber("Shadow", 3);
+        frc::SmartDashboard::PutNumber("Shadow", 3);
         if (dir == 1) 
         {
-frc::SmartDashboard::PutNumber("Shadow", 4);
+            frc::SmartDashboard::PutNumber("Shadow", 4);
             m_pDriveObject->TurnRight();
-frc::SmartDashboard::PutNumber("Shadow", 5);
+            frc::SmartDashboard::PutNumber("Shadow", 5);
         }
         if (dir == -1) 
         {
-frc::SmartDashboard::PutNumber("Shadow", 6);
+            frc::SmartDashboard::PutNumber("Shadow", 6);
             m_pDriveObject->TurnLeft();
-frc::SmartDashboard::PutNumber("Shadow", 7);
+            frc::SmartDashboard::PutNumber("Shadow", 7);
         }
-        if(dir != -1 && dir != +1) 
+        if(dir == -2)
         {
-frc::SmartDashboard::PutNumber("Shadow", 8);
+            m_pDriveObject->TurnLeft();
+            frc::SmartDashboard::PutNumber("Shadow", 9.5);
+        }
+        if(dir != -1 && dir != 1 && dir == -2) 
+        {
+            frc::SmartDashboard::PutNumber("Shadow", 8);
             m_pDriveObject->TurnLeft(); 
             frc::SmartDashboard::PutBoolean("CodeBroke", true);
-frc::SmartDashboard::PutNumber("Shadow", 9);
+            frc::SmartDashboard::PutNumber("Shadow", 9);
+        }
+        frc::SmartDashboard::PutNumber("Camera Direction", dir);
+        if(dir == 0)
+        {
+            break;
         }
     } while(dir != STOP);
-frc::SmartDashboard::PutNumber("Shadow", 10);
+    frc::SmartDashboard::PutNumber("Shadow", 10);
     frc::SmartDashboard::PutBoolean("CameraWork", true);
 }
 
