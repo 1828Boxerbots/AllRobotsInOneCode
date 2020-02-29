@@ -41,7 +41,7 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   static const int STOP = 0;
   static const int CANT_FIND_IMAGE = -2;
 
-  const int PIXELCOUNT = 100;
+  const int PIXELCOUNT = 50;
   virtual int GetLeftMin() { return 0;}
   virtual int GetLeftMax() { return GetMaxResolutionX()/2 - PIXELCOUNT;}
   virtual int GetCenterMin() { return GetMaxResolutionX()/2 - PIXELCOUNT+1;}

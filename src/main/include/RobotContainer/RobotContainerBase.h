@@ -242,7 +242,7 @@ class RobotContainerBase {
     //frc2::InstantCommand{  [this] {if(m_pShooter != nullptr)  m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
     //frc2::InstantCommand{  [this] {if(m_pShooter != nullptr)  m_pDrive->TurnInDegrees(180);}, {m_pDrive}},
     //frc2::InstantCommand{  [this] {if(m_pShooter != nullptr)  m_pDrive->ForwardInInch(24, 180.0, 0.75);}, {m_pDrive}},
-    frc2::RunCommand{      [this] {if(m_pCamera != nullptr)   m_pCamera->AutoCameraTurn();}, {m_pCamera, m_pDrive}},
+    frc2::RunCommand{      [this] {if(m_pCamera != nullptr)   m_pCamera->AutoCameraTurn();}, {m_pCamera, m_pDrive},},
     /*
     frc2::InstantCommand{  [this] {if(m_pShooter != nullptr)  m_pShooter->Shoot(1.0);}, {m_pShooter}},
     frc2::InstantCommand{  [this] {if(m_pShooter != nullptr)  m_pShooter->WaitShooter(5);}, {m_pShooter}}, 
