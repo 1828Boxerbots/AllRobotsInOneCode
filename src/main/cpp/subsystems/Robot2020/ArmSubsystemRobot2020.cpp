@@ -38,6 +38,16 @@ double ArmSubsystemRobot2020::GetMotor()
     #endif
 }
 
+void ArmSubsystemRobot2020::LiftArmUp(double scale, double speed)
+{
+    SetMotor(speed * scale);
+}
+
+void ArmSubsystemRobot2020::LiftArmDown(double scale, double speed)
+{
+    SetMotor(-speed * scale);
+}
+
 void ArmSubsystemRobot2020::Raise(double speed)
 {
     SetMotor(speed);
@@ -68,17 +78,21 @@ void ArmSubsystemRobot2020::SetPosition(int pos)
     {
     case LOWEST_POS:
     //Checks if either the HallEffect or encoder is true and moves the arm up until it is
-        while(m_hallEffectLower.Get() != true || m_armEncoder.Get() != m_lowValue)
+        while(m_hallEffectLower.Get() != true /*|| m_armEncoder.Get() != m_lowValue*/)
         {
-            LiftArmDown();
+            LiftArmDown(m_scale);
+            frc::SmartDashboard::PutString("Arm Condition", "Moving Down");
         }
+        frc::SmartDashboard::PutString("Arm Condition", "Done");
         break;
     case HIGHEST_POS:
     //Checks if either the HallEffect or encoder is true and moves the arm down until it is
-        while(m_hallEffectUpper.Get() != true || m_armEncoder.Get() != m_highValue)
+        while(m_hallEffectUpper.Get() != true /*|| m_armEncoder.Get() != m_highValue*/)
         {
-            LiftArmUp();
+            LiftArmUp(m_scale);
+            frc::SmartDashboard::PutString("Arm Condition", "Moving Up");
         }
+        frc::SmartDashboard::PutString("Arm Condition", "Done");
         break;
     default:
         //If position is not 0 or 1 the arm motor will stop

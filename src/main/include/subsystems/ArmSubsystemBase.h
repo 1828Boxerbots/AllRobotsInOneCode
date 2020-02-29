@@ -7,6 +7,7 @@
 
 #pragma once	
 
+#include <string.h>
 #include <frc2/command/SubsystemBase.h>	
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "Util.h"	
@@ -21,6 +22,10 @@ class ArmSubsystemBase : public frc2::SubsystemBase {
     INVALID_POS=-1, LOWEST_POS, HIGHEST_POS
   };
 
+  void Log(std::string title, double num) { }
+  void Log(std::string title, int num) { }
+  void Log(std::string title, bool flag) { }
+
   // Sets arm to a certain position
   // parm1: pos- sets arm to certain position on robot
   //    pos = LOWEST_POS is the lowest
@@ -34,9 +39,9 @@ class ArmSubsystemBase : public frc2::SubsystemBase {
   virtual int GetPosition() {return INVALID_POS;}
 
   // LiftArmUp - incrementally move up by one degree (uses GetOneDegree)
-  virtual void LiftArmUp() {}
+  virtual void LiftArmUp(double scale = 0, double speed = 0.0) {}
   // LiftArmDown - incrementally move down by one degree (uses GetOneDegree)
-  virtual void LiftArmDown() {}
+  virtual void LiftArmDown(double scale = 0, double speed = 0.0) {}
   // resets servo and encoders to zero 
   virtual void ResetToZero() {}	
 
@@ -82,7 +87,7 @@ class ArmSubsystemBase : public frc2::SubsystemBase {
 
   // sets hardware motor(s) to given speed.  
   // no LIMITs done.  Refer to LimitedLift.
-  virtual void SetMotor(double speed) {}
+  virtual void SetMotor(double speed = 1.0) {}
   virtual double GetMotor() {return 0.0;}
 
   protected:	

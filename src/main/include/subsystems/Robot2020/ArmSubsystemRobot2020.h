@@ -16,14 +16,16 @@ class ArmSubsystemRobot2020 : public ArmSubsystemBase {
  public:
   ArmSubsystemRobot2020();
 
-  virtual void Init();
-  virtual void SetMotor(double speed);
-  virtual double GetMotor();
-  virtual void DisableInit();
-  virtual void SetPosition(int pos);
-  virtual int GetPosition();
-  virtual void Raise(double speed = 1.0);
-  virtual void Lower(double speed = 1.0);
+  void Init() override;
+  void SetMotor(double speed) override;
+  double GetMotor() override;
+  void DisableInit() override;
+  void SetPosition(int pos) override;
+  int GetPosition() override;
+  void Raise(double speed = 1.0) override;
+  void Lower(double speed = 1.0) override;
+  void LiftArmUp(double scale = 0, double speed = 1.0) override;
+  void LiftArmDown(double scale = 0, double speed = 1.0) override;
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -33,10 +35,11 @@ class ArmSubsystemRobot2020 : public ArmSubsystemBase {
  private:
  #ifndef NOHW
   frc::Victor m_armMotor{PWM_ARMMOTOR_ROBOT2020};
-  frc::Encoder m_armEncoder{3, 4};
+  frc::Encoder m_armEncoder{DIO_ARM_ENCODER_ONE_ROBOT2020, DIO_ARM_ENCODER_TWO_ROBOT2020};
   HallEffectOmnipolarDriver m_hallEffectLower{0};
   HallEffectOmnipolarDriver m_hallEffectUpper{1};
  #endif
+  double m_scale = 0.1;
   double m_lowValue = 0.0;
   double m_highValue = 150.0;
   

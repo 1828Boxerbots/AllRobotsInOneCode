@@ -54,8 +54,8 @@ constexpr int DIO_RIGHTENCODER_ROCKY_ONE = 0;
 constexpr int DIO_RIGHTENCODER_ROCKY_TWO = 1;
 
 //Laika
-constexpr int PWM_LEFTMOTOR_LAIKA        = 2;
-constexpr int PWM_RIGHTMOTOR_LAIKA       = 6;
+constexpr int PWM_LEFTMOTOR_LAIKA        = 6;
+constexpr int PWM_RIGHTMOTOR_LAIKA       = 2;
 
 //Kurgan
 constexpr int PWM_LEFTMOTOR_KURGAN_ONE   = 1;
@@ -97,14 +97,16 @@ constexpr int PWM_HANDSERVO_LIPALOOP  = 2;
 constexpr int PWM_LEFTMOTOR_ROBOT2020       = 1;
 constexpr int PWM_RIGHTMOTOR_ROBOT2020      = 0;
 constexpr int PWM_SHOOTMOTOR_ROBOT2020      = 3;
+constexpr int PWM_LOADMOTORINTAKE_ROBOT2020 = 5;
 constexpr int PWM_LOADMOTORBOTTOM_ROBOT2020 = 4;
-constexpr int PWM_LOADMOTORMIDDLE_ROBOT2020 = 5;
 constexpr int PWM_LOADMOTORTOP_ROBOT2020    = 6;
 constexpr int PWM_ARMMOTOR_ROBOT2020        = 7;
 constexpr int PWM_SPINNERMOTOR_ROBOT2020    = 8;
 constexpr int PWM_HOOKMOTOR_ROBOT2020       = 9;
-constexpr int DIO_SHOOTER_ENCODER_ONE       = 4;
-constexpr int DIO_SHOOTER_ENCODER_TWO       = 5;
+constexpr int DIO_ARM_ENCODER_ONE_ROBOT2020 = 2;
+constexpr int DIO_ARM_ENCODER_TWO_ROBOT2020 = 3;
+constexpr int DIO_SHOOTER_ENCODER_ONE_ROBOT2020 = 4;
+constexpr int DIO_SHOOTER_ENCODER_TWO_ROBOT2020 = 5;
 constexpr int DIO_PHOTOGATE_ROBOT2020       = 10;
 constexpr int RLY_SPIKE_ROBOT2020           = 1;
 

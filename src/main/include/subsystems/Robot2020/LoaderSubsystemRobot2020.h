@@ -18,7 +18,7 @@ class LoaderSubsystemRobot2020 : public LoaderSubsystemBase {
 
   enum LoaderMotors
   {
-    INVALID_MOTOR = -1, MOTOR_TOP, MOTOR_MIDDLE, MOTOR_BOTTOM
+    INVALID_MOTOR = -1, MOTOR_TOP, MOTOR_BOTTOM, MOTOR_INTAKE
   };
 
   void SetLoadMotor(double speed = 1.0, int motorNumber = INVALID_MOTOR) override;
@@ -28,8 +28,8 @@ class LoaderSubsystemRobot2020 : public LoaderSubsystemBase {
 
  private:
   #ifndef NOHW
+  frc::Spark m_loaderMotorIntake {PWM_LOADMOTORINTAKE_ROBOT2020};
   frc::Spark m_loaderMotorBottom {PWM_LOADMOTORBOTTOM_ROBOT2020};
-  frc::Spark m_loaderMotorMiddle {PWM_LOADMOTORMIDDLE_ROBOT2020};
   frc::Spark m_loaderMotorTop {PWM_LOADMOTORTOP_ROBOT2020};
 
   PhotogateDriver m_photogate{DIO_PHOTOGATE_ROBOT2020};

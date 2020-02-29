@@ -45,14 +45,14 @@ double ArmSubsystemLipALoop::GetMotor()
     return m_armAngle;
 }
 
-void ArmSubsystemLipALoop::LiftArmUp()
+void ArmSubsystemLipALoop::LiftArmUp(double scale, double speed)
 {
     m_armAngle += GetOneDegree() * GetScale();	
     m_armAngle = Util::Limit(m_armAngle, GetMinLimit(), GetMaxLimit());	
     SetMotor(m_armAngle);	
 }
 
-void ArmSubsystemLipALoop::LiftArmDown()
+void ArmSubsystemLipALoop::LiftArmDown(double scale, double speed)
 {
     m_armAngle -= GetOneDegree() * GetScale();	
     m_armAngle = Util::Limit(m_armAngle, GetMinLimit(), GetMaxLimit());	
