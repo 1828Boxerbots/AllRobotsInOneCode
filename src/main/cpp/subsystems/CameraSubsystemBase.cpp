@@ -226,6 +226,7 @@ void CameraSubsystemBase::AutoCameraTurn()
     frc::SmartDashboard::PutNumber("CameraWork frameNum", m_frameNumber);
     do
     {
+        frc::SmartDashboard::PutBoolean("Camera Break", false);
         frc::SmartDashboard::PutNumber("Code Broke", false);
         frc::SmartDashboard::PutNumber("Shadow", 1);
         dir = WhereToTurn();
@@ -234,6 +235,7 @@ void CameraSubsystemBase::AutoCameraTurn()
         frc::SmartDashboard::PutNumber("CameraWork frameNum", m_frameNumber);
         if(dir == 0)
         {
+            frc::SmartDashboard::PutBoolean("Camera Break", true);
             break;
         }
         frc::SmartDashboard::PutNumber("Shadow", 3);
@@ -264,9 +266,10 @@ void CameraSubsystemBase::AutoCameraTurn()
         frc::SmartDashboard::PutNumber("Camera Direction", dir);
         if(dir == 0)
         {
+            frc::SmartDashboard::PutBoolean("Camera Break", true);
             break;
         }
-    } while(dir != STOP);
+    } while(dir != 0);
     frc::SmartDashboard::PutNumber("Shadow", 10);
     frc::SmartDashboard::PutBoolean("CameraWork", true);
 }

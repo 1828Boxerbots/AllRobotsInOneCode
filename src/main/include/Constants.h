@@ -111,12 +111,12 @@ constexpr int DIO_PHOTOGATE_ROBOT2020       = 10;
 constexpr int RLY_SPIKE_ROBOT2020           = 1;
 
 //Vision Bounds (Remember, the InRange function is in BGR format)
-constexpr int LOW_BLUE   = 30;
-constexpr int LOW_GREEN  = 100;
-constexpr int LOW_RED    = 100;
-constexpr int HIGH_BLUE  = 100;
-constexpr int HIGH_GREEN = 200;
-constexpr int HIGH_RED   = 200;
+constexpr int LOW_BLUE   = 0;
+constexpr int LOW_GREEN  = 200;
+constexpr int LOW_RED    = 200;
+constexpr int HIGH_BLUE  = 210;
+constexpr int HIGH_GREEN = 255;
+constexpr int HIGH_RED   = 255;
 
 //Color Detection Bounds
 constexpr double RED_LOW_R     = 0.0;
