@@ -26,6 +26,7 @@ void DriveTrainSubsystemRocky::SetMotorR(double speed)
   frc::SmartDashboard::PutNumber("Drive Right", speed);
 }
 
+//function made for debugging with gyro
 double DriveTrainSubsystemRocky::GyroGetAngle()
 {
   m_gyroAngle = m_gyro.GetAngle();
@@ -102,12 +103,14 @@ void DriveTrainSubsystemRocky::Periodic()
 {
   GetHallEffect();  
 }
+//Gets Detection distance; used for debugging
 double DriveTrainSubsystemRocky::GetDetectionDistance()
 {
   double val = m_lidar.GetDistanceInInches();
    frc::SmartDashboard::PutNumber("DriveTrain Lidar", val);
   return val;
 }
+//Makes is so that the robot doesn't run into things head on
 void DriveTrainSubsystemRocky::DetectionSoftware(double detectionDistance)
 {
     frc::SmartDashboard::PutNumber("Lidar Distance", GetDetectionDistance());
@@ -119,6 +122,7 @@ void DriveTrainSubsystemRocky::DetectionSoftware(double detectionDistance)
             //Stop();
         }
 }
+//Sets up dead zone in lidar
 void DriveTrainSubsystemRocky::PrecisionMovementLidar(double wantedDistance)
 {
   const double DEAD_ZONE = 5.0;
