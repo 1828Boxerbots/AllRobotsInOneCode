@@ -10,13 +10,14 @@
 #include "../include/subsystems/SpinSubsystemBase.h"
 #include "Constants.h"
 #include <frc/Victor.h>
+#include <frc/Encoder.h>
 #include <frc/I2C.h>
 #include "rev/ColorSensorV3.h"
 
 class SpinSubsystemRobot2020 : public SpinSubsystemBase {
  public:
   
-    SpinSubsystemRobot2020();
+  SpinSubsystemRobot2020();
 
   void MultiplexerSelect(int position);
   void Init() override;
@@ -27,8 +28,10 @@ class SpinSubsystemRobot2020 : public SpinSubsystemBase {
  private:
  #ifndef NOHW
   frc::Victor m_spinMotor {PWM_SPINNERMOTOR_ROBOT2020};
+  frc::Encoder m_spinEncoder {DIO_SPINNER_ENCODER_ONE_ROBOT2020, DIO_SPINNER_ENCODER_TWO_ROBOT2020};
   frc::I2C m_multiplexer {I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_MULTIPLEXER_ROBOT2020};
-  frc::I2C m_rightDistanceSensor {I2C_PORT_RIGHTDISTANCESENSOR_ROBOT2020, I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020};
+  //REPLACE PORTS
+  frc::I2C m_colorSensor {I2C_PORT_RIGHTDISTANCESENSOR_ROBOT2020, I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020};
  #endif
 
  double m_scale = 1.0;

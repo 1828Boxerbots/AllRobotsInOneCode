@@ -23,14 +23,14 @@ class SpinSubsystemBase : public frc2::SubsystemBase {
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic();
-  void SpinWithEncoders(double R = COLORWHEELRADIUS, double r = SPINWHEELRADIUS, double revolutions = DEFAULTREVOLUTIONS);
+  void SpinWithEncoders(double targetRadius = COLORWHEELRADIUS, double ourRadius = SPINWHEELRADIUS, double revolutions = DEFAULTREVOLUTIONS);
   void SpinUntilColor(FMSColors targetColor = INVALID);
   FMSColors MapColors(FMSColors color);
   virtual void InterpretFMS(std::string rawColor);
   virtual void Init() {};
   virtual FMSColors ReadColorSensor() {return m_color;};
   virtual void SetSpinMotor (double speed = 1.0) {}
-  virtual double GetNumberOfTicks(double R, double revolutions, double r); //inches
+  virtual double GetNumberOfTicks(double targetRadius, double revolutions, double ourRadius); //inches
   virtual double GetEncoderTicks() {return m_encoder++;}
   void Log();
 

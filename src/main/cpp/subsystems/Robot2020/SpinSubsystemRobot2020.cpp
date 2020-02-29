@@ -12,16 +12,12 @@ SpinSubsystemRobot2020::SpinSubsystemRobot2020() {}
 
 void SpinSubsystemRobot2020::MultiplexerSelect(int position)
 {
-    uint8_t arr[2];  
-    m_multiplexer.Write(1 << position, 0x00);
-    m_multiplexer.Read(0x01, 2, arr);
-    uint16_t val = (arr[1] << 8) | arr[0];
-    frc::SmartDashboard::PutNumber("Mux Value", val);
+    //Put Multiplexer Stuff here
 }
 
 void SpinSubsystemRobot2020::Init()
 {
-
+    m_spinEncoder.Reset();
 }
 
 
@@ -29,8 +25,6 @@ void SpinSubsystemRobot2020::SetSpinMotor (double speed)
 {
     m_spinMotor.Set(speed * m_scale);
 }
-
-//void SpinSubsystemRobot2020::SpinNumber(double speed, int )
 
 double SpinSubsystemRobot2020::GetNumberOfTicks(double R, double revolutions, double r) 
 {

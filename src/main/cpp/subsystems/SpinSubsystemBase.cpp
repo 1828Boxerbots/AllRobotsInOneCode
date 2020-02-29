@@ -14,9 +14,9 @@ SpinSubsystemBase::SpinSubsystemBase() {}
 // This method will be called once per scheduler run
 void SpinSubsystemBase::Periodic() {}
 
-void SpinSubsystemBase::SpinWithEncoders(double R, double r, double revolutions) 
+void SpinSubsystemBase::SpinWithEncoders(double targetRadius, double ourRadius, double revolutions) 
 {
-    double limit = GetNumberOfTicks(R, revolutions, r);
+    double limit = GetNumberOfTicks(targetRadius, revolutions, ourRadius);
 
     SetSpinMotor();
     do
@@ -27,9 +27,9 @@ void SpinSubsystemBase::SpinWithEncoders(double R, double r, double revolutions)
     SetSpinMotor(0.0);
 }
 
-double SpinSubsystemBase::GetNumberOfTicks(double R, double revolutions, double r)
+double SpinSubsystemBase::GetNumberOfTicks(double targetRadius, double revolutions, double ourRadius)
 {
-    double value = (256*revolutions*R)/r ;
+    double value = (256*revolutions*targetRadius)/ourRadius ;
     return value;
 }
 

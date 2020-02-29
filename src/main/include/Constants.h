@@ -99,23 +99,25 @@ constexpr int PWM_WRISTSERVO_LIPALOOP = 1;
 constexpr int PWM_HANDSERVO_LIPALOOP  = 2;
 
 //2020 Robot
-constexpr int PWM_LEFTMOTOR_ROBOT2020       = 1;
-constexpr int PWM_RIGHTMOTOR_ROBOT2020      = 0;
-constexpr int PWM_SHOOTMOTOR_ROBOT2020      = 3;
-constexpr int PWM_LOADMOTOR_INTAKE_ROBOT2020= 5;
-constexpr int PWM_LOADMOTOR_BOTTOM_ROBOT2020= 4;
-constexpr int PWM_LOADMOTOR_TOP_ROBOT2020   = 6;
-constexpr int PWM_ARMMOTOR_ROBOT2020        = 7;
-constexpr int PWM_SPINNERMOTOR_ROBOT2020    = 8;
-constexpr int PWM_HOOKMOTOR_ROBOT2020       = 9;
-constexpr int DIO_ARM_ENCODER_ONE_ROBOT2020 = 9;
-//constexpr int DIO_ARM_ENCODER_TWO_ROBOT2020 = 3;
+constexpr int PWM_LEFTMOTOR_ROBOT2020           = 1;
+constexpr int PWM_RIGHTMOTOR_ROBOT2020          = 0;
+constexpr int PWM_SHOOTMOTOR_ROBOT2020          = 3;
+constexpr int PWM_LOADMOTOR_INTAKE_ROBOT2020    = 5;
+constexpr int PWM_LOADMOTOR_BOTTOM_ROBOT2020    = 4;
+constexpr int PWM_LOADMOTOR_TOP_ROBOT2020       = 6;
+constexpr int PWM_ARMMOTOR_ROBOT2020            = 7;
+constexpr int PWM_SPINNERMOTOR_ROBOT2020        = 8;
+constexpr int PWM_HOOKMOTOR_ROBOT2020           = 9;
+constexpr int DIO_ARM_ENCODER_ONE_ROBOT2020     = 9;
+//constexpr int DIO_ARM_ENCODER_TWO_ROBOT2020   = 3;
 constexpr int DIO_SHOOTER_ENCODER_ONE_ROBOT2020 = 4;
 constexpr int DIO_SHOOTER_ENCODER_TWO_ROBOT2020 = 5;
-constexpr int DIO_PHOTOGATE_ROBOT2020       = 8;
-constexpr int DIO_HALLEFFECT_UPPER_ROBOT2020= 7;
-constexpr int DIO_HALLEFFECT_LOWER_ROBOT2020= 6;
-constexpr int RLY_SPIKE_ROBOT2020           = 1;
+constexpr int DIO_SPINNER_ENCODER_ONE_ROBOT2020 = 6;
+constexpr int DIO_SPINNER_ENCODER_TWO_ROBOT2020 = 2;
+constexpr int DIO_PHOTOGATE_ROBOT2020           = 8;
+constexpr int DIO_HALLEFFECT_UPPER_ROBOT2020    = 7;
+constexpr int DIO_HALLEFFECT_LOWER_ROBOT2020    = 6;
+constexpr int RLY_SPIKE_ROBOT2020               = 1;
 
 //Vision Bounds (Remember, the InRange function is in BGR format)
 constexpr int LOW_BLUE   = 30;
