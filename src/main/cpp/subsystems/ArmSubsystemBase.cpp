@@ -23,3 +23,23 @@ void ArmSubsystemBase::Lift(double armSpeed)
     frc::SmartDashboard::PutNumber("Lift Power", armSpeed);
     SetMotor(armSpeed);
 }
+
+void ArmSubsystemBase::Log(std::string title, double num)
+{
+    frc::SmartDashboard::PutNumber("Arm " + title, num);
+}
+
+void ArmSubsystemBase::Log(std::string title, int num)
+{
+    frc::SmartDashboard::PutNumber("Arm " + title, num);
+}
+
+void ArmSubsystemBase::Log(std::string title,  bool flag)
+{
+    frc::SmartDashboard::PutBoolean("Arm " + title, flag);
+}
+
+void ArmSubsystemBase::Log(std::string title, std::string phrase)
+{
+    frc::SmartDashboard::PutString("Arm " + title, phrase);
+}

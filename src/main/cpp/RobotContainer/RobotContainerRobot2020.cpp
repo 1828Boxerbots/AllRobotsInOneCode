@@ -12,10 +12,10 @@ RobotContainerRobot2020::RobotContainerRobot2020()
 {
   m_pDrive = new DriveTrainSubsystemRobot2020;
   m_pLoader = new LoaderSubsystemRobot2020;
-  //m_pSpin = new SpinSubsystemRobot2020;
+  m_pSpin = new SpinSubsystemRobot2020;
   m_pShooter = new ShooterSubsystemRobot2020;
-  //m_pCamera = new CameraSubsystemRobot2020;
-  //m_pArm = new ArmSubsystemRobot2020;
+  //m_pCamera = new CameraSubsystemBase;
+  m_pArm = new ArmSubsystemRobot2020;
   //m_pDistance = new DistanceSensorSubsystemRobot2020;
   m_pShootLoad = new ShootLoadCommand(m_pLoader, m_pShooter, 5400, 1.0);
 
@@ -76,7 +76,7 @@ void RobotContainerRobot2020::SetButtonA()
   buttonAOne.WhenReleased(&m_loaderFeedStop);
   
   frc2::Button buttonATwo{[this] {return m_controller2.GetAButton();}};
-  buttonATwo.WhenPressed(&m_armPosition1);
+  buttonATwo.WhenPressed(&m_armPosition1);  
 }
 
 void RobotContainerRobot2020::SetButtonB()
@@ -86,7 +86,7 @@ void RobotContainerRobot2020::SetButtonB()
   buttonB.WhenReleased(&m_loaderAllStop);
   
   frc2::Button buttonBTwo{[this] {return m_controller2.GetBButton();}};
-  buttonBTwo.WhenPressed(&m_armPosition0);
+  buttonBTwo.WhenPressed(&m_armPosition0);  
 }
 
 void RobotContainerRobot2020::SetButtonX()
@@ -94,6 +94,10 @@ void RobotContainerRobot2020::SetButtonX()
   frc2::Button buttonX{[this] {return m_controller.GetXButton();}};
   buttonX.WhenHeld(&m_loaderMiddle);
   buttonX.WhenReleased(&m_loaderMiddleStop);
+
+  frc2::Button buttonXTwo{[this] {return m_controller2.GetXButton();}};
+  buttonXTwo.WhenHeld(&m_spinHoldN);
+  buttonXTwo.WhenReleased(&m_spinStop);
 }
 
 void RobotContainerRobot2020::SetButtonY()
@@ -101,6 +105,10 @@ void RobotContainerRobot2020::SetButtonY()
   frc2::Button buttonY{[this] {return m_controller.GetYButton();}};
   buttonY.WhenHeld(&m_loaderTop);
   buttonY.WhenReleased(&m_loaderTopStop);
+
+  frc2::Button buttonYTwo{[this] {return m_controller2.GetYButton();}};
+  buttonYTwo.WhenHeld(&m_spinHoldP);
+  buttonYTwo.WhenReleased(&m_spinStop);
 }
 
 void RobotContainerRobot2020::SetRightTrigger()
