@@ -7,7 +7,10 @@
 
 #pragma once
 
+#include "../../subsystems/SpinSubsystemBase.h"
+
 class MuxColorSensorDriver {
  public:
-  MuxColorSensorDriver();
+  MuxColorSensorDriver(int port1, int port2) {}
+  SpinSubsystemBase::FMSColors Get() {return SpinSubsystemBase::FMSColors::INVALID;}
 };

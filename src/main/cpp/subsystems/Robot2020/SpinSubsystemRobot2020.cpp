@@ -17,16 +17,20 @@ void SpinSubsystemRobot2020::MultiplexerSelect(int position)
 
 void SpinSubsystemRobot2020::Init()
 {
+    #ifndef NOHW
     m_spinEncoder.Reset();
+    #endif
 }
 
 
 void SpinSubsystemRobot2020::SetSpinMotor (double speed)
 {
+    #ifndef NOHW
     m_spinMotor.Set(speed * m_scale);
+    #endif
 }
 
-double SpinSubsystemRobot2020::GetNumberOfTicks(double R, double revolutions, double r) 
+double SpinSubsystemRobot2020::GetNumberOfTicks(double targetRadius, double revolutions, double ourRadius) 
 {
     return 0.0;
 }
@@ -34,6 +38,23 @@ double SpinSubsystemRobot2020::GetNumberOfTicks(double R, double revolutions, do
 
 double SpinSubsystemRobot2020::GetEncoderTicks()
 {
+    #ifndef NOHW
+    return m_spinEncoder.Get();
+    #else
     return 0.0;
+    #endif
 }
 
+SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::ReadColorSensor()
+{
+    #ifndef NOHW
+    return m_colorSensor.Get();
+    #else
+    return INVALID;
+    #endif
+}
+
+double SpinSubsystemRobot2020::GetTicksPerRevolution()
+{
+    return 360;
+}

@@ -6,5 +6,3 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Drivers/MuxDrivers/MuxColorSensorDriver.h"
-
-MuxColorSensorDriver::MuxColorSensorDriver() {}

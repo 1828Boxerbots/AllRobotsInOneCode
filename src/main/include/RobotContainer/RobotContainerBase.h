@@ -184,9 +184,9 @@ class RobotContainerBase {
     frc2::RunCommand m_armLift_Motor        {[this] {if(m_pArm != nullptr) m_pArm->Raise();}, {m_pArm}};
     frc2::RunCommand m_armLower_Motor       {[this] {if(m_pArm != nullptr) m_pArm->Lower();}, {m_pArm}};
     //Robot2020
-    frc2::InstantCommand m_armPosition0         {[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::LOWEST_POS);}, {m_pArm}};
-    frc2::InstantCommand m_armPosition1         {[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::HIGHEST_POS);}, {m_pArm}};
-      //frc2::Runcommand m_armPosition_Stop     {[this] {if(m_pArm != nullptr) m_pArm->ArmPosition(3);}, {m_pArm}};
+    frc2::InstantCommand m_armPosition_Low  {[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::LOWEST_POS);}, {m_pArm}};
+    frc2::InstantCommand m_armPosition_High {[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::HIGHEST_POS);}, {m_pArm}};
+    frc2::InstantCommand m_armPosition_Stop {[this] {if(m_pArm != nullptr) m_pArm->SetMotor(0.0);}, {m_pArm}};
 
     //Wrist Control
     WristSubsystemLipALoop *m_pWrist = nullptr;

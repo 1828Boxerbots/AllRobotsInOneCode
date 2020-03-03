@@ -29,7 +29,8 @@ void SpinSubsystemBase::SpinWithEncoders(double targetRadius, double ourRadius, 
 
 double SpinSubsystemBase::GetNumberOfTicks(double targetRadius, double revolutions, double ourRadius)
 {
-    double value = (256*revolutions*targetRadius)/ourRadius ;
+    double value = (GetTicksPerRevolution()*revolutions*targetRadius)/ourRadius ;
+    frc::SmartDashboard::PutNumber("Spin Target Number Ticks", value);
     return value;
 }
 
@@ -54,17 +55,16 @@ SpinSubsystemBase::FMSColors SpinSubsystemBase::MapColors(FMSColors color)
 
 void SpinSubsystemBase::SpinUntilColor(FMSColors targetColor)
 {
-    FMSColors tgt = targetColor;
-    if (tgt == INVALID)
+    if ( targetColor == INVALID)
     {
-        tgt = m_color;
+        targetColor = m_color;
     }
     SetSpinMotor();
     do
     {
         Log();
     }
-    while(MapColors(ReadColorSensor()) != tgt);
+    while(MapColors(ReadColorSensor()) != targetColor);
     SetSpinMotor(0.0);
 }
 

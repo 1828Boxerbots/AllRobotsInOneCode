@@ -12,7 +12,7 @@
 #include <frc/Victor.h>
 #include <frc/Encoder.h>
 #include <frc/I2C.h>
-#include "rev/ColorSensorV3.h"
+#include "../../Drivers/MuxDrivers/MuxColorSensorDriver.h"
 
 class SpinSubsystemRobot2020 : public SpinSubsystemBase {
  public:
@@ -24,6 +24,8 @@ class SpinSubsystemRobot2020 : public SpinSubsystemBase {
   void SetSpinMotor (double speed = 1.0) override;
   double GetNumberOfTicks(double R, double revolutions, double r) override; //inches
   double GetEncoderTicks() override;
+  double GetTicksPerRevolution() override;
+  FMSColors ReadColorSensor() override;
 
  private:
  #ifndef NOHW
@@ -31,7 +33,7 @@ class SpinSubsystemRobot2020 : public SpinSubsystemBase {
   frc::Encoder m_spinEncoder {DIO_SPINNER_ENCODER_ONE_ROBOT2020, DIO_SPINNER_ENCODER_TWO_ROBOT2020};
   frc::I2C m_multiplexer {I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_MULTIPLEXER_ROBOT2020};
   //REPLACE PORTS
-  frc::I2C m_colorSensor {I2C_PORT_RIGHTDISTANCESENSOR_ROBOT2020, I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020};
+  MuxColorSensorDriver m_colorSensor {I2C_PORT_RIGHTDISTANCESENSOR_ROBOT2020, I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020};
  #endif
 
  double m_scale = 1.0;
