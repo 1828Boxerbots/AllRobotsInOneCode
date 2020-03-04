@@ -44,7 +44,7 @@ double SpinSubsystemRobot2020::GetEncoderTicks()
 SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::ReadColorSensor()
 {
     #ifndef NOHW
-    return m_colorSensor.Get();
+    return m_colorSensor.GetColor();
     #else
     return INVALID;
     #endif

@@ -20,7 +20,6 @@
 #include "subsystems/DriveTrainSubsystemBase.h"
 #include "subsystems/LoaderSubsystemBase.h"
 #include "subsystems/ShooterSubsystemBase.h"
-#include "subsystems/DistanceSensorSubsystemBase.h"
 #include "subsystems/CameraSubsystemBase.h"
 #include "subsystems/ArmSubsystemBase.h"
 #include "subsystems/SpinSubsystemBase.h"
@@ -69,7 +68,6 @@ class RobotContainerBase {
     frc::XboxController m_controller2{USB_CONTROLLER_TWO};
     CameraSubsystemBase* m_pCamera = nullptr;
 
-    DistanceSensorSubsystemBase *m_pDistance = nullptr;
     //DriveTrain subsystem commands
     DriveTrainSubsystemBase *m_pDrive = nullptr;
     frc2::RunCommand m_pDriveMoveTank       {[this] { if(m_pDrive != nullptr) m_pDrive->MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand)); }, {m_pDrive}};
@@ -208,30 +206,6 @@ class RobotContainerBase {
     frc2::RunCommand m_spinHoldN            {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(-1.0);}, {m_pSpin}};
     frc2::RunCommand m_spinStop             {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(0.0);}, {m_pSpin}};
 
-  frc2::SequentialCommandGroup m_autoTestOne = frc2::SequentialCommandGroup
-  {
-    frc2::InstantCommand{[this]
-    { if(m_pDrive != nullptr && m_pDistance != nullptr) 
-      {
-        double travelDistance = 60.0;
-        double tolerance = 2.0;
-        double currentDistance = m_pDistance->GetDistanceInInch();
-        while(currentDistance < travelDistance-tolerance || currentDistance > travelDistance+tolerance)
-        {
-          if(currentDistance > travelDistance)
-          {
-            m_pDrive->Forward(1.0);
-          }
-          else
-          {
-            m_pDrive->Forward(-1.0);
-          }
-          currentDistance = m_pDistance->GetDistanceInInch();
-        }
-        m_pDrive->Stop();
-      }
-    }, {m_pDrive, m_pDistance}}
-  };
 
   frc2::SequentialCommandGroup m_autoInFrontTargetZone = frc2::SequentialCommandGroup
   {
