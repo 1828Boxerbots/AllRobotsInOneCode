@@ -30,16 +30,12 @@ void SpinSubsystemRobot2020::SetSpinMotor (double speed)
     #endif
 }
 
-double SpinSubsystemRobot2020::GetNumberOfTicks(double targetRadius, double revolutions, double ourRadius) 
-{
-    return 0.0;
-}
-
-
 double SpinSubsystemRobot2020::GetEncoderTicks()
 {
     #ifndef NOHW
-    return m_spinEncoder.Get();
+    double encoderValue = m_spinEncoder.GetRaw();
+    frc::SmartDashboard::PutNumber("Spin Encoder Raw", encoderValue);
+    return encoderValue;
     #else
     return 0.0;
     #endif
