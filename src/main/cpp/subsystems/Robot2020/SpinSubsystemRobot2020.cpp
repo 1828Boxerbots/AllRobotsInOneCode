@@ -22,12 +22,52 @@ void SpinSubsystemRobot2020::Init()
     #endif
 }
 
-
 void SpinSubsystemRobot2020::SetSpinMotor (double speed)
 {
     #ifndef NOHW
     m_spinMotor.Set(speed * m_scale);
     #endif
+}
+
+void SpinSubsystemRobot2020::SpinWithColor(double speed, int wantedRotation)
+{    
+    //Gets the starting color of the wheel
+    FMSColors startColor = m_colorSensor.GetColor();
+    
+
+    //Checks if it picked up a valid color
+    if(startColor == INVALID)
+    {
+        return;
+    }
+
+    //Start Spinning if color is vaild
+    SetSpinMotor(speed);
+
+    //Declares the currentColor Variable
+    FMSColors currentColor;
+
+    for(int halfRotations = 0; halfRotations < wantedRotation; halfRotations++)
+    {
+        //Do-While loop till we are out of the starting color
+        do
+        {
+        currentColor = m_colorSensor.GetColor();
+        }
+        while(currentColor == startColor);
+
+        /**Starts after we leave the start color
+        * Do-While loop till we see the start color again
+        */
+        do
+        {
+        currentColor = m_colorSensor.GetColor();
+        }
+        while(currentColor != startColor);
+    }
+
+    //Stops the Spiner after finished spinning
+    Stop();
 }
 
 double SpinSubsystemRobot2020::GetEncoderTicks()

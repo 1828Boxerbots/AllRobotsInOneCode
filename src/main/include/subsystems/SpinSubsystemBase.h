@@ -24,12 +24,14 @@ class SpinSubsystemBase : public frc2::SubsystemBase {
    */
   void Periodic();
   void SpinWithEncoders(double targetRadius = COLORWHEELRADIUS, double ourRadius = SPINWHEELRADIUS, double revolutions = DEFAULTREVOLUTIONS);
+  virtual void SpinWithColor(double speed, int wantedRotation) {}
   void SpinUntilColor(FMSColors targetColor = INVALID);
   FMSColors MapColors(FMSColors color);
   virtual void InterpretFMS(std::string rawColor);
   virtual void Init() {}
   virtual FMSColors ReadColorSensor() {return m_color;};
   virtual void SetSpinMotor (double speed = 1.0) {}
+  void Stop() {SetSpinMotor(0.0);}
   virtual double GetNumberOfTicks(double targetRadius, double revolutions, double ourRadius); //inches
   virtual double GetEncoderTicks() {return m_encoder++;}
   virtual double GetTicksPerRevolution() {return 256;}
