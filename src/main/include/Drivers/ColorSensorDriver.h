@@ -8,10 +8,28 @@
 #pragma once
 
 #include "rev/ColorSensorv3.h"
+#include "Constants.h"
+#include "../subsystems/SpinSubsystemBase.h"
 
 class ColorSensorDriver {
  public:
-  ColorSensorDriver();
+  ColorSensorDriver(frc::I2C::Port port);
+
+  void Init() {}
+
+  SpinSubsystemBase::FMSColors GetColor();
+
+  uint32_t GetProximity();
+
+  static bool IsRed(double R, double G, double B);
+  static bool IsGreen(double R, double G, double B);
+  static bool IsBlue(double R, double G, double B);
+  static bool IsYellow(double R, double G, double B);
+  
+  private:
+
+  rev::ColorSensorV3 *m_pDevice = nullptr;
+
 };
 
 // 2/14/20
