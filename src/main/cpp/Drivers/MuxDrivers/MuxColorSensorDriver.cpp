@@ -31,3 +31,5 @@ bool MuxColorSensorDriver::StatusIsFatal()
     SetActive();
 	return m_colorSensor->StatusIsFatal();
 }
+
+// Completed 3/3/2020 , untested
