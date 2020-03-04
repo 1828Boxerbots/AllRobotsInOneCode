@@ -90,5 +90,8 @@ void SpinSubsystemBase::InterpretFMS(std::string rawColor)
         case 'Y' :
             m_color = YELLOW;
             break;
+        default:
+            m_color = INVALID; 
+            break;
     }
 }

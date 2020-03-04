@@ -17,6 +17,12 @@ namespace Util
     void DelayInSeconds(double seconds);
     bool CompareDouble(double value, double requiredValue, double tolerance = 0.001);
 
+    //Log Functions
+    void Log(std::string title, double value, std::string subsytemName = "");
+    void Log(std::string title, int value, std::string subsytemName = "");
+    void Log(std::string title, bool value, std::string subsytemName = "");
+    void Log(std::string title, std::string value, std::string subsytemName = "");
+
     //Other Constants 
     constexpr double ToInches = 0.393701;
     constexpr double ToCM = 2.53;
