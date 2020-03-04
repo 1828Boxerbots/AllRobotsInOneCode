@@ -26,6 +26,8 @@ class ColorSensorDriver {
   static bool IsBlue(double R, double G, double B);
   static bool IsYellow(double R, double G, double B);
   
+  bool StatusIsFatal();
+
   private:
 
   rev::ColorSensorV3 *m_pDevice = nullptr;

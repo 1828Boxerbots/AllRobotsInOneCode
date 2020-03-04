@@ -176,3 +176,9 @@ bool ColorSensorDriver::IsYellow(double R, double G, double B)
         return false;
     }
 }
+
+bool ColorSensorDriver::StatusIsFatal()
+{
+    return m_pDevice->StatusIsFatal();
+}
+

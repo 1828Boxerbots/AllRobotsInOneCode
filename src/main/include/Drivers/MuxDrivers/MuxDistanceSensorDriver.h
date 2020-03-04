@@ -9,7 +9,8 @@
 
 #include "../I2CMultiplexerDriver.h"
 
-class MuxDistanceSensorDriver {
+class MuxDistanceSensorDriver 
+{
  public:
   MuxDistanceSensorDriver();
 };

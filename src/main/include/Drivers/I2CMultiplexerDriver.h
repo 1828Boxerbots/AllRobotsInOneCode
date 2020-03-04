@@ -9,7 +9,8 @@
 
 #include <frc/I2C.h>
 
-class I2CMultiplexerDriver {
+class I2CMultiplexerDriver 
+{
  public:
   I2CMultiplexerDriver(frc::I2C::Port i2cPort, int breakoutAddress = breakoutAddress_base);
 
@@ -21,6 +22,9 @@ class I2CMultiplexerDriver {
   static const uint8_t breakoutAddress_base = 0x70;
   uint8_t m_current_channel; 
   frc::I2C *m_pDevice = nullptr;
+
+  uint8_t MIN_PORT = 1;
+  uint8_t MAX_PORT = 8;
 };
 
 // 2/14/20

@@ -9,7 +9,8 @@
 
 #include "../I2CMultiplexerDriver.h"
 
-class MuxLidarDriver {
+class MuxLidarDriver 
+{
  public:
   MuxLidarDriver();
 };
