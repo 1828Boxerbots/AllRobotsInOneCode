@@ -29,6 +29,11 @@
  * 
  *  Always comment what robot the port refers to or which general purpose of the constant above it.
  *  Types: I2C, SPI, PWM, DIO, ANG (analog), RLY (relay), and USB.
+ * 
+ *  This also applies for the types of non-port constants.
+ *  Types: U8T, INT.
+ * 
+ *  Other types will be added later.
  *  
  *  Finally, CONSTANTS MUST BE IN ALL CAPS.
 */
@@ -168,9 +173,10 @@ static constexpr auto I2C_PORT_RIGHTDISTANCESENSOR_ROBOT2020 = frc::I2C::Port::k
 static constexpr auto I2C_PORT_COLORSENSOR_TEST = frc::I2C::Port::kOnboard;
 
 // Positions of the sensors on the multiplexer
-constexpr int I2C_LINE_LIDAR_ROBOT2020              = 7;
-constexpr int I2C_LINE_COLORSENSOR_ROBOT2020        = 5;
-constexpr int I2C_LINE_LEFTDISTANCESENSOR_ROBOT2020 = 3;
+constexpr uint8_t U8T_LINE_LIDAR_ROBOT2020               = 7;
+constexpr uint8_t U8T_LINE_COLORSENSOR_ROBOT2020         = 5;
+constexpr uint8_t U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020  = 3;
+constexpr uint8_t U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020 = 1;
 
 
 // Addresses of the individual I2C sensors
