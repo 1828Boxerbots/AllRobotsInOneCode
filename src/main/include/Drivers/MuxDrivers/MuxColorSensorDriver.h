@@ -8,9 +8,12 @@
 #pragma once
 
 #include "../../subsystems/SpinSubsystemBase.h"
+#include "../I2CMultiplexerDriver.h"
 
 class MuxColorSensorDriver {
  public:
   MuxColorSensorDriver(int port1, int port2) {}
+
   SpinSubsystemBase::FMSColors Get() {return SpinSubsystemBase::FMSColors::INVALID;}
+
 };

@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "../I2CMultiplexerDriver.h"
+
 class MuxLidarDriver {
  public:
   MuxLidarDriver();
