@@ -22,7 +22,6 @@ class MuxColorSensorDriver
 	SpinSubsystemBase::FMSColors GetColor();
 	bool StatusIsFatal();
 
-  SpinSubsystemBase::FMSColors Get() {return SpinSubsystemBase::FMSColors::INVALID;}
   private:
    I2CMultiplexerDriver &m_breakout;
 	 uint8_t m_breakoutChannel;

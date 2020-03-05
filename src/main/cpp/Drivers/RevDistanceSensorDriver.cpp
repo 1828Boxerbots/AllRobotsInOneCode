@@ -8,10 +8,12 @@
 #include "Drivers/RevDistanceSensorDriver.h"
 #include <frc/DriverStation.h>
 
-RevDistanceSensorDriver::RevDistanceSensorDriver(rev::Rev2mDistanceSensor::Port port, rev::Rev2mDistanceSensor::DistanceUnit unit) 
+
+RevDistanceSensorDriver::RevDistanceSensorDriver(Rev2mDistanceSensor::Port port, Rev2mDistanceSensor::DistanceUnit unit, Rev2mDistanceSensor::RangeProfile profile) 
 {
-    m_pDevice = new rev::Rev2mDistanceSensor(port, unit);   
+  m_pDevice = new Rev2mDistanceSensor(port, unit, profile);   
 }
+
 
 void RevDistanceSensorDriver::Init() 
 {
@@ -19,11 +21,13 @@ void RevDistanceSensorDriver::Init()
   m_pDevice->SetEnabled(true);
 }
 
+
 void RevDistanceSensorDriver::DisableInit() 
 {
   m_pDevice->SetAutomaticMode(false);
   m_pDevice->SetEnabled(false);
 }
+
 
 double RevDistanceSensorDriver::GetDistance() 
 {
@@ -42,3 +46,26 @@ double RevDistanceSensorDriver::GetDistance()
   }
 }
 
+
+bool RevDistanceSensorDriver::IsRangeValid()
+{
+  return m_pDevice->IsRangeValid();
+}
+
+
+bool RevDistanceSensorDriver::StatusIsFatal()
+{
+  return m_pDevice->StatusIsFatal();
+}
+
+
+void RevDistanceSensorDriver::StartMeasuring()
+{
+  m_pDevice->StartMeasurement();
+}
+
+
+void RevDistanceSensorDriver::GetMeasurementData()
+{
+  return m_pDevice->GetMeasurementData();
+}
