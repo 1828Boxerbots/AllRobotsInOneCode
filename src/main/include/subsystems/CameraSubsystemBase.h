@@ -52,6 +52,8 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   virtual int GetMaxResolutionY() { return m_heightCamera;};
   virtual void SetColor();
   void AutoCameraTurn();
+  void SendImage();
+  void InitSendImage();
 
   protected:
 
@@ -84,19 +86,23 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   cv::Point m_center;
   bool m_isInitialized = false;
 
+  
   #ifdef SEND_VIDEO
 
+  bool ouputImagefail = false;
   int m_sendSizeWidth = 480;
   int m_sendSizeHeight = 640;
   int m_sendRectWidth = m_sendSizeWidth/2;
   int m_sendRectHeight = m_sendSizeHeight/2;
   cv::Mat m_sendFrame;
+
+
   cs::CvSink m_cvSink;
   cs::CvSource m_outputStream;
+  cs::UsbCamera m_camera = frc::CameraServer::GetInstance()->StartAutomaticCapture();
   
   #endif
-  void SendImage();
-  void InitSendImage();
+  
   
   double m_printX;
   DriveTrainSubsystemBase *m_pDriveObject = nullptr;

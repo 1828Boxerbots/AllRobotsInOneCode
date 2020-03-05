@@ -7,7 +7,8 @@
 
 #include "../include/RobotContainer/RobotContainerRobot2020.h"
 #include <frc2/command/button/JoystickButton.h>
-
+#include "../include/Drivers/DPDTSwitchDriver.h"
+   
 RobotContainerRobot2020::RobotContainerRobot2020()
 {
   m_pDrive = new DriveTrainSubsystemRobot2020;
@@ -18,6 +19,8 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   m_pArm = new ArmSubsystemRobot2020;
   //m_pDistance = new DistanceSensorSubsystemRobot2020;
   m_pShootLoad = new ShootLoadCommand(m_pLoader, m_pShooter, 5400, 1.0);
+  m_pCamera = new CameraSubsystemBase(m_pDrive);
+
 
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -46,10 +49,41 @@ void RobotContainerRobot2020::ConfigureButtonBindings()
   SetLeftBumper();
 
 }
+int RobotContainerRobot2020::ReadDioSwitch()
+{
+   //Object hooked up to double pole double throw switch driver {Channel A, Channel B}
+  DPDTSwitchDriver dpdtSwitch{2,3};
+  return dpdtSwitch.Get();
 
-frc2::Command* RobotContainerRobot2020::GetAutonomousCommand() {
-  // An example command will be run in autonomous
-  return 0;
+}
+frc2::Command* RobotContainerRobot2020::GetAutonomousCommand()
+ {
+   int dioAutoSwitcher;
+  dioAutoSwitcher = ReadDioSwitch();
+  frc::SmartDashboard::PutBoolean("Case 1", false);
+  frc::SmartDashboard::PutBoolean("Case 2", false);
+  frc::SmartDashboard::PutBoolean("Case 3", false);
+  frc::SmartDashboard::PutBoolean("Case Default", false);
+  switch(dioAutoSwitcher)
+  {
+    case 1:
+    frc::SmartDashboard::PutBoolean("Case 1", true);
+      return &m_autoInFrontTargetZone;
+      break;
+
+    case 2:
+      frc::SmartDashboard::PutBoolean("Case 2", true);
+      return &m_autoBetweenTargetZoneLoadingZone;
+    case 3:
+      frc::SmartDashboard::PutBoolean("Case 3", true);
+      return &m_autoInFrontLoadingZone;
+      break;
+    default:
+      frc::SmartDashboard::PutBoolean("Case Default", true);
+      //return &m_autoInFrontTargetZone;
+      break;
+  }
+  return nullptr;
 }
 
 void RobotContainerRobot2020::Init()

@@ -61,13 +61,18 @@ class RobotContainerBase {
   double ROBOT2020SPEEDLIMIT = 0.5;
 
   void SetDrive(DriveStyles style = TANK_STYLE);
-
+  void SetCamerastream();
   protected:
   //DriveTrainSubsystemBase m_driveTrain;
     //Creating the controllers
     frc::XboxController m_controller{USB_CONTROLLER_ONE};
     frc::XboxController m_controller2{USB_CONTROLLER_TWO};
+    
+
+    //Camera
     CameraSubsystemBase* m_pCamera = nullptr;
+    frc2::InstantCommand m_outputStream {[this] {if(m_pCamera != nullptr) m_pCamera->SendImage();}, {m_pCamera}};
+
 
     DistanceSensorSubsystemBase *m_pDistance = nullptr;
     //DriveTrain subsystem commands
@@ -282,7 +287,7 @@ class RobotContainerBase {
     //frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
     //frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(72, -90.0, 0.75);}, {m_pDrive}},
     //frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
-    frc2::RunCommand{      [this] {if(m_pCamera != nullptr)  m_pCamera->AutoCameraTurn();}, {m_pCamera, m_pDrive}},
+    frc2::RunCommand    {  [this] {if(m_pCamera != nullptr)  m_pCamera->AutoCameraTurn();}, {m_pCamera, m_pDrive}},
     frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->Shoot(1.0);}, {m_pShooter}},
     frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->WaitShooter(5);}, {m_pShooter}}, 
     frc2::InstantCommand{  [this] {if(m_pLoader != nullptr)  m_pLoader->SetLoadMotor(1.0);}, {m_pLoader}},

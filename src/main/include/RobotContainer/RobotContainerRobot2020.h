@@ -40,6 +40,8 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   void SetStartButton() override;
   void SetBackButton() override;
 
+  int ReadDioSwitch();
+
   frc2::Command* GetAutonomousCommand();
 
  private:

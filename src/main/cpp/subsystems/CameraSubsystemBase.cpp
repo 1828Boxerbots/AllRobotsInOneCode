@@ -40,6 +40,7 @@ void CameraSubsystemBase::InitializeCamera(int port)
     m_heightCamera = m_video.get(CV_CAP_PROP_FRAME_HEIGHT);
     frc::SmartDashboard::PutNumber("Camera Width:", GetMaxResolutionX());
     frc::SmartDashboard::PutNumber("Camera Height:", GetMaxResolutionY());
+    InitSendImage();
 }
 
 void CameraSubsystemBase::IntakeFrame()
@@ -100,43 +101,67 @@ void CameraSubsystemBase::CenterMoment()
 }
 
 void CameraSubsystemBase::InitSendImage()
-{
+{   
+
+    if (m_isInitialized == false)
+    {
+        return;
+    }
+
+    frc::SmartDashboard::PutBoolean("ready to send image", true);
     #ifdef SEND_VIDEO
     
     // Get a CvSink. This will capture Mats from the Camera
-   // m_cvSink = frc::CameraServer::GetInstance()->GetVideo();
+    m_cvSink = frc::CameraServer::GetInstance()->GetVideo();
     
     // Setup a CvSource. This will send images back to the Dashboard
-    //m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Rectangle", m_sendSizeHeight, m_sendSizeWidth);
+    m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Rectangle", m_sendSizeHeight, m_sendSizeWidth);
+
+
     
     #endif
 }
 
 void CameraSubsystemBase::SendImage()
-{
+{ 
+
+    
+    m_frameNumber++;
+    frc::SmartDashboard::PutNumber("frame count:", m_frameNumber);
+
+    /*if (m_isInitialized == false)
+    {
+        return;
+    }
     #ifdef SEND_VIDEO
-    /*
+    //if grabbbing raw image
+
     if (m_cvSink.GrabFrame(m_sendFrame) == 0) 
     {
         // Send the output the error.
         m_outputStream.NotifyError(m_cvSink.GetError());
     }
+
     else
     {
+        m_cvSink.GrabFrame(m_sendFrame);
         // Add a RED rectangle on the image
         //auto WHITE = cv::Scalar(255,255,255);
         auto RED = cv::Scalar(255,0,0);
         int thickness = 5;
         rectangle(m_sendFrame,
-                cv::Point(m_center.y - m_sendRectHeight/2, m_center.x - m_sendRectWidth/2),
+                cv::Point(m_center.y-  m_sendRectHeight/2, m_center.x - m_sendRectWidth/2),
                 cv::Point(m_center.y + m_sendRectHeight/2, m_center.x + m_sendRectWidth/2),
                 RED, thickness);
 
         // Give the output stream a new image to display
         m_outputStream.PutFrame(m_sendFrame);
     } 
-    */  
+
+
+
     #endif
+    */
 }
 
 int CameraSubsystemBase::WhereToTurn()

@@ -25,8 +25,11 @@ RobotContainerRocky::RobotContainerRocky()
   m_pShooter->Init();
   m_pDrive->Init();
   m_pCamera->Init();
-  frc::SmartDashboard::PutString("test","test2");
+  
+  
+  
   SetDrive();
+  SetCamerastream();
 }
 
 void RobotContainerRocky::ConfigureButtonBindings()
