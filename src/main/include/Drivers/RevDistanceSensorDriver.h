@@ -7,16 +7,27 @@
 
 #pragma once
 
-#include "rev/Rev2mDistanceSensor.h"
+#include "DriverUtil/DistanceSensorSource.h"
 
-class RevDistanceSensorDriver {
+class RevDistanceSensorDriver 
+{
  public:
-  RevDistanceSensorDriver(rev::Rev2mDistanceSensor::Port port = rev::Rev2mDistanceSensor::Port::kOnboard, rev::Rev2mDistanceSensor::DistanceUnit unit = rev::Rev2mDistanceSensor::DistanceUnit::kInches);
+  RevDistanceSensorDriver(Rev2mDistanceSensor::Port port = Rev2mDistanceSensor::Port::kOnboard,
+                          Rev2mDistanceSensor::DistanceUnit unit = Rev2mDistanceSensor::DistanceUnit::kInches,
+                          Rev2mDistanceSensor::RangeProfile profile = Rev2mDistanceSensor::RangeProfile::kDefault);
+
   void Init();
   void DisableInit();
+  void StartMeasuring();
+  void GetMeasurementData();
+  
   double GetDistance();
+  
+  bool IsRangeValid();
+  bool StatusIsFatal();
+
   private:
-  rev::Rev2mDistanceSensor *m_pDevice = nullptr;
+  Rev2mDistanceSensor *m_pDevice = nullptr;
 };
 
 // Finished 2/17/20. Untested
