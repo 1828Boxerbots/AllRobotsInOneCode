@@ -77,22 +77,22 @@ std::string ColorSensorDriver::GetColorString()
     switch (temp)
     {
         case (SpinSubsystemBase::FMSColors::RED):
-            retval = "Red";
+            retval = (std::string)"Red";
             break;
         case (SpinSubsystemBase::FMSColors::YELLOW):
-            retval = "Yellow";
+            retval = (std::string)"Yellow";
             break;
         case (SpinSubsystemBase::FMSColors::BLUE):
-            retval = "Blue";
+            retval = (std::string)"Blue";
             break;
         case (SpinSubsystemBase::FMSColors::GREEN):
-            retval = "Green";
+            retval = (std::string)"Green";
             break;
         case (SpinSubsystemBase::FMSColors::INVALID):
-            retval = "Invalid";
+            retval = (std::string)"Invalid";
             break;
         default:
-            retval = "ERROR";
+            retval = (std::string)"ERROR";
             break;
     }
     return retval;
@@ -211,3 +211,42 @@ bool ColorSensorDriver::StatusIsFatal()
     return m_pDevice->StatusIsFatal();
 }
 
+
+void ColorSensorDriver::DetectOverlap()
+{
+    frc::Color detectedColor = m_pDevice->GetColor();
+    
+    const char* fileLoc = "ColorSensorDriver.cpp";
+
+    bool isRed = IsRed(detectedColor.red, detectedColor.green, detectedColor.blue);
+    bool isGreen = IsGreen(detectedColor.red, detectedColor.green, detectedColor.blue);
+    bool isBlue = IsBlue(detectedColor.red, detectedColor.green, detectedColor.blue);
+    bool isYellow = IsYellow(detectedColor.red, detectedColor.green, detectedColor.blue);
+
+    if(isRed && isYellow)
+    {
+        Util::SendErrorAndCode("Red overlaps with Yellow", 101, fileLoc);
+    }
+    if(isRed && isGreen)
+    {
+        Util::SendErrorAndCode("Red overlaps with Green", 102, fileLoc);
+    }
+    if(isRed && isBlue)
+    {
+        Util::SendErrorAndCode("Red overlaps with Blue", 103, fileLoc);
+    }
+    if(isYellow && isGreen)
+    {
+        Util::SendErrorAndCode("Yellow overlaps with Green", 104, fileLoc);
+    }
+    if(isYellow && isBlue)
+    {
+        Util::SendErrorAndCode("Yellow overlaps with Blue", 105, fileLoc);
+    }
+    if(isBlue && isGreen)
+    {
+        Util::SendErrorAndCode("Blue overlaps with Green", 106, fileLoc);
+    }
+}
+
+// development in progress 3/5/2020

@@ -123,3 +123,14 @@ void Util::SendErrorAndCode(const wpi::Twine& error, int32_t code)
     HAL_SendError(1, code, 0, error.toNullTerminatedStringRef(temp).data(), "", "", 1);
 }
 
+
+/* 
+*  Overload of the other error function (Adam's test)
+*  
+*  Allows you to report to the driver station with a custom error code, and location.
+*/
+void Util::SendErrorAndCode(const wpi::Twine& error, int32_t code, const char *location)
+{
+    wpi::SmallString<128> temp;
+    HAL_SendError(1, code, 0, error.toNullTerminatedStringRef(temp).data(), location, "", 1);
+}

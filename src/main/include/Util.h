@@ -29,6 +29,7 @@ namespace Util
 
     //Experimental Functions
     void SendErrorAndCode(const wpi::Twine& error, int32_t code);
+    void SendErrorAndCode(const wpi::Twine& error, int32_t code, const char *location);
 
     //Other Constants 
     constexpr double ToInches = 0.393701;

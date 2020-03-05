@@ -10,6 +10,7 @@
 #include "rev/ColorSensorv3.h"
 #include "Constants.h"
 #include "../subsystems/SpinSubsystemBase.h"
+#include "Util.h"
 
 class ColorSensorDriver 
 {
@@ -18,15 +19,26 @@ class ColorSensorDriver
 
   void Init() {}
 
+  // Function designed to give you an FMSColor (Specific to robot2020)
   SpinSubsystemBase::FMSColors GetColor();
+
+  // Function designed to return Red, Yellow, Green, or Blue as a string.
+  // Returns Invalid if the color is not R-G-B-Y, and ERROR if there is no color being sent at all.
   std::string GetColorString();
 
+  // Utilizes the Color Sensor's built-in proximity sensor.
   uint32_t GetProximity();
 
+  /**
+   * These functions are used in GetColor.
+   */
   static bool IsRed(double R, double G, double B);
   static bool IsGreen(double R, double G, double B);
   static bool IsBlue(double R, double G, double B);
   static bool IsYellow(double R, double G, double B);
+
+  // Debug function used to determine whether or not a color returns 2 or more different colors.
+  void DetectOverlap();
   
   bool StatusIsFatal();
 
