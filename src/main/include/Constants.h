@@ -168,7 +168,6 @@ constexpr double YELLOW_HIGH_B = 0.0;
 * This is also true for SPI ports.
 */
 static constexpr auto I2C_PORT_MULTIPLEXER_ROBOT2020         = frc::I2C::Port::kOnboard;
-static constexpr auto I2C_PORT_RIGHTDISTANCESENSOR_ROBOT2020 = frc::I2C::Port::kMXP;
 
 // Faux port for color sensor testing
 static constexpr auto I2C_PORT_COLORSENSOR_TEST = frc::I2C::Port::kOnboard;
