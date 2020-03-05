@@ -17,9 +17,7 @@ void SpinSubsystemRobot2020::MultiplexerSelect(int position)
 
 void SpinSubsystemRobot2020::Init()
 {
-    #ifndef NOHW
-    m_spinEncoder.Reset();
-    #endif
+
 }
 
 void SpinSubsystemRobot2020::SetSpinMotor (double speed)
@@ -66,20 +64,11 @@ void SpinSubsystemRobot2020::SpinWithColor(double speed, int wantedRotation)
         while(currentColor != startColor);
     }
 
-    //Stops the Spiner after finished spinning
+    //Stops the Spinner after finished spinning
     Stop();
 }
 
-double SpinSubsystemRobot2020::GetEncoderTicks()
-{
-    #ifndef NOHW
-    double encoderValue = m_spinEncoder.GetRaw();
-    frc::SmartDashboard::PutNumber("Spin Encoder Raw", encoderValue);
-    return encoderValue;
-    #else
-    return 0.0;
-    #endif
-}
+
 
 SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::ReadColorSensor()
 {

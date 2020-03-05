@@ -35,6 +35,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual double GetPulsesPerRevolution() {return 0.0001;}//Random Small Number
   virtual double GyroGetAngle() {return m_gyroAngle;}
   virtual void GyroInit() {}
+  virtual void IMUInit() {}
   virtual void Init();
   virtual void SetMotorL(double speed) {}
   virtual void SetMotorR(double speed) {}
@@ -62,6 +63,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   int m_leftEncoderSim = 0;
   int m_rightEncoderSim = 0;
   double m_gyroAngle = 0.0;
+  double m_imuAngle = 0.0;
 
   const double LOOPTIME = 0.020;
   double m_deadZone = 24.0;

@@ -77,3 +77,15 @@ double ADIS16448_IMUDriver::GetMagZ()
 {   
     return m_pDevice->GetMagInstantZ();
 }
+
+
+void ADIS16448_IMUDriver::ResetAngles()
+{
+    m_pDevice->Reset();
+}
+
+
+void ADIS16448_IMUDriver::CalibrateIMU()
+{
+    m_pDevice->Calibrate();
+}

@@ -26,6 +26,9 @@ class ADIS16448_IMUDriver
   double GetMagY();
   double GetMagZ();
 
+  void ResetAngles();
+  void CalibrateIMU();
+
   private:
    
   frc::ADIS16448_IMU *m_pDevice = nullptr;
