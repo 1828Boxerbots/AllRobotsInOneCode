@@ -11,13 +11,15 @@
 #include "Constants.h"
 #include "../subsystems/SpinSubsystemBase.h"
 
-class ColorSensorDriver {
+class ColorSensorDriver 
+{
  public:
   ColorSensorDriver(frc::I2C::Port port);
 
   void Init() {}
 
   SpinSubsystemBase::FMSColors GetColor();
+  std::string GetColorString();
 
   uint32_t GetProximity();
 

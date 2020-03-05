@@ -15,7 +15,8 @@ class ADXRS_450GyroDriver {
  public:
   ADXRS_450GyroDriver(frc::SPI::Port port);
 
-  /** Initializes the Gyro
+  /** 
+   * Initializes the Gyro
    * 
    * @param log: put true if you want to see if the gyro has been initialized
   */  

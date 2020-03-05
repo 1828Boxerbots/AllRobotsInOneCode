@@ -70,6 +70,35 @@ SpinSubsystemBase::FMSColors ColorSensorDriver::GetColor()
 }
 
 
+std::string ColorSensorDriver::GetColorString()
+{
+    std::string retval;
+    SpinSubsystemBase::FMSColors temp = GetColor();
+    switch (temp)
+    {
+        case (SpinSubsystemBase::FMSColors::RED):
+            retval = "Red";
+            break;
+        case (SpinSubsystemBase::FMSColors::YELLOW):
+            retval = "Yellow";
+            break;
+        case (SpinSubsystemBase::FMSColors::BLUE):
+            retval = "Blue";
+            break;
+        case (SpinSubsystemBase::FMSColors::GREEN):
+            retval = "Green";
+            break;
+        case (SpinSubsystemBase::FMSColors::INVALID):
+            retval = "Invalid";
+            break;
+        default:
+            retval = "ERROR";
+            break;
+    }
+    return retval;
+}
+
+
 bool ColorSensorDriver::IsRed(double R, double G, double B) 
 {
     if( R >= RED_LOW_R && R <= RED_HIGH_R)
