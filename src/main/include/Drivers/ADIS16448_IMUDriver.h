@@ -9,6 +9,8 @@
 
 #include <adi/ADIS16448_imu.h>
 
+#include "Util.h"
+
 class ADIS16448_IMUDriver 
 {
  public:
@@ -28,6 +30,7 @@ class ADIS16448_IMUDriver
 
   void ResetAngles();
   void CalibrateIMU();
+  void LogAllValues();
 
   private:
    
