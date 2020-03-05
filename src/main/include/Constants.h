@@ -116,10 +116,10 @@ constexpr int PWM_HOOKMOTOR_ROBOT2020           = 9;
 constexpr int DIO_SHOOTER_ENCODER_ONE_ROBOT2020 = 4;
 constexpr int DIO_SHOOTER_ENCODER_TWO_ROBOT2020 = 5;
 constexpr int DIO_PHOTOGATE_ROBOT2020           = 8;
-constexpr int DIO_LEFTENCODER_A_ROBOT2020       = 19239;
-constexpr int DIO_LEFTENCODER_B_ROBOT2020       = 19240;
-constexpr int DIO_RIGHTENCODER_A_ROBOT2020      = 19241;
-constexpr int DIO_RIGHTENCODER_B_ROBOT2020      = 19242;
+constexpr int DIO_LEFTENCODER_A_ROBOT2020       = 0;
+constexpr int DIO_LEFTENCODER_B_ROBOT2020       = 1;
+constexpr int DIO_RIGHTENCODER_A_ROBOT2020      = 2;
+constexpr int DIO_RIGHTENCODER_B_ROBOT2020      = 3;
 constexpr int DIO_HALLEFFECT_UPPER_ROBOT2020    = 7;
 constexpr int DIO_HALLEFFECT_LOWER_ROBOT2020    = 6;
 constexpr int RLY_SPIKE_ROBOT2020               = 1;
@@ -167,7 +167,7 @@ constexpr double YELLOW_HIGH_B = 0.0;
 * All frc/I2C calls require that the ports be const rather than constexpr.
 * This is also true for SPI ports.
 */
-static constexpr auto I2C_PORT_MULTIPLEXER_ROBOT2020         = frc::I2C::Port::kOnboard;
+static constexpr auto I2C_PORT_MULTIPLEXER_ROBOT2020 = frc::I2C::Port::kOnboard;
 
 // Faux port for color sensor testing
 static constexpr auto I2C_PORT_COLORSENSOR_TEST = frc::I2C::Port::kOnboard;

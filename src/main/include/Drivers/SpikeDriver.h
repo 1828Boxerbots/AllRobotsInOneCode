@@ -12,6 +12,7 @@
 class SpikeDriver {
  public:
   SpikeDriver(int port);
+
   void TurnSpikeOn();
   void TurnSpikeOff();
 
