@@ -183,6 +183,7 @@ class RobotContainerBase {
     frc2::RunCommand m_armLower_Motor       {[this] {if(m_pArm != nullptr) m_pArm->Lower();}, {m_pArm}};
     //Robot2020
     frc2::InstantCommand m_armPosition_Low  {[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::LOWEST_POS);}, {m_pArm}};
+    frc2::InstantCommand m_armPosition_LowTime{[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::LOWEST_POS_TIME);}, {m_pArm}};
     frc2::InstantCommand m_armPosition_High {[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::HIGHEST_POS);}, {m_pArm}};
     frc2::InstantCommand m_armPosition_Stop {[this] {if(m_pArm != nullptr) m_pArm->SetMotor(0.0);}, {m_pArm}};
 
@@ -201,7 +202,8 @@ class RobotContainerBase {
     //Spin Control
     SpinSubsystemBase *m_pSpin = nullptr;
     frc2::RunCommand m_spinToColor          {[this] { if(m_pSpin != nullptr) m_pSpin->SpinUntilColor();}, {m_pSpin}};
-    frc2::RunCommand m_spin                 {[this] { if(m_pSpin != nullptr) m_pSpin->SpinWithEncoders();}, {m_pSpin}};
+    frc2::RunCommand m_spinEncoder          {[this] { if(m_pSpin != nullptr) m_pSpin->SpinWithEncoders();}, {m_pSpin}};
+    frc2::RunCommand m_spinColor            {[this] { if(m_pSpin != nullptr) m_pSpin->SpinWithColor();}, {m_pSpin}};
     frc2::RunCommand m_spinHoldP            {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(1.0);}, {m_pSpin}};
     frc2::RunCommand m_spinHoldN            {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(-1.0);}, {m_pSpin}};
     frc2::RunCommand m_spinStop             {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(0.0);}, {m_pSpin}};

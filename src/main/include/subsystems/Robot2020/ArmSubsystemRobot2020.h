@@ -42,6 +42,7 @@ class ArmSubsystemRobot2020 : public ArmSubsystemBase {
   double m_scale = 0.5;
   double m_lowValue = 0.0;
   double m_highValue = 150.0;
+  double m_armDownTime = 1.5;
   
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.

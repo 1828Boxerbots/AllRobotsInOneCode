@@ -76,10 +76,10 @@ void RobotContainerRobot2020::SetButtonA()
   buttonAOne.WhenReleased(&m_loaderFeedStop);
   
   frc2::Button buttonATwo{[this] {return m_controller2.GetAButton();}};
-  //buttonATwo.WhenPressed(&m_armPosition1);  
+  buttonATwo.WhenPressed(&m_armPosition_High);  
 
-  buttonATwo.WhenHeld(&m_armPosition_High);  
-  buttonATwo.WhenReleased(&m_armPosition_Stop);
+  //buttonATwo.WhenHeld(&m_armPosition_High);  
+  //buttonATwo.WhenReleased(&m_armPosition_Stop);
 }
 
 void RobotContainerRobot2020::SetButtonB()
@@ -89,10 +89,10 @@ void RobotContainerRobot2020::SetButtonB()
   buttonB.WhenReleased(&m_loaderAllStop);
   
   frc2::Button buttonBTwo{[this] {return m_controller2.GetBButton();}};
-  //buttonBTwo.WhenPressed(&m_armPosition0);  
+  buttonBTwo.WhenPressed(&m_armPosition_Low);  
 
-  buttonBTwo.WhenHeld(&m_armPosition_Low);  
-  buttonBTwo.WhenReleased(&m_armPosition_Stop);
+  //buttonBTwo.WhenHeld(&m_armPosition_Low);  
+  //buttonBTwo.WhenReleased(&m_armPosition_Stop);
 }
 
 void RobotContainerRobot2020::SetButtonX()
@@ -144,6 +144,10 @@ void RobotContainerRobot2020::SetStartButton()
   frc2::Button startButton{[this] {return m_controller.GetStartButton();}};
   startButton.WhenPressed(&m_shooterSpinMax);
   startButton.WhenReleased(&m_shooterStop);
+
+  frc2::Button startButttonTwo{[this] {return m_controller2.GetStartButton();}};
+  startButttonTwo.WhenPressed(&m_armLift_Motor);
+  startButttonTwo.WhenReleased(&m_armStop);
 }
 
 void RobotContainerRobot2020::SetBackButton()
@@ -154,6 +158,10 @@ void RobotContainerRobot2020::SetBackButton()
   backButton.WhenReleased(&m_shooterStop);
   */
   backButton.WhenPressed(m_pShootLoad);
+
+  frc2::Button backButttonTwo{[this] {return m_controller2.GetBackButton();}};
+  backButttonTwo.WhenPressed(&m_armLower_Motor);
+  backButttonTwo.WhenReleased(&m_armStop);
 }
 
 // Working as of 2/19/2020

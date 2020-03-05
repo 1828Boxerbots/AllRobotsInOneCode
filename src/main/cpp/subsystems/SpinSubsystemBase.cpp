@@ -12,7 +12,11 @@
 SpinSubsystemBase::SpinSubsystemBase() {}
 
 // This method will be called once per scheduler run
-void SpinSubsystemBase::Periodic() {}
+void SpinSubsystemBase::Periodic() 
+{
+    Util::Log("ControlPanel CurrentColor", FMStoString(ReadColorSensor()));
+    Util::Log("Wanted Color", FMStoString(m_colorTest));
+}
 
 void SpinSubsystemBase::SpinWithEncoders(double targetRadius, double ourRadius, double revolutions) 
 {
@@ -80,18 +84,48 @@ void SpinSubsystemBase::InterpretFMS(std::string rawColor)
     {
         case 'B' :
             m_color = BLUE;
+            m_colorTest = BLUE;
             break;
         case 'G' :
             m_color = GREEN;
+            m_colorTest = GREEN;
             break;
         case 'R' :
             m_color = RED;
+            m_colorTest = RED;
             break;
         case 'Y' :
             m_color = YELLOW;
+            m_colorTest = YELLOW;
             break;
         default:
             m_color = INVALID; 
+            m_colorTest = INVALID;
             break;
+    }
+}
+
+std::string SpinSubsystemBase::FMStoString(FMSColors color)
+{
+    switch (color)
+    {
+    case INVALID:
+        return "Invalid Color";
+        break;
+    case RED:
+        return "Red Color";
+        break;
+    case GREEN:
+        return "Green Color";
+        break;
+    case BLUE:
+        return "Blue Color";
+        break;
+    case YELLOW:
+        return "Yellow Color";
+        break;
+    default:
+        return "Invalid Color";
+        break;
     }
 }
