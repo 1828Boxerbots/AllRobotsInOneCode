@@ -33,7 +33,6 @@ class ColorSensorDriver
   private:
 
   rev::ColorSensorV3 *m_pDevice = nullptr;
-
 };
 
-// 2/14/20
+// 3/5/2020
