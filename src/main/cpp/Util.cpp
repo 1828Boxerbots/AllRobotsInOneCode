@@ -58,6 +58,7 @@ bool Util::CompareDouble(double value, double requiredValue, double tolerance)
     //return (value > requiredValue - tolerance) && (value < requiredValue + tolerance);
 }
 
+
 double Util::AbsMax(double input, double maxValue) 
 {
     // Just in case the max is negative
@@ -73,6 +74,7 @@ double Util::AbsMax(double input, double maxValue)
     }
 }
 	
+
 double Util::AbsMin(double input, double minValue) 
 {
 
@@ -85,22 +87,39 @@ double Util::AbsMin(double input, double minValue)
         return std::min(input, -minValue);
 }
 
+
 void Util::Log(std::string title, double value, std::string subsytemName)
 {
     frc::SmartDashboard::PutNumber(subsytemName + " " + title, value);
 }
+
 
 void Util::Log(std::string title, int value, std::string subsytemName)
 {
     frc::SmartDashboard::PutNumber(subsytemName + " " + title, value);
 }
 
+
 void Util::Log(std::string title, bool value, std::string subsytemName)
 {
     frc::SmartDashboard::PutBoolean(subsytemName + " " + title, value);
 }
 
+
 void Util::Log(std::string title, std::string value, std::string subsytemName)
 {
     frc::SmartDashboard::PutString(subsytemName + " " + title, value);
 }
+
+
+/* 
+*  Specialized error reporting (Adam's test)
+*  
+*  Allows you to report to the driver station with a custom error code.
+*/
+void Util::SendErrorAndCode(const wpi::Twine& error, int32_t code)
+{
+    wpi::SmallString<128> temp;
+    HAL_SendError(1, code, 0, error.toNullTerminatedStringRef(temp).data(), "", "", 1);
+}
+
