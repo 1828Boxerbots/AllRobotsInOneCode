@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <frc/Spark.h>
+#include <frc/Victor.h>
 #include <frc/Encoder.h>
 
 #include "../DriveTrainSubsystemBase.h"
@@ -36,8 +36,8 @@ class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
 
  private:
  #ifndef NOHW
-  frc::Spark m_leftMotor{PWM_LEFTMOTOR_ROBOT2020};
-  frc::Spark m_rightMotor{PWM_RIGHTMOTOR_ROBOT2020};
+  frc::Victor m_leftMotor{PWM_LEFTMOTOR_ROBOT2020};
+  frc::Victor m_rightMotor{PWM_RIGHTMOTOR_ROBOT2020};
 
   frc::Encoder m_leftEncoder{DIO_LEFTENCODER_A_ROBOT2020, DIO_LEFTENCODER_B_ROBOT2020};
   frc::Encoder m_rightEncoder{DIO_RIGHTENCODER_A_ROBOT2020, DIO_RIGHTENCODER_B_ROBOT2020};

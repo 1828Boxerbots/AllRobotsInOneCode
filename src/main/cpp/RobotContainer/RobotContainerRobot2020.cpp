@@ -7,7 +7,8 @@
 
 #include "../include/RobotContainer/RobotContainerRobot2020.h"
 #include <frc2/command/button/JoystickButton.h>
-
+#include "../include/Drivers/DPDTSwitchDriver.h"
+   
 RobotContainerRobot2020::RobotContainerRobot2020()
 {
   m_pDrive = new DriveTrainSubsystemRobot2020;
@@ -16,6 +17,9 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   m_pShooter = new ShooterSubsystemRobot2020;
   //m_pCamera = new CameraSubsystemBase;
   m_pArm = new ArmSubsystemRobot2020;
+  //m_pDistance = new DistanceSensorSubsystemRobot2020;
+  m_pCamera = new CameraSubsystemBase(m_pDrive);
+
 
   m_pShootLoad = new ShootLoadCommand(m_pLoader, m_pShooter, m_encoderSpeedWanted, m_motorSpeed);
 
@@ -46,10 +50,41 @@ void RobotContainerRobot2020::ConfigureButtonBindings()
   SetLeftBumper();
 
 }
+int RobotContainerRobot2020::ReadDioSwitch()
+{
+   //Object hooked up to double pole double throw switch driver {Channel A, Channel B}
+  DPDTSwitchDriver dpdtSwitch{2,3};
+  return dpdtSwitch.Get();
 
-frc2::Command* RobotContainerRobot2020::GetAutonomousCommand() {
-  // An example command will be run in autonomous
-  return 0;
+}
+frc2::Command* RobotContainerRobot2020::GetAutonomousCommand()
+ {
+   int dioAutoSwitcher;
+  dioAutoSwitcher = ReadDioSwitch();
+  frc::SmartDashboard::PutBoolean("Case 1", false);
+  frc::SmartDashboard::PutBoolean("Case 2", false);
+  frc::SmartDashboard::PutBoolean("Case 3", false);
+  frc::SmartDashboard::PutBoolean("Case Default", false);
+  switch(dioAutoSwitcher)
+  {
+    case 1:
+    frc::SmartDashboard::PutBoolean("Case 1", true);
+      return &m_autoInFrontTargetZone;
+      break;
+
+    case 2:
+      frc::SmartDashboard::PutBoolean("Case 2", true);
+      return &m_autoBetweenTargetZoneLoadingZone;
+    case 3:
+      frc::SmartDashboard::PutBoolean("Case 3", true);
+      return &m_autoInFrontLoadingZone;
+      break;
+    default:
+      frc::SmartDashboard::PutBoolean("Case Default", true);
+      //return &m_autoInFrontTargetZone;
+      break;
+  }
+  return nullptr;
 }
 
 void RobotContainerRobot2020::Init()
@@ -76,10 +111,10 @@ void RobotContainerRobot2020::SetButtonA()
   buttonAOne.WhenReleased(&m_loaderFeedStop);
   
   frc2::Button buttonATwo{[this] {return m_controller2.GetAButton();}};
-  //buttonATwo.WhenPressed(&m_armPosition1);  
+  buttonATwo.WhenPressed(&m_armPosition_High);  
 
-  buttonATwo.WhenHeld(&m_armPosition_High);  
-  buttonATwo.WhenReleased(&m_armPosition_Stop);
+  //buttonATwo.WhenHeld(&m_armPosition_High);  
+  //buttonATwo.WhenReleased(&m_armPosition_Stop);
 }
 
 void RobotContainerRobot2020::SetButtonB()
@@ -89,10 +124,10 @@ void RobotContainerRobot2020::SetButtonB()
   buttonB.WhenReleased(&m_loaderAllStop);
   
   frc2::Button buttonBTwo{[this] {return m_controller2.GetBButton();}};
-  //buttonBTwo.WhenPressed(&m_armPosition0);  
+  buttonBTwo.WhenPressed(&m_armPosition_Low);  
 
-  buttonBTwo.WhenHeld(&m_armPosition_Low);  
-  buttonBTwo.WhenReleased(&m_armPosition_Stop);
+  //buttonBTwo.WhenHeld(&m_armPosition_Low);  
+  //buttonBTwo.WhenReleased(&m_armPosition_Stop);
 }
 
 void RobotContainerRobot2020::SetButtonX()
@@ -144,6 +179,10 @@ void RobotContainerRobot2020::SetStartButton()
   frc2::Button startButton{[this] {return m_controller.GetStartButton();}};
   startButton.WhenPressed(&m_shooterSpinMax);
   startButton.WhenReleased(&m_shooterStop);
+
+  frc2::Button startButttonTwo{[this] {return m_controller2.GetStartButton();}};
+  startButttonTwo.WhenPressed(&m_armLift_Motor);
+  startButttonTwo.WhenReleased(&m_armStop);
 }
 
 void RobotContainerRobot2020::SetBackButton()
@@ -154,6 +193,10 @@ void RobotContainerRobot2020::SetBackButton()
   backButton.WhenReleased(&m_shooterStop);
   */
   backButton.WhenPressed(m_pShootLoad);
+
+  frc2::Button backButttonTwo{[this] {return m_controller2.GetBackButton();}};
+  backButttonTwo.WhenPressed(&m_armLower_Motor);
+  backButttonTwo.WhenReleased(&m_armStop);
 }
 
 // Working as of 2/19/2020

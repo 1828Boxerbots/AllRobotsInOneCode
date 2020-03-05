@@ -60,13 +60,18 @@ class RobotContainerBase {
   double ROBOT2020SPEEDLIMIT = 0.5;
 
   void SetDrive(DriveStyles style = TANK_STYLE);
-
+  void SetCamerastream();
   protected:
   //DriveTrainSubsystemBase m_driveTrain;
     //Creating the controllers
     frc::XboxController m_controller{USB_CONTROLLER_ONE};
     frc::XboxController m_controller2{USB_CONTROLLER_TWO};
+    
+
+    //Camera
     CameraSubsystemBase* m_pCamera = nullptr;
+    frc2::InstantCommand m_outputStream {[this] {if(m_pCamera != nullptr) m_pCamera->SendImage();}, {m_pCamera}};
+
 
     //DriveTrain subsystem commands
     DriveTrainSubsystemBase *m_pDrive = nullptr;
@@ -183,6 +188,7 @@ class RobotContainerBase {
     frc2::RunCommand m_armLower_Motor       {[this] {if(m_pArm != nullptr) m_pArm->Lower();}, {m_pArm}};
     //Robot2020
     frc2::InstantCommand m_armPosition_Low  {[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::LOWEST_POS);}, {m_pArm}};
+    frc2::InstantCommand m_armPosition_LowTime{[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::LOWEST_POS_TIME);}, {m_pArm}};
     frc2::InstantCommand m_armPosition_High {[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::HIGHEST_POS);}, {m_pArm}};
     frc2::InstantCommand m_armPosition_Stop {[this] {if(m_pArm != nullptr) m_pArm->SetMotor(0.0);}, {m_pArm}};
 
@@ -201,7 +207,8 @@ class RobotContainerBase {
     //Spin Control
     SpinSubsystemBase *m_pSpin = nullptr;
     frc2::RunCommand m_spinToColor          {[this] { if(m_pSpin != nullptr) m_pSpin->SpinUntilColor();}, {m_pSpin}};
-    frc2::RunCommand m_spin                 {[this] { if(m_pSpin != nullptr) m_pSpin->SpinWithEncoders();}, {m_pSpin}};
+    frc2::RunCommand m_spinEncoder          {[this] { if(m_pSpin != nullptr) m_pSpin->SpinWithEncoders();}, {m_pSpin}};
+    frc2::RunCommand m_spinColor            {[this] { if(m_pSpin != nullptr) m_pSpin->SpinWithColor();}, {m_pSpin}};
     frc2::RunCommand m_spinHoldP            {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(1.0);}, {m_pSpin}};
     frc2::RunCommand m_spinHoldN            {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(-1.0);}, {m_pSpin}};
     frc2::RunCommand m_spinStop             {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(0.0);}, {m_pSpin}};
@@ -256,7 +263,7 @@ class RobotContainerBase {
     //frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
     //frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(72, -90.0, 0.75);}, {m_pDrive}},
     //frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
-    frc2::RunCommand{      [this] {if(m_pCamera != nullptr)  m_pCamera->AutoCameraTurn();}, {m_pCamera, m_pDrive}},
+    frc2::RunCommand    {  [this] {if(m_pCamera != nullptr)  m_pCamera->AutoCameraTurn();}, {m_pCamera, m_pDrive}},
     frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->Shoot(1.0);}, {m_pShooter}},
     frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->WaitShooter(5);}, {m_pShooter}}, 
     frc2::InstantCommand{  [this] {if(m_pLoader != nullptr)  m_pLoader->SetLoadMotor(1.0);}, {m_pLoader}},
