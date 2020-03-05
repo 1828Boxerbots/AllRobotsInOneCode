@@ -7,6 +7,7 @@
 
 #include "Util.h"
 #include <frc/Timer.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 double Util::Limit(double value, double lowerLimit, double higherLimit)
 {
@@ -82,4 +83,24 @@ double Util::AbsMin(double input, double minValue)
         return std::max(input, minValue);
     else
         return std::min(input, -minValue);
+}
+
+void Util::Log(std::string title, double value, std::string subsytemName)
+{
+    frc::SmartDashboard::PutNumber(subsytemName + " " + title, value);
+}
+
+void Util::Log(std::string title, int value, std::string subsytemName)
+{
+    frc::SmartDashboard::PutNumber(subsytemName + " " + title, value);
+}
+
+void Util::Log(std::string title, bool value, std::string subsytemName)
+{
+    frc::SmartDashboard::PutBoolean(subsytemName + " " + title, value);
+}
+
+void Util::Log(std::string title, std::string value, std::string subsytemName)
+{
+    frc::SmartDashboard::PutString(subsytemName + " " + title, value);
 }

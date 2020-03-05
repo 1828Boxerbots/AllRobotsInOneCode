@@ -10,6 +10,7 @@
 
 DriveTrainSubsystemRocky::DriveTrainSubsystemRocky() {}
 
+
 void DriveTrainSubsystemRocky::SetMotorL(double speed) 
 {
   #ifndef NOHW
@@ -18,6 +19,7 @@ void DriveTrainSubsystemRocky::SetMotorL(double speed)
   frc::SmartDashboard::PutNumber("Drive Left", speed);
 }
 
+
 void DriveTrainSubsystemRocky::SetMotorR(double speed) 
 {
   #ifndef NOHW
@@ -25,6 +27,7 @@ void DriveTrainSubsystemRocky::SetMotorR(double speed)
   #endif
   frc::SmartDashboard::PutNumber("Drive Right", speed);
 }
+
 
 //function made for debugging with gyro
 double DriveTrainSubsystemRocky::GyroGetAngle()
@@ -94,15 +97,20 @@ void DriveTrainSubsystemRocky::ResetEncoder()
   m_leftEncoderSim = 0.0;
   LogEncoder();
 }
+
+
 void DriveTrainSubsystemRocky::GetHallEffect()
 {
   frc::SmartDashboard::PutBoolean("Detecting Magnet?", m_hallEffect.Get());
 }
 
+
 void DriveTrainSubsystemRocky::Periodic()
 {
   GetHallEffect();  
 }
+
+
 //Gets Detection distance; used for debugging
 double DriveTrainSubsystemRocky::GetDetectionDistance()
 {
@@ -110,6 +118,8 @@ double DriveTrainSubsystemRocky::GetDetectionDistance()
    frc::SmartDashboard::PutNumber("DriveTrain Lidar", val);
   return val;
 }
+
+
 //Makes is so that the robot doesn't run into things head on
 void DriveTrainSubsystemRocky::DetectionSoftware(double detectionDistance)
 {
@@ -122,6 +132,8 @@ void DriveTrainSubsystemRocky::DetectionSoftware(double detectionDistance)
             //Stop();
         }
 }
+
+
 //Sets up dead zone in lidar
 void DriveTrainSubsystemRocky::PrecisionMovementLidar(double wantedDistance)
 {
@@ -140,3 +152,4 @@ void DriveTrainSubsystemRocky::PrecisionMovementLidar(double wantedDistance)
     currentDistance = m_lidar.GetDistanceInInches();
   }
 }
+

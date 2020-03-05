@@ -8,9 +8,25 @@
 #pragma once
 
 #include "../../subsystems/SpinSubsystemBase.h"
+#include "../I2CMultiplexerDriver.h"
+#include "../ColorSensorDriver.h"
 
-class MuxColorSensorDriver {
+#include <frc/I2C.h>
+
+class MuxColorSensorDriver 
+{
  public:
-  MuxColorSensorDriver(int port1, int port2) {}
-  SpinSubsystemBase::FMSColors Get() {return SpinSubsystemBase::FMSColors::INVALID;}
+  MuxColorSensorDriver(frc::I2C::Port i2cPort, I2CMultiplexerDriver &breakout, uint8_t breakoutChannel);
+  
+  void SetActive();
+	SpinSubsystemBase::FMSColors GetColor();
+	bool StatusIsFatal();
+
+  private:
+   I2CMultiplexerDriver &m_breakout;
+	 uint8_t m_breakoutChannel;
+	 frc::I2C::Port m_i2cPort;
+   ColorSensorDriver* m_colorSensor;
 };
+
+// Completed 3/3/2020 , untested

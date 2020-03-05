@@ -12,12 +12,18 @@ UltrasonicDriver::UltrasonicDriver(int port)
     m_pDevice = new frc::AnalogInput(port);
 }
 
+
+// Returns distance in centimeters by grabbing raw values and scaling them.
 double UltrasonicDriver::GetDistanceInCM()
 {
-    return m_pDevice->GetVoltage() * m_calibration;
+    return (m_pDevice->GetVoltage() * m_calibration);
 }
 
+
+// Returns distance in inches by converting from centimeters.
 double UltrasonicDriver::GetDistanceInInch()
 {
-    return GetDistanceInCM() * CMtoIN;
+    return (GetDistanceInCM() * CMtoIN);
 }
+
+// 3/4/2020

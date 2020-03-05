@@ -7,7 +7,26 @@
 
 #pragma once
 
-class MuxDistanceSensorDriver {
+#include "../I2CMultiplexerDriver.h"
+#include "Drivers/RevDistanceSensorDriver.h"
+
+class MuxDistanceSensorDriver 
+{
  public:
-  MuxDistanceSensorDriver();
+  MuxDistanceSensorDriver(Rev2mDistanceSensor::Port i2cPort,
+					                I2CMultiplexerDriver& breakout,
+                          uint8_t breakoutChannel,
+                          Rev2mDistanceSensor::DistanceUnit units = Rev2mDistanceSensor::DistanceUnit::kInches,
+					                Rev2mDistanceSensor::RangeProfile profile = Rev2mDistanceSensor::RangeProfile::kDefault);
+
+	void SetActive();
+	bool IsRangeValid();
+  double GetDistance();
+	bool StatusIsFatal();
+
+  private:
+   I2CMultiplexerDriver &m_breakout;
+	 uint8_t m_breakoutChannel;
+	 frc::I2C::Port m_i2cPort;
+   RevDistanceSensorDriver* m_distanceSensor;
 };

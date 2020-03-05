@@ -55,11 +55,12 @@ void LoaderSubsystemRobot2020::SetLoadMotor(double speed, int motorNumber)
 
 void LoaderSubsystemRobot2020::PhotogateStop(double speed)
 {
+    int count = 0;
     SetLoadMotor(speed);
     //Continue spining motor until photogate is set.
     while(m_photogate.Get() != true)
     {
-        
+        Util::Log("Spinning Loader", count++, GetName());
     }
     SetLoadMotor(0.0);
 }

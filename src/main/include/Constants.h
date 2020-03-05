@@ -29,9 +29,14 @@
  * 
  *  Always comment what robot the port refers to or which general purpose of the constant above it.
  *  Types: I2C, SPI, PWM, DIO, ANG (analog), RLY (relay), and USB.
+ * 
+ *  This also applies for the types of non-port constants.
+ *  Types: U8T, INT.
+ * 
+ *  Other types will be added later.
  *  
  *  Finally, CONSTANTS MUST BE IN ALL CAPS.
- */
+*/
 
 
 //Controllers
@@ -108,12 +113,13 @@ constexpr int PWM_LOADMOTOR_TOP_ROBOT2020       = 6;
 constexpr int PWM_ARMMOTOR_ROBOT2020            = 7;
 constexpr int PWM_SPINNERMOTOR_ROBOT2020        = 2;
 constexpr int PWM_HOOKMOTOR_ROBOT2020           = 9;
-constexpr int DIO_ARM_ENCODER_ONE_ROBOT2020     = 9;
 constexpr int DIO_SHOOTER_ENCODER_ONE_ROBOT2020 = 4;
 constexpr int DIO_SHOOTER_ENCODER_TWO_ROBOT2020 = 5;
-constexpr int DIO_SPINNER_ENCODER_ONE_ROBOT2020 = 6;
-constexpr int DIO_SPINNER_ENCODER_TWO_ROBOT2020 = 2;
 constexpr int DIO_PHOTOGATE_ROBOT2020           = 8;
+constexpr int DIO_LEFTENCODER_A_ROBOT2020       = 0;
+constexpr int DIO_LEFTENCODER_B_ROBOT2020       = 1;
+constexpr int DIO_RIGHTENCODER_A_ROBOT2020      = 2;
+constexpr int DIO_RIGHTENCODER_B_ROBOT2020      = 3;
 constexpr int DIO_HALLEFFECT_UPPER_ROBOT2020    = 7;
 constexpr int DIO_HALLEFFECT_LOWER_ROBOT2020    = 6;
 constexpr int RLY_SPIKE_ROBOT2020               = 1;
@@ -162,12 +168,16 @@ constexpr double YELLOW_HIGH_B = 0.0;
 * This is also true for SPI ports.
 */
 static constexpr auto I2C_PORT_MULTIPLEXER_ROBOT2020 = frc::I2C::Port::kOnboard;
-static constexpr auto I2C_PORT_RIGHTDISTANCESENSOR_ROBOT2020 = frc::I2C::Port::kMXP;
+
+// Faux port for color sensor testing
+static constexpr auto I2C_PORT_COLORSENSOR_TEST = frc::I2C::Port::kOnboard;
 
 // Positions of the sensors on the multiplexer
-constexpr int I2C_LINE_LIDAR_ROBOT2020              = 0;
-constexpr int I2C_LINE_LEFTDISTANCESENSOR_ROBOT2020 = 1;
-constexpr int I2C_LINE_COLORSENSOR_ROBOT2020        = 2;
+constexpr uint8_t U8T_LINE_LIDAR_ROBOT2020               = 7;
+constexpr uint8_t U8T_LINE_COLORSENSOR_ROBOT2020         = 5;
+constexpr uint8_t U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020 = 3;
+constexpr uint8_t U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020  = 1;
+
 
 // Addresses of the individual I2C sensors
 constexpr int I2C_ADDR_MULTIPLEXER_ROBOT2020         = 0x70;

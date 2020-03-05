@@ -36,7 +36,6 @@ class ArmSubsystemRobot2020 : public ArmSubsystemBase {
  private:
  #ifndef NOHW
   frc::Victor m_armMotor{PWM_ARMMOTOR_ROBOT2020};
-  frc::Encoder m_armEncoder{DIO_ARM_ENCODER_ONE_ROBOT2020, false, k1X};
   HallEffectOmnipolarDriver m_hallEffectLower{DIO_HALLEFFECT_LOWER_ROBOT2020};
   HallEffectOmnipolarDriver m_hallEffectUpper{DIO_HALLEFFECT_UPPER_ROBOT2020};
  #endif

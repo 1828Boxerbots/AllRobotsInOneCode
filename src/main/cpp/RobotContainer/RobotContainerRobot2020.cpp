@@ -18,9 +18,10 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   //m_pCamera = new CameraSubsystemBase;
   m_pArm = new ArmSubsystemRobot2020;
   //m_pDistance = new DistanceSensorSubsystemRobot2020;
-  m_pShootLoad = new ShootLoadCommand(m_pLoader, m_pShooter, 5400, 1.0);
   m_pCamera = new CameraSubsystemBase(m_pDrive);
 
+
+  m_pShootLoad = new ShootLoadCommand(m_pLoader, m_pShooter, m_encoderSpeedWanted, m_motorSpeed);
 
   // Configure the button bindings
   ConfigureButtonBindings();

@@ -15,15 +15,11 @@ void ArmSubsystemRobot2020::Periodic()
     //Log the Halleffects
     Log("Lower HallEffect", m_hallEffectLower.Get());
     Log("Upper HallEffect", m_hallEffectUpper.Get());
-
-    //Log The Arm Encoder
-    Log("Encoder Raw", m_armEncoder.GetRaw());
 }
 
 void ArmSubsystemRobot2020::Init()
 {
     //SetPosition(LOWEST_POS);
-    m_armEncoder.Reset();
 }
 
 void ArmSubsystemRobot2020::DisableInit()
@@ -69,11 +65,11 @@ void ArmSubsystemRobot2020::Lower(double speed)
 
 int ArmSubsystemRobot2020::GetPosition()
 {
-    if(m_hallEffectLower.Get() == true || m_armEncoder.Get() == m_lowValue)
+    if(m_hallEffectLower.Get() == true)
     {
         return LOWEST_POS;
     }
-    if(m_hallEffectUpper.Get() == true || m_armEncoder.Get() == m_highValue)
+    if(m_hallEffectUpper.Get() == true)
     {
         return HIGHEST_POS;
     }

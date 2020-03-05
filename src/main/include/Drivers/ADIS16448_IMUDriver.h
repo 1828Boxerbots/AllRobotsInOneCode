@@ -7,11 +7,31 @@
 
 #pragma once
 
-#include "adi/ADIS16448_imu.h"
+#include <adi/ADIS16448_imu.h>
 
-class ADIS16448_IMUDriver {
+class ADIS16448_IMUDriver 
+{
  public:
   ADIS16448_IMUDriver();
+
+  double GetTemperature();
+  double GetPressure();
+  double GetAccelX();
+  double GetAccelY();
+  double GetAccelZ();
+  double GetAngleX();
+  double GetAngleY();
+  double GetAngleZ();
+  double GetMagX();
+  double GetMagY();
+  double GetMagZ();
+
+  void ResetAngles();
+  void CalibrateIMU();
+
+  private:
+   
+  frc::ADIS16448_IMU *m_pDevice = nullptr;
 };
 
-// 2/14/20
+// 3/4/2020 Completed, Untested
