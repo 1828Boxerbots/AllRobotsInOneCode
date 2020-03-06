@@ -44,6 +44,9 @@ class ColorSensorDriver
 
   private:
 
+  // Private because it's integrated into DetectOverlap only. Easiest and fastest to use direct integration.
+  void DetectTripleOverlap(bool isRed, bool isBlue, bool isGreen, bool isYellow, const char* fileLoc);
+
   rev::ColorSensorV3 *m_pDevice = nullptr;
 };
 

@@ -26,7 +26,7 @@ SpinSubsystemBase::FMSColors ColorSensorDriver::GetColor()
 {
     frc::Color detectedColor = m_pDevice->GetColor();
 
-    std::string message = "";
+    std::string message;
 
     SpinSubsystemBase::FMSColors output;
 
@@ -206,9 +206,20 @@ bool ColorSensorDriver::IsYellow(double R, double G, double B)
     }
 }
 
+
 bool ColorSensorDriver::StatusIsFatal()
 {
     return m_pDevice->StatusIsFatal();
+}
+
+
+void ColorSensorDriver::DetectTripleOverlap(bool isRed, bool isBlue, bool isGreen, bool isYellow, const char* fileLoc)
+{
+    if(isRed && isYellow && isGreen)           {Util::SendErrorAndCode("Red, Yellow, and Green overlap", 107, fileLoc);}
+    if(isRed && isYellow && isBlue)            {Util::SendErrorAndCode("Red, Yellow, and Blue overlap", 108, fileLoc);}
+    if(isRed && isBlue && isGreen)             {Util::SendErrorAndCode("Red, Blue, and Green overlap", 109, fileLoc);}
+    if(isBlue && isYellow && isGreen)          {Util::SendErrorAndCode("Blue, Yellow, and Green overlap", 110, fileLoc);}
+    if(isBlue && isYellow && isGreen && isRed) {Util::SendErrorAndCode("All colors overlap", 111, fileLoc);}
 }
 
 
@@ -223,30 +234,14 @@ void ColorSensorDriver::DetectOverlap()
     bool isBlue = IsBlue(detectedColor.red, detectedColor.green, detectedColor.blue);
     bool isYellow = IsYellow(detectedColor.red, detectedColor.green, detectedColor.blue);
 
-    if(isRed && isYellow)
-    {
-        Util::SendErrorAndCode("Red overlaps with Yellow", 101, fileLoc);
-    }
-    if(isRed && isGreen)
-    {
-        Util::SendErrorAndCode("Red overlaps with Green", 102, fileLoc);
-    }
-    if(isRed && isBlue)
-    {
-        Util::SendErrorAndCode("Red overlaps with Blue", 103, fileLoc);
-    }
-    if(isYellow && isGreen)
-    {
-        Util::SendErrorAndCode("Yellow overlaps with Green", 104, fileLoc);
-    }
-    if(isYellow && isBlue)
-    {
-        Util::SendErrorAndCode("Yellow overlaps with Blue", 105, fileLoc);
-    }
-    if(isBlue && isGreen)
-    {
-        Util::SendErrorAndCode("Blue overlaps with Green", 106, fileLoc);
-    }
+    DetectTripleOverlap(isRed, isBlue, isGreen, isYellow, fileLoc);
+
+    if(isRed && isYellow)   {Util::SendErrorAndCode("Red overlaps with Yellow", 101, fileLoc);}
+    if(isRed && isGreen)    {Util::SendErrorAndCode("Red overlaps with Green", 102, fileLoc);}
+    if(isRed && isBlue)     {Util::SendErrorAndCode("Red overlaps with Blue", 103, fileLoc);}
+    if(isYellow && isGreen) {Util::SendErrorAndCode("Yellow overlaps with Green", 104, fileLoc);}
+    if(isYellow && isBlue)  {Util::SendErrorAndCode("Yellow overlaps with Blue", 105, fileLoc);}
+    if(isBlue && isGreen)   {Util::SendErrorAndCode("Blue overlaps with Green", 106, fileLoc);}
 }
 
 // development in progress 3/5/2020

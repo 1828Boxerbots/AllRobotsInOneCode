@@ -5,9 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Util.h"
 #include <frc/Timer.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+
+#include "Util.h"
+
 
 double Util::Limit(double value, double lowerLimit, double higherLimit)
 {
@@ -26,6 +28,7 @@ double Util::Limit(double value, double lowerLimit, double higherLimit)
     return value;
 }
 
+
 void Util::DelayInSeconds(double seconds)
 {
     frc::Timer timer;
@@ -43,6 +46,7 @@ void Util::DelayInSeconds(double seconds)
     timer.Stop();
     timer.Reset();
 }
+
 
 bool Util::CompareDouble(double value, double requiredValue, double tolerance)
 {
@@ -128,9 +132,14 @@ void Util::SendErrorAndCode(const wpi::Twine& error, int32_t code)
 *  Overload of the other error function (Adam's test)
 *  
 *  Allows you to report to the driver station with a custom error code, and location.
+*
+*  Const Char* is just a string, or anything in quotes (e.g. "abc")
 */
 void Util::SendErrorAndCode(const wpi::Twine& error, int32_t code, const char *location)
 {
     wpi::SmallString<128> temp;
     HAL_SendError(1, code, 0, error.toNullTerminatedStringRef(temp).data(), location, "", 1);
 }
+
+
+// Experimental functions added 3/5/2020
