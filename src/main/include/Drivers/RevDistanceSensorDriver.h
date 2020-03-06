@@ -24,7 +24,7 @@ class RevDistanceSensorDriver
   double GetDistance();
   
   bool IsRangeValid();
-  bool StatusIsFatal();
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
 
   private:
   Rev2mDistanceSensor *m_pDevice = nullptr;

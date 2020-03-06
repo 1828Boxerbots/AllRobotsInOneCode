@@ -19,6 +19,8 @@ class ColorSensorDriver
 
   void Init() {}
 
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+
   // Function designed to give you an FMSColor (Specific to robot2020)
   SpinSubsystemBase::FMSColors GetColor();
 
@@ -39,8 +41,6 @@ class ColorSensorDriver
 
   // Debug function used to determine whether or not a color returns 2 or more different colors.
   void DetectOverlap();
-  
-  bool StatusIsFatal();
 
   private:
 

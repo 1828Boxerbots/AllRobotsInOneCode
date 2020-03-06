@@ -206,12 +206,6 @@ bool ColorSensorDriver::IsYellow(double R, double G, double B)
 }
 
 
-bool ColorSensorDriver::StatusIsFatal()
-{
-    return m_pDevice->StatusIsFatal();
-}
-
-
 void ColorSensorDriver::DetectTripleOverlap(bool isRed, bool isBlue, bool isGreen, bool isYellow, const char* fileLoc)
 {
     if(isRed && isYellow && isGreen)           {Util::SendErrorAndCode("Red, Yellow, and Green overlap", 107, fileLoc);}

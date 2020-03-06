@@ -19,6 +19,8 @@ class LidarDriver {
   */
   double GetDistanceInCM();
 
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+
   // Utilizes a conversion factor to get Inches.
   double GetDistanceInInches();
   //double LidarDetectionSoftware(double detectionDistance);

@@ -53,12 +53,6 @@ bool RevDistanceSensorDriver::IsRangeValid()
 }
 
 
-bool RevDistanceSensorDriver::StatusIsFatal()
-{
-  return m_pDevice->StatusIsFatal();
-}
-
-
 void RevDistanceSensorDriver::StartMeasuring()
 {
   m_pDevice->StartMeasurement();
