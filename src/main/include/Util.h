@@ -22,10 +22,10 @@ namespace Util
     bool CompareDouble(double value, double requiredValue, double tolerance = 0.001);
 
     //Log Functions
-    void Log(std::string title, double value, std::string subsytemName = "");
-    void Log(std::string title, int value, std::string subsytemName = "");
-    void Log(std::string title, bool value, std::string subsytemName = "");
-    void Log(std::string title, std::string value, std::string subsytemName = "");
+    void Log(std::string title, double value, std::string subsystemName = "");
+    void Log(std::string title, int value, std::string subsystemName = "");
+    void Log(std::string title, bool value, std::string subsystemName = "");
+    void Log(std::string title, std::string value, std::string subsystemName = "");
 
     //Experimental Functions
     void SendErrorAndCode(const wpi::Twine& error, int32_t code);

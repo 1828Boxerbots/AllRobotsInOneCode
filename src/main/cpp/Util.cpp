@@ -92,27 +92,27 @@ double Util::AbsMin(double input, double minValue)
 }
 
 
-void Util::Log(std::string title, double value, std::string subsytemName)
+void Util::Log(std::string title, double value, std::string subsystemName)
 {
-    frc::SmartDashboard::PutNumber(subsytemName + " " + title, value);
+    frc::SmartDashboard::PutNumber(subsystemName + " " + title, value);
 }
 
 
-void Util::Log(std::string title, int value, std::string subsytemName)
+void Util::Log(std::string title, int value, std::string subsystemName)
 {
-    frc::SmartDashboard::PutNumber(subsytemName + " " + title, value);
+    frc::SmartDashboard::PutNumber(subsystemName + " " + title, value);
 }
 
 
-void Util::Log(std::string title, bool value, std::string subsytemName)
+void Util::Log(std::string title, bool value, std::string subsystemName)
 {
-    frc::SmartDashboard::PutBoolean(subsytemName + " " + title, value);
+    frc::SmartDashboard::PutBoolean(subsystemName + " " + title, value);
 }
 
 
-void Util::Log(std::string title, std::string value, std::string subsytemName)
+void Util::Log(std::string title, std::string value, std::string subsystemName)
 {
-    frc::SmartDashboard::PutString(subsytemName + " " + title, value);
+    frc::SmartDashboard::PutString(subsystemName + " " + title, value);
 }
 
 
