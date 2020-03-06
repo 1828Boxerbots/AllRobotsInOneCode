@@ -5,8 +5,6 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include <frc/DriverStation.h>
-
 #include "Drivers/RevDistanceSensorDriver.h"
 
 
@@ -43,7 +41,7 @@ double RevDistanceSensorDriver::GetDistance()
   }
   else 
   {
-      frc::DriverStation::ReportError("Distance Sensor Range Invalid");
+      Util::SendErrorAndCode("Distance Sensor Range Invalid", 133, "DistanceSensorDriver.cpp");
       return -1.0;
   }
 }

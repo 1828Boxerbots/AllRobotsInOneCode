@@ -6,7 +6,6 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Drivers/LidarDriver.h"
-#include "frc/smartdashboard/SmartDashboard.h"
 
 
 LidarDriver::LidarDriver(frc::I2C::Port port, int address) 
@@ -40,7 +39,7 @@ double LidarDriver::GetDistanceInCM()
     m_pDevice->Read(FULL_DELAY_LOW , 1, &low );
     uint16_t centimeters = (high << 8) | low;
     // Use this if you want to see distance on Smashboard
-    //frc::SmartDashboard::PutNumber("Lidar Distance", centimeters);
+    //Util::Log("Lidar Distance", centimeters, "LidarDriver");
 
     return (double)centimeters;
 }
@@ -57,12 +56,12 @@ double LidarDriver::GetDistanceInInches()
     double currentDetection = GetDistanceInInches();
     double startDetection = GetDistanceInInches();
     bool tooClose = false;
-    frc::SmartDashboard::PutBoolean("DistanceDetection", false);
+    Util::Log("DistanceDetection", false, "LidarDriver");
     while(currentDetection - startDetection < detectionDistance)
     {
         if(currentDetection - startDetection > detectionDistance)
         {
-            frc::SmartDashboard::PutBoolean("DistanceDetection", true);
+            Util::Log("DistanceDetection", true, "LidarDriver");
             tooClose = true;
         }
     }

@@ -9,6 +9,8 @@
 
 #include <frc/I2C.h>
 
+#include "Util.h"
+
 class LidarDriver 
 {
  public:

@@ -5,8 +5,6 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include <frc/DriverStation.h>
-
 #include "Drivers/DPDTSwitchDriver.h"
 #include "Util.h"
 
@@ -17,7 +15,12 @@ DPDTSwitchDriver::DPDTSwitchDriver(int CHANNEL_A, int CHANNEL_B)
     m_pChannelB = new frc::DigitalInput(CHANNEL_B);
 }
 
-
+/**
+ * This function tells you which scenario the switch is reporting.
+ * 
+ * If both channels of the switch are true, something is wrong with the switch
+ * because they are controlled by pull-down resistors.
+ */
 int DPDTSwitchDriver::Get()
 {
     //Util::DelayInSeconds(3);
@@ -35,7 +38,7 @@ int DPDTSwitchDriver::Get()
     }
     else if (m_pChannelA->Get() && m_pChannelB->Get())
     {
-        frc::DriverStation::ReportError("Autonomous Switch unresponsive");
+        Util::SendErrorAndCode("Autonomous Switch unresponsive", 132, "DPDTSwitchDriver.cpp");
         return -1;
     }
     return -1;

@@ -28,10 +28,7 @@ void ADXRS_450GyroDriver::Calibrate()
 
 void ADXRS_450GyroDriver::GyroInit(bool log)
 {
-    if(log)
-    {
-        Util::Log("Initialized Gyro", true, "ADXRS450_GYRO DRIVER");
-    }
+    if(log) {Util::Log("Initialized Gyro", true, "ADXRS450_GYRO DRIVER");}
     Reset();
     Calibrate();
 }

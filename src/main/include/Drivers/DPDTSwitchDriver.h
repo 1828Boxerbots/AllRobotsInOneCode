@@ -9,13 +9,15 @@
 
 #include <frc/DigitalInput.h>
 
+#include "Util.h"
+
 class DPDTSwitchDriver
 {
  public:
   DPDTSwitchDriver(int CHANNEL_A, int CHANNEL_B);
 
   /**
-   * This is the switch that we will be using to determine the autononous scenarios.
+   * This is the switch that we will be using to determine the autonomous scenarios.
    * The Get() function will return an integer based on the position of the switch.
    * Up position: 1
    * Middle Position: 2
