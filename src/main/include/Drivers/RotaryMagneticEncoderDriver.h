@@ -10,7 +10,8 @@
 // Might actually be analog, but not important yet.
 #include <frc/Encoder.h>
 
-class RotaryMagneticEncoderDriver {
+class RotaryMagneticEncoderDriver 
+{
  public:
   RotaryMagneticEncoderDriver();
 };

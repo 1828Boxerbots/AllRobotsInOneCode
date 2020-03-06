@@ -9,7 +9,8 @@
 
 #include <frc/DigitalInput.h>
 
-class AM3313HallEffectDriver {
+class AM3313HallEffectDriver
+{
  public:
   AM3313HallEffectDriver(int port);
 

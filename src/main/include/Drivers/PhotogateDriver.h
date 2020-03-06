@@ -9,7 +9,8 @@
 
 #include <frc/DigitalInput.h>
 
-class PhotogateDriver {
+class PhotogateDriver
+{
  public:
   PhotogateDriver(int port);
 

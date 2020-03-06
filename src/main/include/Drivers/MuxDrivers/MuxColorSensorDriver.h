@@ -11,8 +11,6 @@
 #include "../I2CMultiplexerDriver.h"
 #include "../ColorSensorDriver.h"
 
-#include <frc/I2C.h>
-
 class MuxColorSensorDriver 
 {
  public:

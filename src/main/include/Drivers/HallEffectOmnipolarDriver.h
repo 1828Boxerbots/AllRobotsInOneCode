@@ -9,7 +9,8 @@
 
 #include <frc/DigitalInput.h>
 
-class HallEffectOmnipolarDriver {
+class HallEffectOmnipolarDriver
+{
  public:
   HallEffectOmnipolarDriver(int port);
 

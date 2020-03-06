@@ -9,7 +9,8 @@
 
 #include <frc/DigitalInput.h>
 
-class LimitSwitchDriver {
+class LimitSwitchDriver
+{
  public:
   LimitSwitchDriver(int port);
 

@@ -9,9 +9,8 @@
 
 #include <frc/DigitalInput.h>
 
-
-
-class HallEffectSwitchDriver {
+class HallEffectSwitchDriver
+{
  public:
   HallEffectSwitchDriver(int port);
 

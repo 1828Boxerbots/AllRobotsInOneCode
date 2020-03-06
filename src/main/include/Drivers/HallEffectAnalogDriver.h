@@ -9,7 +9,8 @@
 
 #include <frc/AnalogInput.h>
 
-class HallEffectAnalogDriver {
+class HallEffectAnalogDriver
+{
  public:
   HallEffectAnalogDriver(int port);
 

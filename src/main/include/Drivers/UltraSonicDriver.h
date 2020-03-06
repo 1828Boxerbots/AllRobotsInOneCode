@@ -9,7 +9,8 @@
 
 #include <frc/AnalogInput.h>
 
-class UltrasonicDriver {
+class UltrasonicDriver 
+{
  public:
   UltrasonicDriver(int port);
 

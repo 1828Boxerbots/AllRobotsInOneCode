@@ -9,7 +9,8 @@
 
 #include <frc/DigitalInput.h>
 
-class DPDTSwitchDriver {
+class DPDTSwitchDriver
+{
  public:
   DPDTSwitchDriver(int CHANNEL_A, int CHANNEL_B);
 

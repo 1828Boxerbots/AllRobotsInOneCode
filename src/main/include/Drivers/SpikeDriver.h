@@ -9,7 +9,8 @@
 
 #include <frc/Relay.h>
 
-class SpikeDriver {
+class SpikeDriver 
+{
  public:
   SpikeDriver(int port);
 

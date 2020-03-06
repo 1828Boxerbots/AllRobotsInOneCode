@@ -9,7 +9,8 @@
 
 #include <frc/DigitalInput.h>
 
-class HallEffectLatchDriver {
+class HallEffectLatchDriver
+{
  public:
   HallEffectLatchDriver(int port);
 

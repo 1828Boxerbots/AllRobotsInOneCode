@@ -9,7 +9,8 @@
 
 #include <frc/DigitalInput.h>
 
-class PhotodiodeThresholdDriver {
+class PhotodiodeThresholdDriver
+{
  public:
   PhotodiodeThresholdDriver(int port);
 

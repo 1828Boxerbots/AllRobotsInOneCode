@@ -9,7 +9,8 @@
 
 #include <frc/Encoder.h>
 
-class E4TEncoderDriver {
+class E4TEncoderDriver 
+{
  public:
   E4TEncoderDriver();
 };

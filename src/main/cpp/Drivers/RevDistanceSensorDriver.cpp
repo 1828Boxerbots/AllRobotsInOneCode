@@ -5,8 +5,9 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Drivers/RevDistanceSensorDriver.h"
 #include <frc/DriverStation.h>
+
+#include "Drivers/RevDistanceSensorDriver.h"
 
 
 RevDistanceSensorDriver::RevDistanceSensorDriver(Rev2mDistanceSensor::Port port, Rev2mDistanceSensor::DistanceUnit unit, Rev2mDistanceSensor::RangeProfile profile) 

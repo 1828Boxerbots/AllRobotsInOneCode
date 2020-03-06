@@ -11,7 +11,8 @@
 
 #include "Util.h"
 
-class ADXRS_450GyroDriver {
+class ADXRS_450GyroDriver
+{
  public:
   ADXRS_450GyroDriver(frc::SPI::Port port);
 

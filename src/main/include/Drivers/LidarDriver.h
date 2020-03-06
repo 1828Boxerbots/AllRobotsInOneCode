@@ -6,9 +6,11 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
+
 #include <frc/I2C.h>
 
-class LidarDriver {
+class LidarDriver 
+{
  public:
   //Constructor
   LidarDriver(frc::I2C::Port port, int address);
