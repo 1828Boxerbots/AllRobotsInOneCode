@@ -13,6 +13,14 @@ ADIS16448_IMUDriver::ADIS16448_IMUDriver()
 }
 
 
+void ADIS16448_IMUDriver::IMUGyroInit(bool log)
+{
+    if(log) {Util::Log("IMU Initialized", true, "IMU Driver");}
+    ResetAngles();
+    CalibrateIMU();
+}
+
+
 double ADIS16448_IMUDriver::GetTemperature()
 {
     return m_pDevice->GetTemperature();
@@ -91,6 +99,11 @@ void ADIS16448_IMUDriver::CalibrateIMU()
 }
 
 
+/**
+ * This function is designed to show you all of the sensor outputs of the IMU.
+ * 
+ * 3-Axis Angles, Accelerations, and Magnetic pulls, as well as temperature and pressure.
+ */
 void ADIS16448_IMUDriver::LogAllValues()
 {
     Util::Log("Angle X", GetAngleX(), "IMU DRIVER");

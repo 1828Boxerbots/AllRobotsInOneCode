@@ -16,6 +16,8 @@ class ADIS16448_IMUDriver
  public:
   ADIS16448_IMUDriver();
 
+  void IMUGyroInit(bool log = false);
+
   double GetTemperature();
   double GetPressure();
   double GetAccelX();

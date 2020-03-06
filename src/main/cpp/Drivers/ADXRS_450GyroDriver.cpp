@@ -7,7 +7,6 @@
 
 #include "Drivers/ADXRS_450GyroDriver.h"
 
-
 ADXRS_450GyroDriver::ADXRS_450GyroDriver(frc::SPI::Port port) 
 {
     m_pDevice = new frc::ADXRS450_Gyro(port);

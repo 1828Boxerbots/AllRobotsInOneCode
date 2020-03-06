@@ -20,7 +20,7 @@ class ADXRS_450GyroDriver {
    * 
    * @param log: put true if you want to see if the gyro has been initialized
   */  
-  void GyroInit(bool log);
+  void GyroInit(bool log = false);
 
   // Resets the Gyro to a heading of 0 degrees
   void Reset();

@@ -5,10 +5,9 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Drivers/ColorSensorDriver.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-#include <String>
+#include "Drivers/ColorSensorDriver.h"
 
 ColorSensorDriver::ColorSensorDriver(frc::I2C::Port port) 
 {
@@ -65,7 +64,7 @@ SpinSubsystemBase::FMSColors ColorSensorDriver::GetColor()
       }
     }
 
-    frc::SmartDashboard::PutString("Color sensor driver color", message);
+    Util::Log("Color Sensor Driver Color", message, "Color Sensor Driver");
     return output;
 }
 
