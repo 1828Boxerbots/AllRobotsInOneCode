@@ -34,6 +34,8 @@ class ADIS16448_IMUDriver
   void CalibrateIMU();
   void LogAllValues();
 
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+
   private:
    
   frc::ADIS16448_IMU *m_pDevice = nullptr;

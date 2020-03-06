@@ -19,6 +19,8 @@ class SpikeDriver
 
   frc::Relay::Value GetState();
 
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+
  private:
  frc::Relay *m_pDevice = nullptr;
 };

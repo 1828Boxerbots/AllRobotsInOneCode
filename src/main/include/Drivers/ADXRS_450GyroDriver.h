@@ -35,6 +35,9 @@ class ADXRS_450GyroDriver
   // In Degrees per Second
   double GetRate();
 
+  // States whether or not the sensor is compromised
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+
   private:
   frc::ADXRS450_Gyro *m_pDevice = nullptr;
 };

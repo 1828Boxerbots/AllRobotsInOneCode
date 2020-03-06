@@ -20,10 +20,13 @@ class I2CMultiplexerDriver
   bool SetChannel(uint8_t channel, bool log = true);
   uint8_t GetChannel();
 
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+
   private:
 
   static const uint8_t breakoutAddress_base = 0x70;
   uint8_t m_current_channel; 
+  
   frc::I2C *m_pDevice = nullptr;
 
   std::string GetChannelName(uint8_t channel);

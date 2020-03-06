@@ -20,6 +20,9 @@ class HallEffectAnalogDriver
   */
   bool Get();
   void Init() {}
+
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+
  private:
   frc::AnalogInput *m_pDevice = nullptr;
 };
