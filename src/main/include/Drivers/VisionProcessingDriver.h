@@ -12,7 +12,8 @@
 #include <opencv2/core/types.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
-class VisionProcessingDriver {
+class VisionProcessingDriver
+{
  public:
   VisionProcessingDriver();
 
