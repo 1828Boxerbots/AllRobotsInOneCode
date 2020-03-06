@@ -16,8 +16,9 @@ RevDistanceSensorDriver::RevDistanceSensorDriver(Rev2mDistanceSensor::Port port,
 }
 
 
-void RevDistanceSensorDriver::Init() 
+void RevDistanceSensorDriver::Init(bool log) 
 {
+  if (log) {Util::Log("Distance Sensor Initialized?", true, "RevdistanceSensorDriver");}
   m_pDevice->SetAutomaticMode(true);
   m_pDevice->SetEnabled(true);
 }

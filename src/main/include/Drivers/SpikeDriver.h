@@ -17,6 +17,8 @@ class SpikeDriver
   void TurnSpikeOn();
   void TurnSpikeOff();
 
+  frc::Relay::Value GetState();
+
  private:
  frc::Relay *m_pDevice = nullptr;
 };

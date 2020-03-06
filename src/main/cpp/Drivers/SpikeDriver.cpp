@@ -17,14 +17,20 @@ SpikeDriver::SpikeDriver(int port)
 // Sets the Relay to the "On" position.
 void SpikeDriver::TurnSpikeOn()
 {
-    m_pDevice->Set(frc::Relay::kForward);
+    m_pDevice->Set(frc::Relay::Value::kForward);
 }
 
 
 // Sets the Relay to the "Off" position.
 void SpikeDriver::TurnSpikeOff() 
 {
-    m_pDevice->Set(frc::Relay::kOff);
+    m_pDevice->Set(frc::Relay::Value::kOff);
+}
+
+
+frc::Relay::Value SpikeDriver::GetState()
+{
+    return m_pDevice->Get();
 }
 
 // 2/18/2020      
