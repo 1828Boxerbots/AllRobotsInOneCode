@@ -5,9 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include <frc/DriverStation.h>
+
 #include "Drivers/DPDTSwitchDriver.h"
 #include "Util.h"
-#include <frc/DriverStation.h>
+
 
 DPDTSwitchDriver::DPDTSwitchDriver(int CHANNEL_A, int CHANNEL_B) 
 {

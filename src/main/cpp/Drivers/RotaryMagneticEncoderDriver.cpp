@@ -7,4 +7,7 @@
 
 #include "Drivers/RotaryMagneticEncoderDriver.h"
 
+
 RotaryMagneticEncoderDriver::RotaryMagneticEncoderDriver() {}
+
+

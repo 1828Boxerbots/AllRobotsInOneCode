@@ -8,9 +8,7 @@
 #include "Drivers/LidarDriver.h"
 #include "frc/smartdashboard/SmartDashboard.h"
 
-/*
- * Gives the device your passed in parameters. 
- */
+
 LidarDriver::LidarDriver(frc::I2C::Port port, int address) 
 {
     m_pDevice = new frc::I2C(port, address);
@@ -52,6 +50,8 @@ double LidarDriver::GetDistanceInInches()
 {
     return GetDistanceInCM()*CMtoIN;
 }
+
+
 /*double LidarDriver::LidarDetectionSoftware(double detectionDistance)
 {
     double currentDetection = GetDistanceInInches();

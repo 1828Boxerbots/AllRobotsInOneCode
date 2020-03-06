@@ -7,6 +7,7 @@
 
 #include "Drivers/ADIS16448_IMUDriver.h"
 
+
 ADIS16448_IMUDriver::ADIS16448_IMUDriver() 
 {
     m_pDevice = new frc::ADIS16448_IMU();

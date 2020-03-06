@@ -64,3 +64,4 @@ void RevDistanceSensorDriver::GetMeasurementData()
   return m_pDevice->GetMeasurementData();
 }
 
+

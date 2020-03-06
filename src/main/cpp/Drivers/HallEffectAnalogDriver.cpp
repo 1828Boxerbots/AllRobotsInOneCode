@@ -7,10 +7,12 @@
 
 #include "Drivers/HallEffectAnalogDriver.h"
 
+
 HallEffectAnalogDriver::HallEffectAnalogDriver(int port) 
 {
     m_pDevice = new frc::AnalogInput(port);
 }
+
 
 bool HallEffectAnalogDriver::Get()
 {

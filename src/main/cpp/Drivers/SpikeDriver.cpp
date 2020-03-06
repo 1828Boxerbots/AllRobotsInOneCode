@@ -7,6 +7,7 @@
 
 #include "Drivers/SpikeDriver.h"
 
+
 SpikeDriver::SpikeDriver(int port) 
 {
     m_pDevice = new frc::Relay(port);
