@@ -79,7 +79,6 @@ double DriveTrainSubsystemRobot2020::GetRightEncoderInch()
   return m_rightEncoderSim;
 }
 
-
 void DriveTrainSubsystemRobot2020::ResetEncoder()
 {
   #ifndef NOHW
@@ -91,6 +90,62 @@ void DriveTrainSubsystemRobot2020::ResetEncoder()
   m_leftEncoderSim = 0.0;
   LogEncoder();
 }
+
+// Currently using IMU
+double DriveTrainSubsystemRobot2020::GyroGetAngle()
+{
+  double m_gyroAngle = m_imu.GetAngleX();
+  m_imu.LogAllValues();
+  return m_gyroAngle;
+}
+
+
+// Currently using IMU
+void DriveTrainSubsystemRobot2020::GyroInit()
+{
+  m_imu.IMUGyroInit(true);
+}
+double DriveTrainSubsystemRobot2020::GetDetectionDistance()
+{
+  double val = m_lidar.GetDistanceInInches();
+   frc::SmartDashboard::PutNumber("DriveTrain Lidar", val);
+  return val;
+}
+
+
+//Makes is so that the robot doesn't run into things head on
+void DriveTrainSubsystemRobot2020::DetectionSoftware(double detectionDistance)
+{
+    frc::SmartDashboard::PutNumber("Lidar Distance", GetDetectionDistance());
+    double currentDetection = GetDetectionDistance();
+    frc::SmartDashboard::PutBoolean("DistanceDetection", false);
+        if(currentDetection < detectionDistance)
+        {
+            frc::SmartDashboard::PutBoolean("DistanceDetection", true);
+            //Stop();
+        }
+}
+
+
+//Sets up dead zone in lidar
+void DriveTrainSubsystemRobot2020::PrecisionMovementLidar(double wantedDistance)
+{
+  const double DEAD_ZONE = 5.0;
+  double currentDistance = m_lidar.GetDistanceInInches();
+  while(wantedDistance <  (currentDistance + DEAD_ZONE) && wantedDistance > (currentDistance - DEAD_ZONE))
+  {
+    if(currentDistance < wantedDistance)
+    {
+      MoveTank(-.5,-.5);
+    }
+    if(currentDistance > wantedDistance)
+    {
+      MoveTank(.5,.5);
+    }
+    currentDistance = m_lidar.GetDistanceInInches();
+  }
+}
+
 
 /*
 //Gets Detection distance; used for debugging

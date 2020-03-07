@@ -13,9 +13,9 @@ ADIS16448_IMUDriver::ADIS16448_IMUDriver()
     m_pDevice = new frc::ADIS16448_IMU();
 }
 
-
 void ADIS16448_IMUDriver::IMUGyroInit(bool log)
 {
+    //Set Log "true" to show on smartdashboard that IMU is initialized
     if(log) {Util::Log("IMU Initialized", true, "IMU Driver");}
     ResetAngles();
     CalibrateIMU();
