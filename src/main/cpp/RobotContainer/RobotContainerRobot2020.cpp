@@ -15,11 +15,8 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   m_pLoader = new LoaderSubsystemRobot2020;
   m_pSpin = new SpinSubsystemRobot2020;
   m_pShooter = new ShooterSubsystemRobot2020;
-  //m_pCamera = new CameraSubsystemBase;
   m_pArm = new ArmSubsystemRobot2020;
-  //m_pDistance = new DistanceSensorSubsystemRobot2020;
   m_pCamera = new CameraSubsystemBase(m_pDrive);
-
 
   m_pShootLoad = new ShootLoadCommand(m_pLoader, m_pShooter, m_encoderSpeedWanted, m_motorSpeed);
 
@@ -169,6 +166,9 @@ void RobotContainerRobot2020::SetLeftBumper()
   frc2::Button buttonLB{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
   buttonLB.WhenPressed(&m_shooterEncoderReset);
   buttonLB.WhenReleased(&m_shooterEncoderReset);
+
+  frc2::Button buttonLBTwo{[this] {return m_controller2.GetBumper(frc::GenericHID::kLeftHand);}};
+  buttonLBTwo.WhenPressed(m_pShootLoad);
 }
 
 void RobotContainerRobot2020::SetRightBumper()
@@ -176,6 +176,9 @@ void RobotContainerRobot2020::SetRightBumper()
   frc2::Button buttonRB{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
   buttonRB.WhenHeld(&m_loaderSetInverted);
   buttonRB.WhenReleased(&m_loaderResetInverted);
+
+  frc2::Button buttonRBTwo{[this] {return m_controller2.GetBumper(frc::GenericHID::kRightHand);}};
+  buttonRBTwo.WhenPressed(&m_loaderPhotogate);
 }
 
 void RobotContainerRobot2020::SetStartButton()
@@ -192,11 +195,10 @@ void RobotContainerRobot2020::SetStartButton()
 void RobotContainerRobot2020::SetBackButton()
 {
   frc2::Button backButton{[this] {return m_controller.GetBackButton();}};
-  /*
+  
   backButton.WhenPressed(&m_shooterSpinHalf);
   backButton.WhenReleased(&m_shooterStop);
-  */
-  backButton.WhenPressed(m_pShootLoad);
+  //backButton.WhenPressed(m_pShootLoad);
 
   frc2::Button backButttonTwo{[this] {return m_controller2.GetBackButton();}};
   backButttonTwo.WhenPressed(&m_armLower_Motor);

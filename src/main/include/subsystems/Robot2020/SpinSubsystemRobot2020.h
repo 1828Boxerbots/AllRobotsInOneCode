@@ -12,7 +12,8 @@
 #include <frc/Victor.h>
 #include <frc/Encoder.h>
 #include <frc/I2C.h>
-#include "../../Drivers/ColorSensorDriver.h"
+#include "../../Drivers/MuxDrivers/MuxColorSensorDriver.h"
+#include "../../Drivers/I2CMultiplexerDriver.h"
 
 class SpinSubsystemRobot2020 : public SpinSubsystemBase {
  public:
@@ -29,10 +30,10 @@ class SpinSubsystemRobot2020 : public SpinSubsystemBase {
  private:
  #ifndef NOHW
   frc::Victor m_spinMotor {PWM_SPINNERMOTOR_ROBOT2020};
-  frc::I2C m_multiplexer {I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_MULTIPLEXER_ROBOT2020};
+  I2CMultiplexerDriver m_multiplexer {I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_MULTIPLEXER_ROBOT2020};
   //REPLACE PORTS
-  ColorSensorDriver m_colorSensor {I2C_PORT_COLORSENSOR_TEST};
+  MuxColorSensorDriver m_colorSensor {I2C_PORT_MULTIPLEXER_ROBOT2020, m_multiplexer, U8T_LINE_COLORSENSOR_ROBOT2020};
  #endif
 
- double m_scale = 1.0;
+ double m_scale = 0.5;
 };

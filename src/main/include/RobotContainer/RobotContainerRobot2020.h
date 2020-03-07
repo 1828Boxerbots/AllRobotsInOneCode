@@ -48,7 +48,7 @@ class RobotContainerRobot2020 : public RobotContainerBase {
 
   ShootLoadCommand* m_pShootLoad = nullptr;
 
- double m_encoderSpeedWanted = 5100;
+ double m_encoderSpeedWanted = 3200;
  double m_motorSpeed = 1.0;
   // The robot's subsystems and commands are defined here...
 

@@ -97,7 +97,7 @@ void ArmSubsystemRobot2020::SetPosition(int pos)
     case LOWEST_POS_TIME:
     //Starts Lowering the arm and waits X number of secounds then stops
         LiftArmDown(m_scale);
-        Util::DelayInSeconds(m_armDownTime);
+        //Util::DelayInSeconds(m_armDownTime);
         StopMotor();
         break;
     case HIGHEST_POS:
