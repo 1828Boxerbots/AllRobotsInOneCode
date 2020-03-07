@@ -65,7 +65,6 @@ void CameraSubsystemBase::Init()
     // ucamInst->AddCamera(ucamObj);
     ucamInst->StartAutomaticCapture(0);
     m_isInitialized = true;
-    m_cvSink.GrabFrame();
 }
 
 void CameraSubsystemBase::SetColor()
