@@ -68,6 +68,17 @@ void CameraSubsystemBase::FilterFrame()
 
     m_moment = cv::moments(m_output);
     m_center = cv::Point2f(m_moment.m10 / m_moment.m00, m_moment.m01 / m_moment.m00);
+
+    if(m_center.x == 0 && m_center.y == 0)
+    {
+        m_defeultCenter = m_defeultCenter;
+    }
+    else
+    {
+        m_defeultCenter = m_center;
+    }
+
+    
 }
 
 
@@ -106,8 +117,8 @@ void CameraSubsystemBase::TeleopImage()
         cv::resize(m_frame,output,cv::Size(),1.0, 1.0);
         cv::rectangle(output, 
             cv::Rect2d(
-                cv::Point(m_center.x+blobWidth/2, m_center.y + blobHeight/2),
-                cv::Point(m_center.x-blobWidth/2, m_center.y - blobHeight/2)),
+                cv::Point(m_defeultCenter.x+blobWidth/2, m_defeultCenter.y + blobHeight/2),
+                cv::Point(m_defeultCenter.x-blobWidth/2, m_defeultCenter.y - blobHeight/2)),
             cv::Scalar(0,0,255), 3);    
         m_outputStream.PutFrame(output);
     }
