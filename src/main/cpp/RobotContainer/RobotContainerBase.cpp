@@ -84,7 +84,8 @@ void RobotContainerBase::SetBackButton()
 void RobotContainerBase::SetLeftBumper()
 {
     frc2::Button bumperL{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
-    bumperL.WhenHeld(&m_shooterEject);
+    // Set the bottom back to eject eventually maybe
+    bumperL.WhenHeld(&m_shooterSpin);
     bumperL.WhenReleased(&m_shooterStop);
 }
 
