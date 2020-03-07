@@ -40,60 +40,96 @@ double ADIS16448_IMUDriver::GetAccelX()
 }
 
 
+/**
+ * This returns the acceleration of the robot in the Y direction.
+ */
 double ADIS16448_IMUDriver::GetAccelY()
 {
     return m_pDevice->GetAccelInstantY();
 }
 
 
+/**
+ * This returns the acceleration of the robot in the Z direction.
+ * 
+ * This axis is the default axis for gravitational acceleration.
+ */
 double ADIS16448_IMUDriver::GetAccelZ()
 {
     return m_pDevice->GetAccelInstantZ();
 }
 
 
+/**
+ * This returns the angle of the robot in the X direction.
+ */
 double ADIS16448_IMUDriver::GetAngleX()
 {
     return m_pDevice->GetGyroAngleX();
 }
 
 
+/**
+ * This returns the angle of the robot in the Y direction.
+ */
 double ADIS16448_IMUDriver::GetAngleY()
 {
     return m_pDevice->GetGyroAngleY();
 }
 
 
+/**
+ * This returns the angle of the robot in the Z direction.
+ */
 double ADIS16448_IMUDriver::GetAngleZ()
 {
     return m_pDevice->GetGyroAngleZ();
 }
 
 
+/**
+ * This grabs the magnetic influence in the X direction.
+ */ 
 double ADIS16448_IMUDriver::GetMagX()
 {
     return m_pDevice->GetMagInstantX();
 }
 
 
+/**
+ * This grabs the magnetic influence in the Y direction.
+ */ 
 double ADIS16448_IMUDriver::GetMagY()
 {
     return m_pDevice->GetMagInstantY();
 }
 
 
+/**
+ * This grabs the magnetic influence in the Z direction.
+ */ 
 double ADIS16448_IMUDriver::GetMagZ()
 {   
     return m_pDevice->GetMagInstantZ();
 }
 
 
+/**
+ * This resets ALL angles of the IMU to a heading of 0. 
+ * 
+ * This is used in the IMU Init.
+ */
 void ADIS16448_IMUDriver::ResetAngles()
 {
     m_pDevice->Reset();
 }
 
 
+/**
+ * This is used exclusively by the IMU Init.
+ * 
+ * This is not the same as ResetAngles(); This makes sure the IMU reads angles properly.
+ */
 void ADIS16448_IMUDriver::CalibrateIMU()
 {
     m_pDevice->Calibrate();
