@@ -9,12 +9,15 @@
 
 #include <frc/DigitalInput.h>
 
-class PhotogateDriver {
+class PhotogateDriver
+{
  public:
   PhotogateDriver(int port);
 
   bool Get();
   void Init();
+
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
 
   private:
     frc::DigitalInput *m_pDevice  = nullptr;

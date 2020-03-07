@@ -9,10 +9,14 @@
 
 #include <adi/ADIS16448_imu.h>
 
+#include "Util.h"
+
 class ADIS16448_IMUDriver 
 {
  public:
   ADIS16448_IMUDriver();
+
+  void IMUGyroInit(bool log = false);
 
   double GetTemperature();
   double GetPressure();
@@ -28,6 +32,9 @@ class ADIS16448_IMUDriver
 
   void ResetAngles();
   void CalibrateIMU();
+  void LogAllValues();
+
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
 
   private:
    

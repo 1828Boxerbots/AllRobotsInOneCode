@@ -9,9 +9,16 @@
 
 #include <frc/Encoder.h>
 
-class E4TEncoderDriver {
+class E4TEncoderDriver 
+{
  public:
   E4TEncoderDriver();
+
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+
+  private:
+  frc::Encoder *m_pDevice = nullptr;
+
 };
 
 // 2/14/20

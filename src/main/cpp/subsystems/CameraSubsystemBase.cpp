@@ -207,7 +207,9 @@ int CameraSubsystemBase::WhereToTurn()
     frc::SmartDashboard::PutBoolean("ABC", true);
     frc::SmartDashboard::PutBoolean("CodeRun", true);
     return STOP;
-    }
+}
+
+
 void CameraSubsystemBase::PrintTurn(int turn)
 {
     double printturn = turn;

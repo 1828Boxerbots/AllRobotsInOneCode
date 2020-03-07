@@ -7,6 +7,7 @@
 
 #include "Drivers/UltrasonicDriver.h"
 
+
 UltrasonicDriver::UltrasonicDriver(int port) 
 {
     m_pDevice = new frc::AnalogInput(port);

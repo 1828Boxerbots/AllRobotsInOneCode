@@ -9,7 +9,8 @@
 
 #include <frc/DigitalInput.h>
 
-class HallEffectOmnipolarDriver {
+class HallEffectOmnipolarDriver
+{
  public:
   HallEffectOmnipolarDriver(int port);
 
@@ -20,6 +21,8 @@ class HallEffectOmnipolarDriver {
   */
   bool Get();
   void Init();
+
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
  
  private:
   frc::DigitalInput *m_pDevice = nullptr;

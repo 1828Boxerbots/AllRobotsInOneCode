@@ -37,12 +37,14 @@ double DriveTrainSubsystemRocky::GyroGetAngle()
   return m_gyroAngle;
 }
 
+
 void DriveTrainSubsystemRocky::GyroInit()
 {
   frc::SmartDashboard::PutBoolean("GyroInit", true);
   m_gyro.Reset();
   m_gyro.Calibrate();
 }
+
 
 double DriveTrainSubsystemRocky::GetLeftEncoderInch()
 {
@@ -57,6 +59,7 @@ double DriveTrainSubsystemRocky::GetLeftEncoderInch()
   return m_leftEncoderSim;
 }
 
+
 double DriveTrainSubsystemRocky::GetRightEncoderInch()
 {
   m_rightEncoderSim++;
@@ -69,6 +72,7 @@ double DriveTrainSubsystemRocky::GetRightEncoderInch()
   LogEncoder();
   return m_rightEncoderSim;
 }
+
 
 void DriveTrainSubsystemRocky::Init()
 {
@@ -85,6 +89,7 @@ void DriveTrainSubsystemRocky::Init()
   m_rightEncoder.SetDistancePerPulse( ( 1.0 / GetPulsesPerRevolution() ) * Util::PI * WHEELDIAMETER);
   #endif
 }
+
 
 void DriveTrainSubsystemRocky::ResetEncoder()
 {
@@ -139,7 +144,7 @@ void DriveTrainSubsystemRocky::PrecisionMovementLidar(double wantedDistance)
 {
   const double DEAD_ZONE = 5.0;
   double currentDistance = m_lidar.GetDistanceInInches();
-  while(wantedDistance <  currentDistance + DEAD_ZONE && wantedDistance > currentDistance - DEAD_ZONE)
+  while(wantedDistance <  (currentDistance + DEAD_ZONE) && wantedDistance > (currentDistance - DEAD_ZONE))
   {
     if(currentDistance < wantedDistance)
     {

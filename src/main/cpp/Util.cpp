@@ -5,9 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Util.h"
 #include <frc/Timer.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+
+#include "Util.h"
+
 
 double Util::Limit(double value, double lowerLimit, double higherLimit)
 {
@@ -25,6 +27,7 @@ double Util::Limit(double value, double lowerLimit, double higherLimit)
     }   
     return value;
 }
+
 
 void Util::DelayInSeconds(double seconds)
 {
@@ -44,6 +47,7 @@ void Util::DelayInSeconds(double seconds)
     timer.Reset();
 }
 
+
 bool Util::CompareDouble(double value, double requiredValue, double tolerance)
 {
     if((value > requiredValue - tolerance) && (value < requiredValue + tolerance))
@@ -57,6 +61,7 @@ bool Util::CompareDouble(double value, double requiredValue, double tolerance)
     //Another way to write this is
     //return (value > requiredValue - tolerance) && (value < requiredValue + tolerance);
 }
+
 
 double Util::AbsMax(double input, double maxValue) 
 {
@@ -73,6 +78,7 @@ double Util::AbsMax(double input, double maxValue)
     }
 }
 	
+
 double Util::AbsMin(double input, double minValue) 
 {
 
@@ -85,22 +91,55 @@ double Util::AbsMin(double input, double minValue)
         return std::min(input, -minValue);
 }
 
-void Util::Log(std::string title, double value, std::string subsytemName)
+
+void Util::Log(std::string title, double value, std::string subsystemName)
 {
-    frc::SmartDashboard::PutNumber(subsytemName + " " + title, value);
+    frc::SmartDashboard::PutNumber(subsystemName + " " + title, value);
 }
 
-void Util::Log(std::string title, int value, std::string subsytemName)
+
+void Util::Log(std::string title, int value, std::string subsystemName)
 {
-    frc::SmartDashboard::PutNumber(subsytemName + " " + title, value);
+    frc::SmartDashboard::PutNumber(subsystemName + " " + title, value);
 }
 
-void Util::Log(std::string title, bool value, std::string subsytemName)
+
+void Util::Log(std::string title, bool value, std::string subsystemName)
 {
-    frc::SmartDashboard::PutBoolean(subsytemName + " " + title, value);
+    frc::SmartDashboard::PutBoolean(subsystemName + " " + title, value);
 }
 
-void Util::Log(std::string title, std::string value, std::string subsytemName)
+
+void Util::Log(std::string title, std::string value, std::string subsystemName)
 {
-    frc::SmartDashboard::PutString(subsytemName + " " + title, value);
+    frc::SmartDashboard::PutString(subsystemName + " " + title, value);
 }
+
+
+/* 
+*  Specialized error reporting (Adam's test)
+*  
+*  Allows you to report to the driver station with a custom error code.
+*/
+void Util::SendErrorAndCode(const wpi::Twine& error, int32_t code)
+{
+    wpi::SmallString<128> temp;
+    HAL_SendError(1, code, 0, error.toNullTerminatedStringRef(temp).data(), "", "", 1);
+}
+
+
+/* 
+*  Overload of the other error function (Adam's test)
+*  
+*  Allows you to report to the driver station with a custom error code, and location.
+*
+*  Const Char* is just a string, or anything in quotes (e.g. "abc")
+*/
+void Util::SendErrorAndCode(const wpi::Twine& error, int32_t code, const char *location)
+{
+    wpi::SmallString<128> temp;
+    HAL_SendError(1, code, 0, error.toNullTerminatedStringRef(temp).data(), location, "", 1);
+}
+
+
+// Experimental functions added 3/5/2020

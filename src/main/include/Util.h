@@ -7,6 +7,9 @@
 
 #pragma once
 #include <frc/Timer.h>
+#include <wpi/SmallString.h>
+
+#include "hal/DriverStation.h"
 
 namespace Util
 {
@@ -15,13 +18,18 @@ namespace Util
     double AbsMax(double input, double maxValue);
     
     void DelayInSeconds(double seconds);
+
     bool CompareDouble(double value, double requiredValue, double tolerance = 0.001);
 
     //Log Functions
-    void Log(std::string title, double value, std::string subsytemName = "");
-    void Log(std::string title, int value, std::string subsytemName = "");
-    void Log(std::string title, bool value, std::string subsytemName = "");
-    void Log(std::string title, std::string value, std::string subsytemName = "");
+    void Log(std::string title, double value, std::string subsystemName = "");
+    void Log(std::string title, int value, std::string subsystemName = "");
+    void Log(std::string title, bool value, std::string subsystemName = "");
+    void Log(std::string title, std::string value, std::string subsystemName = "");
+
+    //Experimental Functions
+    void SendErrorAndCode(const wpi::Twine& error, int32_t code);
+    void SendErrorAndCode(const wpi::Twine& error, int32_t code, const char *location);
 
     //Other Constants 
     constexpr double ToInches = 0.393701;

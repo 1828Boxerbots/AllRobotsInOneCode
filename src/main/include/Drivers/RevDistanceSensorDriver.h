@@ -8,6 +8,7 @@
 #pragma once
 
 #include "DriverUtil/DistanceSensorSource.h"
+#include "Util.h"
 
 class RevDistanceSensorDriver 
 {
@@ -16,7 +17,7 @@ class RevDistanceSensorDriver
                           Rev2mDistanceSensor::DistanceUnit unit = Rev2mDistanceSensor::DistanceUnit::kInches,
                           Rev2mDistanceSensor::RangeProfile profile = Rev2mDistanceSensor::RangeProfile::kDefault);
 
-  void Init();
+  void Init(bool log = false);
   void DisableInit();
   void StartMeasuring();
   void GetMeasurementData();
@@ -24,7 +25,7 @@ class RevDistanceSensorDriver
   double GetDistance();
   
   bool IsRangeValid();
-  bool StatusIsFatal();
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
 
   private:
   Rev2mDistanceSensor *m_pDevice = nullptr;

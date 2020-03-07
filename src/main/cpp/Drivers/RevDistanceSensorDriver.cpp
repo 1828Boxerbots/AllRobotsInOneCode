@@ -6,7 +6,6 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Drivers/RevDistanceSensorDriver.h"
-#include <frc/DriverStation.h>
 
 
 RevDistanceSensorDriver::RevDistanceSensorDriver(Rev2mDistanceSensor::Port port, Rev2mDistanceSensor::DistanceUnit unit, Rev2mDistanceSensor::RangeProfile profile) 
@@ -15,8 +14,9 @@ RevDistanceSensorDriver::RevDistanceSensorDriver(Rev2mDistanceSensor::Port port,
 }
 
 
-void RevDistanceSensorDriver::Init() 
+void RevDistanceSensorDriver::Init(bool log) 
 {
+  if (log) {Util::Log("Distance Sensor Initialized?", true, "RevdistanceSensorDriver");}
   m_pDevice->SetAutomaticMode(true);
   m_pDevice->SetEnabled(true);
 }
@@ -41,7 +41,7 @@ double RevDistanceSensorDriver::GetDistance()
   }
   else 
   {
-      frc::DriverStation::ReportError("Distance Sensor Range Invalid");
+      Util::SendErrorAndCode("Distance Sensor Range Invalid", 133, "DistanceSensorDriver.cpp");
       return -1.0;
   }
 }
@@ -50,12 +50,6 @@ double RevDistanceSensorDriver::GetDistance()
 bool RevDistanceSensorDriver::IsRangeValid()
 {
   return m_pDevice->IsRangeValid();
-}
-
-
-bool RevDistanceSensorDriver::StatusIsFatal()
-{
-  return m_pDevice->StatusIsFatal();
 }
 
 
@@ -69,3 +63,5 @@ void RevDistanceSensorDriver::GetMeasurementData()
 {
   return m_pDevice->GetMeasurementData();
 }
+
+

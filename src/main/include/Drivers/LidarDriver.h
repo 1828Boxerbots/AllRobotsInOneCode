@@ -6,9 +6,13 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
+
 #include <frc/I2C.h>
 
-class LidarDriver {
+#include "Util.h"
+
+class LidarDriver 
+{
  public:
   //Constructor
   LidarDriver(frc::I2C::Port port, int address);
@@ -18,6 +22,8 @@ class LidarDriver {
   *  MUST BE CALLED AFTER INIT.
   */
   double GetDistanceInCM();
+
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
 
   // Utilizes a conversion factor to get Inches.
   double GetDistanceInInches();

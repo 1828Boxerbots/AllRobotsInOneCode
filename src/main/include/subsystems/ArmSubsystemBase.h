@@ -19,7 +19,7 @@ class ArmSubsystemBase : public frc2::SubsystemBase {
 
   enum ArmPositions
   { 
-    INVALID_POS=-1, LOWEST_POS, HIGHEST_POS
+    INVALID_POS=-1, LOWEST_POS, HIGHEST_POS, LOWEST_POS_TIME
   };
 
   void Log(std::string title, double num);

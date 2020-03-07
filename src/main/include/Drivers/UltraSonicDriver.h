@@ -9,7 +9,8 @@
 
 #include <frc/AnalogInput.h>
 
-class UltrasonicDriver {
+class UltrasonicDriver 
+{
  public:
   UltrasonicDriver(int port);
 
@@ -18,6 +19,8 @@ class UltrasonicDriver {
 
   // Every Ultrasonic sensor has its own calibration factor, use this to select the correct one.
   void SetCalibration(double value) {m_calibration = value;}
+
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
 
   private:
   frc::AnalogInput *m_pDevice = nullptr;

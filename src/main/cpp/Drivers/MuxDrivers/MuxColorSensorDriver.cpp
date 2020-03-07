@@ -7,6 +7,7 @@
 
 #include "Drivers/MuxDrivers/MuxColorSensorDriver.h"
 
+
 MuxColorSensorDriver::MuxColorSensorDriver(frc::I2C::Port i2cPort, I2CMultiplexerDriver& breakout, uint8_t breakoutChannel):
     m_breakout(breakout),
     m_breakoutChannel(breakoutChannel)
@@ -15,16 +16,19 @@ MuxColorSensorDriver::MuxColorSensorDriver(frc::I2C::Port i2cPort, I2CMultiplexe
     m_colorSensor = new ColorSensorDriver(i2cPort);
 }
 
+
 void MuxColorSensorDriver::SetActive()
 {
     m_breakout.SetChannel(1 << m_breakoutChannel);
 }
+
 
 SpinSubsystemBase::FMSColors MuxColorSensorDriver::GetColor()
 {
     SetActive();
     return m_colorSensor->GetColor();
 }
+
 
 bool MuxColorSensorDriver::StatusIsFatal()
 {

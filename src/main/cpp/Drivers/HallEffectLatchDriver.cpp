@@ -7,6 +7,7 @@
 
 #include "Drivers/HallEffectLatchDriver.h"
 
+
 HallEffectLatchDriver::HallEffectLatchDriver(int port) 
 {
     m_pDevice = new frc::DigitalInput(port);

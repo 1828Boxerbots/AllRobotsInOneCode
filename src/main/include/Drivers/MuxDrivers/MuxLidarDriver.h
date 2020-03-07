@@ -8,9 +8,20 @@
 #pragma once
 
 #include "../I2CMultiplexerDriver.h"
+#include "../LidarDriver.h"
 
 class MuxLidarDriver 
 {
  public:
-  MuxLidarDriver();
+  MuxLidarDriver(frc::I2C::Port i2cPort, int address, I2CMultiplexerDriver &breakout, uint8_t breakoutChannel);
+
+  void SetActive();
+	double GetDistanceInCM();
+  double GetDistanceInInches();
+	bool StatusIsFatal();
+
+ private:
+   I2CMultiplexerDriver &m_breakout;
+	 uint8_t m_breakoutChannel;
+   LidarDriver* m_lidar;
 };

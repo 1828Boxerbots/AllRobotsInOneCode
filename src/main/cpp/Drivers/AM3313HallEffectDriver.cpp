@@ -7,12 +7,16 @@
 
 #include "Drivers/AM3313HallEffectDriver.h"
 
+
 AM3313HallEffectDriver::AM3313HallEffectDriver(int port) 
 {
     m_pDevice = new frc::DigitalInput(port);
 }
 
+
 bool AM3313HallEffectDriver::Get()
 {
     return m_pDevice->Get();
 }
+
+

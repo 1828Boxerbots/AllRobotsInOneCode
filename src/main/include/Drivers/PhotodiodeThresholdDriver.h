@@ -9,7 +9,8 @@
 
 #include <frc/DigitalInput.h>
 
-class PhotodiodeThresholdDriver {
+class PhotodiodeThresholdDriver
+{
  public:
   PhotodiodeThresholdDriver(int port);
 
@@ -19,6 +20,8 @@ class PhotodiodeThresholdDriver {
   */
   bool Get();
   void Init();
+
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
 
   private:
   frc::DigitalInput *m_pDevice = nullptr;

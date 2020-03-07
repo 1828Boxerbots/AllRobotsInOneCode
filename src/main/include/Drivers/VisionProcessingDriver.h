@@ -7,18 +7,18 @@
 
 #pragma once
 
-// Might actually be analog, but not important yet.
-#include <frc/Encoder.h>
+#include <cameraserver/CameraServer.h>
+#include <opencv2/core/core.hpp>
+#include <opencv2/core/types.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
-class RotaryMagneticEncoderDriver 
+class VisionProcessingDriver
 {
  public:
-  RotaryMagneticEncoderDriver();
+  VisionProcessingDriver();
 
-  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+  void InitializeCamera();
 
-  private:
-  frc::Encoder *m_pDevice = nullptr;
+  static void VisionThreadAxis();
+
 };
-
-// 2/14/20

@@ -11,8 +11,6 @@
 #include "../I2CMultiplexerDriver.h"
 #include "../ColorSensorDriver.h"
 
-#include <frc/I2C.h>
-
 class MuxColorSensorDriver 
 {
  public:
@@ -25,7 +23,6 @@ class MuxColorSensorDriver
   private:
    I2CMultiplexerDriver &m_breakout;
 	 uint8_t m_breakoutChannel;
-	 frc::I2C::Port m_i2cPort;
    ColorSensorDriver* m_colorSensor;
 };
 

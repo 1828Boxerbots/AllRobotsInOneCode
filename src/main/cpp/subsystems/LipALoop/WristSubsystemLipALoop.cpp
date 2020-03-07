@@ -7,7 +7,9 @@
 
 #include "subsystems/LipALoop/WristSubsystemLipALoop.h"
 
+
 WristSubsystemLipALoop::WristSubsystemLipALoop() {}
+
 
 void WristSubsystemLipALoop::Init()
 {
@@ -18,6 +20,7 @@ void WristSubsystemLipALoop::Init()
     frc::SmartDashboard::PutNumber("Wrist Servo", m_wristAngle);	
 }	
 
+
 void WristSubsystemLipALoop::WristMotor(double angle)	
 {	
     m_wristAngle = angle;	
@@ -27,12 +30,14 @@ void WristSubsystemLipALoop::WristMotor(double angle)
     frc::SmartDashboard::PutNumber("Wrist Servo", m_wristAngle);	
 }	
 
+
 void WristSubsystemLipALoop::MoveWristUp()	
 {	
     m_wristAngle += GetOneDegree();	
     m_wristAngle = Util::Limit(m_wristAngle, WRIST_MIN, WRIST_MAX);	
     WristMotor(m_wristAngle);	
 }	
+
 
 void WristSubsystemLipALoop::MoveWristDown()	
 {	
@@ -41,10 +46,12 @@ void WristSubsystemLipALoop::MoveWristDown()
     WristMotor(m_wristAngle);	
 }	
 
+
 void WristSubsystemLipALoop::MoveWristStop()	
 {	
     WristMotor(m_wristAngle);	
 }	
+
 
 void WristSubsystemLipALoop::ResetToZero()	
 {	
@@ -57,17 +64,22 @@ void WristSubsystemLipALoop::ResetToZero()
     frc::SmartDashboard::PutNumber("Wrist Servo", m_wristAngle);	
 }	
 
+
 double WristSubsystemLipALoop::GetOneDegree()	
 {	
     return m_oneDegree;	
 }	
+
 
 double WristSubsystemLipALoop::GetMinLimit()	
 {	
     return WRIST_MIN;	
 }	
 
+
 double WristSubsystemLipALoop::GetMaxLimit()	
 {	
     return WRIST_MAX;	
 }
+
+// 3/6/2020

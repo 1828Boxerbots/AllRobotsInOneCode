@@ -10,28 +10,44 @@
 #include "rev/ColorSensorv3.h"
 #include "Constants.h"
 #include "../subsystems/SpinSubsystemBase.h"
+#include "Util.h"
 
-class ColorSensorDriver {
+class ColorSensorDriver 
+{
  public:
   ColorSensorDriver(frc::I2C::Port port);
 
   void Init() {}
 
+  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+
+  // Function designed to give you an FMSColor (Specific to robot2020)
   SpinSubsystemBase::FMSColors GetColor();
 
+  // Function designed to return Red, Yellow, Green, or Blue as a string.
+  // Returns Invalid if the color is not R-G-B-Y, and ERROR if there is no color being sent at all.
+  std::string GetColorString();
+
+  // Utilizes the Color Sensor's built-in proximity sensor.
   uint32_t GetProximity();
 
+  /**
+   * These functions are used in GetColor.
+   */
   static bool IsRed(double R, double G, double B);
   static bool IsGreen(double R, double G, double B);
   static bool IsBlue(double R, double G, double B);
   static bool IsYellow(double R, double G, double B);
-  
-  bool StatusIsFatal();
+
+  // Debug function used to determine whether or not a color returns 2 or more different colors.
+  void DetectOverlap();
 
   private:
 
-  rev::ColorSensorV3 *m_pDevice = nullptr;
+  // Private because it's integrated into DetectOverlap only. Easiest and fastest to use direct integration.
+  void DetectTripleOverlap(bool isRed, bool isBlue, bool isGreen, bool isYellow, const char* fileLoc);
 
+  rev::ColorSensorV3 *m_pDevice = nullptr;
 };
 
-// 2/14/20
+// 3/5/2020
