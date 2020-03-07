@@ -24,7 +24,7 @@ void AlignVisionCommand::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void AlignVisionCommand::Execute() 
 {
-  m_pCamera->Tick();
+  //m_pCamera->Tick();
   int dir = m_pCamera->WhereToTurn();
   if (dir == CameraSubsystemBase::GO_LEFT)
   {

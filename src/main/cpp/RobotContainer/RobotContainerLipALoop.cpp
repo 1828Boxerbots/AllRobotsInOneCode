@@ -11,6 +11,8 @@
 RobotContainerLipALoop::RobotContainerLipALoop()
  {
   m_pDrive = new DriveTrainSubsystemLipALoop;
+  m_pCamera = new CameraSubsystemBase(m_pDrive);
+
   //m_pCamera = new CameraSubsystemBase;
   m_pArm = new ArmSubsystemLipALoop;
   m_pWrist = new WristSubsystemLipALoop;
@@ -19,6 +21,7 @@ RobotContainerLipALoop::RobotContainerLipALoop()
   ConfigureButtonBindings();
   //if(m_pCamera != nullptr) m_pCamera->Init();
   m_pDrive->Init();
+  m_pCamera->Init();
   SetDrive();
 }
 

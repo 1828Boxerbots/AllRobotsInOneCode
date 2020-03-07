@@ -70,8 +70,9 @@ class RobotContainerBase {
 
     //Camera
     CameraSubsystemBase* m_pCamera = nullptr;
-    frc2::InstantCommand m_outputStream {[this] {if(m_pCamera != nullptr) m_pCamera->SendImage();}, {m_pCamera}};
+    
 
+      
 
     //DriveTrain subsystem commands
     DriveTrainSubsystemBase *m_pDrive = nullptr;
