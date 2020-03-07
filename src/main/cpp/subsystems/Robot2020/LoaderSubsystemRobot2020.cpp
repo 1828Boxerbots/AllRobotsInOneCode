@@ -15,6 +15,7 @@ LoaderSubsystemRobot2020::LoaderSubsystemRobot2020() {}
 void LoaderSubsystemRobot2020::Periodic()
 {
     #ifndef NOHW
+    Util::Log("Load Photogate", m_photogate.Get());
     if (m_photogate.Get())
     {
         m_spike.TurnSpikeOn();

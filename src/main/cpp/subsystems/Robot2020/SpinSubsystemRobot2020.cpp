@@ -83,3 +83,12 @@ double SpinSubsystemRobot2020::GetTicksPerRevolution()
 {
     return 360;
 }
+
+std::string SpinSubsystemRobot2020::GetColor()
+{
+    #ifndef NOHW
+    return m_colorSensor.GetColorString();
+    #else
+    return NULL;
+    #endif
+}

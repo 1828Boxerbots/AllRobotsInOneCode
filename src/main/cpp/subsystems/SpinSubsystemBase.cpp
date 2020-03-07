@@ -14,7 +14,7 @@ SpinSubsystemBase::SpinSubsystemBase() {}
 // This method will be called once per scheduler run
 void SpinSubsystemBase::Periodic() 
 {
-    Util::Log("ControlPanel CurrentColor", FMStoString(ReadColorSensor()));
+    Util::Log("ControlPanel CurrentColor", GetColor());
     Util::Log("Wanted Color", FMStoString(m_colorTest));
 }
 

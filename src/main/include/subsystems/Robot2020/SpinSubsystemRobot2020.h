@@ -25,6 +25,7 @@ class SpinSubsystemRobot2020 : public SpinSubsystemBase {
   void SetSpinMotor (double speed = 1.0) override;
   double GetTicksPerRevolution() override;
   void SpinWithColor(double speed = 1.0, int wantedRotation = 7) override;
+  std::string GetColor() override; 
   FMSColors ReadColorSensor() override;
 
  private:

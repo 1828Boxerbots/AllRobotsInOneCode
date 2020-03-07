@@ -26,8 +26,8 @@ bool I2CMultiplexerDriver::SetChannel(uint8_t channel, bool log)
     {
         m_current_channel = channel;
         retVal = m_pDevice->WriteBulk(&channel, 1);
-        if (retVal) {Util::SendErrorAndCode("Write to Mux failed!", 151, "I2CMultiplexerDriver.cpp");}
-        else if (log) {Util::Log("Current Mux Channel", GetChannelName(channel), "Mux Driver");}
+        //if (retVal) {Util::SendErrorAndCode("Write to Mux failed!", 151, "I2CMultiplexerDriver.cpp");}
+        Util::Log("Current Mux Channel", GetChannelName(channel), "Mux Driver");
     }
 
     return retVal;
