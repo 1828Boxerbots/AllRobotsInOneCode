@@ -53,13 +53,17 @@ void RobotContainerRobot2020::ConfigureButtonBindings()
 int RobotContainerRobot2020::ReadDioSwitch()
 {
    //Object hooked up to double pole double throw switch driver {Channel A, Channel B}
+  /*
+  //Uncomment these two lines out to enable DioSwitch
   DPDTSwitchDriver dpdtSwitch{2,3};
   return dpdtSwitch.Get();
-
+  */
+  int changeOneTwoThree = 1;
+  return changeOneTwoThree;
 }
 frc2::Command* RobotContainerRobot2020::GetAutonomousCommand()
  {
-   int dioAutoSwitcher;
+  int dioAutoSwitcher;
   dioAutoSwitcher = ReadDioSwitch();
   frc::SmartDashboard::PutBoolean("Case 1", false);
   frc::SmartDashboard::PutBoolean("Case 2", false);

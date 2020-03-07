@@ -50,7 +50,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual double GetDetectionDistance() {return 0.0;}
   virtual void PrecisionMovementLidar(double wantedDistance) {}
 
-  void EnableAnticollision(bool enable = true) { m_hasAntiCollision = enable; }
+  virtual void EnableAnticollision(bool enable = true) { m_hasAntiCollision = enable; }
 
   //Temp Function meant to test turning function
   virtual void ForwardIninchTurn(double inch, double angle, double speed) {}
