@@ -29,7 +29,7 @@ void DriveTrainSubsystemRocky::SetMotorR(double speed)
 }
 
 
-//function made for debugging with gyro
+//function made for debugging with gyro and easy changes
 double DriveTrainSubsystemRocky::GyroGetAngle()
 {
   m_gyroAngle = m_gyro.GetAngle();
@@ -37,12 +37,17 @@ double DriveTrainSubsystemRocky::GyroGetAngle()
   return m_gyroAngle;
 }
 
-
+//Initializes gyro, Run only once
 void DriveTrainSubsystemRocky::GyroInit()
 {
+  bool gyroIsIntiliazed = false;
+  if(gyroIsIntiliazed = false)
+  {
   frc::SmartDashboard::PutBoolean("GyroInit", true);
   m_gyro.Reset();
   m_gyro.Calibrate();
+  gyroIsIntiliazed = true;
+  }
 }
 
 
@@ -73,7 +78,7 @@ double DriveTrainSubsystemRocky::GetRightEncoderInch()
   return m_rightEncoderSim;
 }
 
-
+//Initializes motor encoders and drive motors
 void DriveTrainSubsystemRocky::Init()
 {
   #ifndef NOHW
@@ -90,7 +95,7 @@ void DriveTrainSubsystemRocky::Init()
   #endif
 }
 
-
+//Resets Encoders and logs them
 void DriveTrainSubsystemRocky::ResetEncoder()
 {
   #ifndef NOHW
@@ -103,17 +108,7 @@ void DriveTrainSubsystemRocky::ResetEncoder()
   LogEncoder();
 }
 
-
-void DriveTrainSubsystemRocky::GetHallEffect()
-{
-  frc::SmartDashboard::PutBoolean("Detecting Magnet?", m_hallEffect.Get());
-}
-
-
-void DriveTrainSubsystemRocky::Periodic()
-{
-  GetHallEffect();  
-}
+void DriveTrainSubsystemRocky::Periodic() {}
 
 
 //Gets Detection distance; used for debugging
@@ -144,6 +139,7 @@ void DriveTrainSubsystemRocky::PrecisionMovementLidar(double wantedDistance)
 {
   const double DEAD_ZONE = 5.0;
   double currentDistance = m_lidar.GetDistanceInInches();
+  //Logic that moves the robot back or forth to the prefered distance for auto
   while(wantedDistance <  (currentDistance + DEAD_ZONE) && wantedDistance > (currentDistance - DEAD_ZONE))
   {
     if(currentDistance < wantedDistance)
@@ -156,5 +152,11 @@ void DriveTrainSubsystemRocky::PrecisionMovementLidar(double wantedDistance)
     }
     currentDistance = m_lidar.GetDistanceInInches();
   }
+}
+
+void DriveTrainSubsystemRocky::EnableAnticollision(bool enable)
+{
+  enable = false;
+  m_hasAntiCollision = enable; 
 }
 

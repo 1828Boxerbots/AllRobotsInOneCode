@@ -13,11 +13,11 @@ WristSubsystemLipALoop::WristSubsystemLipALoop() {}
 
 void WristSubsystemLipALoop::Init()
 {
-    ResetToZero();	
-    #ifndef NOHW	
-    m_wristAngle = m_wristServo.Get();	
-    #endif	
-    frc::SmartDashboard::PutNumber("Wrist Servo", m_wristAngle);	
+    ResetToZero();
+    #ifndef NOHW
+    m_wristAngle = m_wristServo.Get();
+    #endif
+    frc::SmartDashboard::PutNumber("Wrist Servo", m_wristAngle);
 }	
 
 
@@ -81,3 +81,5 @@ double WristSubsystemLipALoop::GetMaxLimit()
 {	
     return WRIST_MAX;	
 }
+
+// 3/6/2020
