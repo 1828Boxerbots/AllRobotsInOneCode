@@ -13,6 +13,8 @@
 #include "../DriveTrainSubsystemBase.h"
 #include "Drivers/ADIS16448_IMUDriver.h"
 #include "Util.h"
+#include "Drivers/MuxDrivers/MuxLidarDriver.h"
+#include "Constants.h"
 
 class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
  public:
@@ -26,9 +28,18 @@ class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
   double GetLeftEncoderInch() override;
   double GetRightEncoderInch() override;
 
+  double GyroGetAngle() override;
+  void GyroInit() override;
+
+  double GetDetectionDistance() override;
+  void DetectionSoftware(double detectionDistance) override;
+  void PrecisionMovementLidar(double wantedDistance) override;
+
   void Init() override;
   void IMUInit() override;
+
   void ResetEncoder() override;
+  double GetPulsesPerRevolution() override {return PULSE_PER_REVOLUTION;}
   
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -43,9 +54,14 @@ class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
   frc::Encoder m_rightEncoder{DIO_RIGHTENCODER_A_ROBOT2020, DIO_RIGHTENCODER_B_ROBOT2020};
 
   ADIS16448_IMUDriver m_imu{};
+  MuxLidarDriver m_lidar{I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_LIDAR_ROBOT2020, m_i2cBreakout, U8T_LINE_LIDAR_ROBOT2020};
+  I2CMultiplexerDriver m_i2cBreakout{I2C_PORT_MULTIPLEXER_ROBOT2020};
+
   #endif
 
   double speedLimit = 0.5;
+  const double PULSE_PER_REVOLUTION = 240;
+  const double WHEELDIAMETER = 6.0;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };
