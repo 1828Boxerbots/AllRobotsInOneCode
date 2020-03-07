@@ -60,6 +60,8 @@ class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
   #endif
 
   double speedLimit = 0.5;
+  const double PULSE_PER_REVOLUTION = 240;
+  const double WHEELDIAMETER = 6.0;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };
