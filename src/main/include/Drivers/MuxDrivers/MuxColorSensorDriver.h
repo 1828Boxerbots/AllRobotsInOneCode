@@ -18,6 +18,7 @@ class MuxColorSensorDriver
   
   void SetActive();
 	SpinSubsystemBase::FMSColors GetColor();
+  std::string GetColorString();
 	bool StatusIsFatal();
 
   private:

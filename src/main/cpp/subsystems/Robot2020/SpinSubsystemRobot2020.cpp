@@ -39,7 +39,7 @@ void SpinSubsystemRobot2020::SpinWithColor(double speed, int wantedRotation)
         return;
     }
 
-    //Start Spinning if color is vaild
+    //Start Spinning if color is valid
     SetSpinMotor(speed);
 
     //Declares the currentColor Variable
