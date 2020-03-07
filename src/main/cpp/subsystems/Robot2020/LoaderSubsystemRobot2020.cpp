@@ -68,8 +68,8 @@ void LoaderSubsystemRobot2020::PhotogateStop(double speed)
 void LoaderSubsystemRobot2020::Init()
 {
     #ifndef NOHW
-    m_loaderMotorTop.SetInverted(false);
-    m_loaderMotorIntake.SetInverted(false);
-    m_loaderMotorBottom.SetInverted(true);
+    m_loaderMotorTop.SetInverted(true);
+    m_loaderMotorIntake.SetInverted(true);
+    m_loaderMotorBottom.SetInverted(false);
     #endif
 }

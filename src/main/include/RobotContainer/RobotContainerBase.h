@@ -146,6 +146,8 @@ class RobotContainerBase {
       }
     }, {m_pLoader}};
 
+    frc2::RunCommand m_loaderPhotogate      {[this] { if(m_pLoader!=nullptr) m_pLoader->PhotogateStop(1.0);}, {m_pLoader}};
+
     frc2::RunCommand m_loaderFeedStop       {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP, 2);}, {m_pLoader}};
     frc2::RunCommand m_loaderMiddleStop     {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP, 1);}, {m_pLoader}};
     frc2::RunCommand m_loaderTopStop        {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP, 0);}, {m_pLoader}};
