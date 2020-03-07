@@ -10,9 +10,9 @@
 #include <frc/Spark.h>
 #include <frc/Encoder.h>
 #include "../DriveTrainSubsystemBase.h"
-#include <frc/ADXRS450_Gyro.h>
 #include "../../Drivers/AM3313HallEffectDriver.h"
 #include "../../Drivers/LidarDriver.h"
+#include "../../Drivers/ADXRS_450GyroDriver.h"
 
 class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
  public:
