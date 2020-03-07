@@ -100,5 +100,6 @@
     "string_view": "cpp",
     "cinttypes": "cpp",
     "math": "cpp"
-  }
+  },
+  "git.ignoreLimitWarning": true
 }
