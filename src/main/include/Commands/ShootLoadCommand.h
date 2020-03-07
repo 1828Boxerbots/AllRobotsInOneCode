@@ -36,9 +36,9 @@ class ShootLoadCommand
 private:
   LoaderSubsystemBase *m_pLoader = nullptr;
   ShooterSubsystemBase *m_pShooter = nullptr;
-  double m_encoderWanted = 1000.0;
+  double m_encoderWanted = 3200.0;
   double m_motorSpeed = 1.0;
-  double m_encoderTolerance = 50.0;
+  double m_encoderTolerance = 100.0;
   double m_oneBallTime = 0.2;
 
   bool m_isFinished = false;

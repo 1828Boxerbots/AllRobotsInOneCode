@@ -70,8 +70,9 @@ class RobotContainerBase {
 
     //Camera
     CameraSubsystemBase* m_pCamera = nullptr;
-    frc2::InstantCommand m_outputStream {[this] {if(m_pCamera != nullptr) m_pCamera->SendImage();}, {m_pCamera}};
+    
 
+      
 
     //DriveTrain subsystem commands
     DriveTrainSubsystemBase *m_pDrive = nullptr;
@@ -146,6 +147,8 @@ class RobotContainerBase {
       }
     }, {m_pLoader}};
 
+    frc2::RunCommand m_loaderPhotogate      {[this] { if(m_pLoader!=nullptr) m_pLoader->PhotogateStop(1.0);}, {m_pLoader}};
+
     frc2::RunCommand m_loaderFeedStop       {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP, 2);}, {m_pLoader}};
     frc2::RunCommand m_loaderMiddleStop     {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP, 1);}, {m_pLoader}};
     frc2::RunCommand m_loaderTopStop        {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP, 0);}, {m_pLoader}};
@@ -216,7 +219,6 @@ class RobotContainerBase {
 
   frc2::SequentialCommandGroup m_autoInFrontTargetZone = frc2::SequentialCommandGroup
   {
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)    m_pDrive->GyroInit();}, {m_pDrive}},
     frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)    m_pDrive->Init();}, {m_pDrive}},
     frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)   m_pCamera->Init();}, {m_pCamera}},
     frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)    m_pDrive->EnableAnticollision();}},
@@ -235,14 +237,13 @@ class RobotContainerBase {
   
   frc2::SequentialCommandGroup m_autoBetweenTargetZoneLoadingZone = frc2::SequentialCommandGroup
   {
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->GyroInit();}, {m_pDrive}},
     frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->Init();}, {m_pDrive}},
     frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)  m_pCamera->Init();}, {m_pCamera}},
     frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->EnableAnticollision();}},
     frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-70);}, {m_pDrive}},
+    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
     frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(24, -80.0, 0.75);}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-70);}, {m_pDrive}},
+    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
     frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)  m_pCamera->AutoCameraTurn();}, {m_pCamera, m_pDrive}},
     frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->Shoot(1.0);}, {m_pShooter}},
     frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->WaitShooter(5);}, {m_pShooter}}, 
@@ -254,9 +255,9 @@ class RobotContainerBase {
   };
   frc2::SequentialCommandGroup m_autoInFrontLoadingZone = frc2::SequentialCommandGroup
   {
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->GyroInit();}, {m_pDrive}},
     frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->Init();}, {m_pDrive}},
     frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)  m_pCamera->Init();}, {m_pCamera}},
+    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->EnableAnticollision();}},
     frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
     frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
     frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(72, -90.0, 0.75);}, {m_pDrive}},

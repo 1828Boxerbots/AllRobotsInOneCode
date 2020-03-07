@@ -15,43 +15,7 @@ CameraSubsystemBase::CameraSubsystemBase(DriveTrainSubsystemBase *pDrive)
     m_pDriveObject = pDrive;
 }
 
-void CameraSubsystemBase::Log(std::string title, double num)
-{
-    frc::SmartDashboard::PutNumber("Camera " + title, num);
-}
-void CameraSubsystemBase::Log(std::string title, int  num)
-{
-    frc::SmartDashboard::PutNumber("Camera " + title, num);
-}
-void CameraSubsystemBase::Log(std::string title, bool flag)
-{
-    frc::SmartDashboard::PutBoolean("Camera " + title, flag);
-}
-void CameraSubsystemBase::Log(std::string title, std::string str)
-{
-    frc::SmartDashboard::PutString("Camera " + title, str);
-}
 
-
-void CameraSubsystemBase::InitializeCamera(int port)
-{
-    m_video.open(port);
-    m_widthCamera = m_video.get(CV_CAP_PROP_FRAME_WIDTH);
-    m_heightCamera = m_video.get(CV_CAP_PROP_FRAME_HEIGHT);
-    frc::SmartDashboard::PutNumber("Camera Width:", GetMaxResolutionX());
-    frc::SmartDashboard::PutNumber("Camera Height:", GetMaxResolutionY());
-    InitSendImage();
-}
-
-void CameraSubsystemBase::IntakeFrame()
-{
-    if (m_isInitialized == false) 
-    {
-        return;
-    }
-    m_video >> m_frame;
-    
-}
 
 void CameraSubsystemBase::Init()
 {
@@ -59,21 +23,34 @@ void CameraSubsystemBase::Init()
     {
         return;
     }
-    InitializeCamera(USB_CAMERA_ONE);
-    frc::CameraServer *ucamInst = frc::CameraServer::GetInstance();
-    // cs::UsbCamera *ucamObj = new cs::UsbCamera("USB Camera 0", 0);
-    // ucamInst->AddCamera(ucamObj);
-    ucamInst->StartAutomaticCapture(0);
+    frc::SmartDashboard::PutBoolean("ready to send image", true);
+    InitSendImage();
+    
     m_isInitialized = true;
 }
 
-void CameraSubsystemBase::SetColor()
+void CameraSubsystemBase::SetColor(int colorNumber)
 {
     if (m_isInitialized == false) 
     {
         return;
     }
-    cv::inRange(m_frame, cv::Scalar(LOW_BLUE, LOW_GREEN, LOW_RED), cv::Scalar(HIGH_BLUE, HIGH_GREEN, HIGH_RED), m_colorFilter);//BGR
+    switch (colorNumber)
+    {
+    case 0:
+        cv::inRange(m_frame,  
+            cv::Scalar(GREEN_LOW_BLUE, GREEN_LOW_GREEN, GREEN_LOW_RED),
+            cv::Scalar(GREEN_HIGH_BLUE, GREEN_HIGH_GREEN, GREEN_HIGH_RED), m_colorFilter);
+        break;
+    case 1:
+        cv::inRange(m_frame, 
+            cv::Scalar(YELLOW_LOW_BLUE, YELLOW_LOW_GREEN, YELLOW_LOW_RED),
+            cv::Scalar(YELLOW_HIGH_BLUE, YELLOW_HIGH_GREEN, YELLOW_HIGH_RED), m_colorFilter);
+        break;
+    default:
+        break;
+    }
+    //BGR
 }
 
 void CameraSubsystemBase::FilterFrame()
@@ -82,153 +59,68 @@ void CameraSubsystemBase::FilterFrame()
     {
         return;
     }
-    SetColor();
+    
+    SetColor(0);
     
     cv::morphologyEx(m_colorFilter, m_openFilter, cv::MORPH_OPEN, m_morph, cv::Point(-1, -1), 4);
     cv::dilate(m_openFilter,m_dilution,m_morph);
     cv::morphologyEx(m_dilution, m_output, cv::MORPH_CLOSE, m_morph, cv::Point(-1,-1),4);
-}
 
-void CameraSubsystemBase::CenterMoment()
-{
-    if (m_isInitialized == false) 
-    {
-        return;
-    }
     m_moment = cv::moments(m_output);
     m_center = cv::Point2f(m_moment.m10 / m_moment.m00, m_moment.m01 / m_moment.m00);
-
 }
 
-void CameraSubsystemBase::InitSendImage()
-{   
 
+
+void CameraSubsystemBase::VideoThread(CameraSubsystemBase* pCamera)
+{
+    
+    if(pCamera != nullptr)
+    {
+        pCamera->TeleopImage();
+    }
+}
+
+void CameraSubsystemBase::TeleopImage()
+{
+   
     if (m_isInitialized == false)
     {
         return;
     }
-
-    frc::SmartDashboard::PutBoolean("ready to send image", true);
-    #ifdef SEND_VIDEO
-    
-    // Get a CvSink. This will capture Mats from the Camera
+    frc::CameraServer::GetInstance()->StartAutomaticCapture();
     m_cvSink = frc::CameraServer::GetInstance()->GetVideo();
+    m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Rectangle",640,480);
+    cv::Mat output;
+    while(m_stopSendImage == false)
+    {
+        if (m_cvSink.GrabFrame(m_frame) == 0)
+        {
+            m_outputStream.NotifyError(m_cvSink.GetError());
+            continue;
+        }
+        FilterFrame();
+        double blobWidth = 50;
+        double blobHeight = 50;
+
+        cv::resize(m_frame,output,cv::Size(),1.0, 1.0);
+        cv::rectangle(output, 
+            cv::Rect2d(
+                cv::Point(m_center.x+blobWidth/2, m_center.y + blobHeight/2),
+                cv::Point(m_center.x-blobWidth/2, m_center.y - blobHeight/2)),
+            cv::Scalar(0,0,255), 3);    
+        m_outputStream.PutFrame(output);
+    }
     
-    // Setup a CvSource. This will send images back to the Dashboard
-    m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Rectangle", m_sendSizeHeight, m_sendSizeWidth);
+}
+void CameraSubsystemBase::InitSendImage()
+{   
 
+    std::thread videoThread(VideoThread,this);
+    videoThread.detach();
 
     
-    #endif
-}
-
-void CameraSubsystemBase::SendImage()
-{ 
-
-    
-    m_frameNumber++;
-    frc::SmartDashboard::PutNumber("frame count:", m_frameNumber);
-
-    /*if (m_isInitialized == false)
-    {
-        return;
-    }
-    #ifdef SEND_VIDEO
-    //if grabbbing raw image
-
-    if (m_cvSink.GrabFrame(m_sendFrame) == 0) 
-    {
-        // Send the output the error.
-        m_outputStream.NotifyError(m_cvSink.GetError());
-    }
-
-    else
-    {
-        m_cvSink.GrabFrame(m_sendFrame);
-        // Add a RED rectangle on the image
-        //auto WHITE = cv::Scalar(255,255,255);
-        auto RED = cv::Scalar(255,0,0);
-        int thickness = 5;
-        rectangle(m_sendFrame,
-                cv::Point(m_center.y-  m_sendRectHeight/2, m_center.x - m_sendRectWidth/2),
-                cv::Point(m_center.y + m_sendRectHeight/2, m_center.x + m_sendRectWidth/2),
-                RED, thickness);
-
-        // Give the output stream a new image to display
-        m_outputStream.PutFrame(m_sendFrame);
-    } 
-
-
-
-    #endif
-    */
-}
-
-int CameraSubsystemBase::WhereToTurn()
-{
-    Log("centerX", m_center.x);
-    Log("maxRes", GetMaxResolutionX());
-
-    frc::SmartDashboard::PutNumber("CodeRun", false);
-    frc::SmartDashboard::PutBoolean("ABC", false);
-    if (m_isInitialized == false) 
-    {
-        frc::SmartDashboard::PutString("Camera Turn To", "Not initialized");
-        frc::SmartDashboard::PutBoolean("ABC", true);
-        return CANT_FIND_IMAGE; 
-    }
-    SendImage();
-    Tick();
-    if(m_center.x  >= GetCenterMin() && m_center.x  < GetCenterMax())
-    //if(m_center.x  >= 0 && m_center.x  < GetMaxResolutionX())
-    {
-        frc::SmartDashboard::PutString("Camera Turn To", "Center");
-        frc::SmartDashboard::PutBoolean("ABC", true);
-        return STOP;
-    }
-    else if ( m_center.x >= GetLeftMin() && m_center.x <  GetLeftMax())
-    {
-        frc::SmartDashboard::PutString("Camera Turn To", "Left");
-        frc::SmartDashboard::PutBoolean("ABC", true);
-        return GO_LEFT;
-    } 
-    else if(m_center.x  >= GetRightMin() && m_center.x < GetRightMax())
-    {
-        frc::SmartDashboard::PutString("Camera Turn To", "Right");
-        frc::SmartDashboard::PutBoolean("ABC", true);
-        return GO_RIGHT;
-    }
-    else if (m_center.x < 0 || m_center.x > GetMaxResolutionX())
-    {
-        frc::SmartDashboard::PutString("Camera Turn To", "CANT SEE");
-        frc::SmartDashboard::PutBoolean("ABC", true);
-        return CANT_FIND_IMAGE; 
-    }
-    frc::SmartDashboard::PutBoolean("ABC", true);
-    frc::SmartDashboard::PutBoolean("CodeRun", true);
-    return STOP;
-}
-
-
-void CameraSubsystemBase::PrintTurn(int turn)
-{
-    double printturn = turn;
-    m_printX = m_center.x;
-    frc::SmartDashboard::PutNumber("turn",printturn);
-    frc::SmartDashboard::PutNumber("center of x",m_printX);
-    frc::SmartDashboard::PutNumber("Shadow", 969);
-    //imshow("camera",Output);
-}
-
-void CameraSubsystemBase::Tick()
-{
-    frc::SmartDashboard::PutNumber("Shadow", 777);
-    IntakeFrame();
-    frc::SmartDashboard::PutNumber("Shadow", 888);
-    FilterFrame();
-    frc::SmartDashboard::PutNumber("Shadow", 999);
-    CenterMoment();
-    frc::SmartDashboard::PutNumber("Shadow", 1000);
+   
 }
 
 // This method will be called once per scheduler run
@@ -241,7 +133,7 @@ void CameraSubsystemBase::CameraPeriodic()
 {
     m_frameNumber++;
     frc::SmartDashboard::PutNumber("Camera Frame Number", m_frameNumber);
-    Tick();
+    
 }
 //Loop that turns the robot based on camera input
 void CameraSubsystemBase::AutoCameraTurn()
@@ -301,3 +193,45 @@ void CameraSubsystemBase::AutoCameraTurn()
     frc::SmartDashboard::PutBoolean("CameraWork", true);
 }
 
+int CameraSubsystemBase::WhereToTurn()
+{
+    //Log("centerX", m_center.x);
+    //Log("maxRes", GetMaxResolutionX());
+
+    frc::SmartDashboard::PutNumber("CodeRun", false);
+    frc::SmartDashboard::PutBoolean("ABC", false);
+    if (m_isInitialized == false) 
+    {
+        frc::SmartDashboard::PutString("Camera Turn To", "Not initialized");
+        frc::SmartDashboard::PutBoolean("ABC", true);
+        return CANT_FIND_IMAGE; 
+    }
+    if(m_center.x  >= GetCenterMin() && m_center.x  < GetCenterMax())
+    //if(m_center.x  >= 0 && m_center.x  < GetMaxResolutionX())
+    {
+        frc::SmartDashboard::PutString("Camera Turn To", "Center");
+        frc::SmartDashboard::PutBoolean("ABC", true);
+        return STOP;
+    }
+    else if ( m_center.x >= GetLeftMin() && m_center.x <  GetLeftMax())
+    {
+        frc::SmartDashboard::PutString("Camera Turn To", "Left");
+        frc::SmartDashboard::PutBoolean("ABC", true);
+        return GO_LEFT;
+    } 
+    else if(m_center.x  >= GetRightMin() && m_center.x < GetRightMax())
+    {
+        frc::SmartDashboard::PutString("Camera Turn To", "Right");
+        frc::SmartDashboard::PutBoolean("ABC", true);
+        return GO_RIGHT;
+    }
+    else if (m_center.x < 0 || m_center.x > GetMaxResolutionX())
+    {
+        frc::SmartDashboard::PutString("Camera Turn To", "CANT SEE");
+        frc::SmartDashboard::PutBoolean("ABC", true);
+        return CANT_FIND_IMAGE; 
+    }
+    frc::SmartDashboard::PutBoolean("ABC", true);
+    frc::SmartDashboard::PutBoolean("CodeRun", true);
+    return STOP;
+}

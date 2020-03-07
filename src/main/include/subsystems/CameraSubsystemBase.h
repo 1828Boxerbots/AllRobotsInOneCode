@@ -50,17 +50,18 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   virtual int GetRightMax() { return GetMaxResolutionX();}
   virtual int GetMaxResolutionX() { return m_widthCamera;};
   virtual int GetMaxResolutionY() { return m_heightCamera;};
-  virtual void SetColor();
+  virtual void SetColor(int colorNumber = 0);
   void AutoCameraTurn();
-  void SendImage();
   void InitSendImage();
+
+  static void VideoThread(CameraSubsystemBase* pCamera);
+
+  void  TeleopImage();
 
   protected:
 
   void InitializeCamera(int port);
-  void IntakeFrame();
   void FilterFrame();
-  void CenterMoment();
   void PrintTurn(int turn);
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -70,38 +71,29 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
+  bool m_stopSendImage = false;
   int m_frameNumber = 1;
   int m_widthCamera = 0;
   int m_heightCamera = 0;
   cv::Mat m_frame;
-  cv::Mat m_morph = cv::getStructuringElement(cv::MORPH_CROSS, cv::Size(3, 3), cv::Point(-1, 1));
-  cv::VideoCapture m_video;
-  cv::Mat m_output;
+  cv::Mat m_morph = cv::getStructuringElement(cv::MORPH_CROSS, cv::Size(3, 3), cv::Point(-1, 1)); 
   cv::Mat m_colorFilter;
-  //Mat closeFilter;
-  //Mat m_output;
   cv::Mat m_dilution;
   cv::Mat m_openFilter;
   cv::Moments m_moment;
   cv::Point m_center;
+  cv::Mat m_output;
   bool m_isInitialized = false;
-
-  
-  #ifdef SEND_VIDEO
 
   bool ouputImagefail = false;
   int m_sendSizeWidth = 480;
   int m_sendSizeHeight = 640;
   int m_sendRectWidth = m_sendSizeWidth/2;
   int m_sendRectHeight = m_sendSizeHeight/2;
-  cv::Mat m_sendFrame;
-
 
   cs::CvSink m_cvSink;
   cs::CvSource m_outputStream;
-  cs::UsbCamera m_camera = frc::CameraServer::GetInstance()->StartAutomaticCapture();
-  
-  #endif
+
   
   
   double m_printX;

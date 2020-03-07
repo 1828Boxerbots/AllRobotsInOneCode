@@ -153,7 +153,11 @@ void DriveTrainSubsystemRobot2020::PrecisionMovementLidar(double wantedDistance)
   }
 }
 
-
+void DriveTrainSubsystemRobot2020::EnableAnticollision(bool enable)
+{
+  enable = true;
+  m_hasAntiCollision = enable; 
+}
 /*
 //Gets Detection distance; used for debugging
 double DriveTrainSubsystemRocky::GetDetectionDistance()

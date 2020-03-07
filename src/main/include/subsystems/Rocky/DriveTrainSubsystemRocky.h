@@ -26,13 +26,12 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
   double GetLeftEncoderInch() override;
   double GetRightEncoderInch() override;
   void ResetEncoder() override;
-  void GetHallEffect();
   void Periodic() override;
   void DetectionSoftware(double detectionDistance) override;
   double GetDetectionDistance() override;
   void PrecisionMovementLidar(double wantedDistance) override;
   double GetPulsesPerRevolution() override {return PULSE_PER_REVOLUTION;}
-
+  void EnableAnticollision(bool enable) override;
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -46,7 +45,6 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
   frc::Encoder m_rightEncoder{DIO_RIGHTENCODER_ROCKY_ONE, DIO_RIGHTENCODER_ROCKY_TWO};
   frc::ADXRS450_Gyro m_gyro;
   LidarDriver m_lidar{frc::I2C::Port::kOnboard, LidarDriver::LIDAR_ADDRESS};
-  AM3313HallEffectDriver m_hallEffect{6};
   #endif
 
   const double PULSE_PER_REVOLUTION = 240;

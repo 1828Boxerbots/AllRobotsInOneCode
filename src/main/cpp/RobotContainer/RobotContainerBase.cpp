@@ -13,7 +13,7 @@ RobotContainerBase::RobotContainerBase() {}
 void RobotContainerBase::SetCamerastream()
 {
     
-    m_pCamera->SetDefaultCommand(m_outputStream);
+
     frc::SmartDashboard::PutString("test","After set defelut");
 }
 void RobotContainerBase::SetDrive(DriveStyles driveStyle)

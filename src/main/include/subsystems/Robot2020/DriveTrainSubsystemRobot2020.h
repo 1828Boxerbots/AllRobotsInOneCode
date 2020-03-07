@@ -34,6 +34,8 @@ class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
   double GetDetectionDistance() override;
   void DetectionSoftware(double detectionDistance) override;
   void PrecisionMovementLidar(double wantedDistance) override;
+  void EnableAnticollision(bool enable) override;
+
 
   void Init() override;
   void IMUInit() override;

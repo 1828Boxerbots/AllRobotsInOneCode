@@ -125,12 +125,18 @@ constexpr int DIO_HALLEFFECT_LOWER_ROBOT2020    = 6;
 constexpr int RLY_SPIKE_ROBOT2020               = 1;
 
 //Vision Bounds (Remember, the InRange function is in BGR format)
-constexpr int LOW_BLUE   = 0;
-constexpr int LOW_GREEN  = 110;
-constexpr int LOW_RED    = 110;
-constexpr int HIGH_BLUE  = 100;
-constexpr int HIGH_GREEN = 230;
-constexpr int HIGH_RED   = 230;
+constexpr int YELLOW_LOW_BLUE   = 0;
+constexpr int YELLOW_LOW_GREEN  = 110;
+constexpr int YELLOW_LOW_RED    = 110;
+constexpr int YELLOW_HIGH_BLUE  = 100;
+constexpr int YELLOW_HIGH_GREEN = 230;
+constexpr int YELLOW_HIGH_RED   = 230;
+constexpr int GREEN_LOW_BLUE   = 0;
+constexpr int GREEN_LOW_GREEN  = 110;
+constexpr int GREEN_LOW_RED    = 110;
+constexpr int GREEN_HIGH_BLUE  = 100;
+constexpr int GREEN_HIGH_GREEN = 230;
+constexpr int GREEN_HIGH_RED   = 230;
 
 //Color Detection Bounds
 constexpr double RED_LOW_R     = 0.0;

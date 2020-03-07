@@ -33,10 +33,13 @@ void ShootLoadCommand::Execute()
   {
     return;
   }
-
+  Util::Log("ShootLoad isBusy", m_isBusy);
   m_isBusy = true;
   double encoderLowTol = m_encoderWanted - m_encoderTolerance;
   double encoderHighTol = m_encoderWanted + m_encoderTolerance;
+  Util::Log("ShootLoad LowTol", encoderLowTol);
+  Util::Log("ShootLoad HighTol", encoderHighTol);
+
   //Set shooter motor
   if (m_motorSpeed != 0.0)
   {
@@ -48,6 +51,7 @@ void ShootLoadCommand::Execute()
   }
 
   //Check if there isn't a ball in the Photogate
+  /*
   if(m_pLoader->GetPhotogate() != true)
   {
     //If there isn't a ball there do nothing
@@ -55,7 +59,7 @@ void ShootLoadCommand::Execute()
     m_isFinished = true;
     m_isBusy = false;
     return;
-  }  
+  }  */
 
   double shooterSpeed = m_pShooter->GetEncoderSpeed();
   while(shooterSpeed < encoderLowTol && shooterSpeed > encoderHighTol)
@@ -72,11 +76,12 @@ void ShootLoadCommand::Execute()
     shooterSpeed = m_pShooter->GetEncoderSpeed();
   }
 
+/*
   m_pLoader->Load(1.0);
   Util::DelayInSeconds(m_oneBallTime);
   m_pLoader->Stop();
   //Not Sure yet if we should have this
-  m_pShooter->Stop();
+  m_pShooter->Stop();*/
   
   m_isBusy = false;
   m_isFinished = true;
