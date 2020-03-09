@@ -17,6 +17,14 @@ MuxColorSensorDriver::MuxColorSensorDriver(frc::I2C::Port i2cPort, I2CMultiplexe
 }
 
  
+/**
+ *  This sets the multiplexer to whichever channel you want.
+ * 
+ *  The channels are defined as U8T_LINE... in Constants.
+ * 
+ *  This is called in every function of the Color sensor so
+ *  you do not need to do it manually.
+ */
 void MuxColorSensorDriver::SetActive()
 {
     m_breakout.SetChannel(1 << m_breakoutChannel);
