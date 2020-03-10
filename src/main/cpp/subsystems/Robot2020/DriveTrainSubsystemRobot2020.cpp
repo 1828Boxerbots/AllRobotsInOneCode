@@ -55,8 +55,7 @@ double DriveTrainSubsystemRobot2020::IMUGetAngle()
 void DriveTrainSubsystemRobot2020::IMUInit()
 {
   Util::Log("GyroInit", true, "DriveTrainSubsystemRobot2020");
-  m_imu.ResetAngles();
-  m_imu.CalibrateIMU();
+  m_imu.IMUGyroInit(true);
 }
 
 
