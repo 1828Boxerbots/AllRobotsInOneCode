@@ -111,6 +111,8 @@ void DriveTrainSubsystemRobot2020::GyroInit()
 {
   m_imu.IMUGyroInit(true);
 }
+
+
 double DriveTrainSubsystemRobot2020::GetDetectionDistance()
 {
   double val = m_lidar.GetDistanceInInches();
