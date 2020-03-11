@@ -41,7 +41,7 @@ double DriveTrainSubsystemRocky::GyroGetAngle()
 void DriveTrainSubsystemRocky::GyroInit()
 {
   bool gyroIsIntiliazed = false;
-  if(gyroIsIntiliazed = false)
+  if(gyroIsIntiliazed == false)
   {
   frc::SmartDashboard::PutBoolean("GyroInit", true);
   m_gyro.Reset();

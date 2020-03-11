@@ -131,38 +131,38 @@ constexpr int YELLOW_LOW_RED    = 110;
 constexpr int YELLOW_HIGH_BLUE  = 100;
 constexpr int YELLOW_HIGH_GREEN = 230;
 constexpr int YELLOW_HIGH_RED   = 230;
-constexpr int GREEN_LOW_BLUE   = 0;
-constexpr int GREEN_LOW_GREEN  = 110;
-constexpr int GREEN_LOW_RED    = 110;
-constexpr int GREEN_HIGH_BLUE  = 100;
-constexpr int GREEN_HIGH_GREEN = 230;
-constexpr int GREEN_HIGH_RED   = 230;
+constexpr int GREEN_LOW_BLUE    = 0;
+constexpr int GREEN_LOW_GREEN   = 110;
+constexpr int GREEN_LOW_RED     = 110;
+constexpr int GREEN_HIGH_BLUE   = 100;
+constexpr int GREEN_HIGH_GREEN  = 230;
+constexpr int GREEN_HIGH_RED    = 230;
 
 //Color Detection Bounds
-constexpr double RED_LOW_R     = 0.0;
-constexpr double RED_LOW_G     = 0.0;
-constexpr double RED_LOW_B     = 0.0;
-constexpr double RED_HIGH_R    = 0.0;
-constexpr double RED_HIGH_G    = 0.0;
-constexpr double RED_HIGH_B    = 0.0;
-constexpr double GREEN_LOW_R   = 0.0;
-constexpr double GREEN_LOW_G   = 0.0;
-constexpr double GREEN_LOW_B   = 0.0;
-constexpr double GREEN_HIGH_R  = 0.0;
-constexpr double GREEN_HIGH_G  = 0.0;
-constexpr double GREEN_HIGH_B  = 0.0;
-constexpr double BLUE_LOW_R    = 0.0;
-constexpr double BLUE_LOW_G    = 0.0;
-constexpr double BLUE_LOW_B    = 0.0;
-constexpr double BLUE_HIGH_R   = 0.0;
-constexpr double BLUE_HIGH_G   = 0.0;
-constexpr double BLUE_HIGH_B   = 0.0;
-constexpr double YELLOW_LOW_R  = 0.0;
-constexpr double YELLOW_LOW_G  = 0.0;
-constexpr double YELLOW_LOW_B  = 0.0;
-constexpr double YELLOW_HIGH_R = 0.0;
-constexpr double YELLOW_HIGH_G = 0.0;
-constexpr double YELLOW_HIGH_B = 0.0;
+constexpr double RED_LOW_R     = 0.45;
+constexpr double RED_LOW_G     = 0.30;
+constexpr double RED_LOW_B     = 0.08;
+constexpr double RED_HIGH_R    = 0.55;
+constexpr double RED_HIGH_G    = 0.40;
+constexpr double RED_HIGH_B    = 0.18;
+constexpr double GREEN_LOW_R   = 0.11;
+constexpr double GREEN_LOW_G   = 0.53;
+constexpr double GREEN_LOW_B   = 0.20;
+constexpr double GREEN_HIGH_R  = 0.21;
+constexpr double GREEN_HIGH_G  = 0.63;
+constexpr double GREEN_HIGH_B  = 0.30;
+constexpr double BLUE_LOW_R    = 0.07;
+constexpr double BLUE_LOW_G    = 0.38;
+constexpr double BLUE_LOW_B    = 0.41;
+constexpr double BLUE_HIGH_R   = 0.17;
+constexpr double BLUE_HIGH_G   = 0.48;
+constexpr double BLUE_HIGH_B   = 0.51;
+constexpr double YELLOW_LOW_R  = 0.25;
+constexpr double YELLOW_LOW_G  = 0.51;
+constexpr double YELLOW_LOW_B  = 0.08;
+constexpr double YELLOW_HIGH_R = 0.35;
+constexpr double YELLOW_HIGH_G = 0.61;
+constexpr double YELLOW_HIGH_B = 0.25;
 
 /**
 * The Multiplexer includes Lidar, Color Sensor, and Left distance sensor.
@@ -174,9 +174,6 @@ constexpr double YELLOW_HIGH_B = 0.0;
 * This is also true for SPI ports.
 */
 static constexpr auto I2C_PORT_MULTIPLEXER_ROBOT2020 = frc::I2C::Port::kOnboard;
-
-// Faux port for color sensor testing
-static constexpr auto I2C_PORT_COLORSENSOR_TEST = frc::I2C::Port::kOnboard;
 
 // Positions of the sensors on the multiplexer
 constexpr uint8_t U8T_LINE_LIDAR_ROBOT2020               = 7;

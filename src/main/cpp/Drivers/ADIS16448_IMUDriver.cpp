@@ -51,7 +51,7 @@ double ADIS16448_IMUDriver::GetAccelY()
 
 /**
  * This returns the acceleration of the robot in the Z direction.
- * 
+ *
  * This axis is the default axis for gravitational acceleration.
  */
 double ADIS16448_IMUDriver::GetAccelZ()

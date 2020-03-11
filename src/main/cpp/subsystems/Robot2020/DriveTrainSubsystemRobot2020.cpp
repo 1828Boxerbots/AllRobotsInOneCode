@@ -55,8 +55,7 @@ double DriveTrainSubsystemRobot2020::IMUGetAngle()
 void DriveTrainSubsystemRobot2020::IMUInit()
 {
   Util::Log("GyroInit", true, "DriveTrainSubsystemRobot2020");
-  m_imu.ResetAngles();
-  m_imu.CalibrateIMU();
+  m_imu.IMUGyroInit(true);
 }
 
 
@@ -112,6 +111,8 @@ void DriveTrainSubsystemRobot2020::GyroInit()
 {
   m_imu.IMUGyroInit(true);
 }
+
+
 double DriveTrainSubsystemRobot2020::GetDetectionDistance()
 {
   double val = m_lidar.GetDistanceInInches();
