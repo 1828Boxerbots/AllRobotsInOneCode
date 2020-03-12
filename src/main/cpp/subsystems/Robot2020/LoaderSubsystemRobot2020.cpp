@@ -30,6 +30,8 @@ void LoaderSubsystemRobot2020::Periodic()
 void LoaderSubsystemRobot2020::SetLoadMotor(double speed, int motorNumber)
 {
     #ifndef NOHW
+    Util::Log("MotorSpeed", speed, GetName());
+    Util::Log("Motor Number", motorNumber, GetName());
     switch (motorNumber)
     {
     case MOTOR_TOP:
@@ -59,10 +61,11 @@ void LoaderSubsystemRobot2020::PhotogateStop(double speed)
     int count = 0;
     SetLoadMotor(speed, ALL_MOTOR);
     //Continue spining motor until photogate is set.
-    while(m_photogate.Get() != true)
+    while(m_photogate.Get() == true)
     {
+        count ++;
         Util::Log("Spinning Loader", count++, GetName());
-        Util::Log("PhotoCout", m_photoCount, GetName());
+        Util::Log("PhotoCount", m_photoCount, GetName());
         
         if(count > m_photoCount)
         {
@@ -76,8 +79,8 @@ void LoaderSubsystemRobot2020::PhotogateStop(double speed)
 void LoaderSubsystemRobot2020::Init()
 {
     #ifndef NOHW
-    m_loaderMotorTop.SetInverted(true);
-    m_loaderMotorIntake.SetInverted(true);
-    m_loaderMotorBottom.SetInverted(false);
+    m_loaderMotorTop.SetInverted(false);
+    m_loaderMotorIntake.SetInverted(false);
+    m_loaderMotorBottom.SetInverted(true);
     #endif
 }
