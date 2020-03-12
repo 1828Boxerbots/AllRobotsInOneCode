@@ -18,6 +18,7 @@ void RobotContainerBase::SetCamerastream()
 }
 void RobotContainerBase::SetDrive(DriveStyles driveStyle)
 {
+    m_pDrive->EnableAnticollision(false);
     switch (driveStyle)
     {
         case TANK_STYLE:

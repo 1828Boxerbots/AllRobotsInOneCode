@@ -72,6 +72,7 @@ double DriveTrainSubsystemRobot2020::GetLeftEncoderInch()
   return m_leftEncoderSim;
 }
 
+
 double DriveTrainSubsystemRobot2020::GetRightEncoderInch()
 {
   m_rightEncoderSim++;
@@ -115,6 +116,10 @@ void DriveTrainSubsystemRobot2020::GyroInit()
 
 double DriveTrainSubsystemRobot2020::GetDetectionDistance()
 {
+  if(m_hasAntiCollision == false)
+  {
+    return 1;
+  }
   double val = m_lidar.GetDistanceInInches();
    frc::SmartDashboard::PutNumber("DriveTrain Lidar", val);
   return val;
@@ -156,7 +161,9 @@ void DriveTrainSubsystemRobot2020::PrecisionMovementLidar(double wantedDistance)
 
 void DriveTrainSubsystemRobot2020::EnableAnticollision(bool enable)
 {
-  enable = true;
+  //enable = true;
+  Util::Log("EAB", m_beat++, "DriveTrain2020");
+  Util::Log("enabled?", enable, "DriveTrain2020");
   m_hasAntiCollision = enable; 
 }
 /*

@@ -20,6 +20,8 @@ class SpinSubsystemRobot2020 : public SpinSubsystemBase {
   
   SpinSubsystemRobot2020();
 
+  void Periodic() override;
+
   void Init() override;
   void SetSpinMotor (double speed = 1.0) override;
   double GetTicksPerRevolution() override;
@@ -35,4 +37,6 @@ class SpinSubsystemRobot2020 : public SpinSubsystemBase {
  #endif
 
  double m_scale = 0.5;
+
+ int m_beatColorRead = 0;
 };

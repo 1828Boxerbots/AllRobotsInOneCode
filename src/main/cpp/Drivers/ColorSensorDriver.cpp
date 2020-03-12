@@ -238,4 +238,16 @@ void ColorSensorDriver::DetectOverlap()
     if(isBlue && isGreen)   {Util::SendErrorAndCode("Blue overlaps with Green", 106, fileLoc);}
 }
 
+
+void ColorSensorDriver::ReturnAllColors()
+{
+    frc::Color detectedColor = m_pDevice->GetColor();
+
+    Util::Log("Red", detectedColor.red,    "Color Sensor Driver");
+    Util::Log("Green",detectedColor.green, "Color Sensor Driver");
+    Util::Log("Blue",detectedColor.blue,   "Color Sensor Driver");
+}
+
+
+
 // development in progress 3/5/2020

@@ -29,6 +29,7 @@ bool I2CMultiplexerDriver::SetChannel(uint8_t channel, bool log)
         //if (retVal) {Util::SendErrorAndCode("Write to Mux failed!", 151, "I2CMultiplexerDriver.cpp");}
     }
     Util::Log("Current Mux Channel", GetChannelName(m_current_channel), "Mux Driver");
+    Util::Log("Raw Channel", m_current_channel, "Mux Driver");
     return retVal;
 }
 
@@ -41,12 +42,12 @@ uint8_t I2CMultiplexerDriver::GetChannel()
 
 std::string I2CMultiplexerDriver::GetChannelName(uint8_t channel)
 {
-    std::string name;
+    std::string name = "Invalid";
 
-    if (channel == U8T_LINE_COLORSENSOR_ROBOT2020)         {name = "Color Sensor";}
-    if (channel == U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020)  {name = "Left Distance Sensor";}
-    if (channel == U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020) {name = "Right Distance Sensor";}
-    if (channel == U8T_LINE_LIDAR_ROBOT2020)               {name = "Lidar";}
+    if (channel == (1 << U8T_LINE_COLORSENSOR_ROBOT2020))         {name = "Color Sensor";}
+    if (channel == (1 << U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020))  {name = "Left Distance Sensor";}
+    if (channel == (1 << U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020)) {name = "Right Distance Sensor";}
+    if (channel == (1 << U8T_LINE_LIDAR_ROBOT2020))               {name = "Lidar";}
 
     return name;
 }

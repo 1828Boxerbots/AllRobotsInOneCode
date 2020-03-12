@@ -16,8 +16,16 @@ SpinSubsystemRobot2020::SpinSubsystemRobot2020()
 
 void SpinSubsystemRobot2020::Init()
 {
-
+ 
 }
+
+
+void SpinSubsystemRobot2020::Periodic()
+{
+    m_pColorSensor->ReturnAllColors();
+    Util::Log("Count Color Read", m_beatColorRead++, "spinRobot2020");
+}
+
 
 void SpinSubsystemRobot2020::SetSpinMotor (double speed)
 {
@@ -78,14 +86,17 @@ SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::ReadColorSensor()
     #endif
 }
 
+
 double SpinSubsystemRobot2020::GetTicksPerRevolution()
 {
     return 360;
 }
 
+
 std::string SpinSubsystemRobot2020::GetColor()
 {
     #ifndef NOHW
+    m_pColorSensor->ReturnAllColors();
     return m_pColorSensor->GetColorString();
     #else
     return NULL;
