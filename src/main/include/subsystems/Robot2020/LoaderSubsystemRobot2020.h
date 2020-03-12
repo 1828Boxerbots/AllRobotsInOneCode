@@ -18,7 +18,7 @@ class LoaderSubsystemRobot2020 : public LoaderSubsystemBase {
 
   enum LoaderMotors
   {
-    INVALID_MOTOR = -1, MOTOR_TOP, MOTOR_BOTTOM, MOTOR_INTAKE
+    INVALID_MOTOR = -1, MOTOR_TOP, MOTOR_BOTTOM, MOTOR_INTAKE, ALL_MOTOR = INVALID_MOTOR
   };
 
   void SetLoadMotor(double speed = 1.0, int motorNumber = INVALID_MOTOR) override;
@@ -35,6 +35,8 @@ class LoaderSubsystemRobot2020 : public LoaderSubsystemBase {
   PhotogateDriver m_photogate{DIO_PHOTOGATE_ROBOT2020};
   SpikeDriver m_spike{RLY_SPIKE_ROBOT2020};
   #endif
+
+  int m_photoCount = 100;
   
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
