@@ -26,6 +26,7 @@ namespace Util
     void Log(std::string title, int value, std::string subsystemName = "");
     void Log(std::string title, bool value, std::string subsystemName = "");
     void Log(std::string title, std::string value, std::string subsystemName = "");
+    void Log(std::string title, const char* value, std::string subsystemName = "");
 
     //Experimental Functions
     void SendErrorAndCode(const wpi::Twine& error, int32_t code);

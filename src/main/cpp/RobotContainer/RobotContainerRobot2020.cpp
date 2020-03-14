@@ -179,7 +179,8 @@ void RobotContainerRobot2020::SetRightBumper()
   buttonRB.WhenReleased(&m_loaderResetInverted);
 
   frc2::Button buttonRBTwo{[this] {return m_controller2.GetBumper(frc::GenericHID::kRightHand);}};
-  buttonRBTwo.WhenPressed(&m_loaderPhotogate);
+  buttonRBTwo.WhenHeld(&m_loaderPhotogate);
+  buttonRBTwo.WhenReleased(&m_loaderAllStop);
 }
 
 void RobotContainerRobot2020::SetStartButton()

@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <frc/Spark.h>
+#include <frc/Victor.h>
 #include "../LoaderSubsystemBase.h"
 #include "../../Drivers/PhotogateDriver.h"
 #include "../../Drivers/SpikeDriver.h"
@@ -18,19 +18,19 @@ class LoaderSubsystemRobot2020 : public LoaderSubsystemBase {
 
   enum LoaderMotors
   {
-    INVALID_MOTOR = -1, MOTOR_TOP, MOTOR_BOTTOM, MOTOR_INTAKE, ALL_MOTOR = INVALID_MOTOR
+    INVALID_MOTOR = -1, MOTOR_TOP, MOTOR_BOTTOM, MOTOR_INTAKE
   };
 
   void SetLoadMotor(double speed = 1.0, int motorNumber = INVALID_MOTOR) override;
-  void PhotogateStop(double speed = 1.0) override;
+  void PhotogateStop(double speed) override;
   void Init() override;
   void Periodic() override;
 
  private:
   #ifndef NOHW
-  frc::Spark m_loaderMotorIntake {PWM_LOADMOTOR_INTAKE_ROBOT2020};
-  frc::Spark m_loaderMotorBottom {PWM_LOADMOTOR_BOTTOM_ROBOT2020};
-  frc::Spark m_loaderMotorTop {PWM_LOADMOTOR_TOP_ROBOT2020};
+  frc::Victor m_loaderMotorIntake {PWM_LOADMOTOR_INTAKE_ROBOT2020};
+  frc::Victor m_loaderMotorBottom {PWM_LOADMOTOR_BOTTOM_ROBOT2020};
+  frc::Victor m_loaderMotorTop {PWM_LOADMOTOR_TOP_ROBOT2020};
 
   PhotogateDriver m_photogate{DIO_PHOTOGATE_ROBOT2020};
   SpikeDriver m_spike{RLY_SPIKE_ROBOT2020};

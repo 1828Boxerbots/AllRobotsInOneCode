@@ -116,6 +116,13 @@ void Util::Log(std::string title, std::string value, std::string subsystemName)
 }
 
 
+void Util::Log(std::string title, const char* value, std::string subsystemName)
+{
+    std::string newvalue = (std::string)value;
+    frc::SmartDashboard::PutString(subsystemName + " " + title, newvalue);
+}
+
+
 /* 
 *  Specialized error reporting (Adam's test)
 *  

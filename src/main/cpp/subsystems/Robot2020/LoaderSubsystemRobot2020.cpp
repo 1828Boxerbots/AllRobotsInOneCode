@@ -6,7 +6,6 @@
 /*----------------------------------------------------------------------------*/
 
 #include "../include/subsystems/Robot2020/LoaderSubsystemRobot2020.h"
-#include <frc/smartdashboard/SmartDashboard.h>
 #include "../include/Util.h"
 
 LoaderSubsystemRobot2020::LoaderSubsystemRobot2020() {}
@@ -51,6 +50,10 @@ void LoaderSubsystemRobot2020::SetLoadMotor(double speed, int motorNumber)
         m_loaderMotorTop.Set(speed);
         m_loaderMotorIntake.Set(speed);
         m_loaderMotorBottom.Set(speed);
+
+        Util::Log("TopLoader", m_loaderMotorTop.Get());
+        Util::Log("IntakeLoader", m_loaderMotorIntake.Get());
+        Util::Log("BottomLoader", m_loaderMotorBottom.Get());
         break;
     }
     #endif
@@ -59,21 +62,24 @@ void LoaderSubsystemRobot2020::SetLoadMotor(double speed, int motorNumber)
 void LoaderSubsystemRobot2020::PhotogateStop(double speed)
 {
     int count = 0;
-    SetLoadMotor(speed, ALL_MOTOR);
     //Continue spining motor until photogate is set.
     while(m_photogate.Get() == true)
     {
+        SetLoadMotor(speed);
         count ++;
         Util::Log("Spinning Loader", count++, GetName());
         Util::Log("PhotoCount", m_photoCount, GetName());
         
+        /*
         if(count > m_photoCount)
         {
-            SetLoadMotor(0.0, ALL_MOTOR);
+            SetLoadMotor(0.0);
             return;
         }
+        */
     }
-    SetLoadMotor(0.0, ALL_MOTOR);
+    SetLoadMotor(0.0);
+    SetLoadMotor(0.0, MOTOR_BOTTOM);
 }
 
 void LoaderSubsystemRobot2020::Init()

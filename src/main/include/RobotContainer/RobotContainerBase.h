@@ -165,9 +165,9 @@ class RobotContainerBase {
     // Shooter subsystem commands
     ShooterSubsystemBase *m_pShooter = nullptr;
     frc2::RunCommand m_shooterSpin          {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(1.0);}, {m_pShooter}};
-    frc2::RunCommand m_shooterSpinTrigger   {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(m_controller.GetTriggerAxis(frc::GenericHID::kRightHand));}, {m_pShooter}};
+    frc2::RunCommand m_shooterSpinTrigger   {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(-m_controller.GetTriggerAxis(frc::GenericHID::kRightHand));}, {m_pShooter}};
     frc2::RunCommand m_shooterEject         {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(-1.0);}, {m_pShooter}};
-    frc2::RunCommand m_shooterEjectTrigger  {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(-m_controller.GetTriggerAxis(frc::GenericHID::kRightHand));}, {m_pShooter}};
+    frc2::RunCommand m_shooterEjectTrigger  {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(m_controller.GetTriggerAxis(frc::GenericHID::kRightHand));}, {m_pShooter}};
     frc2::RunCommand m_shooterStop          {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(0.0);}, {m_pShooter}};
     frc2::RunCommand m_shooterEncoderReset  {[this] { if(m_pShooter!=nullptr) m_pShooter->ResetEncoder();}, {m_pShooter}};
 

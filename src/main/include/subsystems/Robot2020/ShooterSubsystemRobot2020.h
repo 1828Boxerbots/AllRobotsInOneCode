@@ -23,7 +23,8 @@ class ShooterSubsystemRobot2020 : public ShooterSubsystemBase {
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic() override;
-
+  double EncoderSpeed() override;
+  
  private:
 
  #ifndef NOHW
