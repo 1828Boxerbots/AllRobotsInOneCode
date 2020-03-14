@@ -8,11 +8,8 @@
 #include "subsystems/Robot2020/SpinSubsystemRobot2020.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-SpinSubsystemRobot2020::SpinSubsystemRobot2020()
-{
-    m_pMultiplexer = new I2CMultiplexerDriver(I2C_PORT_MULTIPLEXER_ROBOT2020);
-    m_pColorSensor = new MuxColorSensorDriver(I2C_PORT_MULTIPLEXER_ROBOT2020, *m_pMultiplexer, U8T_LINE_COLORSENSOR_ROBOT2020);
-}
+SpinSubsystemRobot2020::SpinSubsystemRobot2020(){}
+
 
 void SpinSubsystemRobot2020::Init()
 {
@@ -22,7 +19,7 @@ void SpinSubsystemRobot2020::Init()
 
 void SpinSubsystemRobot2020::Periodic()
 {
-    m_pColorSensor->ReturnAllColors();
+    m_colorSensor.ReturnAllColors();
     Util::Log("Count Color Read", m_beatColorRead++, "spinRobot2020");
 }
 
@@ -37,7 +34,7 @@ void SpinSubsystemRobot2020::SetSpinMotor (double speed)
 void SpinSubsystemRobot2020::SpinWithColor(double speed, int wantedRotation)
 {    
     //Gets the starting color of the wheel
-    FMSColors startColor = m_pColorSensor->GetColor();
+    FMSColors startColor = m_colorSensor.GetColor();
     
 
     //Checks if it picked up a valid color
@@ -57,7 +54,7 @@ void SpinSubsystemRobot2020::SpinWithColor(double speed, int wantedRotation)
         //Do-While loop till we are out of the starting color
         do
         {
-        currentColor = m_pColorSensor->GetColor();
+        currentColor = m_colorSensor.GetColor();
         }
         while(currentColor == startColor);
 
@@ -66,7 +63,7 @@ void SpinSubsystemRobot2020::SpinWithColor(double speed, int wantedRotation)
         */
         do
         {
-        currentColor = m_pColorSensor->GetColor();
+        currentColor = m_colorSensor.GetColor();
         }
         while(currentColor != startColor);
     }
@@ -80,7 +77,7 @@ void SpinSubsystemRobot2020::SpinWithColor(double speed, int wantedRotation)
 SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::ReadColorSensor()
 {
     #ifndef NOHW
-    return m_pColorSensor->GetColor();
+    return m_colorSensor.GetColor();
     #else
     return INVALID;
     #endif
@@ -96,8 +93,8 @@ double SpinSubsystemRobot2020::GetTicksPerRevolution()
 std::string SpinSubsystemRobot2020::GetColor()
 {
     #ifndef NOHW
-    m_pColorSensor->ReturnAllColors();
-    return m_pColorSensor->GetColorString();
+    m_colorSensor.ReturnAllColors();
+    return m_colorSensor.GetColorString();
     #else
     return NULL;
     #endif
