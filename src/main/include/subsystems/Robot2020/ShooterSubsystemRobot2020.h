@@ -18,12 +18,13 @@ class ShooterSubsystemRobot2020 : public ShooterSubsystemBase {
 
   void SetShootMotor(double speed) override;
   void ResetEncoder() override;
+  double EncoderSpeed() override;
+
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic() override;
-  double EncoderSpeed() override;
   
  private:
 

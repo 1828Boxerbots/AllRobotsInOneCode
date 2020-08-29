@@ -99,3 +99,32 @@ std::string SpinSubsystemRobot2020::GetColor()
     return NULL;
     #endif
 }
+
+void SpinSubsystemRobot2020::SpinToColor()
+{
+    FMSColors wantedColor = RED;
+    FMSColors realColor;
+
+    if(ReadColorSensor() == INVALID)
+    {
+        return;
+    }
+
+    do
+    {
+        FMSColors currentColor = ReadColorSensor();
+
+        //convert current to real
+        realColor = currentColor;
+
+        //Calculate Direction in own Function (needs to be created)
+        SetSpinMotor(1.0);
+    } while (realColor != wantedColor);
+
+}
+
+SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::GetFMSColor()
+{
+    //tbt
+    return FMSColors::RED;
+}

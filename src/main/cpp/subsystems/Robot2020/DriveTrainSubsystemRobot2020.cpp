@@ -129,14 +129,14 @@ double DriveTrainSubsystemRobot2020::GetDetectionDistance()
 //Makes is so that the robot doesn't run into things head on
 void DriveTrainSubsystemRobot2020::DetectionSoftware(double detectionDistance)
 {
-    frc::SmartDashboard::PutNumber("Lidar Distance", GetDetectionDistance());
-    double currentDetection = GetDetectionDistance();
-    frc::SmartDashboard::PutBoolean("DistanceDetection", false);
-        if(currentDetection < detectionDistance)
-        {
-            frc::SmartDashboard::PutBoolean("DistanceDetection", true);
-            //Stop();
-        }
+  frc::SmartDashboard::PutNumber("Lidar Distance", GetDetectionDistance());
+  double currentDetection = GetDetectionDistance();
+  frc::SmartDashboard::PutBoolean("DistanceDetection", false);
+    if(currentDetection < detectionDistance)
+    {
+        frc::SmartDashboard::PutBoolean("DistanceDetection", true);
+        //Stop();
+    }
 }
 
 

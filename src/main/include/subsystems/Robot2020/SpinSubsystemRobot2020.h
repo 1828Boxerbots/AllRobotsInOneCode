@@ -26,10 +26,13 @@ class SpinSubsystemRobot2020 : public SpinSubsystemBase {
   void SetSpinMotor (double speed = 1.0) override;
   double GetTicksPerRevolution() override;
   void SpinWithColor(double speed = 1.0, int wantedRotation = 7) override;
+  void SpinToColor() override;
   std::string GetColor() override; 
   FMSColors ReadColorSensor() override;
 
  private:
+    FMSColors GetFMSColor();
+
  #ifndef NOHW
   frc::Victor m_spinMotor {PWM_SPINNERMOTOR_ROBOT2020};
   I2CMultiplexerDriver m_multiplexer{I2C_PORT_MULTIPLEXER_ROBOT2020};

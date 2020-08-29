@@ -25,6 +25,7 @@ class LoaderSubsystemRobot2020 : public LoaderSubsystemBase {
   void PhotogateStop(double speed) override;
   void Init() override;
   void Periodic() override;
+  bool IsLoaded() override;
 
  private:
   #ifndef NOHW

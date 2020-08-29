@@ -82,6 +82,13 @@ void LoaderSubsystemRobot2020::PhotogateStop(double speed)
     SetLoadMotor(0.0, MOTOR_BOTTOM);
 }
 
+//Checks to see if the ball is loaded
+bool LoaderSubsystemRobot2020::IsLoaded()
+{
+    //returns the vail of the photogate
+    return m_photogate.Get();
+}
+
 void LoaderSubsystemRobot2020::Init()
 {
     #ifndef NOHW
