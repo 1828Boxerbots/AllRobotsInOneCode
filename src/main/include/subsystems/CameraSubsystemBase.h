@@ -82,7 +82,7 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   cv::Mat m_openFilter;
   cv::Moments m_moment;
   cv::Point m_center;
-  cv::Point m_defeultCenter;
+  cv::Point m_defaultCenter;
   cv::Mat m_output;
   bool m_isInitialized = false;
 

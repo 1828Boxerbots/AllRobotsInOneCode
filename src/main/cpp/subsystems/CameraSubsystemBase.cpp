@@ -60,7 +60,7 @@ void CameraSubsystemBase::FilterFrame()
         return;
     }
     
-    SetColor(0);
+    SetColor(YELLOW_FILTER);
     
     cv::morphologyEx(m_colorFilter, m_openFilter, cv::MORPH_OPEN, m_morph, cv::Point(-1, -1), 4);
     cv::dilate(m_openFilter,m_dilution,m_morph);
@@ -71,11 +71,11 @@ void CameraSubsystemBase::FilterFrame()
 
     if(m_center.x == 0 && m_center.y == 0)
     {
-        m_defeultCenter = m_defeultCenter;
+        m_defaultCenter = m_defaultCenter;
     }
     else
     {
-        m_defeultCenter = m_center;
+        m_defaultCenter = m_center;
     }
 
     
@@ -117,8 +117,8 @@ void CameraSubsystemBase::TeleopImage()
         cv::resize(m_frame,output,cv::Size(),1.0, 1.0);
         cv::rectangle(output, 
             cv::Rect2d(
-                cv::Point(m_defeultCenter.x+blobWidth/2, m_defeultCenter.y + blobHeight/2),
-                cv::Point(m_defeultCenter.x-blobWidth/2, m_defeultCenter.y - blobHeight/2)),
+                cv::Point(m_defaultCenter.x+blobWidth/2, m_defaultCenter.y + blobHeight/2),
+                cv::Point(m_defaultCenter.x-blobWidth/2, m_defaultCenter.y - blobHeight/2)),
             cv::Scalar(0,0,255), 3);    
         m_outputStream.PutFrame(output);
     }

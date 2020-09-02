@@ -29,7 +29,7 @@ RobotContainerRocky::RobotContainerRocky()
   
   
   SetDrive();
-  SetCamerastream();
+  
 }
 
 void RobotContainerRocky::ConfigureButtonBindings()
