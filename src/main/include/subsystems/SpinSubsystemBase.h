@@ -36,6 +36,8 @@ class SpinSubsystemBase : public frc2::SubsystemBase {
   virtual double GetNumberOfTicks(double targetRadius, double revolutions, double ourRadius); //inches
   virtual double GetEncoderTicks() {return m_encoder++;}
   virtual double GetTicksPerRevolution() {return 256;}
+  virtual std::string GetColor() {return "NULL";}
+  virtual void SpinToColor() {}
   void Log();
 
  protected:

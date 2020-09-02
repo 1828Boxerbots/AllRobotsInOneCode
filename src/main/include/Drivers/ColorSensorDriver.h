@@ -39,6 +39,8 @@ class ColorSensorDriver
   static bool IsBlue(double R, double G, double B);
   static bool IsYellow(double R, double G, double B);
 
+  void ReturnAllColors();
+
   // Debug function used to determine whether or not a color returns 2 or more different colors.
   void DetectOverlap();
 

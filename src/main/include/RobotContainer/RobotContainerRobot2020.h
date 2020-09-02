@@ -39,17 +39,15 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   void SetRightBumper() override;
   void SetStartButton() override;
   void SetBackButton() override;
-
   int ReadDioSwitch();
 
   frc2::Command* GetAutonomousCommand();
 
  private:
-
   ShootLoadCommand* m_pShootLoad = nullptr;
 
- double m_encoderSpeedWanted = 3200;
- double m_motorSpeed = 1.0;
+  double m_encoderSpeedWanted = -5500;
+  double m_motorSpeed = 1.0;
   // The robot's subsystems and commands are defined here...
 
   void ConfigureButtonBindings();

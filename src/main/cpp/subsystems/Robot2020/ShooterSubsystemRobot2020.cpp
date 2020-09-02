@@ -22,6 +22,11 @@ ShooterSubsystemRobot2020::ShooterSubsystemRobot2020()
 // This method will be called once per scheduler run
 void ShooterSubsystemRobot2020::Periodic()
 {
+    EncoderSpeed();
+}
+
+double ShooterSubsystemRobot2020::EncoderSpeed()
+{
     double difTime = m_timer.Get() -  m_startTime;
     double difRaw = m_shooterEncoder.GetRaw() - m_encoderRawStart;
     frc::SmartDashboard::PutNumber("Robot2020 Shooter Time Dif", difTime);
@@ -33,6 +38,7 @@ void ShooterSubsystemRobot2020::Periodic()
     frc::SmartDashboard::PutNumber("Robot2020 Shooter Encoder RATE", m_shooterEncoder.GetRate());
     m_encoderRawStart = m_shooterEncoder.GetRaw();
     m_startTime = m_timer.Get();
+    return speed;
 }
 
 void ShooterSubsystemRobot2020::SetShootMotor(double speed)
@@ -52,6 +58,7 @@ void ShooterSubsystemRobot2020::Init()
     m_shooterEncoder.Reset();
     m_shooterEncoder.SetDistancePerPulse(1/PULSES_PER_ROTATION);
     m_shooterEncoder.SetReverseDirection(true);
+    m_shooterMotor.SetInverted(true);
     #endif
 }
 

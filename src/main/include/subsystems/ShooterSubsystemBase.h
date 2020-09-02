@@ -21,6 +21,7 @@ class ShooterSubsystemBase : public frc2::SubsystemBase {
   void ShootBump(bool bumpL, bool bumpR);
   bool AtSetpoint(double position);
   double GetEncoderSpeed() {return m_speed;}
+  virtual double EncoderSpeed() {return -1;}
   virtual void Init() {}
   virtual void DisableInit();
   virtual void SetShootMotor (double speed) {}
@@ -37,7 +38,7 @@ class ShooterSubsystemBase : public frc2::SubsystemBase {
  private:
  protected:
  const double SHOOTSPEED = 1.0;
-double m_speed = 0.0;
+  double m_speed = 0.0;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

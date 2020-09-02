@@ -20,20 +20,26 @@ class SpinSubsystemRobot2020 : public SpinSubsystemBase {
   
   SpinSubsystemRobot2020();
 
-  void MultiplexerSelect(int position);
+  void Periodic() override;
+
   void Init() override;
   void SetSpinMotor (double speed = 1.0) override;
   double GetTicksPerRevolution() override;
   void SpinWithColor(double speed = 1.0, int wantedRotation = 7) override;
+  void SpinToColor() override;
+  std::string GetColor() override; 
   FMSColors ReadColorSensor() override;
 
  private:
+    FMSColors GetFMSColor();
+
  #ifndef NOHW
   frc::Victor m_spinMotor {PWM_SPINNERMOTOR_ROBOT2020};
-  I2CMultiplexerDriver m_multiplexer {I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_MULTIPLEXER_ROBOT2020};
-  //REPLACE PORTS
-  MuxColorSensorDriver m_colorSensor {I2C_PORT_MULTIPLEXER_ROBOT2020, m_multiplexer, U8T_LINE_COLORSENSOR_ROBOT2020};
+  I2CMultiplexerDriver m_multiplexer{I2C_PORT_MULTIPLEXER_ROBOT2020};
+  MuxColorSensorDriver m_colorSensor{I2C_PORT_MULTIPLEXER_ROBOT2020, m_multiplexer, U8T_LINE_COLORSENSOR_ROBOT2020};
  #endif
 
  double m_scale = 0.5;
+
+ int m_beatColorRead = 0;
 };

@@ -8,17 +8,21 @@
 #include "subsystems/Robot2020/SpinSubsystemRobot2020.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-SpinSubsystemRobot2020::SpinSubsystemRobot2020() {}
+SpinSubsystemRobot2020::SpinSubsystemRobot2020(){}
 
-void SpinSubsystemRobot2020::MultiplexerSelect(int position)
-{
-    //Put Multiplexer Stuff here
-}
 
 void SpinSubsystemRobot2020::Init()
 {
-
+ 
 }
+
+
+void SpinSubsystemRobot2020::Periodic()
+{
+    m_colorSensor.ReturnAllColors();
+    Util::Log("Count Color Read", m_beatColorRead++, "spinRobot2020");
+}
+
 
 void SpinSubsystemRobot2020::SetSpinMotor (double speed)
 {
@@ -39,7 +43,7 @@ void SpinSubsystemRobot2020::SpinWithColor(double speed, int wantedRotation)
         return;
     }
 
-    //Start Spinning if color is vaild
+    //Start Spinning if color is valid
     SetSpinMotor(speed);
 
     //Declares the currentColor Variable
@@ -79,7 +83,48 @@ SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::ReadColorSensor()
     #endif
 }
 
+
 double SpinSubsystemRobot2020::GetTicksPerRevolution()
 {
     return 360;
+}
+
+
+std::string SpinSubsystemRobot2020::GetColor()
+{
+    #ifndef NOHW
+    m_colorSensor.ReturnAllColors();
+    return m_colorSensor.GetColorString();
+    #else
+    return NULL;
+    #endif
+}
+
+void SpinSubsystemRobot2020::SpinToColor()
+{
+    FMSColors wantedColor = RED;
+    FMSColors realColor;
+
+    if(ReadColorSensor() == INVALID)
+    {
+        return;
+    }
+
+    do
+    {
+        FMSColors currentColor = ReadColorSensor();
+
+        //convert current to real
+        realColor = currentColor;
+
+        //Calculate Direction in own Function (needs to be created)
+        SetSpinMotor(1.0);
+    } while (realColor != wantedColor);
+
+}
+
+SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::GetFMSColor()
+{
+    //tbt
+    return FMSColors::RED;
 }

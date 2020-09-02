@@ -55,8 +55,7 @@ double DriveTrainSubsystemRobot2020::IMUGetAngle()
 void DriveTrainSubsystemRobot2020::IMUInit()
 {
   Util::Log("GyroInit", true, "DriveTrainSubsystemRobot2020");
-  m_imu.ResetAngles();
-  m_imu.CalibrateIMU();
+  m_imu.IMUGyroInit(true);
 }
 
 
@@ -72,6 +71,7 @@ double DriveTrainSubsystemRobot2020::GetLeftEncoderInch()
   LogEncoder();
   return m_leftEncoderSim;
 }
+
 
 double DriveTrainSubsystemRobot2020::GetRightEncoderInch()
 {
@@ -112,8 +112,14 @@ void DriveTrainSubsystemRobot2020::GyroInit()
 {
   m_imu.IMUGyroInit(true);
 }
+
+
 double DriveTrainSubsystemRobot2020::GetDetectionDistance()
 {
+  if(m_hasAntiCollision == false)
+  {
+    return 1;
+  }
   double val = m_lidar.GetDistanceInInches();
    frc::SmartDashboard::PutNumber("DriveTrain Lidar", val);
   return val;
@@ -123,14 +129,14 @@ double DriveTrainSubsystemRobot2020::GetDetectionDistance()
 //Makes is so that the robot doesn't run into things head on
 void DriveTrainSubsystemRobot2020::DetectionSoftware(double detectionDistance)
 {
-    frc::SmartDashboard::PutNumber("Lidar Distance", GetDetectionDistance());
-    double currentDetection = GetDetectionDistance();
-    frc::SmartDashboard::PutBoolean("DistanceDetection", false);
-        if(currentDetection < detectionDistance)
-        {
-            frc::SmartDashboard::PutBoolean("DistanceDetection", true);
-            //Stop();
-        }
+  frc::SmartDashboard::PutNumber("Lidar Distance", GetDetectionDistance());
+  double currentDetection = GetDetectionDistance();
+  frc::SmartDashboard::PutBoolean("DistanceDetection", false);
+    if(currentDetection < detectionDistance)
+    {
+        frc::SmartDashboard::PutBoolean("DistanceDetection", true);
+        //Stop();
+    }
 }
 
 
@@ -155,7 +161,9 @@ void DriveTrainSubsystemRobot2020::PrecisionMovementLidar(double wantedDistance)
 
 void DriveTrainSubsystemRobot2020::EnableAnticollision(bool enable)
 {
-  enable = true;
+  //enable = true;
+  Util::Log("EAB", m_beat++, "DriveTrain2020");
+  Util::Log("enabled?", enable, "DriveTrain2020");
   m_hasAntiCollision = enable; 
 }
 /*
