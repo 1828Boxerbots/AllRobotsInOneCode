@@ -44,6 +44,9 @@ class RobotContainerBase {
   virtual void SetRightTrigger();
   virtual void Init() = 0;
   virtual void DisableInit() = 0;
+
+  virtual void TeleopPeriodic() {}
+
   
   std::string ReadFMS() {return frc::DriverStation::GetInstance().GetGameSpecificMessage();}
 

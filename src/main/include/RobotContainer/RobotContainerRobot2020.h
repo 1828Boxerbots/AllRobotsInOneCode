@@ -29,6 +29,7 @@ class RobotContainerRobot2020 : public RobotContainerBase {
 
   void Init() override;
   void DisableInit() override;
+  void TeleopPeriodic() override;
 
   void SetButtonA() override;
   void SetButtonB() override;

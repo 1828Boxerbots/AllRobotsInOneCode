@@ -8,6 +8,7 @@
 #include "../include/RobotContainer/RobotContainerRobot2020.h"
 #include <frc2/command/button/JoystickButton.h>
 #include "../include/Drivers/DPDTSwitchDriver.h"
+#include <frc/DriverStation.h>
    
 RobotContainerRobot2020::RobotContainerRobot2020()
 {
@@ -48,6 +49,7 @@ void RobotContainerRobot2020::ConfigureButtonBindings()
   SetLeftBumper();
 
 }
+
 int RobotContainerRobot2020::ReadDioSwitch()
 {
    //Object hooked up to double pole double throw switch driver {Channel A, Channel B}
@@ -208,3 +210,33 @@ void RobotContainerRobot2020::SetBackButton()
 }
 
 // Working as of 2/19/2020
+
+void RobotContainerRobot2020::TeleopPeriodic()
+{
+  std::string gameData;
+  gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+  if(gameData.length() > 0)
+  {
+    switch (gameData[0])
+    {
+      case 'B' :
+        //Blue case code
+        break;
+      case 'G' :
+        //Green case code
+        break;
+      case 'R' :
+        //Red case code
+        break;
+      case 'Y' :
+        //Yellow case code
+        break;
+      default :
+        //This is corrupt data
+        break;
+    }
+  } else {
+    //Code for no data received yet
+  }
+}
+

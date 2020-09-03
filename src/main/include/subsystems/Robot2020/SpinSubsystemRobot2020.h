@@ -31,7 +31,9 @@ class SpinSubsystemRobot2020 : public SpinSubsystemBase {
   FMSColors ReadColorSensor() override;
 
  private:
-    FMSColors GetFMSColor();
+  FMSColors GetFMSColor();
+  int CalcDir();
+  FMSColors ConvertColor(FMSColors color);
 
  #ifndef NOHW
   frc::Victor m_spinMotor {PWM_SPINNERMOTOR_ROBOT2020};

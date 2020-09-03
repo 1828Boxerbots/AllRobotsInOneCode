@@ -114,17 +114,125 @@ void SpinSubsystemRobot2020::SpinToColor()
     {
         FMSColors currentColor = ReadColorSensor();
 
-        //convert current to real
+        currentColor = ConvertColor(currentColor);
         realColor = currentColor;
 
-        //Calculate Direction in own Function (needs to be created)
         SetSpinMotor(1.0);
     } while (realColor != wantedColor);
 
+    Stop();
 }
 
 SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::GetFMSColor()
 {
     //tbt
     return FMSColors::RED;
+}
+
+SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::ConvertColor(FMSColors color)
+{
+    switch (color)
+    {
+        case RED:
+            return BLUE;
+            break;
+
+        case BLUE:
+            return RED;
+            break;
+
+        case YELLOW:
+            return GREEN;
+            break;
+
+        case GREEN:
+            return YELLOW;
+            break;
+
+        default:
+            break;
+    }
+}
+
+int SpinSubsystemRobot2020::CalcDir()
+{
+    /*
+    0 = dont move
+    1 = Clock-wise TBD
+    -1 = Counter Clock-wise TBD
+    */
+
+    FMSColors wantedColor = GetFMSColor();
+    FMSColors currentColor = ReadColorSensor();
+
+    int direction;
+
+    switch (wantedColor)
+    {
+        case RED:
+            if(currentColor == YELLOW || currentColor == BLUE)
+            {
+                direction = 1;
+            }
+            else if(currentColor == GREEN)
+            {
+                direction = -1;
+            }
+            else if(currentColor == RED)
+            {
+                direction = 0;
+            }
+            break;
+
+        case GREEN:
+            if(currentColor == YELLOW || currentColor == BLUE)
+            {
+                direction = 1;
+            }
+            else if(currentColor == RED)
+            {
+                direction = -1;
+            }
+            else if(currentColor == GREEN)
+            {
+                direction = 0;
+            }
+            break;
+
+        case YELLOW:
+            if(currentColor == GREEN || currentColor == BLUE)
+            {
+                direction = 1;
+            }
+            else if(currentColor == RED)
+            {
+                direction = -1;
+            }
+            else if(currentColor == YELLOW)
+            {
+                direction = 0;
+            }
+            break;
+
+        case BLUE:
+            if(currentColor == GREEN || currentColor == RED)
+            {
+                direction = 1;
+            }
+            else if(currentColor == YELLOW)
+            {
+                direction = -1;
+            }
+            else if(currentColor == BLUE)
+            {
+                direction = 0;
+            }
+            break;
+    
+    default:
+        direction = 0;
+        break;
+    }
+
+    return direction;
 }
