@@ -9,7 +9,9 @@
 #include <frc2/command/button/JoystickButton.h>
 #include "../include/Drivers/DPDTSwitchDriver.h"
 #include <frc/DriverStation.h>
-   
+
+SpinSubsystemRobot2020::FMSColors RobotContainerRobot2020::givenColor = SpinSubsystemRobot2020::FMSColors::INVALID;
+
 RobotContainerRobot2020::RobotContainerRobot2020()
 {
   m_pDrive = new DriveTrainSubsystemRobot2020;
@@ -220,18 +222,28 @@ void RobotContainerRobot2020::TeleopPeriodic()
     switch (gameData[0])
     {
       case 'B' :
+        givenColor = SpinSubsystemRobot2020::FMSColors::BLUE;
+        Util::Log("FMSColor", "Blue");
         //Blue case code
         break;
       case 'G' :
+        givenColor = SpinSubsystemRobot2020::FMSColors::GREEN;
+        Util::Log("FMSColor", "Green");
         //Green case code
         break;
       case 'R' :
+        givenColor = SpinSubsystemRobot2020::FMSColors::RED;
+        Util::Log("FMSColor", "Red");
         //Red case code
         break;
       case 'Y' :
+        givenColor = SpinSubsystemRobot2020::FMSColors::YELLOW;
+        Util::Log("FMSColor", "Yellow");
         //Yellow case code
         break;
       default :
+        givenColor = SpinSubsystemRobot2020::FMSColors::INVALID;
+        Util::Log("FMSColor", "Invaild");
         //This is corrupt data
         break;
     }
