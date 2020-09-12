@@ -63,6 +63,8 @@ int RobotContainerRobot2020::ReadDioSwitch()
   int changeOneTwoThree = 1;
   return changeOneTwoThree;
 }
+
+
 frc2::Command* RobotContainerRobot2020::GetAutonomousCommand()
  {
   int dioAutoSwitcher;
@@ -93,6 +95,7 @@ frc2::Command* RobotContainerRobot2020::GetAutonomousCommand()
   return nullptr;
 }
 
+
 void RobotContainerRobot2020::Init()
 {
   if(m_pSpin != nullptr) m_pSpin->InterpretFMS(ReadFMS());
@@ -103,12 +106,14 @@ void RobotContainerRobot2020::Init()
   m_pShooter->Init();
 }
 
+
 void RobotContainerRobot2020::DisableInit()
 {
   if(m_pLoader != nullptr) m_pLoader->SetLoadMotor(0.0);
   m_pShooter->Init();
   frc::SmartDashboard::PutBoolean("Is Enabled", false);
 }
+
 
 void RobotContainerRobot2020::SetButtonA()
 {
@@ -123,6 +128,7 @@ void RobotContainerRobot2020::SetButtonA()
   //buttonATwo.WhenReleased(&m_armPosition_Stop);
 }
 
+
 void RobotContainerRobot2020::SetButtonB()
 {
   frc2::Button buttonB{[this] {return m_controller.GetBButton();}};
@@ -136,6 +142,7 @@ void RobotContainerRobot2020::SetButtonB()
   //buttonBTwo.WhenReleased(&m_armPosition_Stop);
 }
 
+
 void RobotContainerRobot2020::SetButtonX()
 {
   frc2::Button buttonX{[this] {return m_controller.GetXButton();}};
@@ -146,6 +153,7 @@ void RobotContainerRobot2020::SetButtonX()
   buttonXTwo.WhenHeld(&m_spinHoldN);
   buttonXTwo.WhenReleased(&m_spinStop);
 }
+
 
 void RobotContainerRobot2020::SetButtonY()
 {
@@ -158,6 +166,7 @@ void RobotContainerRobot2020::SetButtonY()
   buttonYTwo.WhenReleased(&m_spinStop);
 }
 
+
 void RobotContainerRobot2020::SetRightTrigger()
 {
   frc2::Button buttonRT{[this] {return m_controller.GetTriggerAxis(frc::GenericHID::kRightHand);}};
@@ -165,6 +174,7 @@ void RobotContainerRobot2020::SetRightTrigger()
   buttonRT.WhenReleased(&m_shooterStop);
   //m_shooterSpin;
 }
+
 
 void RobotContainerRobot2020::SetLeftBumper()
 {
@@ -175,6 +185,7 @@ void RobotContainerRobot2020::SetLeftBumper()
   frc2::Button buttonLBTwo{[this] {return m_controller2.GetBumper(frc::GenericHID::kLeftHand);}};
   buttonLBTwo.WhenPressed(m_pShootLoad);
 }
+
 
 void RobotContainerRobot2020::SetRightBumper()
 {
@@ -187,6 +198,7 @@ void RobotContainerRobot2020::SetRightBumper()
   buttonRBTwo.WhenReleased(&m_loaderAllStop);
 }
 
+
 void RobotContainerRobot2020::SetStartButton()
 {
   frc2::Button startButton{[this] {return m_controller.GetStartButton();}};
@@ -197,6 +209,7 @@ void RobotContainerRobot2020::SetStartButton()
   startButttonTwo.WhenPressed(&m_armLift_Motor);
   startButttonTwo.WhenReleased(&m_armStop);
 }
+
 
 void RobotContainerRobot2020::SetBackButton()
 {
@@ -211,7 +224,9 @@ void RobotContainerRobot2020::SetBackButton()
   backButttonTwo.WhenReleased(&m_armStop);
 }
 
+
 // Working as of 2/19/2020
+
 
 void RobotContainerRobot2020::TeleopPeriodic()
 {
