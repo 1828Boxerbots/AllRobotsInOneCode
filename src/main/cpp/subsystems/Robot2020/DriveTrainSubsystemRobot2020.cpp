@@ -86,6 +86,7 @@ double DriveTrainSubsystemRobot2020::GetRightEncoderInch()
   return m_rightEncoderSim;
 }
 
+
 void DriveTrainSubsystemRobot2020::ResetEncoder()
 {
   #ifndef NOHW
@@ -97,6 +98,7 @@ void DriveTrainSubsystemRobot2020::ResetEncoder()
   m_leftEncoderSim = 0.0;
   LogEncoder();
 }
+
 
 // Currently using IMU
 double DriveTrainSubsystemRobot2020::GyroGetAngle()

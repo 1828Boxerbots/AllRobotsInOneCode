@@ -26,6 +26,7 @@ void LoaderSubsystemRobot2020::Periodic()
     #endif
 }
 
+
 void LoaderSubsystemRobot2020::SetLoadMotor(double speed, int motorNumber)
 {
     #ifndef NOHW
@@ -59,6 +60,7 @@ void LoaderSubsystemRobot2020::SetLoadMotor(double speed, int motorNumber)
     #endif
 }
 
+
 void LoaderSubsystemRobot2020::PhotogateStop(double speed)
 {
     int count = 0;
@@ -82,12 +84,14 @@ void LoaderSubsystemRobot2020::PhotogateStop(double speed)
     SetLoadMotor(0.0, MOTOR_BOTTOM);
 }
 
+
 //Checks to see if the ball is loaded
 bool LoaderSubsystemRobot2020::IsLoaded()
 {
     //returns the vail of the photogate
     return m_photogate.Get();
 }
+
 
 void LoaderSubsystemRobot2020::Init()
 {
@@ -97,3 +101,4 @@ void LoaderSubsystemRobot2020::Init()
     m_loaderMotorBottom.SetInverted(true);
     #endif
 }
+
