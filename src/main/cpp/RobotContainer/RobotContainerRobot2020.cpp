@@ -27,7 +27,7 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   // Configure the button bindings
   ConfigureButtonBindings();
   m_pDrive->Init();
-  if(m_pCamera!=nullptr)m_pCamera->Init();
+  //if(m_pCamera!=nullptr)m_pCamera->Init();
   SetDrive();
 }
 

@@ -5,6 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+/*
 #include "subsystems/CameraSubsystemBase.h"
 #include "Constants.h"
 #include "subsystems/DriveTrainSubsystemBase.h"
@@ -256,3 +257,7 @@ int CameraSubsystemBase::WhereToTurn()
     return STOP;
 }
 
+*/
+
+
+//COMMENTED OUT FOR RESTART PURPOSES. THIS IS A REFERENCE.

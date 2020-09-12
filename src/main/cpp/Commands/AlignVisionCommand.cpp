@@ -5,6 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+/*
 #include "Commands/AlignVisionCommand.h"
 
 AlignVisionCommand::AlignVisionCommand(DriveTrainSubsystemBase *pDrive, CameraSubsystemBase *pCamera) 
@@ -56,3 +57,6 @@ bool AlignVisionCommand::IsFinished()
 { 
   return m_isFinished; 
 }
+*/
+
+//COMMENTED OUT FOR RESTART PURPOSES. FOR REFERENCE ONLY

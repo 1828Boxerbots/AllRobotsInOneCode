@@ -5,6 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+/*
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
@@ -63,9 +64,13 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   void InitializeCamera(int port);
   void FilterFrame();
   void PrintTurn(int turn);
+  */
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
+ 
+  /*
   void Periodic();
 
  private:
@@ -101,3 +106,7 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   DriveTrainSubsystemBase *m_pDriveObject = nullptr;
   
 };
+
+*/
+
+//COMMENTED OUT FOR RESTART PURPOSES. THIS IS FOR REFERENCE.

@@ -5,12 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+/*
 #pragma once
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include "../subsystems/CameraSubsystemBase.h"
 #include "../subsystems/DriveTrainSubsystemBase.h"
+
 /**
  * 
  * An example command.
@@ -19,6 +21,8 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
+
+/*
 class AlignVisionCommand
     : public frc2::CommandHelper<frc2::CommandBase, AlignVisionCommand> {
  public:
@@ -37,3 +41,7 @@ class AlignVisionCommand
     CameraSubsystemBase *m_pCamera = nullptr;
     bool m_isFinished = false; 
 };
+
+*/
+
+//COMMENTED OUT FOR RESTART PURPOSES. FOR REFERENCE ONLY.

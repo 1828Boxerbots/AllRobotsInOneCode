@@ -14,8 +14,10 @@ void RobotContainerBase::SetCamerastream()
 {
     
 
-    frc::SmartDashboard::PutString("test","After set defelut");
+    frc::SmartDashboard::PutString("test","After set default");
 }
+
+
 void RobotContainerBase::SetDrive(DriveStyles driveStyle)
 {
     m_pDrive->EnableAnticollision(false);
@@ -41,12 +43,14 @@ void RobotContainerBase::SetDrive(DriveStyles driveStyle)
     }
 }
 
+
 void RobotContainerBase::SetButtonA()
 {
     frc2::Button buttonA{[this] {return m_controller.GetAButton();}};
     buttonA.WhileHeld(&m_turretTurnLeft);
     buttonA.WhenReleased(&m_turretStop);
 }
+
 
 void RobotContainerBase::SetButtonB()
 {
@@ -55,6 +59,7 @@ void RobotContainerBase::SetButtonB()
     buttonB.WhenReleased(&m_turretStop);
 }
 
+
 void RobotContainerBase::SetButtonX()
 {
     frc2::Button buttonX{[this] {return m_controller.GetXButton();}};
@@ -62,12 +67,14 @@ void RobotContainerBase::SetButtonX()
     buttonX.WhenReleased(&m_loaderStop);
 }
 
+
 void RobotContainerBase::SetButtonY()
 {
     frc2::Button buttonY{[this] {return m_controller.GetYButton();}};
     buttonY.WhenHeld(&m_loaderLoad);
     buttonY.WhenReleased(&m_loaderStop);
 }
+
 
 void RobotContainerBase::SetStartButton()
 {
@@ -77,10 +84,12 @@ void RobotContainerBase::SetStartButton()
     */
 }
 
+
 void RobotContainerBase::SetBackButton()
 {
     
 }
+
 
 void RobotContainerBase::SetLeftBumper()
 {
@@ -90,6 +99,7 @@ void RobotContainerBase::SetLeftBumper()
     bumperL.WhenReleased(&m_shooterStop);
 }
 
+
 void RobotContainerBase::SetRightBumper()
 {
     frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
@@ -97,13 +107,16 @@ void RobotContainerBase::SetRightBumper()
     bumperR.WhenReleased(&m_shooterStop);
 }
 
+
 void RobotContainerBase::SetLeftTrigger()
 {
     //frc2::Button leftTrigger{[this] {return m_controller.GetTriggerAxis(frc::GenericHID::kLeftHand);}};
     //leftTrigger.WhenPressed(&m_resetEncoder);
 }
 
+
 void RobotContainerBase::SetRightTrigger()
 {
     
 }
+
