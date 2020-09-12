@@ -10,11 +10,11 @@
 #include "subsystems/DriveTrainSubsystemBase.h"
 #include <cameraserver/CameraServer.h>
 
+
 CameraSubsystemBase::CameraSubsystemBase(DriveTrainSubsystemBase *pDrive) 
 {
     m_pDriveObject = pDrive;
 }
-
 
 
 void CameraSubsystemBase::Init()
@@ -28,6 +28,7 @@ void CameraSubsystemBase::Init()
     
     m_isInitialized = true;
 }
+
 
 void CameraSubsystemBase::SetColor(int colorNumber)
 {
@@ -52,6 +53,7 @@ void CameraSubsystemBase::SetColor(int colorNumber)
     }
     //BGR
 }
+
 
 void CameraSubsystemBase::FilterFrame()
 {
@@ -82,7 +84,6 @@ void CameraSubsystemBase::FilterFrame()
 }
 
 
-
 void CameraSubsystemBase::VideoThread(CameraSubsystemBase* pCamera)
 {
     
@@ -91,6 +92,7 @@ void CameraSubsystemBase::VideoThread(CameraSubsystemBase* pCamera)
         pCamera->TeleopImage();
     }
 }
+
 
 void CameraSubsystemBase::TeleopImage()
 {
@@ -124,6 +126,8 @@ void CameraSubsystemBase::TeleopImage()
     }
     
 }
+
+
 void CameraSubsystemBase::InitSendImage()
 {   
 
@@ -134,11 +138,13 @@ void CameraSubsystemBase::InitSendImage()
    
 }
 
+
 // This method will be called once per scheduler run
 void CameraSubsystemBase::Periodic() 
 {
     //CameraPeriodic();
 }
+
 
 void CameraSubsystemBase::CameraPeriodic()
 {
@@ -146,6 +152,8 @@ void CameraSubsystemBase::CameraPeriodic()
     frc::SmartDashboard::PutNumber("Camera Frame Number", m_frameNumber);
     
 }
+
+
 //Loop that turns the robot based on camera input
 void CameraSubsystemBase::AutoCameraTurn()
 {
@@ -204,6 +212,7 @@ void CameraSubsystemBase::AutoCameraTurn()
     frc::SmartDashboard::PutBoolean("CameraWork", true);
 }
 
+
 int CameraSubsystemBase::WhereToTurn()
 {
     //Log("centerX", m_center.x);
@@ -246,3 +255,4 @@ int CameraSubsystemBase::WhereToTurn()
     frc::SmartDashboard::PutBoolean("CodeRun", true);
     return STOP;
 }
+
