@@ -30,3 +30,4 @@ void DriveTrainSubsystemSLAL::Init()
   m_rightMotor.SetInverted(false);
   #endif
 }
+
