@@ -12,6 +12,7 @@
 
 SpinSubsystemRobot2020::FMSColors RobotContainerRobot2020::givenColor = SpinSubsystemRobot2020::FMSColors::INVALID;
 
+
 RobotContainerRobot2020::RobotContainerRobot2020()
 {
   m_pDrive = new DriveTrainSubsystemRobot2020;
@@ -19,7 +20,7 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   m_pSpin = new SpinSubsystemRobot2020;
   m_pShooter = new ShooterSubsystemRobot2020;
   m_pArm = new ArmSubsystemRobot2020;
-  m_pCamera = new CameraSubsystemBase(m_pDrive);
+  //m_pCamera = new CameraSubsystemBase(m_pDrive);
 
   m_pShootLoad = new ShootLoadCommand(m_pLoader, m_pShooter, m_encoderSpeedWanted, m_motorSpeed);
 
@@ -29,6 +30,7 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   if(m_pCamera!=nullptr)m_pCamera->Init();
   SetDrive();
 }
+
 
 void RobotContainerRobot2020::ConfigureButtonBindings()
 {
@@ -51,6 +53,7 @@ void RobotContainerRobot2020::ConfigureButtonBindings()
   SetLeftBumper();
 
 }
+
 
 int RobotContainerRobot2020::ReadDioSwitch()
 {
