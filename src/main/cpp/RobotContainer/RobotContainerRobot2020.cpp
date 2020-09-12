@@ -19,7 +19,7 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   m_pSpin = new SpinSubsystemRobot2020;
   m_pShooter = new ShooterSubsystemRobot2020;
   m_pArm = new ArmSubsystemRobot2020;
-  m_pCamera = new CameraSubsystemBase(m_pDrive);
+  //m_pCamera = new CameraSubsystemBase(m_pDrive);
 
   m_pShootLoad = new ShootLoadCommand(m_pLoader, m_pShooter, m_encoderSpeedWanted, m_motorSpeed);
 
