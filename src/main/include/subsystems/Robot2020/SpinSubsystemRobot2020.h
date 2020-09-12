@@ -29,6 +29,7 @@ class SpinSubsystemRobot2020 : public SpinSubsystemBase {
   void SpinToColor() override;
   std::string GetColor() override; 
   FMSColors ReadColorSensor() override;
+  bool isArmUp() override;
 
  private:
   FMSColors GetFMSColor();

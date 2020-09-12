@@ -8,6 +8,8 @@
 #include "subsystems/Robot2020/SpinSubsystemRobot2020.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "../../../include/RobotContainer/RobotContainerRobot2020.h"
+#include "../../../include/subsystems/Robot2020/ArmSubsystemRobot2020.h"
+#include "../../../include/subsystems/ArmSubsystemBase.h"
 
 SpinSubsystemRobot2020::SpinSubsystemRobot2020(){}
 
@@ -26,6 +28,22 @@ void SpinSubsystemRobot2020::Periodic()
     #endif
 }
 
+bool SpinSubsystemRobot2020::isArmUp()
+{
+    /*
+    if(ArmSubsystemRobot2020::GetPosition() == 1)
+    {
+        return true;
+    }
+    else if(ArmSubsystemRobot2020::GetPosition() == 0)
+    {
+        return false;
+    }
+    else
+    {
+        return false;
+    }*/
+}
 
 void SpinSubsystemRobot2020::SetSpinMotor (double speed)
 {
