@@ -15,6 +15,7 @@
 #include "subsystems/CameraSubsystemBase.h"
 #include "RobotContainerBase.h"
 #include "../Commands/ShootLoadCommand.h"
+#include "subsystems/SpinSubsystemBase.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -43,6 +44,8 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   int ReadDioSwitch();
 
   frc2::Command* GetAutonomousCommand();
+
+  static SpinSubsystemRobot2020::FMSColors givenColor;
 
  private:
   ShootLoadCommand* m_pShootLoad = nullptr;

@@ -7,6 +7,7 @@
 
 #include "subsystems/Robot2020/SpinSubsystemRobot2020.h"
 #include <frc/smartdashboard/SmartDashboard.h>
+#include "../../../include/RobotContainer/RobotContainerRobot2020.h"
 
 SpinSubsystemRobot2020::SpinSubsystemRobot2020(){}
 
@@ -102,7 +103,7 @@ std::string SpinSubsystemRobot2020::GetColor()
 
 void SpinSubsystemRobot2020::SpinToColor()
 {
-    FMSColors wantedColor = RED;
+    FMSColors wantedColor = RobotContainerRobot2020::givenColor;
     FMSColors realColor;
 
     if(ReadColorSensor() == INVALID)
@@ -114,7 +115,7 @@ void SpinSubsystemRobot2020::SpinToColor()
     {
         FMSColors currentColor = ReadColorSensor();
 
-        currentColor = ConvertColor(currentColor);
+        currentColor = MapColors(currentColor);
         realColor = currentColor;
 
         SetSpinMotor(1.0);
