@@ -60,7 +60,7 @@ void CameraSubsystemBase::FilterFrame()
         return;
     }
     
-    SetColor(YELLOW_FILTER);
+    //SetColor(YELLOW_FILTER);
     
     cv::morphologyEx(m_colorFilter, m_openFilter, cv::MORPH_OPEN, m_morph, cv::Point(-1, -1), 4);
     cv::dilate(m_openFilter,m_dilution,m_morph);

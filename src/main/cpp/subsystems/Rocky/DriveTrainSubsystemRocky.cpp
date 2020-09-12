@@ -29,6 +29,8 @@ void DriveTrainSubsystemRocky::SetMotorR(double speed)
 }
 
 
+
+
 //function made for debugging with gyro and easy changes
 double DriveTrainSubsystemRocky::GyroGetAngle()
 {
