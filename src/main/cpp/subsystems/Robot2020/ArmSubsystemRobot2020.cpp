@@ -12,9 +12,11 @@ ArmSubsystemRobot2020::ArmSubsystemRobot2020() {}
 // This method will be called once per scheduler run
 void ArmSubsystemRobot2020::Periodic() 
 {
+    #ifndef NOHW
     //Log the Halleffects
     Log("Lower HallEffect", m_hallEffectLower.Get());
     Log("Upper HallEffect", m_hallEffectUpper.Get());
+    #endif
 }
 
 void ArmSubsystemRobot2020::Init()
@@ -65,6 +67,7 @@ void ArmSubsystemRobot2020::Lower(double speed)
 
 int ArmSubsystemRobot2020::GetPosition()
 {
+    #ifndef NOHW
     if(m_hallEffectLower.Get() == true)
     {
         return LOWEST_POS;
@@ -73,11 +76,13 @@ int ArmSubsystemRobot2020::GetPosition()
     {
         return HIGHEST_POS;
     }
+    #endif
     return INVALID_POS;
 }
 
 void ArmSubsystemRobot2020::SetPosition(int pos)
 {
+    #ifndef NOHW
     Log("Pos", pos);
     Log("Lower HallEffect", m_hallEffectLower.Get());
     Log("Upper HallEffect", m_hallEffectUpper.Get());
@@ -116,4 +121,5 @@ void ArmSubsystemRobot2020::SetPosition(int pos)
         StopMotor();
         break;
     }
+    #endif
 }

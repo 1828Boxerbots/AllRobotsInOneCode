@@ -46,16 +46,22 @@ void DriveTrainSubsystemRobot2020::Init()
 double DriveTrainSubsystemRobot2020::IMUGetAngle()
 {
   // If this isn't giving you the correct angle, try .GetAngleZ() or .GetAngleX()
+  #ifndef NOHW
   m_imuAngle = m_imu.GetAngleY();
   Util::Log("IMU Angle", m_imuAngle, "DriveTrainSubsystemRobot2020");
   return m_gyroAngle;
+  #else 
+  return 0;
+  #endif
 }
 
 
 void DriveTrainSubsystemRobot2020::IMUInit()
 {
+  #ifndef NOHW
   Util::Log("GyroInit", true, "DriveTrainSubsystemRobot2020");
   m_imu.IMUGyroInit(true);
+  #endif
 }
 
 
@@ -101,21 +107,28 @@ void DriveTrainSubsystemRobot2020::ResetEncoder()
 // Currently using IMU
 double DriveTrainSubsystemRobot2020::GyroGetAngle()
 {
+  #ifndef NOHW
   double m_gyroAngle = m_imu.GetAngleX();
   m_imu.LogAllValues();
   return m_gyroAngle;
+  #else
+  return 0;
+  #endif
 }
 
 
 // Currently using IMU
 void DriveTrainSubsystemRobot2020::GyroInit()
 {
+  #ifndef NOHW
   m_imu.IMUGyroInit(true);
+  #endif
 }
 
 
 double DriveTrainSubsystemRobot2020::GetDetectionDistance()
 {
+  #ifndef NOHW
   if(m_hasAntiCollision == false)
   {
     return 1;
@@ -123,12 +136,16 @@ double DriveTrainSubsystemRobot2020::GetDetectionDistance()
   double val = m_lidar.GetDistanceInInches();
    frc::SmartDashboard::PutNumber("DriveTrain Lidar", val);
   return val;
+  #else
+  return 1;
+  #endif
 }
 
 
 //Makes is so that the robot doesn't run into things head on
 void DriveTrainSubsystemRobot2020::DetectionSoftware(double detectionDistance)
 {
+  #ifndef NOHW
   frc::SmartDashboard::PutNumber("Lidar Distance", GetDetectionDistance());
   double currentDetection = GetDetectionDistance();
   frc::SmartDashboard::PutBoolean("DistanceDetection", false);
@@ -137,12 +154,14 @@ void DriveTrainSubsystemRobot2020::DetectionSoftware(double detectionDistance)
         frc::SmartDashboard::PutBoolean("DistanceDetection", true);
         //Stop();
     }
+    #endif
 }
 
 
 //Sets up dead zone in lidar
 void DriveTrainSubsystemRobot2020::PrecisionMovementLidar(double wantedDistance)
 {
+  #ifndef NOHW
   const double DEAD_ZONE = 5.0;
   double currentDistance = m_lidar.GetDistanceInInches();
   while(wantedDistance <  (currentDistance + DEAD_ZONE) && wantedDistance > (currentDistance - DEAD_ZONE))
@@ -157,6 +176,7 @@ void DriveTrainSubsystemRobot2020::PrecisionMovementLidar(double wantedDistance)
     }
     currentDistance = m_lidar.GetDistanceInInches();
   }
+  #endif
 }
 
 void DriveTrainSubsystemRobot2020::EnableAnticollision(bool enable)
@@ -167,6 +187,7 @@ void DriveTrainSubsystemRobot2020::EnableAnticollision(bool enable)
   m_hasAntiCollision = enable; 
 }
 /*
+Detection code ripped from Rocky code for Robot 2020
 //Gets Detection distance; used for debugging
 double DriveTrainSubsystemRocky::GetDetectionDistance()
 {

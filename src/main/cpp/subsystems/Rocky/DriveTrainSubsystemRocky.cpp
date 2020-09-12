@@ -34,14 +34,19 @@ void DriveTrainSubsystemRocky::SetMotorR(double speed)
 //function made for debugging with gyro and easy changes
 double DriveTrainSubsystemRocky::GyroGetAngle()
 {
+  #ifndef NOHW
   m_gyroAngle = m_gyro.GetAngle();
   frc::SmartDashboard::PutNumber("GyroAngle", m_gyroAngle);
   return m_gyroAngle;
+  #else 
+  return 0;
+  #endif
 }
 
 //Initializes gyro, Run only once
 void DriveTrainSubsystemRocky::GyroInit()
 {
+  #ifndef NOHW
   bool gyroIsIntiliazed = false;
   if(gyroIsIntiliazed == false)
   {
@@ -50,6 +55,7 @@ void DriveTrainSubsystemRocky::GyroInit()
   m_gyro.Calibrate();
   gyroIsIntiliazed = true;
   }
+  #endif
 }
 
 
@@ -116,15 +122,20 @@ void DriveTrainSubsystemRocky::Periodic() {}
 //Gets Detection distance; used for debugging
 double DriveTrainSubsystemRocky::GetDetectionDistance()
 {
+  #ifndef NOHW
   double val = m_lidar.GetDistanceInInches();
    frc::SmartDashboard::PutNumber("DriveTrain Lidar", val);
   return val;
+  #else
+  return 0;
+  #endif
 }
 
 
 //Makes is so that the robot doesn't run into things head on
 void DriveTrainSubsystemRocky::DetectionSoftware(double detectionDistance)
 {
+  #ifndef NOHW
     frc::SmartDashboard::PutNumber("Lidar Distance", GetDetectionDistance());
     double currentDetection = GetDetectionDistance();
     frc::SmartDashboard::PutBoolean("DistanceDetection", false);
@@ -133,12 +144,14 @@ void DriveTrainSubsystemRocky::DetectionSoftware(double detectionDistance)
             frc::SmartDashboard::PutBoolean("DistanceDetection", true);
             //Stop();
         }
+  #endif
 }
 
 
 //Sets up dead zone in lidar
 void DriveTrainSubsystemRocky::PrecisionMovementLidar(double wantedDistance)
 {
+  #ifndef NOHW
   const double DEAD_ZONE = 5.0;
   double currentDistance = m_lidar.GetDistanceInInches();
   //Logic that moves the robot back or forth to the prefered distance for auto
@@ -154,6 +167,7 @@ void DriveTrainSubsystemRocky::PrecisionMovementLidar(double wantedDistance)
     }
     currentDistance = m_lidar.GetDistanceInInches();
   }
+  #endif
 }
 
 void DriveTrainSubsystemRocky::EnableAnticollision(bool enable)

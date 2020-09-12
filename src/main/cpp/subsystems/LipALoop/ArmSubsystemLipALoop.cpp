@@ -97,6 +97,7 @@ double ArmSubsystemLipALoop::GetMinLimit()
 
 int ArmSubsystemLipALoop::GetPosition()
 {
+    #ifndef NOHW
     if(m_armServo.Get() == GetMaxLimit())
     {
         return HIGHEST_POS;
@@ -105,12 +106,13 @@ int ArmSubsystemLipALoop::GetPosition()
     {
         return LOWEST_POS;
     }
-    
+    #endif
     return INVALID_POS;
 }
 
 void ArmSubsystemLipALoop::SetPosition(int pos)
 {
+    #ifndef NOHW
     switch (pos)
     {
     case LOWEST_POS:
@@ -123,4 +125,5 @@ void ArmSubsystemLipALoop::SetPosition(int pos)
         m_armServo.Set(ARM_MAX);
         break;
     }
+    #endif
 }
