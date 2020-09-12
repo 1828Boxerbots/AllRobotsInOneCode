@@ -147,6 +147,31 @@ void Util::SendErrorAndCode(const wpi::Twine& error, int32_t code, const char *l
     wpi::SmallString<128> temp;
     HAL_SendError(1, code, 0, error.toNullTerminatedStringRef(temp).data(), location, "", 1);
 }
-
-
 // Experimental functions added 3/5/2020
+
+void Util::Log(std::string title, SpinSubsystemBase::FMSColors value, std::string subsystemName)
+{
+    std::string newvalue;
+
+    switch (value)
+    {
+    case SpinSubsystemBase::FMSColors::BLUE:
+        newvalue = "Blue";
+        break;
+    case SpinSubsystemBase::FMSColors::RED:
+        newvalue = "Red";
+        break;
+    case SpinSubsystemBase::FMSColors::YELLOW:
+        newvalue = "Yellow";
+        break;
+    case SpinSubsystemBase::FMSColors::GREEN:
+        newvalue = "Green";
+        break;
+    default:
+        newvalue = "Invalid";
+        break;
+    }
+
+    frc::SmartDashboard::PutString(subsystemName + " " + title, newvalue);
+}
+

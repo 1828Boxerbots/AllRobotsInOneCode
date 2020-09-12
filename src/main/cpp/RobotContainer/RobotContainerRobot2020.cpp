@@ -223,27 +223,27 @@ void RobotContainerRobot2020::TeleopPeriodic()
     {
       case 'B' :
         givenColor = SpinSubsystemRobot2020::FMSColors::BLUE;
-        Util::Log("FMSColor", "Blue");
+        Util::Log("FMSColor", givenColor);
         //Blue case code
         break;
       case 'G' :
         givenColor = SpinSubsystemRobot2020::FMSColors::GREEN;
-        Util::Log("FMSColor", "Green");
+        Util::Log("FMSColor", givenColor);
         //Green case code
         break;
       case 'R' :
         givenColor = SpinSubsystemRobot2020::FMSColors::RED;
-        Util::Log("FMSColor", "Red");
+        Util::Log("FMSColor", givenColor);
         //Red case code
         break;
       case 'Y' :
         givenColor = SpinSubsystemRobot2020::FMSColors::YELLOW;
-        Util::Log("FMSColor", "Yellow");
+        Util::Log("FMSColor", givenColor);
         //Yellow case code
         break;
       default :
         givenColor = SpinSubsystemRobot2020::FMSColors::INVALID;
-        Util::Log("FMSColor", "Invaild");
+        Util::Log("FMSColor", givenColor);
         //This is corrupt data
         break;
     }

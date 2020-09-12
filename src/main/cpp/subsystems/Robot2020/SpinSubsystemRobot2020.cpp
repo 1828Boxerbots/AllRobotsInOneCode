@@ -151,6 +151,7 @@ SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::ConvertColor(FMSColors colo
             break;
 
         default:
+            return INVALID;
             break;
     }
 }
