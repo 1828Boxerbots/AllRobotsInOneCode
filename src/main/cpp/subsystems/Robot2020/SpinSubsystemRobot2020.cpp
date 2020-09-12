@@ -8,6 +8,8 @@
 #include "subsystems/Robot2020/SpinSubsystemRobot2020.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "../../../include/RobotContainer/RobotContainerRobot2020.h"
+#include "../../../include/subsystems/Robot2020/ArmSubsystemRobot2020.h"
+#include "../../../include/subsystems/ArmSubsystemBase.h"
 
 SpinSubsystemRobot2020::SpinSubsystemRobot2020(){}
 
@@ -16,7 +18,6 @@ void SpinSubsystemRobot2020::Init()
 {
  
 }
-
 
 void SpinSubsystemRobot2020::Periodic()
 {
@@ -36,6 +37,7 @@ void SpinSubsystemRobot2020::SetSpinMotor (double speed)
 
 void SpinSubsystemRobot2020::SpinWithColor(double speed, int wantedRotation)
 {   
+
     #ifndef NOHW
     //Gets the starting color of the wheel
     FMSColors startColor = m_colorSensor.GetColor();
@@ -107,6 +109,7 @@ std::string SpinSubsystemRobot2020::GetColor()
 
 void SpinSubsystemRobot2020::SpinToColor()
 {
+
     FMSColors wantedColor = RobotContainerRobot2020::givenColor;
     FMSColors realColor;
 

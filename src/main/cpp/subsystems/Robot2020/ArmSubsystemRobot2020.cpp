@@ -90,8 +90,8 @@ void ArmSubsystemRobot2020::SetPosition(int pos)
     switch (pos)
     {
     case LOWEST_POS:
-    //Checks if either the HallEffect or encoder is true and moves the arm up until it is
-        while(m_hallEffectLower.Get() == true /*|| m_armEncoder.Get() != m_lowValue*/)
+    //Checks if the HallEffect is true and moves the arm up until it is
+        while(m_hallEffectLower.Get() == true)
         {
             LiftArmDown(m_scale);
             frc::SmartDashboard::PutString("Condition", "Moving Down");
@@ -99,15 +99,9 @@ void ArmSubsystemRobot2020::SetPosition(int pos)
         StopMotor();
         frc::SmartDashboard::PutString("Condition", "Done");
         break;
-    case LOWEST_POS_TIME:
-    //Starts Lowering the arm and waits X number of secounds then stops
-        LiftArmDown(m_scale);
-        //Util::DelayInSeconds(m_armDownTime);
-        StopMotor();
-        break;
     case HIGHEST_POS:
-    //Checks if either the HallEffect or encoder is true and moves the arm down until it is
-        while(m_hallEffectUpper.Get() == true /*|| m_armEncoder.Get() != m_highValue*/)
+    //Checks if the HallEffect is true and moves the arm down until it is
+        while(m_hallEffectUpper.Get() == true)
         {
             LiftArmUp(m_scale);
             frc::SmartDashboard::PutString("Condition", "Moving Up");

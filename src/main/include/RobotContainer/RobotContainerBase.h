@@ -213,7 +213,12 @@ class RobotContainerBase {
     SpinSubsystemBase *m_pSpin = nullptr;
     frc2::RunCommand m_spinToColor          {[this] { if(m_pSpin != nullptr) m_pSpin->SpinUntilColor();}, {m_pSpin}};
     frc2::RunCommand m_spinEncoder          {[this] { if(m_pSpin != nullptr) m_pSpin->SpinWithEncoders();}, {m_pSpin}};
-    frc2::RunCommand m_spinColor            {[this] { if(m_pSpin != nullptr) m_pSpin->SpinWithColor();}, {m_pSpin}};
+    frc2::RunCommand m_spinColor            {[this] { 
+      if(m_pSpin != nullptr) 
+      {
+        bool isUp = m_pArm->GetPosition();
+        m_pSpin->SpinWithColor(isUp);
+    } }, {m_pSpin} };
     frc2::RunCommand m_spinHoldP            {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(1.0);}, {m_pSpin}};
     frc2::RunCommand m_spinHoldN            {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(-1.0);}, {m_pSpin}};
     frc2::RunCommand m_spinStop             {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(0.0);}, {m_pSpin}};

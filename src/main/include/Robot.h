@@ -15,7 +15,6 @@
 #include "RobotContainer/RobotContainerLaika.h"
 #include "RobotContainer/RobotContainerSLAL.h"
 #include "RobotContainer/RobotContainerRobot2020.h"
-#include "RobotContainer/RobotContainerDesertView.h"
 #include "RobotContainer/RobotContainerLipALoop.h"
 
 
@@ -43,7 +42,6 @@ class Robot : public frc::TimedRobot {
   //RobotContainerSLAL m_container;
   //RobotContainerKurgan m_container;
   //RobotContainerLaika m_container;
-  //RobotContainerDesertView m_container;
   //RobotContainerLipALoop m_container;
   RobotContainerRobot2020 m_container;
 };
