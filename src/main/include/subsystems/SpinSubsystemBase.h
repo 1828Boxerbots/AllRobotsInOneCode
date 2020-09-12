@@ -38,7 +38,6 @@ class SpinSubsystemBase : public frc2::SubsystemBase {
   virtual double GetTicksPerRevolution() {return 256;}
   virtual std::string GetColor() {return "NULL";}
   virtual void SpinToColor() {}
-  virtual bool isArmUp() {}
   void Log();
 
  protected:
