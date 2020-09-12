@@ -20,8 +20,10 @@ void SpinSubsystemRobot2020::Init()
 
 void SpinSubsystemRobot2020::Periodic()
 {
+    #ifndef NOHW
     m_colorSensor.ReturnAllColors();
     Util::Log("Count Color Read", m_beatColorRead++, "spinRobot2020");
+    #endif
 }
 
 
@@ -33,7 +35,8 @@ void SpinSubsystemRobot2020::SetSpinMotor (double speed)
 }
 
 void SpinSubsystemRobot2020::SpinWithColor(double speed, int wantedRotation)
-{    
+{   
+    #ifndef NOHW
     //Gets the starting color of the wheel
     FMSColors startColor = m_colorSensor.GetColor();
     
@@ -71,6 +74,7 @@ void SpinSubsystemRobot2020::SpinWithColor(double speed, int wantedRotation)
 
     //Stops the Spinner after finished spinning
     Stop();
+    #endif
 }
 
 

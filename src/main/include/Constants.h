@@ -191,6 +191,6 @@ constexpr int I2C_ADDR_COLORSENSOR_ROBOT2020         = 0x52;
 
 
 //Allowing hardware to be used
+//NOHW disables all hardware in the code - Please keep putting into later codes, I don't want to go through all the code again -Zach
 //#define NOHW
 //#define SEND_VIDEO
-
