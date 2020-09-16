@@ -217,6 +217,7 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
     {
         MoveTank(speed, speed);
         currentDistance = GetLeftEncoderInch();
+        frc::SmartDashboard::PutNumber("LeftEncoderInches", GetLeftEncoderInch());
         //Util::DelayInSeconds(1.0);
     }
     if(currentDistance > inch)
