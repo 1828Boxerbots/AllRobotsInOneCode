@@ -15,6 +15,7 @@
 #include "subsystems/CameraSubsystemBase.h"
 #include "RobotContainerBase.h"
 #include "../Commands/ShootLoadCommand.h"
+#include "../Commands/SpinWithArm.h"
 #include "subsystems/SpinSubsystemBase.h"
 
 /**
@@ -48,10 +49,19 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   static SpinSubsystemRobot2020::FMSColors givenColor;
 
  private:
-  ShootLoadCommand* m_pShootLoad = nullptr;
 
+//ShootLoadCommand
+  ShootLoadCommand* m_pShootLoad = nullptr;
   double m_encoderSpeedWanted = -5500;
   double m_motorSpeed = 1.0;
+
+//SpinWithArm
+  SpinWithArm* m_pSpinMotor = nullptr;
+  SpinWithArm* m_pSpinWithColor = nullptr;
+  SpinWithArm* m_pSpinToColor = nullptr;
+  SpinWithArm* m_pSpinMotorOpp = nullptr;
+  double m_speed = 1.0;
+  int m_wantedRotation = 7;
   // The robot's subsystems and commands are defined here...
 
   void ConfigureButtonBindings();

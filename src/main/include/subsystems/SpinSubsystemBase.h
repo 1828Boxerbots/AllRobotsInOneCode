@@ -37,7 +37,7 @@ class SpinSubsystemBase : public frc2::SubsystemBase {
   virtual double GetEncoderTicks() {return m_encoder++;}
   virtual double GetTicksPerRevolution() {return 256;}
   virtual std::string GetColor() {return "NULL";}
-  virtual void SpinToColor() {}
+  virtual void SpinToColor(double speed = 1.0) {}
   void Log();
 
  protected:

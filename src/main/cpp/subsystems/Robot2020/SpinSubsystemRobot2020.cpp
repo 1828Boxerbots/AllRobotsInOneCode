@@ -107,7 +107,7 @@ std::string SpinSubsystemRobot2020::GetColor()
     #endif
 }
 
-void SpinSubsystemRobot2020::SpinToColor()
+void SpinSubsystemRobot2020::SpinToColor(double speed)
 {
 
     FMSColors wantedColor = RobotContainerRobot2020::givenColor;
@@ -125,7 +125,7 @@ void SpinSubsystemRobot2020::SpinToColor()
         currentColor = MapColors(currentColor);
         realColor = currentColor;
 
-        SetSpinMotor(1.0);
+        SetSpinMotor(speed);
     } while (realColor != wantedColor);
 
     Stop();
