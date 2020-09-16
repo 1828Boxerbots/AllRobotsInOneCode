@@ -8,8 +8,9 @@
 #include "../include/RobotContainer/RobotContainerLipALoop.h"
 #include <frc2/command/button/JoystickButton.h>	
 
+
 RobotContainerLipALoop::RobotContainerLipALoop()
- {
+{
   m_pDrive = new DriveTrainSubsystemLipALoop;
   //m_pCamera = new CameraSubsystemBase(m_pDrive);
 
@@ -24,6 +25,7 @@ RobotContainerLipALoop::RobotContainerLipALoop()
   //m_pCamera->Init();
   SetDrive();
 }
+
 
 void RobotContainerLipALoop::ConfigureButtonBindings()
 {
@@ -40,10 +42,12 @@ void RobotContainerLipALoop::ConfigureButtonBindings()
     
 }
 
+
 frc2::Command* RobotContainerLipALoop::GetAutonomousCommand() {
   // An example command will be run in autonomous
   return 0;
 }
+
 
 void RobotContainerLipALoop::SetRightBumper()
 {
@@ -51,6 +55,7 @@ void RobotContainerLipALoop::SetRightBumper()
   bumperR.WhenHeld(&m_armDown_Servo);
   bumperR.WhenReleased(&m_armStop);
 }
+
 
 void RobotContainerLipALoop::SetLeftBumper()
 {
@@ -60,12 +65,14 @@ void RobotContainerLipALoop::SetLeftBumper()
 
 }
 
+
 void RobotContainerLipALoop::SetButtonA()
 {
   frc2::Button buttonA{[this] {return m_controller.GetAButton();}};
   buttonA.WhenHeld(&m_wristUp);
   buttonA.WhenReleased(&m_wristStop);
 }
+
 
 void RobotContainerLipALoop::SetButtonB()
 {
@@ -74,12 +81,14 @@ void RobotContainerLipALoop::SetButtonB()
   buttonB.WhenReleased(&m_wristStop);
 }
 
+
 void RobotContainerLipALoop::SetButtonX()
 {
   frc2::Button buttonX{[this] {return m_controller.GetXButton();}};
   buttonX.WhenHeld(&m_handUp);
   buttonX.WhenReleased(&m_handStop);
 }
+
 
 void RobotContainerLipALoop::SetButtonY()
 {
@@ -88,8 +97,10 @@ void RobotContainerLipALoop::SetButtonY()
   buttonY.WhenReleased(&m_handStop);
 }
 
+
 void RobotContainerLipALoop::SetStartButton()
 {
   //frc2::Button startButton{[this] {return m_controller.GetStartButton();}};
   //startButton.WhenPressed(&m_follower);
 }
+
