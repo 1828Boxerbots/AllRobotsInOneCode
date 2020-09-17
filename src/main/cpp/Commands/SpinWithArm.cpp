@@ -26,8 +26,10 @@ void SpinWithArm::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void SpinWithArm::Execute() 
 {
+  Util::Log("SpinWithArm Selection", m_selector);
+
   //Checks if we are in the up arm position
-  if(m_pArm->GetPosition() != 1)
+  if(m_pArm->GetPosition() == 1)
   {
     //if we are not do not do anything
     return;
@@ -38,15 +40,19 @@ void SpinWithArm::Execute()
   {
   case UseSpinMotor:
     m_pSpinner->SetSpinMotor(m_speed);
+    Util::Log("SpinWithArm", 1);
     break;
   case UseSpinToColor:
     m_pSpinner->SpinToColor();
+    Util::Log("SpinWithArm", 2);
     break;
   case UseSpinWithColor:
     m_pSpinner->SpinWithColor(m_speed, m_wantedRotation);
+    Util::Log("SpinWithArm", 3);
     break;
   default:
     m_pSpinner->Stop();
+    Util::Log("SpinWithArm", 4);
     break;
   }
 

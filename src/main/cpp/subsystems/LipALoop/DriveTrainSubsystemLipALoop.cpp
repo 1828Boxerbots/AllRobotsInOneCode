@@ -12,14 +12,14 @@ DriveTrainSubsystemLipALoop::DriveTrainSubsystemLipALoop() {}
 void DriveTrainSubsystemLipALoop::SetMotorL(double speed)
 {
   #ifndef NOHW	
-  m_leftMotor.Set(speed * m_scale);	
+  m_leftMotor.Set(speed * m_scaleL);	
   #endif	
 }	
 
 void DriveTrainSubsystemLipALoop::SetMotorR(double speed) 	
 {	
   #ifndef NOHW	
-  m_rightMotor.Set(speed * m_scale);	
+  m_rightMotor.Set(speed * m_scaleR);	
   #endif	
 }	
 

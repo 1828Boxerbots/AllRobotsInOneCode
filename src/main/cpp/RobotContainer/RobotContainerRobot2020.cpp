@@ -139,9 +139,9 @@ void RobotContainerRobot2020::SetButtonA()
 
 void RobotContainerRobot2020::SetButtonB()
 {
-  frc2::Button buttonB{[this] {return m_controller.GetBButton();}};
-  buttonB.WhenHeld(&m_loaderAllIntake);
-  buttonB.WhenReleased(&m_loaderAllStop);
+  frc2::Button buttonBOne{[this] {return m_controller.GetBButton();}};
+  buttonBOne.WhenHeld(&m_loaderAllIntake);
+  buttonBOne.WhenReleased(&m_loaderAllStop);
   
   frc2::Button buttonBTwo{[this] {return m_controller2.GetBButton();}};
   buttonBTwo.WhenPressed(&m_armPosition_Low);  
@@ -153,33 +153,33 @@ void RobotContainerRobot2020::SetButtonB()
 
 void RobotContainerRobot2020::SetButtonX()
 {
-  frc2::Button buttonX{[this] {return m_controller.GetXButton();}};
-  buttonX.WhenHeld(&m_loaderMiddle);
-  buttonX.WhenReleased(&m_loaderMiddleStop);
+  frc2::Button buttonXOne{[this] {return m_controller.GetXButton();}};
+  buttonXOne.WhenHeld(&m_loaderMiddle);
+  buttonXOne.WhenReleased(&m_loaderMiddleStop);
 
   frc2::Button buttonXTwo{[this] {return m_controller2.GetXButton();}};
-  buttonX.WhenHeld(m_pSpinMotor);
-  buttonX.WhenReleased(&m_spinStop);
+  buttonXTwo.WhenHeld(m_pSpinMotor);
+  //buttonXTwo.WhenReleased(&m_spinStop);
 }
 
 
 void RobotContainerRobot2020::SetButtonY()
 {
-  frc2::Button buttonY{[this] {return m_controller.GetYButton();}};
-  buttonY.WhenHeld(&m_loaderTop);
-  buttonY.WhenReleased(&m_loaderTopStop);
+  frc2::Button buttonYOne{[this] {return m_controller.GetYButton();}};
+  buttonYOne.WhenHeld(&m_loaderTop);
+  buttonYOne.WhenReleased(&m_loaderTopStop);
 
   frc2::Button buttonYTwo{[this] {return m_controller2.GetYButton();}};
   buttonYTwo.WhenHeld(m_pSpinMotorOpp);
-  buttonYTwo.WhenReleased(&m_spinStop);
+  //buttonYTwo.WhenReleased(&m_spinStop);
 }
 
 
 void RobotContainerRobot2020::SetRightTrigger()
 {
-  frc2::Button buttonRT{[this] {return m_controller.GetTriggerAxis(frc::GenericHID::kRightHand);}};
-  buttonRT.WhenPressed(&m_shooterSpin);
-  buttonRT.WhenReleased(&m_shooterStop);
+  frc2::Button buttonRTOne{[this] {return m_controller.GetTriggerAxis(frc::GenericHID::kRightHand);}};
+  buttonRTOne.WhenPressed(&m_shooterSpin);
+  buttonRTOne.WhenReleased(&m_shooterStop);
   //m_shooterSpin;
 
 /*
@@ -190,9 +190,9 @@ void RobotContainerRobot2020::SetRightTrigger()
 
 void RobotContainerRobot2020::SetLeftBumper()
 {
-  frc2::Button buttonLB{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
-  buttonLB.WhenPressed(&m_shooterEncoderReset);
-  buttonLB.WhenReleased(&m_shooterEncoderReset);
+  frc2::Button buttonLBOne{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
+  buttonLBOne.WhenPressed(&m_shooterEncoderReset);
+  buttonLBOne.WhenReleased(&m_shooterEncoderReset);
 
   frc2::Button buttonLBTwo{[this] {return m_controller2.GetBumper(frc::GenericHID::kLeftHand);}};
   buttonLBTwo.WhenPressed(m_pShootLoad);
@@ -201,9 +201,9 @@ void RobotContainerRobot2020::SetLeftBumper()
 
 void RobotContainerRobot2020::SetRightBumper()
 {
-  frc2::Button buttonRB{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
-  buttonRB.WhenHeld(&m_loaderSetInverted);
-  buttonRB.WhenReleased(&m_loaderResetInverted);
+  frc2::Button buttonRBOne{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
+  buttonRBOne.WhenHeld(&m_loaderSetInverted);
+  buttonRBOne.WhenReleased(&m_loaderResetInverted);
 
   frc2::Button buttonRBTwo{[this] {return m_controller2.GetBumper(frc::GenericHID::kRightHand);}};
   buttonRBTwo.WhenHeld(&m_loaderPhotogate);
@@ -213,9 +213,9 @@ void RobotContainerRobot2020::SetRightBumper()
 
 void RobotContainerRobot2020::SetStartButton()
 {
-  frc2::Button startButton{[this] {return m_controller.GetStartButton();}};
-  startButton.WhenPressed(&m_shooterSpinMax);
-  startButton.WhenReleased(&m_shooterStop);
+  frc2::Button startButtonOne{[this] {return m_controller.GetStartButton();}};
+  startButtonOne.WhenPressed(&m_shooterSpinMax);
+  startButtonOne.WhenReleased(&m_shooterStop);
 
   frc2::Button startButttonTwo{[this] {return m_controller2.GetStartButton();}};
   startButttonTwo.WhenPressed(&m_armLift_Motor);
@@ -225,10 +225,10 @@ void RobotContainerRobot2020::SetStartButton()
 
 void RobotContainerRobot2020::SetBackButton()
 {
-  frc2::Button backButton{[this] {return m_controller.GetBackButton();}};
+  frc2::Button backButtonOne{[this] {return m_controller.GetBackButton();}};
   
-  backButton.WhenPressed(&m_shooterSpinHalf);
-  backButton.WhenReleased(&m_shooterStop);
+  backButtonOne.WhenPressed(&m_shooterSpinHalf);
+  backButtonOne.WhenReleased(&m_shooterStop);
   //backButton.WhenPressed(m_pShootLoad);
 
   frc2::Button backButttonTwo{[this] {return m_controller2.GetBackButton();}};
