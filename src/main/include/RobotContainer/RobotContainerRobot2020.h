@@ -17,6 +17,7 @@
 #include "../Commands/ShootLoadCommand.h"
 #include "../Commands/SpinWithArm.h"
 #include "subsystems/SpinSubsystemBase.h"
+#include "../include/Drivers/RevDistanceSensorDriver.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -32,6 +33,7 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   void Init() override;
   void DisableInit() override;
   void TeleopPeriodic() override;
+  void AutonomousPeriodic() override;
 
   void SetButtonA() override;
   void SetButtonB() override;
@@ -60,9 +62,14 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   SpinWithArm* m_pSpinWithColor = nullptr;
   SpinWithArm* m_pSpinToColor = nullptr;
   SpinWithArm* m_pSpinMotorOpp = nullptr;
+<<<<<<< Updated upstream
   SpinWithArm* m_pSpinStop = nullptr;
   SpinWithArm* m_pArmUp = nullptr;
   SpinWithArm* m_pArmDown = nullptr;
+=======
+
+  RevDistanceSensorDriver  *m_pDistance = nullptr;
+>>>>>>> Stashed changes
   double m_speed = 1.0;
   int m_wantedRotation = 7;
   // The robot's subsystems and commands are defined here...

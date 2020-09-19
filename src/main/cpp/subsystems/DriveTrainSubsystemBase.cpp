@@ -31,14 +31,14 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
     frc::SmartDashboard::PutNumber("Drive Left", leftY);
     frc::SmartDashboard::PutNumber("Drive Right", rightY);
 
-    if (GetDetectionDistance() > 5.0 && m_hasAntiCollision == true )
+    if (GetLidarDetectionDistance() > 5.0 && m_hasAntiCollision == true)
     {
         if(leftY < -0.1 || rightY < -0.1)
         {
             SetMotorL(leftY);
             SetMotorR(rightY);
         }
-        else if (GetDetectionDistance() < m_collisionBuffer)
+        else if (GetLidarDetectionDistance() < m_collisionBuffer)
         {
             if(leftY < -0.1 || rightY < -0.1)
             {
@@ -62,6 +62,22 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
     {
         SetMotorL(leftY);
         SetMotorR(rightY);
+    }
+    if(GetDistanceSensorDetectionDistance() != NULL && m_hasAntiCollision == true)
+    {
+        if(GetDistanceSensorDetectionDistance() < m_collisionBuffer)
+        {
+        if(leftY > 0.1 && rightY < -0.1)
+        {
+            SetMotorL(leftY);
+            SetMotorR(rightY);
+        }
+        else
+        {
+            SetMotorL(0.0);
+            SetMotorR(0.0);
+        }
+        }
     }
     
 }

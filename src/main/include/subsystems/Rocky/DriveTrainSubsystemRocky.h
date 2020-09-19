@@ -28,7 +28,7 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
   void ResetEncoder() override;
   void Periodic() override;
   void DetectionSoftware(double detectionDistance) override;
-  double GetDetectionDistance() override;
+  double GetLidarDetectionDistance() override;
   void PrecisionMovementLidar(double wantedDistance) override;
   double GetPulsesPerRevolution() override {return PULSE_PER_REVOLUTION;}
   void EnableAnticollision(bool enable) override;

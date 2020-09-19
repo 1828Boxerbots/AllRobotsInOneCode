@@ -9,26 +9,26 @@
 
 #include "DriverUtil/DistanceSensorSource.h"
 #include "Util.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
 class RevDistanceSensorDriver 
 {
  public:
   RevDistanceSensorDriver(Rev2mDistanceSensor::Port port = Rev2mDistanceSensor::Port::kOnboard,
-                          Rev2mDistanceSensor::DistanceUnit unit = Rev2mDistanceSensor::DistanceUnit::kInches,
+                          Rev2mDistanceSensor::DistanceUnit unit = Rev2mDistanceSensor::DistanceUnit::kMilliMeters,
                           Rev2mDistanceSensor::RangeProfile profile = Rev2mDistanceSensor::RangeProfile::kDefault);
 
   void Init(bool log = false);
   void DisableInit();
   void StartMeasuring();
-  void GetMeasurementData();
-  
+  double GetMeasurementData();
   double GetDistance();
   
   bool IsRangeValid();
-  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+  bool StatusIsFatal() {return m_pDistance->StatusIsFatal();}
 
   private:
-  Rev2mDistanceSensor *m_pDevice = nullptr;
+  Rev2mDistanceSensor *m_pDistance = nullptr;
 };
 
 // Finished 2/17/20. Untested

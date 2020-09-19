@@ -120,7 +120,7 @@ void DriveTrainSubsystemRocky::Periodic() {}
 
 
 //Gets Detection distance; used for debugging
-double DriveTrainSubsystemRocky::GetDetectionDistance()
+double DriveTrainSubsystemRocky::GetLidarDetectionDistance()
 {
   #ifndef NOHW
   double val = m_lidar.GetDistanceInInches();
@@ -136,8 +136,8 @@ double DriveTrainSubsystemRocky::GetDetectionDistance()
 void DriveTrainSubsystemRocky::DetectionSoftware(double detectionDistance)
 {
   #ifndef NOHW
-    frc::SmartDashboard::PutNumber("Lidar Distance", GetDetectionDistance());
-    double currentDetection = GetDetectionDistance();
+    frc::SmartDashboard::PutNumber("Lidar Distance", GetLidarDetectionDistance());
+    double currentDetection = GetLidarDetectionDistance();
     frc::SmartDashboard::PutBoolean("DistanceDetection", false);
         if(currentDetection < detectionDistance)
         {

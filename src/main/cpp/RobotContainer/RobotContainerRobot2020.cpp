@@ -20,6 +20,9 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   m_pSpin = new SpinSubsystemRobot2020;
   m_pShooter = new ShooterSubsystemRobot2020;
   m_pArm = new ArmSubsystemRobot2020;
+
+  //Sensors
+  m_pDistance = new RevDistanceSensorDriver(Rev2mDistanceSensor::Port::kOnboard, Rev2mDistanceSensor::DistanceUnit::kMilliMeters, Rev2mDistanceSensor::RangeProfile::kDefault);
   //m_pCamera = new CameraSubsystemBase(m_pDrive);
 
   m_pShootLoad = new ShootLoadCommand(m_pLoader, m_pShooter, m_encoderSpeedWanted, m_motorSpeed);
@@ -115,6 +118,8 @@ void RobotContainerRobot2020::Init()
   m_pLoader->Init();
   frc::SmartDashboard::PutBoolean("Is Enabled", true);
   m_pShooter->Init();
+  m_pDistance->Init(true);
+
 }
 
 
@@ -123,6 +128,7 @@ void RobotContainerRobot2020::DisableInit()
   if(m_pLoader != nullptr) m_pLoader->SetLoadMotor(0.0);
   m_pShooter->Init();
   frc::SmartDashboard::PutBoolean("Is Enabled", false);
+  m_pDistance->DisableInit();
 }
 
 
@@ -247,6 +253,10 @@ void RobotContainerRobot2020::SetBackButton()
   backButttonTwo.WhenReleased(&m_armStop);
 }
 
+void RobotContainerRobot2020::AutonomousPeriodic()
+{
+  m_pDistance->GetDistance();
+}
 
 // Working as of 2/19/2020
 

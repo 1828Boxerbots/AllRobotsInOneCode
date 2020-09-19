@@ -46,6 +46,7 @@ class RobotContainerBase {
   virtual void DisableInit() = 0;
 
   virtual void TeleopPeriodic() {}
+  virtual void AutonomousPeriodic() {}
 
   
   std::string ReadFMS() {return frc::DriverStation::GetInstance().GetGameSpecificMessage();}

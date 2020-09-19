@@ -10,34 +10,36 @@
 
 RevDistanceSensorDriver::RevDistanceSensorDriver(Rev2mDistanceSensor::Port port, Rev2mDistanceSensor::DistanceUnit unit, Rev2mDistanceSensor::RangeProfile profile) 
 {
-  m_pDevice = new Rev2mDistanceSensor(port, unit, profile);   
+  m_pDistance = new Rev2mDistanceSensor(port, unit, profile);   
 }
 
 
 void RevDistanceSensorDriver::Init(bool log) 
 {
   if (log) {Util::Log("Distance Sensor Initialized?", true, "RevdistanceSensorDriver");}
-  m_pDevice->SetAutomaticMode(true);
-  m_pDevice->SetEnabled(true);
+  m_pDistance->SetAutomaticMode(true);
+  m_pDistance->SetEnabled(true);
 }
 
 
 void RevDistanceSensorDriver::DisableInit() 
 {
-  m_pDevice->SetAutomaticMode(false);
-  m_pDevice->SetEnabled(false);
+  m_pDistance->SetAutomaticMode(false);
+  m_pDistance->SetEnabled(false);
 }
 
 
 double RevDistanceSensorDriver::GetDistance() 
 {
-  bool isValid = m_pDevice->IsRangeValid();
+  bool isValid = m_pDistance->IsRangeValid();
   if(isValid) 
   {
+     //For debugging and checking
+     frc::SmartDashboard::PutNumber("DistanceSens Range", m_pDistance->GetRange());
+     frc::SmartDashboard::PutNumber("DistanceSens Timestamp", m_pDistance->GetTimestamp());
      //The current measured range is returned from GetRange(). By default
-     // this range is returned in inches.
-     return (double)m_pDevice->GetRange();
-     //frc::SmartDashboard::PutNumber("Timestamp", m_distSensor.GetTimestamp());
+     // this range is returned in inches. I switched it from inches to millimeters for preference -Zach
+     return (double)m_pDistance->GetRange();
   }
   else 
   {
@@ -49,19 +51,20 @@ double RevDistanceSensorDriver::GetDistance()
 
 bool RevDistanceSensorDriver::IsRangeValid()
 {
-  return m_pDevice->IsRangeValid();
+  frc::SmartDashboard::PutBoolean("DistanceSens RangeValid?", m_pDistance->IsRangeValid());
+  return m_pDistance->IsRangeValid();
 }
 
 
 void RevDistanceSensorDriver::StartMeasuring()
 {
-  m_pDevice->StartMeasurement();
+  m_pDistance->StartMeasurement();
 }
 
 
-void RevDistanceSensorDriver::GetMeasurementData()
+double RevDistanceSensorDriver::GetMeasurementData()
 {
-  return m_pDevice->GetMeasurementData();
+  return m_pDistance->GetRangeMM();
 }
 
 

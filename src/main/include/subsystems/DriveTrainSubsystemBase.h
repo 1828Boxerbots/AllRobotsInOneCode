@@ -47,7 +47,8 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual void ForwardInSeconds(double goalTime);
   virtual void TurnInDegrees(double relativeAngle);
   virtual void DetectionSoftware(double detectionDistance) {}
-  virtual double GetDetectionDistance() {return 0.0;}
+  virtual double GetLidarDetectionDistance() {return 0.0;}
+  virtual double GetDistanceSensorDetectionDistance() {return 0.0;}
   virtual void PrecisionMovementLidar(double wantedDistance) {}
 
   virtual void EnableAnticollision(bool enable = true) { m_hasAntiCollision = enable; }

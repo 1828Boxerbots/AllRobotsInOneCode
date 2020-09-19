@@ -103,7 +103,7 @@ constexpr int PWM_ARMSERVO_LIPALOOP   = 0;
 constexpr int PWM_WRISTSERVO_LIPALOOP = 1;
 constexpr int PWM_HANDSERVO_LIPALOOP  = 2;
 
-//2020 Robot
+//C418 (Robot 2020)
 constexpr int PWM_RIGHTMOTOR_ROBOT2020          = 0;
 constexpr int PWM_LEFTMOTOR_ROBOT2020           = 1;
 constexpr int PWM_SHOOTMOTOR_ROBOT2020          = 3;

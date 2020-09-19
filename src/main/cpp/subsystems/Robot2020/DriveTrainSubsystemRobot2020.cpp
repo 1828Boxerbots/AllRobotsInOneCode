@@ -126,9 +126,22 @@ void DriveTrainSubsystemRobot2020::GyroInit()
   m_imu.IMUGyroInit(true);
   #endif
 }
+double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistance()
+{
+  #ifndef NOHW
+  if(m_hasAntiCollision == false)
+  {
+    return 1;
+  }
+  double val = m_Distance.GetMeasurementData();
+  frc::SmartDashboard::PutNumber("DriveTrain Distance", val);
+  return val;
+  #else
+  return 1;
+  #endif
+}
 
-
-double DriveTrainSubsystemRobot2020::GetDetectionDistance()
+double DriveTrainSubsystemRobot2020::GetLidarDetectionDistance()
 {
   #ifndef NOHW
   if(m_hasAntiCollision == false)
@@ -148,13 +161,19 @@ double DriveTrainSubsystemRobot2020::GetDetectionDistance()
 void DriveTrainSubsystemRobot2020::DetectionSoftware(double detectionDistance)
 {
   #ifndef NOHW
-  frc::SmartDashboard::PutNumber("Lidar Distance", GetDetectionDistance());
-  double currentDetection = GetDetectionDistance();
+  frc::SmartDashboard::PutNumber("Lidar Distance", GetLidarDetectionDistance());
+  double currentDetection = GetLidarDetectionDistance();
   frc::SmartDashboard::PutBoolean("DistanceDetection", false);
+  frc::SmartDashboard::PutBoolean("DistanceSensor DistanceDetection", false);
     if(currentDetection < detectionDistance)
     {
         frc::SmartDashboard::PutBoolean("DistanceDetection", true);
         //Stop();
+    }
+    currentDetection = GetDistanceSensorDetectionDistance();
+    if(currentDetection < detectionDistance)
+    {
+      frc::SmartDashboard::PutBoolean("DistanceSensor DistanceDetection", true);
     }
     #endif
 }
@@ -191,7 +210,7 @@ void DriveTrainSubsystemRobot2020::EnableAnticollision(bool enable)
 /*
 Detection code ripped from Rocky code for Robot 2020
 //Gets Detection distance; used for debugging
-double DriveTrainSubsystemRocky::GetDetectionDistance()
+double DriveTrainSubsystemRocky::GetLidarDetectionDistance()
 {
   double val = m_lidar.GetDistanceInInches();
    frc::SmartDashboard::PutNumber("DriveTrain Lidar", val);
@@ -202,8 +221,8 @@ double DriveTrainSubsystemRocky::GetDetectionDistance()
 //Makes is so that the robot doesn't run into things head on
 void DriveTrainSubsystemRocky::DetectionSoftware(double detectionDistance)
 {
-    frc::SmartDashboard::PutNumber("Lidar Distance", GetDetectionDistance());
-    double currentDetection = GetDetectionDistance();
+    frc::SmartDashboard::PutNumber("Lidar Distance", GetLidarDetectionDistance());
+    double currentDetection = GetLidarDetectionDistance();
     frc::SmartDashboard::PutBoolean("DistanceDetection", false);
         if(currentDetection < detectionDistance)
         {

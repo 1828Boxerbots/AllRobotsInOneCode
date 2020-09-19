@@ -26,7 +26,7 @@ void MoveToDistanceCommand::Execute()
 {
   double lowTolerance = m_targetDistance - m_toleranceValue;
   double highTolerance = m_targetDistance + m_toleranceValue;
-  double currentDistance = m_pDrive->GetDetectionDistance();
+  double currentDistance = m_pDrive->GetLidarDetectionDistance();
   while (currentDistance < lowTolerance || currentDistance > highTolerance)
   {
     if(currentDistance < lowTolerance)
@@ -37,7 +37,7 @@ void MoveToDistanceCommand::Execute()
     {
       m_pDrive->MoveTank(1.0, 1.0);
     }
-    currentDistance = m_pDrive->GetDetectionDistance();
+    currentDistance = m_pDrive->GetLidarDetectionDistance();
   }
 
   m_pDrive->Stop();
