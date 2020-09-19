@@ -29,7 +29,7 @@ class LoaderSubsystemBase : public frc2::SubsystemBase {
   virtual void Init() {}
   virtual bool GetPhotogate() {return false;}
   virtual void LoadToPhoto(double speed = 1.0, int motorNumber = -1) {}
-  virtual bool IsLoaded() {}
+  virtual bool IsLoaded() {return false;}
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.

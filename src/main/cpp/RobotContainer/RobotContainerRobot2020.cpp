@@ -29,6 +29,8 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   m_pSpinToColor = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseSpinToColor, m_speed, 0, ArmSubsystemBase::ArmPositions::INVALID_POS);
   m_pSpinMotorOpp = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseSpinMotor, -m_speed, 0, ArmSubsystemBase::ArmPositions::INVALID_POS);
   m_pSpinStop = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseSpinStop, m_speed, 0, ArmSubsystemBase::ArmPositions::INVALID_POS);
+  m_pArmDown = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseArm, 0, 0, ArmSubsystemBase::ArmPositions::LOWEST_POS);
+  m_pArmUp = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseArm, 0, 0, ArmSubsystemBase::ArmPositions::HIGHEST_POS);
 
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -131,7 +133,8 @@ void RobotContainerRobot2020::SetButtonA()
   buttonAOne.WhenReleased(&m_loaderFeedStop);
   
   frc2::Button buttonATwo{[this] {return m_controller2.GetAButton();}};
-  buttonATwo.WhenPressed(&m_armPosition_High);  
+  //buttonATwo.WhenPressed(&m_armPosition_High);  
+  buttonATwo.WhenPressed(m_pArmDown);
 
   //buttonATwo.WhenHeld(&m_armPosition_High);  
   //buttonATwo.WhenReleased(&m_armPosition_Stop);
@@ -145,7 +148,8 @@ void RobotContainerRobot2020::SetButtonB()
   buttonBOne.WhenReleased(&m_loaderAllStop);
   
   frc2::Button buttonBTwo{[this] {return m_controller2.GetBButton();}};
-  buttonBTwo.WhenPressed(&m_armPosition_Low);  
+  //buttonBTwo.WhenPressed(&m_armPosition_Low);  
+  buttonBTwo.WhenPressed(m_pArmUp);  
 
   //buttonBTwo.WhenHeld(&m_armPosition_Low);  
   //buttonBTwo.WhenReleased(&m_armPosition_Stop);

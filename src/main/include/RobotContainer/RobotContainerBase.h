@@ -20,7 +20,7 @@
 #include "subsystems/DriveTrainSubsystemBase.h"
 #include "subsystems/LoaderSubsystemBase.h"
 #include "subsystems/ShooterSubsystemBase.h"
-//#include "subsystems/CameraSubsystemBase.h"
+#include "subsystems/CameraSubsystemBase.h"
 #include "subsystems/ArmSubsystemBase.h"
 #include "subsystems/SpinSubsystemBase.h"
 
