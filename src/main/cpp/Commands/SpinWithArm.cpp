@@ -8,7 +8,7 @@
 #include "Commands/SpinWithArm.h"
 
 SpinWithArm::SpinWithArm(ArmSubsystemBase *pArm, SpinSubsystemBase *pSpinner, enum SpinSelector selector, double speed,
-int wantedRotation)
+int wantedRotation, ArmSubsystemBase::ArmPositions armPos)
 {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pArm = pArm;
@@ -18,6 +18,7 @@ int wantedRotation)
   m_speed = speed;
   m_selector = selector;
   m_wantedRotation = wantedRotation;
+  m_armPos = armPos;
 }
 
 // Called when the command is initially scheduled.
@@ -27,6 +28,40 @@ void SpinWithArm::Initialize() {}
 void SpinWithArm::Execute() 
 {
   Util::Log("SpinWithArm Selection", m_selector);
+
+  //The spinner can stop at anytime it doesnt need to be at the top
+  if(m_selector == UseSpinStop)
+  {
+    m_pSpinner->SetSpinMotor(0);
+    Util::Log("SpinWithArm", 0);
+  }
+
+//------------------------------------------------------------
+//Changing Arm Pos
+  if(m_selector == UseArm)
+  {
+    m_pSpinner->SetSpinMotor(0);
+    switch (m_armPos)
+    {
+    case ArmSubsystemBase::ArmPositions::HIGHEST_POS:
+      /*LowestPos = 0 
+        HighestPos = 1*/  
+      m_pArm->SetPosition(1);
+      Util::Log("SpinArmPos", 1);
+      break;
+    case ArmSubsystemBase::ArmPositions::LOWEST_POS:
+      m_pArm->SetPosition(0);
+      Util::Log("SpinArmPos", 0);
+      break;
+
+    default:
+      Util::Log("SpinArmPos", 666);
+      break;
+    }
+  }
+  //------------------------------------------------------
+
+  //Spinner Stuff
 
   //Checks if we are in the up arm position
   if(m_pArm->GetPosition() == 1)

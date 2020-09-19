@@ -80,6 +80,10 @@ int ArmSubsystemRobot2020::GetPosition()
     return INVALID_POS;
 }
 
+/*
+LowestPos = 0 
+HighestPos = 1
+*/
 void ArmSubsystemRobot2020::SetPosition(int pos)
 {
     #ifndef NOHW

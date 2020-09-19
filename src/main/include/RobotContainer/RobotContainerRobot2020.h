@@ -60,6 +60,7 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   SpinWithArm* m_pSpinWithColor = nullptr;
   SpinWithArm* m_pSpinToColor = nullptr;
   SpinWithArm* m_pSpinMotorOpp = nullptr;
+  SpinWithArm* m_pSpinStop = nullptr;
   double m_speed = 1.0;
   int m_wantedRotation = 7;
   // The robot's subsystems and commands are defined here...

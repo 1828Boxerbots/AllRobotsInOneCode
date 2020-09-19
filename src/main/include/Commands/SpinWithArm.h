@@ -24,10 +24,11 @@ class SpinWithArm
  public:
   enum SpinSelector
   {
-    UseSpinMotor, UseSpinWithColor, UseSpinToColor
+    UseSpinMotor, UseSpinWithColor, UseSpinToColor, UseSpinStop, UseArm
   };
 
-  SpinWithArm(ArmSubsystemBase *pArm, SpinSubsystemBase *pSpinner, enum SpinSelector selector, double speed, int wantedRotation);
+  SpinWithArm(ArmSubsystemBase *pArm, SpinSubsystemBase *pSpinner, enum SpinSelector selector, double speed, int wantedRotation, 
+  ArmSubsystemBase::ArmPositions armPos);
 
   void Initialize() override;
 
@@ -41,6 +42,7 @@ private:
   SpinSubsystemBase *m_pSpinner = nullptr;
   ArmSubsystemBase *m_pArm = nullptr;
   enum SpinSelector m_selector;
+  ArmSubsystemBase::ArmPositions m_armPos;
   double m_speed;
   int m_wantedRotation;
   bool m_isFinished;
