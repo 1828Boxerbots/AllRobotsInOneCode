@@ -255,6 +255,7 @@ void RobotContainerRobot2020::SetBackButton()
 
 void RobotContainerRobot2020::AutonomousPeriodic()
 {
+  //always getting distance from distance sensor. Change later so that they are only getting data when turning
   m_pDistance->GetDistance();
 }
 

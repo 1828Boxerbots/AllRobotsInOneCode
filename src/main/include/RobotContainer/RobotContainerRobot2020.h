@@ -62,14 +62,13 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   SpinWithArm* m_pSpinWithColor = nullptr;
   SpinWithArm* m_pSpinToColor = nullptr;
   SpinWithArm* m_pSpinMotorOpp = nullptr;
-<<<<<<< Updated upstream
   SpinWithArm* m_pSpinStop = nullptr;
   SpinWithArm* m_pArmUp = nullptr;
   SpinWithArm* m_pArmDown = nullptr;
-=======
 
-  RevDistanceSensorDriver  *m_pDistance = nullptr;
->>>>>>> Stashed changes
+  // Pulling a pointer variable to access distance sensor driver
+  MuxDistanceSensorDriver  *m_pMuxDistance = nullptr;
+  RevDistanceSensorDriver* m_pDistance = nullptr;
   double m_speed = 1.0;
   int m_wantedRotation = 7;
   // The robot's subsystems and commands are defined here...

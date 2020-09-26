@@ -133,7 +133,7 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistance()
   {
     return 1;
   }
-  double val = m_Distance.GetMeasurementData();
+  double val = m_Distance.GetDistance();
   frc::SmartDashboard::PutNumber("DriveTrain Distance", val);
   return val;
   #else
