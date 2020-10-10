@@ -19,6 +19,7 @@
 #include "Drivers/ADIS16448_IMUDriver.h"
 #include "Drivers/MuxDrivers/MuxLidarDriver.h"
 #include "Drivers/MuxDrivers/MuxDistanceSensorDriver.h"
+#include "Drivers/RevDistanceSensorDriver.h"
 
 class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
  public:
@@ -63,7 +64,9 @@ class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
   ADIS16448_IMUDriver m_imu{};
   MuxLidarDriver m_lidar{I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_LIDAR_ROBOT2020, m_i2cBreakout, U8T_LINE_LIDAR_ROBOT2020};
   I2CMultiplexerDriver m_i2cBreakout{I2C_PORT_MULTIPLEXER_ROBOT2020};
-  MuxDistanceSensorDriver m_muxDistance{};
+
+  //MuxDistanceSensorDriver m_muxDistance{};  <- This requires a paramater.
+  RevDistanceSensorDriver m_muxDistance{};
 
   #endif
 

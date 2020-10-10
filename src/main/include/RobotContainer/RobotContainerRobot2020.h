@@ -18,6 +18,7 @@
 #include "../Commands/SpinWithArm.h"
 #include "subsystems/SpinSubsystemBase.h"
 #include "../include/Drivers/RevDistanceSensorDriver.h"
+#include "../Commands/AutoArmCommand.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -65,6 +66,10 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   SpinWithArm* m_pSpinStop = nullptr;
   SpinWithArm* m_pArmUp = nullptr;
   SpinWithArm* m_pArmDown = nullptr;
+
+//AutoArmCommands
+  AutoArmCommand* m_pAutoArmUp = nullptr;
+  AutoArmCommand* m_pAutoArmDown = nullptr;
 
   // Pulling a pointer variable to access distance sensor driver
   MuxDistanceSensorDriver  *m_pMuxDistance = nullptr;
