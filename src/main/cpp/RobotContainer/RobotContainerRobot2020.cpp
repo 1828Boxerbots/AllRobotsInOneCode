@@ -36,8 +36,8 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   m_pArmUp =         new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseArm, .6, 0, ArmSubsystemBase::ArmPositions::HIGHEST_POS);
 
   //AutoArm Commands
-  m_pAutoArmUp =     new AutoArmCommand(m_pArm, m_pSpin, .5, ArmSubsystemBase::ArmPositions::HIGHEST_POS);
-  m_pAutoArmDown =   new AutoArmCommand(m_pArm, m_pSpin, .5, ArmSubsystemBase::ArmPositions::LOWEST_POS);
+  m_pAutoArmUp =     new AutoArmCommand(m_pArm, m_pSpin, .5, 1/* ArmSubsystemBase::ArmPositions::HIGHEST_POS*/);
+  m_pAutoArmDown =   new AutoArmCommand(m_pArm, m_pSpin, .5, 2/*ArmSubsystemBase::ArmPositions::LOWEST_POS*/);
 
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -268,6 +268,8 @@ void RobotContainerRobot2020::AutonomousPeriodic()
 
 void RobotContainerRobot2020::TeleopPeriodic()
 {
+  m_pArm->GetPosition();
+
   std::string gameData;
   gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
   if(gameData.length() > 0)

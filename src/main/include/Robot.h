@@ -17,7 +17,6 @@
 #include "RobotContainer/RobotContainerRobot2020.h"
 #include "RobotContainer/RobotContainerLipALoop.h"
 
-
 class Robot : public frc::TimedRobot {
  public:
   void RobotInit() override;

@@ -22,7 +22,7 @@
 class AutoArmCommand
     : public frc2::CommandHelper<frc2::CommandBase, AutoArmCommand> {
  public:
-  AutoArmCommand(ArmSubsystemBase *pArm, SpinSubsystemBase *pSpin, double speed, ArmSubsystemBase::ArmPositions wantedPos);
+  AutoArmCommand(ArmSubsystemBase *pArm, SpinSubsystemBase *pSpin, double speed, /*ArmSubsystemBase::ArmPositions*/int wantedPos);
 
   void Initialize() override;
 
@@ -35,7 +35,12 @@ class AutoArmCommand
   private:
     ArmSubsystemBase *m_pArm;
     SpinSubsystemBase *m_pSpin;
-    ArmSubsystemBase::ArmPositions m_wantedPos;
+    //ArmSubsystemBase::ArmPositions m_wantedPos;
+    
+    int upNum = 0;
+    int downNum = 0;
+
+    int m_wantedPos;
     double m_speed;
     bool m_isFinished;
 };

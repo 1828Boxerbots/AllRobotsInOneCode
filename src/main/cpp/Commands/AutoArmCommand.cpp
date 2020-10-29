@@ -7,7 +7,7 @@
 
 #include "Commands/AutoArmCommand.h"
 
-AutoArmCommand::AutoArmCommand(ArmSubsystemBase *pArm, SpinSubsystemBase *pSpin, double speed, ArmSubsystemBase::ArmPositions wantedPos)
+AutoArmCommand::AutoArmCommand(ArmSubsystemBase *pArm, SpinSubsystemBase *pSpin, double speed, /*ArmSubsystemBase::ArmPositions*/int wantedPos)
 {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pArm = pArm;
@@ -26,35 +26,50 @@ void AutoArmCommand::Execute()
 {
   m_pSpin->SetSpinMotor(0);
 
+  Util::Log("Auto Arm Stuff", "1");
+
   switch (m_wantedPos)
   {
-  case ArmSubsystemBase::ArmPositions::HIGHEST_POS:
-    if(m_pArm->GetPosition() == ArmSubsystemBase::ArmPositions::HIGHEST_POS)
+  case 1/*ArmSubsystemBase::ArmPositions::HIGHEST_POS*/:
+    if(m_pArm->GetPosition() == 1/*ArmSubsystemBase::ArmPositions::HIGHEST_POS*/)
     {
-      m_pArm->LiftArmUp(0, 0);
+      m_pArm->StopMotor();
+      Util::Log("Auto Arm Stuff", "Up Over");
+      break;
     }
     else
     {
-      m_pArm->LiftArmUp(m_speed, m_speed);
+      m_pArm->SetMotor(m_speed);
+      char str[200];
+      sprintf(str, "Up Going %d", upNum);
+      Util::Log("Auto Arm Stuff", str);
+      upNum++;
+      break;
     }
-    
     m_isFinished = true;
     break;
-  case ArmSubsystemBase::ArmPositions::LOWEST_POS:
-    if(m_pArm->GetPosition() == ArmSubsystemBase::ArmPositions::LOWEST_POS)
+  case 2/*ArmSubsystemBase::ArmPositions::LOWEST_POS*/:
+    if(m_pArm->GetPosition() == 0/*ArmSubsystemBase::ArmPositions::LOWEST_POS*/)
     {
-      m_pArm->LiftArmDown(0, 0);
+      m_pArm->StopMotor();
+      Util::Log("Auto Arm Stuff", "Down Over");
+      break;
     }
     else
     {
-      m_pArm->LiftArmDown(m_speed, m_speed);
+      m_pArm->SetMotor(-m_speed);
+      char str[200];
+      sprintf(str, "Down Going %d", downNum);
+      Util::Log("Auto Arm Stuff", str);
+      downNum++;
+      break;
     }
-    
     m_isFinished = true;
     break;
   
   default:
-    m_pArm->LiftArmDown(0, 0);
+    m_pArm->StopMotor();
+    Util::Log("Auto Arm Stuff", "Failure");
     break;
   }
 }
