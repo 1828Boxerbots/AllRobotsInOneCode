@@ -172,6 +172,8 @@ double DriveTrainSubsystemRobot2020::GetLidarDetectionDistance()
 
 
 //Makes is so that the robot doesn't run into things head on
+/*
+//Don't really know what this code is doing, but considering that stop is commented out, it might be the first iteration of detection software. Meat of code found in Drive base cpp
 void DriveTrainSubsystemRobot2020::DetectionSoftware(double detectionDistance)
 {
   #ifndef NOHW
@@ -189,8 +191,10 @@ void DriveTrainSubsystemRobot2020::DetectionSoftware(double detectionDistance)
     {
       frc::SmartDashboard::PutBoolean("DistanceSensor DistanceDetection", true);
     }
+    
     #endif
 }
+*/
 
 
 //Sets up dead zone in lidar
@@ -213,10 +217,9 @@ void DriveTrainSubsystemRobot2020::PrecisionMovementLidar(double wantedDistance)
   }
   #endif
 }
-
+//Used to disable and enable anticollision
 void DriveTrainSubsystemRobot2020::EnableAnticollision(bool enable)
 {
-  //enable = true;
   Util::Log("EAB", m_beat++, "DriveTrain2020");
   Util::Log("enabled?", enable, "DriveTrain2020");
   m_hasAntiCollision = enable; 

@@ -35,14 +35,14 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
     //implemented soley for lidar, will change later for distance sensors
     if (GetLidarDetectionDistance() > MINIMUMDISTANCE && m_hasAntiCollision == true)
     {
-        //If going reverse, since sensor is generally on front, keep going reverse
+        //If turning, since sensor is generally on front, keep turning
         if(leftY < -0.1 || rightY < -0.1)
         {
             SetMotorL(leftY);
             SetMotorR(rightY);
         }
-        //Again, if going reverse,but object is within collision range, still go reverse, but if not going reverse, then set motors to stop
-        else if (GetLidarDetectionDistance() < m_collisionBuffer)
+        //Again, if turning,but object is within collision range, still turn, but if not turning, then set motors to stop
+        else if (GetLidarDetectionDistance() < m_lidarCollisionDistance)
         {
             if(leftY < -0.1 || rightY < -0.1)
             {
@@ -70,13 +70,32 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
         SetMotorR(rightY);
     }
     //This is for distance sensor implementation, if distance sensor doesn't pick up anything, then go on with code
-    /*if(GetLidarDetectionDistance() != NULL && m_hasAntiCollision == true)
+    if(GetDistanceSensorDetectionDistanceLeft() != NULL && m_hasAntiCollision == true)
     {
         //Distance less than collision range
-        if(GetLidarDetectionDistance() < m_collisionBuffer)
+        if(GetDistanceSensorDetectionDistanceLeft() < m_distanceCollisionDistanceLeft)
         {
-        //If going reverse, continue going reverse
-        if(leftY > 0.1 && rightY < -0.1)
+        //If turning right,forward, or reverse, continue moving
+        if(leftY > 0.1 && rightY < -0.1 || leftY > 0.1 && rightY > 0.1 || leftY < -0.1 && rightY < -0.1)
+        {
+            SetMotorL(leftY);
+            SetMotorR(rightY);
+        }
+        //If not turning, set motors to 0
+        else
+        {
+            SetMotorL(0.0);
+            SetMotorR(0.0);
+        }
+        }
+    }
+    if(GetDistanceSensorDetectionDistanceRight() != NULL && m_hasAntiCollision == true)
+    {
+        //Distance less than collision range
+        if(GetDistanceSensorDetectionDistanceRight() < m_distanceCollisionDistanceRight)
+        {
+        //If turning left,moving forward, or reversing, continue moving
+        if(leftY < -0.1 && rightY > 0.1 || leftY > 0.1 && rightY > 0.1 || leftY < -0.1 && rightY < -0.1)
         {
             SetMotorL(leftY);
             SetMotorR(rightY);
@@ -89,7 +108,8 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
         }
         }
     }
-    */
+    
+    
     
 }
 

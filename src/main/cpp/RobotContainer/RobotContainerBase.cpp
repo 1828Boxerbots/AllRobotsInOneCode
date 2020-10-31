@@ -21,6 +21,7 @@ void RobotContainerBase::SetCamerastream()
 
 void RobotContainerBase::SetDrive(DriveStyles driveStyle)
 {
+    //Sets anticollision on or off for teleop, kinda experimental, not really made for games, mainly just for autonomous
     m_pDrive->EnableAnticollision(false);
     switch (driveStyle)
     {

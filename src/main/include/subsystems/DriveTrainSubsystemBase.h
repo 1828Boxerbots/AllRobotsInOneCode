@@ -85,5 +85,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   // variables used for detection software stuff
   const double MINIMUMDISTANCE = 5.0;
   bool m_hasAntiCollision = true;
-  double m_collisionBuffer = 70.0;
+  double m_lidarCollisionDistance = 70.0;
+  double m_distanceCollisionDistanceLeft;
+  double m_distanceCollisionDistanceRight;
 };
