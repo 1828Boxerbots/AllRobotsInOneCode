@@ -46,7 +46,7 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual void ResetEncoder() {}
   virtual void ForwardInSeconds(double goalTime);
   virtual void TurnInDegrees(double relativeAngle);
-  virtual void DetectionSoftware(double detectionDistance) {}
+  //virtual void DetectionSoftware(double detectionDistance) {}
   virtual double GetLidarDetectionDistance() {return 0.0;}
   virtual double GetDistanceSensorDetectionDistanceLeft() {return 0.0;}
   virtual double GetDistanceSensorDetectionDistanceRight() {return 0.0;}

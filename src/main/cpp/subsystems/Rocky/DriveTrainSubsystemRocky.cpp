@@ -133,6 +133,7 @@ double DriveTrainSubsystemRocky::GetLidarDetectionDistance()
 
 
 //Makes is so that the robot doesn't run into things head on
+/*
 void DriveTrainSubsystemRocky::DetectionSoftware(double detectionDistance)
 {
   #ifndef NOHW
@@ -146,6 +147,7 @@ void DriveTrainSubsystemRocky::DetectionSoftware(double detectionDistance)
         }
   #endif
 }
+*/
 
 
 //Sets up dead zone in lidar
