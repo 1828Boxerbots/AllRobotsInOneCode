@@ -36,53 +36,12 @@ void SpinWithArm::Execute()
     Util::Log("SpinWithArm", 0);
   }
 
- //------------------------------------------------------------
- //Changing Arm Pos
-  if(m_selector == UseArm)
-  {
-    m_pSpinner->SetSpinMotor(0);
-    switch (m_armPos)
-    {
-    case ArmSubsystemBase::ArmPositions::HIGHEST_POS:
-      /*LowestPos = 0 
-        HighestPos = 1*/  
-      //m_pArm->SetPosition(1);
-      Util::Log("SpinArmPos", 1);
-
-      if(m_pArm->GetPosition() != 1)
-      {
-        m_pArm->LiftArmUp(m_speed, m_speed);
-        m_isFinished = true;
-      }
-
-      m_pArm->LiftArmUp(0,0);
-      break;
-    case ArmSubsystemBase::ArmPositions::LOWEST_POS:
-      //m_pArm->SetPosition(0);
-      
-      if(m_pArm->GetPosition() == 0)
-      {
-        m_pArm->LiftArmDown(0, 0);
-        m_isFinished = true;
-      }
-
-      m_pArm->LiftArmDown(m_speed, m_speed);
-
-      Util::Log("SpinArmPos", 0);
-      m_isFinished = true;
-      break;
-
-    default:
-      Util::Log("SpinArmPos", 666);
-      break;
-    }
-  }
   //------------------------------------------------------
 
   //Spinner Stuff
 
   //Checks if we are in the up arm position
-  if(m_pArm->GetPosition() == 1)
+  if(m_pArm->GetPosition() == 0)
   {
     //if we are not do not do anything
     return;

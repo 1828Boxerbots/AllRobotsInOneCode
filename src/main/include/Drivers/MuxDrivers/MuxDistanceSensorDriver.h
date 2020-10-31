@@ -23,6 +23,7 @@ class MuxDistanceSensorDriver
 	bool IsRangeValid();
   double GetDistance();
 	bool StatusIsFatal();
+  void Init(bool isOn = false);
 
   private:
    I2CMultiplexerDriver &m_breakout;

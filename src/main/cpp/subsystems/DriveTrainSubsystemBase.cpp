@@ -31,13 +31,17 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
     frc::SmartDashboard::PutNumber("Drive Left", leftY);
     frc::SmartDashboard::PutNumber("Drive Right", rightY);
 
-    if (GetLidarDetectionDistance() > 5.0 && m_hasAntiCollision == true)
+    //Lidar returns 0 if object is out of distance, minimum distance is to prevent an infinite loop 
+    //implemented soley for lidar, will change later for distance sensors
+    if (GetLidarDetectionDistance() > MINIMUMDISTANCE && m_hasAntiCollision == true)
     {
+        //If going reverse, since sensor is generally on front, keep going reverse
         if(leftY < -0.1 || rightY < -0.1)
         {
             SetMotorL(leftY);
             SetMotorR(rightY);
         }
+        //Again, if going reverse,but object is within collision range, still go reverse, but if not going reverse, then set motors to stop
         else if (GetLidarDetectionDistance() < m_collisionBuffer)
         {
             if(leftY < -0.1 || rightY < -0.1)
@@ -52,26 +56,32 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
             }
                 
         }   
+        // If object is not within collision range, just continue with driving
         else
         {
             SetMotorL(leftY);
             SetMotorR(rightY);
         }
     }
+    //If no object is within range of lidar's distance or anti collision isn't active, then just continue with driving
     else
     {
         SetMotorL(leftY);
         SetMotorR(rightY);
     }
-    if(GetDistanceSensorDetectionDistance() != NULL && m_hasAntiCollision == true)
+    //This is for distance sensor implementation, if distance sensor doesn't pick up anything, then go on with code
+    /*if(GetLidarDetectionDistance() != NULL && m_hasAntiCollision == true)
     {
-        if(GetDistanceSensorDetectionDistance() < m_collisionBuffer)
+        //Distance less than collision range
+        if(GetLidarDetectionDistance() < m_collisionBuffer)
         {
+        //If going reverse, continue going reverse
         if(leftY > 0.1 && rightY < -0.1)
         {
             SetMotorL(leftY);
             SetMotorR(rightY);
         }
+        //If not going reverse, set motors to 0
         else
         {
             SetMotorL(0.0);
@@ -79,6 +89,7 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
         }
         }
     }
+    */
     
 }
 
