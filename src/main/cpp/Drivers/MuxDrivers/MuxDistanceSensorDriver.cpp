@@ -52,6 +52,7 @@ bool MuxDistanceSensorDriver::StatusIsFatal()
 
 void MuxDistanceSensorDriver::Init(bool isOn)
 {
+    SetActive();
     if(isOn == true)
     {
         m_distanceSensor->Init(true);
