@@ -22,17 +22,18 @@ class I2CMultiplexerDriver
 
   bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
 
-  private:
+  std::string GetChannelName(uint8_t channel);
+  
+ private:
 
+  // This is the address of the multiplexer itself
   static const uint8_t breakoutAddress_base = 0x70;
+
+  // Which sensor are we currently reading from?
   uint8_t m_current_channel; 
   
+  // This is the I2C object of the multiplexer
   frc::I2C *m_pDevice = nullptr;
-
-  std::string GetChannelName(uint8_t channel);
-
-  uint8_t MIN_PORT = 1;
-  uint8_t MAX_PORT = 8;
 };
 
 // 2/14/20
