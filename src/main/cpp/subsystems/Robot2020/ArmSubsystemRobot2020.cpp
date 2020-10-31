@@ -68,15 +68,18 @@ void ArmSubsystemRobot2020::Lower(double speed)
 int ArmSubsystemRobot2020::GetPosition()
 {
     #ifndef NOHW
-    if(m_hallEffectLower.Get() == true)
+    if(!m_hallEffectLower.Get())
     {
+        Util::Log("Arm Position GetPosition()", "Lowest Position");
         return LOWEST_POS;
     }
-    if(m_hallEffectUpper.Get() == true)
+    if(!m_hallEffectUpper.Get())
     {
+        Util::Log("Arm Position GetPosition()", "Highest Position");
         return HIGHEST_POS;
     }
     #endif
+    Util::Log("Arm Position GetPosition()", "Invalid Position");
     return INVALID_POS;
 }
 

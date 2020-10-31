@@ -27,15 +27,19 @@ RobotContainerRobot2020::RobotContainerRobot2020()
 
   //m_pCamera = new CameraSubsystemBase(m_pDrive);
 
-  m_pShootLoad = new ShootLoadCommand(m_pLoader, m_pShooter, m_encoderSpeedWanted, m_motorSpeed);
+  m_pShootLoad =     new ShootLoadCommand(m_pLoader, m_pShooter, m_encoderSpeedWanted, m_motorSpeed);
   //SpinWithArm Commands
-  m_pSpinMotor = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseSpinMotor, m_speed, 0, ArmSubsystemBase::ArmPositions::INVALID_POS);
+  m_pSpinMotor =     new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseSpinMotor, m_speed, 0, ArmSubsystemBase::ArmPositions::INVALID_POS);
   m_pSpinWithColor = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseSpinWithColor, m_speed, m_wantedRotation, ArmSubsystemBase::ArmPositions::INVALID_POS);
-  m_pSpinToColor = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseSpinToColor, m_speed, 0, ArmSubsystemBase::ArmPositions::INVALID_POS);
-  m_pSpinMotorOpp = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseSpinMotor, -m_speed, 0, ArmSubsystemBase::ArmPositions::INVALID_POS);
-  m_pSpinStop = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseSpinStop, m_speed, 0, ArmSubsystemBase::ArmPositions::INVALID_POS);
-  m_pArmDown = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseArm, 0, 0, ArmSubsystemBase::ArmPositions::LOWEST_POS);
-  m_pArmUp = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseArm, 0, 0, ArmSubsystemBase::ArmPositions::HIGHEST_POS);
+  m_pSpinToColor =   new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseSpinToColor, m_speed, 0, ArmSubsystemBase::ArmPositions::INVALID_POS);
+  m_pSpinMotorOpp =  new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseSpinMotor, -m_speed, 0, ArmSubsystemBase::ArmPositions::INVALID_POS);
+  m_pSpinStop =      new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseSpinStop, m_speed, 0, ArmSubsystemBase::ArmPositions::INVALID_POS);
+  m_pArmDown =       new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseArm, .6, 0, ArmSubsystemBase::ArmPositions::LOWEST_POS);
+  m_pArmUp =         new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseArm, .6, 0, ArmSubsystemBase::ArmPositions::HIGHEST_POS);
+
+  //AutoArm Commands
+  m_pAutoArmUp =     new AutoArmCommand(m_pArm, m_pSpin, .5, 1/* ArmSubsystemBase::ArmPositions::HIGHEST_POS*/);
+  m_pAutoArmDown =   new AutoArmCommand(m_pArm, m_pSpin, .5, 2/*ArmSubsystemBase::ArmPositions::LOWEST_POS*/);
 
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -144,8 +148,8 @@ void RobotContainerRobot2020::SetButtonA()
   
   frc2::Button buttonATwo{[this] {return m_controller2.GetAButton();}};
   //buttonATwo.WhenPressed(&m_armPosition_High);  
-  buttonATwo.WhenPressed(m_pArmDown);
-
+  //buttonATwo.WhenPressed(m_pArmUp);
+  buttonATwo.WhenPressed(m_pAutoArmUp);
   //buttonATwo.WhenHeld(&m_armPosition_High);  
   //buttonATwo.WhenReleased(&m_armPosition_Stop);
 }
@@ -159,8 +163,8 @@ void RobotContainerRobot2020::SetButtonB()
   
   frc2::Button buttonBTwo{[this] {return m_controller2.GetBButton();}};
   //buttonBTwo.WhenPressed(&m_armPosition_Low);  
-  buttonBTwo.WhenPressed(m_pArmUp);  
-
+  //buttonBTwo.WhenPressed(m_pArmDown);  
+  buttonBTwo.WhenPressed(m_pAutoArmDown);
   //buttonBTwo.WhenHeld(&m_armPosition_Low);  
   //buttonBTwo.WhenReleased(&m_armPosition_Stop);
 }
@@ -269,6 +273,8 @@ void RobotContainerRobot2020::AutonomousPeriodic()
 
 void RobotContainerRobot2020::TeleopPeriodic()
 {
+  m_pArm->GetPosition();
+
   std::string gameData;
   gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
   if(gameData.length() > 0)

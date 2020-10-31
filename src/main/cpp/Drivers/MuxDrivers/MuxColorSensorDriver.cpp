@@ -7,7 +7,10 @@
 
 #include "Drivers/MuxDrivers/MuxColorSensorDriver.h"
 
-
+/**
+ * This is the constructor. This sets the channel of the Multiplexer to whatever you set breakoutchannel to. 
+ * It then creates an instance of the rev color sensor.
+ */
 MuxColorSensorDriver::MuxColorSensorDriver(frc::I2C::Port i2cPort, I2CMultiplexerDriver& breakout, uint8_t breakoutChannel):
     m_breakout(breakout),
     m_breakoutChannel(breakoutChannel)
@@ -33,6 +36,7 @@ void MuxColorSensorDriver::SetActive()
 
 SpinSubsystemBase::FMSColors MuxColorSensorDriver::GetColor()
 {
+    SetActive();
     frc::Color detectedColor = m_pColorSensor->GetColor();
 
     std::string message;
@@ -81,6 +85,8 @@ SpinSubsystemBase::FMSColors MuxColorSensorDriver::GetColor()
 
 std::string MuxColorSensorDriver::GetColorString()
 {
+    SetActive();
+
     std::string retval;
     SpinSubsystemBase::FMSColors temp = GetColor();
     switch (temp)
@@ -110,6 +116,7 @@ std::string MuxColorSensorDriver::GetColorString()
 
 bool MuxColorSensorDriver::IsRed(double R, double G, double B) 
 {
+    SetActive();
     if( R >= RED_LOW_R && R <= RED_HIGH_R)
     {
         if( G >= RED_LOW_G && G <= RED_HIGH_G)
@@ -137,6 +144,7 @@ bool MuxColorSensorDriver::IsRed(double R, double G, double B)
 
 bool MuxColorSensorDriver::IsGreen(double R, double G, double B) 
 {
+    SetActive();
     if( R >= GREEN_LOW_R && R <= GREEN_HIGH_R)
     {
         if( G >= GREEN_LOW_G && G <= GREEN_HIGH_G)
@@ -164,6 +172,7 @@ bool MuxColorSensorDriver::IsGreen(double R, double G, double B)
 
 bool MuxColorSensorDriver::IsBlue(double R, double G, double B) 
 {
+    SetActive();
     if( R >= BLUE_LOW_R && R <= BLUE_HIGH_R)
     {
         if( G >= BLUE_LOW_G && G <= BLUE_HIGH_G)
@@ -191,6 +200,7 @@ bool MuxColorSensorDriver::IsBlue(double R, double G, double B)
 
 bool MuxColorSensorDriver::IsYellow(double R, double G, double B) 
 {
+    SetActive();
     if( R >= YELLOW_LOW_R && R <= YELLOW_HIGH_R)
     {
         if( G >= YELLOW_LOW_G && G <= YELLOW_HIGH_G)
@@ -218,6 +228,7 @@ bool MuxColorSensorDriver::IsYellow(double R, double G, double B)
 
 void MuxColorSensorDriver::DetectTripleOverlap(bool isRed, bool isBlue, bool isGreen, bool isYellow, const char* fileLoc)
 {
+    SetActive();
     if(isRed && isYellow && isGreen)           {Util::SendErrorAndCode("Red, Yellow, and Green overlap", 107, fileLoc);}
     if(isRed && isYellow && isBlue)            {Util::SendErrorAndCode("Red, Yellow, and Blue overlap", 108, fileLoc);}
     if(isRed && isBlue && isGreen)             {Util::SendErrorAndCode("Red, Blue, and Green overlap", 109, fileLoc);}
@@ -228,6 +239,7 @@ void MuxColorSensorDriver::DetectTripleOverlap(bool isRed, bool isBlue, bool isG
 
 void MuxColorSensorDriver::DetectOverlap()
 {
+    SetActive();
     frc::Color detectedColor = m_pColorSensor->GetColor();
     
     const char* fileLoc = "ColorSensorDriver.cpp";
@@ -250,6 +262,7 @@ void MuxColorSensorDriver::DetectOverlap()
 
 void MuxColorSensorDriver::ReturnAllColors()
 {
+    SetActive();
     frc::Color detectedColor = m_pColorSensor->GetColor();
 
     Util::Log("Red", detectedColor.red,    "Color Sensor Driver");
