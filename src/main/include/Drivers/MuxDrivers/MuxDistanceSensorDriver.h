@@ -8,7 +8,7 @@
 #pragma once
 
 #include "../I2CMultiplexerDriver.h"
-#include "Drivers/RevDistanceSensorDriver.h"
+#include "../RevDistanceSensorDriver.h"
 
 class MuxDistanceSensorDriver 
 {
