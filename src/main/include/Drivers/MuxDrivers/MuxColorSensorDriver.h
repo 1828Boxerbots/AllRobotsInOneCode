@@ -31,11 +31,19 @@ class MuxColorSensorDriver
 
   private:
 
-  void DetectTripleOverlap(bool isRed, bool isBlue, bool isGreen, bool isYellow, const char* fileLoc);
+  void DetectTripleOverlap(bool isRed, bool isBlue, bool isGreen, bool isYellow);
 
+   // The multiplexer "object"
    I2CMultiplexerDriver &m_breakout;
+
+   // The channel that t?
 	 uint8_t m_breakoutChannel;
+
+   // 
    rev::ColorSensorV3* m_pColorSensor = nullptr;
+
+   // The file location, for telemetry purposes
+   const char* m_fileLoc = "ColorSensorDriver.cpp";
 };
 
 // Completed 3/3/2020 , untested

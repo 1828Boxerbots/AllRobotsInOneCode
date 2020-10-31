@@ -10,6 +10,10 @@
 /**
  * This is the constructor. This sets the channel of the Multiplexer to whatever you set breakoutchannel to. 
  * It then creates an instance of the rev color sensor.
+ * 
+ * i2cport is the address for the color sensor
+ * breakout is the multiplexer object
+ * breakoutChannel is the channel that we want the color sensor to be on (U8T_LINE color sensor in constants)
  */
 MuxColorSensorDriver::MuxColorSensorDriver(frc::I2C::Port i2cPort, I2CMultiplexerDriver& breakout, uint8_t breakoutChannel):
     m_breakout(breakout),
@@ -27,6 +31,8 @@ MuxColorSensorDriver::MuxColorSensorDriver(frc::I2C::Port i2cPort, I2CMultiplexe
  * 
  *  This is called in every function of the Color sensor so
  *  you do not need to do it manually.
+ * 
+ *  I will call it everywhere anyways just to be safe. It can't hurt.
  */
 void MuxColorSensorDriver::SetActive()
 {
@@ -34,6 +40,12 @@ void MuxColorSensorDriver::SetActive()
 }
 
 
+/**
+ *  Uses the color sensor to find the color. 
+ *  Returns an FMS Color.
+ * 
+ *  Also logs what it's seeing to the dashboard.
+ */
 SpinSubsystemBase::FMSColors MuxColorSensorDriver::GetColor()
 {
     SetActive();
@@ -83,6 +95,11 @@ SpinSubsystemBase::FMSColors MuxColorSensorDriver::GetColor()
 }
 
 
+/**
+ *  Returns a string that tells you which color the sensor is seeing.
+ * 
+ *  Useful for telemetry, or to see if there's an FMSColors error.
+ */
 std::string MuxColorSensorDriver::GetColorString()
 {
     SetActive();
@@ -108,12 +125,12 @@ std::string MuxColorSensorDriver::GetColorString()
             break;
         default:
             retval = (std::string)"ERROR";
-            break;
     }
     return retval;
 }
 
 
+// figures out if the color is red
 bool MuxColorSensorDriver::IsRed(double R, double G, double B) 
 {
     SetActive();
@@ -142,6 +159,7 @@ bool MuxColorSensorDriver::IsRed(double R, double G, double B)
 }
 
 
+// figures out if the color is green
 bool MuxColorSensorDriver::IsGreen(double R, double G, double B) 
 {
     SetActive();
@@ -170,6 +188,7 @@ bool MuxColorSensorDriver::IsGreen(double R, double G, double B)
 }
 
 
+// figures out if the color is blue
 bool MuxColorSensorDriver::IsBlue(double R, double G, double B) 
 {
     SetActive();
@@ -198,6 +217,7 @@ bool MuxColorSensorDriver::IsBlue(double R, double G, double B)
 }
 
 
+// figures out if the color is yellow
 bool MuxColorSensorDriver::IsYellow(double R, double G, double B) 
 {
     SetActive();
@@ -226,17 +246,29 @@ bool MuxColorSensorDriver::IsYellow(double R, double G, double B)
 }
 
 
-void MuxColorSensorDriver::DetectTripleOverlap(bool isRed, bool isBlue, bool isGreen, bool isYellow, const char* fileLoc)
+/** Will tell you if the detected color matches three or more set colors.
+ * 
+ *  When you see this, fix the bounds so that it can distinguish between the correct colors.
+ * 
+ *  This is already called in DetectOverlap, so you don't need to run this separately.
+ */ 
+void MuxColorSensorDriver::DetectTripleOverlap(bool isRed, bool isBlue, bool isGreen, bool isYellow)
 {
     SetActive();
-    if(isRed && isYellow && isGreen)           {Util::SendErrorAndCode("Red, Yellow, and Green overlap", 107, fileLoc);}
-    if(isRed && isYellow && isBlue)            {Util::SendErrorAndCode("Red, Yellow, and Blue overlap", 108, fileLoc);}
-    if(isRed && isBlue && isGreen)             {Util::SendErrorAndCode("Red, Blue, and Green overlap", 109, fileLoc);}
-    if(isBlue && isYellow && isGreen)          {Util::SendErrorAndCode("Blue, Yellow, and Green overlap", 110, fileLoc);}
-    if(isBlue && isYellow && isGreen && isRed) {Util::SendErrorAndCode("All colors overlap", 111, fileLoc);}
+    if(isRed && isYellow && isGreen)           {Util::SendErrorAndCode("Red, Yellow, and Green overlap", 107, m_fileLoc);}
+    if(isRed && isYellow && isBlue)            {Util::SendErrorAndCode("Red, Yellow, and Blue overlap", 108, m_fileLoc);}
+    if(isRed && isBlue && isGreen)             {Util::SendErrorAndCode("Red, Blue, and Green overlap", 109, m_fileLoc);}
+    if(isBlue && isYellow && isGreen)          {Util::SendErrorAndCode("Blue, Yellow, and Green overlap", 110, m_fileLoc);}
+    if(isBlue && isYellow && isGreen && isRed) {Util::SendErrorAndCode("All colors overlap", 111, m_fileLoc);}
 }
 
 
+/**
+ *  This detects overlaps in color and sends you an error.
+ * 
+ *  If you see an overlap error, check which colors the computer is confusing
+ *  and change their RGB bounds so that it can distinguish between them.
+ */
 void MuxColorSensorDriver::DetectOverlap()
 {
     SetActive();
@@ -249,14 +281,14 @@ void MuxColorSensorDriver::DetectOverlap()
     bool isBlue = IsBlue(detectedColor.red, detectedColor.green, detectedColor.blue);
     bool isYellow = IsYellow(detectedColor.red, detectedColor.green, detectedColor.blue);
 
-    DetectTripleOverlap(isRed, isBlue, isGreen, isYellow, fileLoc);
+    DetectTripleOverlap(isRed, isBlue, isGreen, isYellow);
 
-    if(isRed && isYellow)   {Util::SendErrorAndCode("Red overlaps with Yellow", 101, fileLoc);}
-    if(isRed && isGreen)    {Util::SendErrorAndCode("Red overlaps with Green", 102, fileLoc);}
-    if(isRed && isBlue)     {Util::SendErrorAndCode("Red overlaps with Blue", 103, fileLoc);}
-    if(isYellow && isGreen) {Util::SendErrorAndCode("Yellow overlaps with Green", 104, fileLoc);}
-    if(isYellow && isBlue)  {Util::SendErrorAndCode("Yellow overlaps with Blue", 105, fileLoc);}
-    if(isBlue && isGreen)   {Util::SendErrorAndCode("Blue overlaps with Green", 106, fileLoc);}
+    if(isRed && isYellow)   {Util::SendErrorAndCode("Red overlaps with Yellow", 101, m_fileLoc);}
+    if(isRed && isGreen)    {Util::SendErrorAndCode("Red overlaps with Green", 102, m_fileLoc);}
+    if(isRed && isBlue)     {Util::SendErrorAndCode("Red overlaps with Blue", 103, m_fileLoc);}
+    if(isYellow && isGreen) {Util::SendErrorAndCode("Yellow overlaps with Green", 104, m_fileLoc);}
+    if(isYellow && isBlue)  {Util::SendErrorAndCode("Yellow overlaps with Blue", 105, m_fileLoc);}
+    if(isBlue && isGreen)   {Util::SendErrorAndCode("Blue overlaps with Green", 106, m_fileLoc);}
 }
 
 

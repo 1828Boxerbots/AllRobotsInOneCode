@@ -38,6 +38,7 @@ class ADIS16448_IMUDriver
 
   private:
    
+  // The IMU sensor object
   frc::ADIS16448_IMU *m_pDevice = nullptr;
 };
 
