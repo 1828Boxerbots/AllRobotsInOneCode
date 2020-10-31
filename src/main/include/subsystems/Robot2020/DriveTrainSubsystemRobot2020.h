@@ -36,7 +36,8 @@ class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
   void GyroInit() override;
 
   double GetLidarDetectionDistance() override;
-  double GetDistanceSensorDetectionDistance() override;
+  double GetDistanceSensorDetectionDistanceLeft() override;
+  double GetDistanceSensorDetectionDistanceRight() override;
   void DetectionSoftware(double detectionDistance) override;
   void PrecisionMovementLidar(double wantedDistance) override;
   void EnableAnticollision(bool enable) override;
@@ -63,8 +64,8 @@ class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
   ADIS16448_IMUDriver m_imu{};
   MuxLidarDriver m_lidar{I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_LIDAR_ROBOT2020, m_i2cBreakout, U8T_LINE_LIDAR_ROBOT2020};
   I2CMultiplexerDriver m_i2cBreakout{I2C_PORT_MULTIPLEXER_ROBOT2020};
-  MuxDistanceSensorDriver m_muxDistance{};
-
+  MuxDistanceSensorDriver m_muxLeftDistance{(Rev2mDistanceSensor::Port)I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020, m_i2cBreakout, U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020};
+  MuxDistanceSensorDriver m_muxRightDistance{(Rev2mDistanceSensor::Port)I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020, m_i2cBreakout, U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020};
   #endif
 
   double speedLimit = 0.5;
