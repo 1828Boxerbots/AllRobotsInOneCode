@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <frc/TimedRobot.h>
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include "../include/subsystems/ArmSubsystemBase.h"
@@ -33,14 +34,21 @@ class AutoArmCommand
   bool IsFinished() override;
 
   private:
+    //Subsystem Variables
     ArmSubsystemBase *m_pArm;
     SpinSubsystemBase *m_pSpin;
-    //ArmSubsystemBase::ArmPositions m_wantedPos;
     
+    //Sim Variables
     int upNum = 0;
     int downNum = 0;
 
+    //Needed Variables
     int m_wantedPos;
     double m_speed;
-    bool m_isFinished;
+    bool m_isFinished = false;
+
+    //Timer STuff
+    frc::Timer m_timer;
+    double m_startTime = 0.0;
+
 };

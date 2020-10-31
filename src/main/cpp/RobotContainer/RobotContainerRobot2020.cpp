@@ -36,8 +36,8 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   m_pArmUp =         new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseArm, .6, 0, ArmSubsystemBase::ArmPositions::HIGHEST_POS);
 
   //AutoArm Commands
-  m_pAutoArmUp =     new AutoArmCommand(m_pArm, m_pSpin, .5, 1/* ArmSubsystemBase::ArmPositions::HIGHEST_POS*/);
-  m_pAutoArmDown =   new AutoArmCommand(m_pArm, m_pSpin, .5, 2/*ArmSubsystemBase::ArmPositions::LOWEST_POS*/);
+  m_pAutoArmUp =     new AutoArmCommand(m_pArm, m_pSpin, 0.4, 1 /*1=HIGHEST*/);
+  m_pAutoArmDown =   new AutoArmCommand(m_pArm, m_pSpin, 0.4, 2 /*2=LOWEST*/);
 
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -145,7 +145,8 @@ void RobotContainerRobot2020::SetButtonA()
   frc2::Button buttonATwo{[this] {return m_controller2.GetAButton();}};
   //buttonATwo.WhenPressed(&m_armPosition_High);  
   //buttonATwo.WhenPressed(m_pArmUp);
-  buttonATwo.WhenPressed(m_pAutoArmUp);
+  //buttonATwo.WhenPressed(m_pAutoArmUp);
+  buttonATwo.ToggleWhenPressed(m_pAutoArmUp);
   //buttonATwo.WhenHeld(&m_armPosition_High);  
   //buttonATwo.WhenReleased(&m_armPosition_Stop);
 }
@@ -160,7 +161,8 @@ void RobotContainerRobot2020::SetButtonB()
   frc2::Button buttonBTwo{[this] {return m_controller2.GetBButton();}};
   //buttonBTwo.WhenPressed(&m_armPosition_Low);  
   //buttonBTwo.WhenPressed(m_pArmDown);  
-  buttonBTwo.WhenPressed(m_pAutoArmDown);
+  //buttonBTwo.WhenPressed(m_pAutoArmDown);
+  buttonBTwo.ToggleWhenPressed(m_pAutoArmDown);
   //buttonBTwo.WhenHeld(&m_armPosition_Low);  
   //buttonBTwo.WhenReleased(&m_armPosition_Stop);
 }
@@ -270,6 +272,7 @@ void RobotContainerRobot2020::TeleopPeriodic()
 {
   m_pArm->GetPosition();
 
+  //Gives color from FMS
   std::string gameData;
   gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
   if(gameData.length() > 0)

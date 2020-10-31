@@ -24,18 +24,22 @@ void AutoArmCommand::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void AutoArmCommand::Execute() 
 {
+  //Timer
+  double time = m_timer.Get() - m_startTime;
+  Util::Log("Arm Timer", time);
+  m_startTime = m_timer.Get();
+
   m_pSpin->SetSpinMotor(0);
 
   Util::Log("Auto Arm Stuff", "1");
 
   switch (m_wantedPos)
   {
-  case 1/*ArmSubsystemBase::ArmPositions::HIGHEST_POS*/:
-    if(m_pArm->GetPosition() == 1/*ArmSubsystemBase::ArmPositions::HIGHEST_POS*/)
+  case 1:
+    if(m_pArm->GetPosition() == 1)
     {
       m_pArm->StopMotor();
       Util::Log("Auto Arm Stuff", "Up Over");
-      break;
     }
     else
     {
@@ -44,16 +48,14 @@ void AutoArmCommand::Execute()
       sprintf(str, "Up Going %d", upNum);
       Util::Log("Auto Arm Stuff", str);
       upNum++;
-      break;
     }
-    m_isFinished = true;
     break;
-  case 2/*ArmSubsystemBase::ArmPositions::LOWEST_POS*/:
-    if(m_pArm->GetPosition() == 0/*ArmSubsystemBase::ArmPositions::LOWEST_POS*/)
+
+  case 2:
+    if(m_pArm->GetPosition() == 0)
     {
       m_pArm->StopMotor();
       Util::Log("Auto Arm Stuff", "Down Over");
-      break;
     }
     else
     {
@@ -62,11 +64,9 @@ void AutoArmCommand::Execute()
       sprintf(str, "Down Going %d", downNum);
       Util::Log("Auto Arm Stuff", str);
       downNum++;
-      break;
     }
-    m_isFinished = true;
     break;
-  
+
   default:
     m_pArm->StopMotor();
     Util::Log("Auto Arm Stuff", "Failure");
