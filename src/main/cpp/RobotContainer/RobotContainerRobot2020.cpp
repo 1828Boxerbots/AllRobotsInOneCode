@@ -22,7 +22,9 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   m_pArm = new ArmSubsystemRobot2020;
 
   //Sensors
-  m_pDistance = new RevDistanceSensorDriver(Rev2mDistanceSensor::Port::kOnboard, Rev2mDistanceSensor::DistanceUnit::kMilliMeters, Rev2mDistanceSensor::RangeProfile::kDefault);
+  m_pMuxLeftDistance = new MuxDistanceSensorDriver((Rev2mDistanceSensor::Port)I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020, *m_pMultiplexerDriver, U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020);
+  m_pMuxRightDistance = new MuxDistanceSensorDriver((Rev2mDistanceSensor::Port)I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020, *m_pMultiplexerDriver, U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020);
+
   //m_pCamera = new CameraSubsystemBase(m_pDrive);
 
   m_pShootLoad =     new ShootLoadCommand(m_pLoader, m_pShooter, m_encoderSpeedWanted, m_motorSpeed);
@@ -122,7 +124,8 @@ void RobotContainerRobot2020::Init()
   m_pLoader->Init();
   frc::SmartDashboard::PutBoolean("Is Enabled", true);
   m_pShooter->Init();
-  m_pDistance->Init(true);
+  m_pMuxLeftDistance->Init(true);
+  m_pMuxRightDistance->Init(true);
 
 }
 
@@ -132,7 +135,8 @@ void RobotContainerRobot2020::DisableInit()
   if(m_pLoader != nullptr) m_pLoader->SetLoadMotor(0.0);
   m_pShooter->Init();
   frc::SmartDashboard::PutBoolean("Is Enabled", false);
-  m_pDistance->DisableInit();
+  m_pMuxLeftDistance->Init(false);
+  m_pMuxRightDistance->Init(false);
 }
 
 
@@ -262,7 +266,8 @@ void RobotContainerRobot2020::SetBackButton()
 void RobotContainerRobot2020::AutonomousPeriodic()
 {
   //always getting distance from distance sensor. Change later so that they are only getting data when turning
-  m_pDistance->GetDistance();
+  m_pMuxLeftDistance->GetDistance();
+  m_pMuxRightDistance->GetDistance();
 }
 
 // Working as of 2/19/2020

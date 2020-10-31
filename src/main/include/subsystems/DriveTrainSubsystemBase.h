@@ -48,7 +48,8 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual void TurnInDegrees(double relativeAngle);
   virtual void DetectionSoftware(double detectionDistance) {}
   virtual double GetLidarDetectionDistance() {return 0.0;}
-  virtual double GetDistanceSensorDetectionDistance() {return 0.0;}
+  virtual double GetDistanceSensorDetectionDistanceLeft() {return 0.0;}
+  virtual double GetDistanceSensorDetectionDistanceRight() {return 0.0;}
   virtual void PrecisionMovementLidar(double wantedDistance) {}
 
   virtual void EnableAnticollision(bool enable = true) { m_hasAntiCollision = enable; }
@@ -81,6 +82,8 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 
+  // variables used for detection software stuff
+  const double MINIMUMDISTANCE = 5.0;
   bool m_hasAntiCollision = true;
   double m_collisionBuffer = 70.0;
 };

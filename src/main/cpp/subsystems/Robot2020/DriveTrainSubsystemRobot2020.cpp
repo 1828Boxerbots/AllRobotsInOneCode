@@ -126,15 +126,29 @@ void DriveTrainSubsystemRobot2020::GyroInit()
   m_imu.IMUGyroInit(true);
   #endif
 }
-double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistance()
+double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
 {
   #ifndef NOHW
   if(m_hasAntiCollision == false)
   {
     return 1;
   }
-  double val = m_muxDistance.GetDistance();
-  frc::SmartDashboard::PutNumber("DriveTrain Distance", val);
+  double val = m_muxLeftDistance.GetDistance();
+  frc::SmartDashboard::PutNumber("DriveTrain Distance Left", val);
+  return val;
+  #else
+  return 1;
+  #endif
+}
+double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceRight()
+{
+  #ifndef NOHW
+  if(m_hasAntiCollision == false)
+  {
+    return 1;
+  }
+  double val = m_muxRightDistance.GetDistance();
+  frc::SmartDashboard::PutNumber("DriveTrain Distance Right", val);
   return val;
   #else
   return 1;
@@ -170,7 +184,7 @@ void DriveTrainSubsystemRobot2020::DetectionSoftware(double detectionDistance)
         frc::SmartDashboard::PutBoolean("DistanceDetection", true);
         //Stop();
     }
-    currentDetection = GetDistanceSensorDetectionDistance();
+    currentDetection = GetLidarDetectionDistance();
     if(currentDetection < detectionDistance)
     {
       frc::SmartDashboard::PutBoolean("DistanceSensor DistanceDetection", true);
