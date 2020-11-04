@@ -126,6 +126,8 @@ void DriveTrainSubsystemRobot2020::GyroInit()
   m_imu.IMUGyroInit(true);
   #endif
 }
+
+
 double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
 {
   #ifndef NOHW
@@ -140,6 +142,8 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
   return 1;
   #endif
 }
+
+
 double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceRight()
 {
   #ifndef NOHW
@@ -268,3 +272,4 @@ void DriveTrainSubsystemRocky::PrecisionMovementLidar(double wantedDistance)
   }
 }
 */
+

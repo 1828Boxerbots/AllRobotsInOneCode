@@ -173,7 +173,7 @@ constexpr double YELLOW_HIGH_B = 0.25;
 * All frc/I2C calls require that the ports be const rather than constexpr.
 * This is also true for SPI ports.
 */
-static constexpr auto I2C_PORT_MULTIPLEXER_ROBOT2020 = frc::I2C::Port::kOnboard;
+static const auto I2C_PORT_MULTIPLEXER_ROBOT2020 = frc::I2C::Port::kOnboard;
 
 // Positions of the sensors on the multiplexer
 constexpr uint8_t U8T_LINE_LIDAR_ROBOT2020               = 7;
