@@ -46,5 +46,4 @@ private:
   double m_speed;
   int m_wantedRotation;
   bool m_isFinished;
-
 };

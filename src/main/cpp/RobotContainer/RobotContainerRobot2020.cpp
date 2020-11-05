@@ -22,6 +22,7 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   m_pArm = new ArmSubsystemRobot2020;
 
   //Sensors
+  //Already defined in Drive Train
   //m_pMuxLeftDistance = new MuxDistanceSensorDriver((Rev2mDistanceSensor::Port)I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020, *m_pMultiplexerDriver, U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020);
   //m_pMuxRightDistance = new MuxDistanceSensorDriver((Rev2mDistanceSensor::Port)I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020, *m_pMultiplexerDriver, U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020);
 
