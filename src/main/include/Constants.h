@@ -176,10 +176,10 @@ constexpr double YELLOW_HIGH_B = 0.25;
 static const auto I2C_PORT_MULTIPLEXER_ROBOT2020 = frc::I2C::Port::kOnboard;
 
 // Positions of the sensors on the multiplexer
-constexpr uint8_t U8T_LINE_LIDAR_ROBOT2020               = 7;
-constexpr uint8_t U8T_LINE_COLORSENSOR_ROBOT2020         = 5;
-constexpr uint8_t U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020 = 3;
-constexpr uint8_t U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020  = 1;
+const uint8_t U8T_LINE_LIDAR_ROBOT2020               = 7;
+const uint8_t U8T_LINE_COLORSENSOR_ROBOT2020         = 5;
+const uint8_t U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020 = 3;
+const uint8_t U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020  = 1;
 
 
 // Addresses of the individual I2C sensors
