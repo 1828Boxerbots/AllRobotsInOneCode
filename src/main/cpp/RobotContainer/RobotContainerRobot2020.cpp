@@ -125,9 +125,6 @@ void RobotContainerRobot2020::Init()
   m_pLoader->Init();
   frc::SmartDashboard::PutBoolean("Is Enabled", true);
   m_pShooter->Init();
-  m_pMuxLeftDistance->Init(true);
-  m_pMuxRightDistance->Init(true);
-
 }
 
 
@@ -136,8 +133,6 @@ void RobotContainerRobot2020::DisableInit()
   if(m_pLoader != nullptr) m_pLoader->SetLoadMotor(0.0);
   m_pShooter->Init();
   frc::SmartDashboard::PutBoolean("Is Enabled", false);
-  m_pMuxLeftDistance->Init(false);
-  m_pMuxRightDistance->Init(false);
 }
 
 
@@ -264,12 +259,7 @@ void RobotContainerRobot2020::SetBackButton()
   backButttonTwo.WhenReleased(&m_armStop);
 }
 
-void RobotContainerRobot2020::AutonomousPeriodic()
-{
-  //always getting distance from distance sensor. Change later so that they are only getting data when turning
-  m_pMuxLeftDistance->GetDistance();
-  m_pMuxRightDistance->GetDistance();
-}
+void RobotContainerRobot2020::AutonomousPeriodic() {}
 
 // Working as of 2/19/2020
 

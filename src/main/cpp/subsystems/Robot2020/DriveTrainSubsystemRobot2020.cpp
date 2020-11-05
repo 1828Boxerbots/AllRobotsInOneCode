@@ -38,6 +38,7 @@ void DriveTrainSubsystemRobot2020::Init()
   m_rightEncoder.SetReverseDirection(true);
   m_leftEncoder.SetDistancePerPulse( ( 1.0 / GetPulsesPerRevolution() ) * Util::PI * WHEELDIAMETER);
   m_rightEncoder.SetDistancePerPulse( ( 1.0 / GetPulsesPerRevolution() ) * Util::PI * WHEELDIAMETER);
+  m_muxLeftDistance.Init(true);
   #endif
 }
 
@@ -227,6 +228,16 @@ void DriveTrainSubsystemRobot2020::EnableAnticollision(bool enable)
   Util::Log("EAB", m_beat++, "DriveTrain2020");
   Util::Log("enabled?", enable, "DriveTrain2020");
   m_hasAntiCollision = enable; 
+  if(enable == true)
+  {
+  m_muxLeftDistance.Init(true);
+  m_muxRightDistance.Init(true);
+  }
+  else 
+  {
+    m_muxLeftDistance.Init(false);
+    m_muxRightDistance.Init(false);
+  }
 }
 /*
 Detection code ripped from Rocky code for Robot 2020

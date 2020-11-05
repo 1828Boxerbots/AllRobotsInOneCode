@@ -183,11 +183,11 @@ constexpr uint8_t U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020  = 1;
 
 
 // Addresses of the individual I2C sensors
-constexpr int I2C_ADDR_MULTIPLEXER_ROBOT2020         = 0x70;
-constexpr int I2C_ADDR_LIDAR_ROBOT2020               = 0x62;
-constexpr int I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020  = 0x52;
-constexpr int I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020 = 0x52;
-constexpr int I2C_ADDR_COLORSENSOR_ROBOT2020         = 0x52;
+const int I2C_ADDR_MULTIPLEXER_ROBOT2020         = 0x70;
+const int I2C_ADDR_LIDAR_ROBOT2020               = 0x62;
+const int I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020  = 0x52;
+const int I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020 = 0x52;
+const int I2C_ADDR_COLORSENSOR_ROBOT2020         = 0x52;
 
 
 //Allowing hardware to be used
