@@ -12,6 +12,8 @@
 #include <frc2/command/CommandHelper.h>
 #include "../include/subsystems/ArmSubsystemBase.h"
 #include "../include/subsystems/SpinSubsystemBase.h"
+#include "../Drivers/MuxDrivers/MuxColorSensorDriver.h"
+#include "../include/subsystems/DriveTrainSubsystemBase.h"
 
 /**
  * An example command.
@@ -23,7 +25,7 @@
 class AutoArmCommand
     : public frc2::CommandHelper<frc2::CommandBase, AutoArmCommand> {
  public:
-  AutoArmCommand(ArmSubsystemBase *pArm, SpinSubsystemBase *pSpin, double speed, /*ArmSubsystemBase::ArmPositions*/int wantedPos);
+  AutoArmCommand(ArmSubsystemBase *pArm, SpinSubsystemBase *pSpin, DriveTrainSubsystemBase *pDrive, double speed, /*ArmSubsystemBase::ArmPositions*/int wantedPos);
 
   void Initialize() override;
 
@@ -37,6 +39,8 @@ class AutoArmCommand
     //Subsystem Variables
     ArmSubsystemBase *m_pArm;
     SpinSubsystemBase *m_pSpin;
+    DriveTrainSubsystemBase *m_pDrive;
+    
     
     //Sim Variables
     int upNum = 0;
@@ -50,5 +54,10 @@ class AutoArmCommand
     //Timer STuff
     frc::Timer m_timer;
     double m_startTime = 0.0;
+    const double PRECISECOLORSPIN = 0.4;
+    const double ROUGHWHEELSPIN = 0.6;
+    const double ZERO = 0.0;
+
+    int check = 0;
 
 };
