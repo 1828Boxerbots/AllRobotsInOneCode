@@ -218,7 +218,7 @@ class RobotContainerBase {
       if(m_pSpin != nullptr) 
       {
         bool isUp = m_pArm->GetPosition();
-        m_pSpin->SpinWithColor(isUp);
+        m_pSpin->SpinNumRotations(isUp);
     } }, {m_pSpin} };
     frc2::RunCommand m_spinHoldP            {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(1.0);}, {m_pSpin}};
     frc2::RunCommand m_spinHoldN            {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(-1.0);}, {m_pSpin}};

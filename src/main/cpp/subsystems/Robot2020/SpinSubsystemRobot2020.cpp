@@ -35,7 +35,8 @@ void SpinSubsystemRobot2020::SetSpinMotor (double speed)
     #endif
 }
 
-void SpinSubsystemRobot2020::SpinWithColor(double speed, int wantedRotation)
+//SpinNumRotations is where it spins the Control Panel a certain number of times.
+void SpinSubsystemRobot2020::SpinNumRotations(double speed, int wantedRotation)
 {   
 
     #ifndef NOHW
@@ -107,6 +108,7 @@ std::string SpinSubsystemRobot2020::GetColor()
     #endif
 }
 
+//SpinToColor spins the Control Panel to where the mapped color is a certain color.
 void SpinSubsystemRobot2020::SpinToColor(double speed)
 {
 

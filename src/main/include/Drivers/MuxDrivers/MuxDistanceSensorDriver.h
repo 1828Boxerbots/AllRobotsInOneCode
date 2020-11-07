@@ -29,5 +29,5 @@ class MuxDistanceSensorDriver
    I2CMultiplexerDriver &m_breakout;
 	 uint8_t m_breakoutChannel;
 	 frc::I2C::Port m_i2cPort;
-   RevDistanceSensorDriver* m_distanceSensor;
+   RevDistanceSensorDriver* m_pDistanceSensor;
 };

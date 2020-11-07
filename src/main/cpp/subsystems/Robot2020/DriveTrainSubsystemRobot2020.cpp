@@ -243,7 +243,8 @@ void DriveTrainSubsystemRobot2020::EnableAnticollision(bool enable)
 {
   Util::Log("EAB", m_beat++, "DriveTrain2020");
   Util::Log("enabled?", enable, "DriveTrain2020");
-  m_hasAntiCollision = enable; 
+  m_hasAntiCollision = enable;
+   /*
   if(enable == true)
   {
     #ifdef M_DISTANCE
@@ -257,7 +258,7 @@ void DriveTrainSubsystemRobot2020::EnableAnticollision(bool enable)
     m_muxLeftDistance.Init(false);
     m_muxRightDistance.Init(false);
     #endif
-  }
+  }*/
 }
 /*
 Detection code ripped from Rocky code for Robot 2020
