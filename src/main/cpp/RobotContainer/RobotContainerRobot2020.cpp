@@ -23,8 +23,11 @@ RobotContainerRobot2020::RobotContainerRobot2020()
 
   //Sensors
   //Already defined in Drive Train
-  //m_pMuxLeftDistance = new MuxDistanceSensorDriver((Rev2mDistanceSensor::Port)I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020, *m_pMultiplexerDriver, U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020);
-  //m_pMuxRightDistance = new MuxDistanceSensorDriver((Rev2mDistanceSensor::Port)I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020, *m_pMultiplexerDriver, U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020);
+
+  #ifdef M_DISTANCE
+  m_pMuxLeftDistance = new MuxDistanceSensorDriver((Rev2mDistanceSensor::Port)I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020, *m_pMultiplexerDriver, U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020);
+  m_pMuxRightDistance = new MuxDistanceSensorDriver((Rev2mDistanceSensor::Port)I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020, *m_pMultiplexerDriver, U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020);
+  #endif
 
   //m_pCamera = new CameraSubsystemBase(m_pDrive);
 
@@ -143,12 +146,8 @@ void RobotContainerRobot2020::SetButtonA()
   buttonAOne.WhenReleased(&m_loaderFeedStop);
   
   frc2::Button buttonATwo{[this] {return m_controller2.GetAButton();}};
-  //buttonATwo.WhenPressed(&m_armPosition_High);  
-  //buttonATwo.WhenPressed(m_pArmUp);
-  //buttonATwo.WhenPressed(m_pAutoArmUp);
   buttonATwo.ToggleWhenPressed(m_pAutoArmUp);
-  //buttonATwo.WhenHeld(&m_armPosition_High);  
-  //buttonATwo.WhenReleased(&m_armPosition_Stop);
+
 }
 
 
@@ -159,12 +158,8 @@ void RobotContainerRobot2020::SetButtonB()
   buttonBOne.WhenReleased(&m_loaderAllStop);
   
   frc2::Button buttonBTwo{[this] {return m_controller2.GetBButton();}};
-  //buttonBTwo.WhenPressed(&m_armPosition_Low);  
-  //buttonBTwo.WhenPressed(m_pArmDown);  
-  //buttonBTwo.WhenPressed(m_pAutoArmDown);
   buttonBTwo.ToggleWhenPressed(m_pAutoArmDown);
-  //buttonBTwo.WhenHeld(&m_armPosition_Low);  
-  //buttonBTwo.WhenReleased(&m_armPosition_Stop);
+  
 }
 
 

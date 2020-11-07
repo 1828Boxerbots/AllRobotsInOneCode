@@ -38,7 +38,11 @@ void DriveTrainSubsystemRobot2020::Init()
   m_rightEncoder.SetReverseDirection(true);
   m_leftEncoder.SetDistancePerPulse( ( 1.0 / GetPulsesPerRevolution() ) * Util::PI * WHEELDIAMETER);
   m_rightEncoder.SetDistancePerPulse( ( 1.0 / GetPulsesPerRevolution() ) * Util::PI * WHEELDIAMETER);
+
+  #ifdef M_DISTANCE
   m_muxLeftDistance.Init(true);
+  #endif
+
   #endif
 }
 
@@ -132,6 +136,9 @@ void DriveTrainSubsystemRobot2020::GyroInit()
 double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
 {
   #ifndef NOHW
+
+  #ifdef M_DISTANCE
+
   if(m_hasAntiCollision == false)
   {
     return 1;
@@ -139,6 +146,9 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
   double val = m_muxLeftDistance.GetDistance();
   frc::SmartDashboard::PutNumber("DriveTrain Distance Left", val);
   return val;
+
+  #endif
+
   #else
   return 1;
   #endif
@@ -148,6 +158,9 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
 double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceRight()
 {
   #ifndef NOHW
+
+  #ifdef M_DISTANCE
+
   if(m_hasAntiCollision == false)
   {
     return 1;
@@ -155,6 +168,9 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceRight()
   double val = m_muxRightDistance.GetDistance();
   frc::SmartDashboard::PutNumber("DriveTrain Distance Right", val);
   return val;
+  
+  #endif
+
   #else
   return 1;
   #endif
@@ -230,13 +246,17 @@ void DriveTrainSubsystemRobot2020::EnableAnticollision(bool enable)
   m_hasAntiCollision = enable; 
   if(enable == true)
   {
-  m_muxLeftDistance.Init(true);
-  m_muxRightDistance.Init(true);
+    #ifdef M_DISTANCE
+    m_muxLeftDistance.Init(true);
+    m_muxRightDistance.Init(true);
+    #endif
   }
   else 
   {
+    #ifdef M_DISTANCE
     m_muxLeftDistance.Init(false);
     m_muxRightDistance.Init(false);
+    #endif
   }
 }
 /*

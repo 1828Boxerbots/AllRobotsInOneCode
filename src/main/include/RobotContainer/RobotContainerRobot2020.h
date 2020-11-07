@@ -72,9 +72,12 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   AutoArmCommand* m_pAutoArmDown = nullptr;
 
   // Pulling a pointer variable to access distance sensor driver
- // MuxDistanceSensorDriver* m_pMuxLeftDistance = nullptr;
   I2CMultiplexerDriver* m_pMultiplexerDriver = nullptr;
- // MuxDistanceSensorDriver* m_pMuxRightDistance = nullptr;
+
+  #ifdef M_DISTANCE
+  MuxDistanceSensorDriver* m_pMuxRightDistance = nullptr;
+  MuxDistanceSensorDriver* m_pMuxLeftDistance = nullptr;
+  #endif
 
   double m_speed = 1.0;
   int m_wantedRotation = 7;
