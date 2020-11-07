@@ -36,9 +36,9 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   m_pArmUp =         new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseArm, .6, 0, ArmSubsystemBase::ArmPositions::HIGHEST_POS);
 
   //AutoArm Commands
-  m_pAutoArmSetup =  new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 1/*1/*1=HIGHEST*/);
- // m_pAutoArmDown =   new AutoArmCommand(m_pArm, m_pSpin, 0.4, 2 /*2=LOWEST*/);
-
+  //m_pAutoArmUp =     new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 1/*1/*1=HIGHEST*/);
+  m_pAutoArmDown =   new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 2 /*2=LOWEST*/);
+  m_pAutoArmSetup =  new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 3 /*3=Auto Mode*/);
   // Configure the button bindings
   ConfigureButtonBindings();
   m_pDrive->Init();
@@ -152,7 +152,7 @@ void RobotContainerRobot2020::SetButtonB()
   buttonBOne.WhenReleased(&m_loaderAllStop);
   
   frc2::Button buttonBTwo{[this] {return m_controller2.GetBButton();}};
-  //buttonBTwo.ToggleWhenPressed(m_pAutoArmDown);
+  buttonBTwo.ToggleWhenPressed(m_pAutoArmDown);
   
 }
 

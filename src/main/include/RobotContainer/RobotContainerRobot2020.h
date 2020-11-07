@@ -69,7 +69,8 @@ class RobotContainerRobot2020 : public RobotContainerBase {
 
 //AutoArmCommands
   AutoArmCommand* m_pAutoArmSetup = nullptr;
- // AutoArmCommand* m_pAutoArmDown = nullptr;
+  AutoArmCommand* m_pAutoArmDown = nullptr;
+  //AutoArmCommand* m_pAutoArmUp = nullptr;
 
   // Pulling a pointer variable to access distance sensor driver
   I2CMultiplexerDriver* m_pMultiplexerDriver = nullptr;
