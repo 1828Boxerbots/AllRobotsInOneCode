@@ -25,7 +25,7 @@ class SpinSubsystemBase : public frc2::SubsystemBase {
   void Periodic();
   std::string FMStoString(FMSColors color);
   void SpinWithEncoders(double targetRadius = COLORWHEELRADIUS, double ourRadius = SPINWHEELRADIUS, double revolutions = DEFAULTREVOLUTIONS);
-  virtual void SpinWithColor(double speed = 1.0, int wantedRotation = 1) {}
+  virtual void SpinNumRotations(double speed = 1.0, int wantedRotation = 1) {}
   void SpinUntilColor(FMSColors targetColor = INVALID);
   FMSColors MapColors(FMSColors color);
   virtual void InterpretFMS(std::string rawColor);

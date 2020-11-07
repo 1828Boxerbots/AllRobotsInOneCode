@@ -43,7 +43,7 @@
 //NOHW disables all hardware in the code - Please keep putting into later codes, I don't want to go through all the code again -Zach
 //#define NOHW
 //#define SEND_VIDEO
-//#define M_DISTANCE
+#define M_DISTANCE
 
 //Controllers
 constexpr int USB_CONTROLLER_ONE         = 0;
@@ -184,17 +184,13 @@ static const auto I2C_PORT_MULTIPLEXER_ROBOT2020 = frc::I2C::Port::kOnboard;
 // Positions of the sensors on the multiplexer
 const uint8_t U8T_LINE_LIDAR_ROBOT2020               = 7;
 const uint8_t U8T_LINE_COLORSENSOR_ROBOT2020         = 5;
-#ifdef M_DISTANCE
 const uint8_t U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020 = 3;
 const uint8_t U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020  = 1;
-#endif
 
 
 // Addresses of the individual I2C sensors
 const int I2C_ADDR_MULTIPLEXER_ROBOT2020         = 0x70;
 const int I2C_ADDR_LIDAR_ROBOT2020               = 0x62;
-#ifdef M_DISTANCE
 const int I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020  = 0x52;
 const int I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020 = 0x52;
-#endif
 const int I2C_ADDR_COLORSENSOR_ROBOT2020         = 0x52;
