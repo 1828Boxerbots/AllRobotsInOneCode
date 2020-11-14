@@ -44,7 +44,7 @@
 //NOHW disables all hardware in the code - Please keep putting into later codes, I don't want to go through all the code again -Zach
 //#define NOHW
 //#define SEND_VIDEO
-#define M_DISTANCE
+//#define M_DISTANCE
 
 //Controllers
 constexpr int USB_CONTROLLER_ONE         = 0;
