@@ -8,6 +8,7 @@
 #pragma once
 #include <frc/I2C.h>
 #include <frc/SPI.h>
+#include "Drivers/DriverUtil/DistanceSensorSource.h"
 
 /**
  *  We have a strict naming policy for our constants.
@@ -180,6 +181,7 @@ constexpr double YELLOW_HIGH_B = 0.25;
 * This is also true for SPI ports.
 */
 static const auto I2C_PORT_MULTIPLEXER_ROBOT2020 = frc::I2C::Port::kOnboard;
+static const Rev2mDistanceSensor::Port DISTANCESENSOR_PORT_ROBOT2020 = Rev2mDistanceSensor::Port::kMXP; 
 
 // Positions of the sensors on the multiplexer
 const uint8_t U8T_LINE_LIDAR_ROBOT2020               = 7;

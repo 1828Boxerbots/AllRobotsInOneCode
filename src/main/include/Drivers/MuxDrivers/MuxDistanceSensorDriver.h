@@ -13,7 +13,8 @@
 class MuxDistanceSensorDriver 
 {
  public:
-  MuxDistanceSensorDriver(Rev2mDistanceSensor::Port i2cPort,
+  MuxDistanceSensorDriver(Rev2mDistanceSensor::Port Port,
+                          int adr, //tito was here
 					                I2CMultiplexerDriver& breakout,
                           uint8_t breakoutChannel,
                           Rev2mDistanceSensor::DistanceUnit units = Rev2mDistanceSensor::DistanceUnit::kInches,

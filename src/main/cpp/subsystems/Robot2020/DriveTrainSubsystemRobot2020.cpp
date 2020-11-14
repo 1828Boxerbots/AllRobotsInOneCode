@@ -40,7 +40,7 @@ void DriveTrainSubsystemRobot2020::Init()
   m_rightEncoder.SetDistancePerPulse( ( 1.0 / GetPulsesPerRevolution() ) * Util::PI * WHEELDIAMETER);
 
   #ifdef M_DISTANCE
-  m_muxLeftDistance.Init(true);
+    m_muxLeftDistance.Init(true);
   #endif
 
   #endif
