@@ -44,6 +44,7 @@
 //NOHW disables all hardware in the code - Please keep putting into later codes, I don't want to go through all the code again -Zach
 //#define NOHW
 //#define SEND_VIDEO
+//M_DISTANCE needs to be commented to not have M_DISTANCE code run. Uncommented to run the code.
 #define M_DISTANCE
 
 //Controllers
@@ -181,7 +182,7 @@ constexpr double YELLOW_HIGH_B = 0.25;
 * This is also true for SPI ports.
 */
 static const auto I2C_PORT_MULTIPLEXER_ROBOT2020 = frc::I2C::Port::kOnboard;
-static const Rev2mDistanceSensor::Port DISTANCESENSOR_PORT_ROBOT2020 = Rev2mDistanceSensor::Port::kMXP; 
+static const Rev2mDistanceSensor::Port DISTANCESENSOR_PORT_ROBOT2020 = Rev2mDistanceSensor::Port::kOnboard; 
 
 // Positions of the sensors on the multiplexer
 const uint8_t U8T_LINE_LIDAR_ROBOT2020               = 7;

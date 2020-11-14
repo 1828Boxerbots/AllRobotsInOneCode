@@ -14,6 +14,11 @@ void DriveTrainSubsystemRobot2020::SetMotorL(double speed)
 {
   #ifndef NOHW
   m_leftMotor.Set(speed * speedLimit);
+  #ifdef M_DISTANCE
+    //m_muxLeftDistance.Init(true);
+    Util::Log("Left Rev Distance Sensor", m_muxLeftDistance.GetDistance());
+    Util::Log("Left Distance Beat", distance_beatL++);
+  #endif
   #endif
 }
 
@@ -22,6 +27,11 @@ void DriveTrainSubsystemRobot2020::SetMotorR(double speed)
 {
   #ifndef NOHW
   m_rightMotor.Set(speed * speedLimit);
+  #ifdef M_DISTANCE
+    //m_muxRightDistance.Init(true);
+    Util::Log("Right Rev Distance Sensor", m_muxRightDistance.GetDistance());
+    Util::Log("Right Distance Beat", distance_beatR++);
+  #endif
   #endif
 }
 
@@ -41,6 +51,7 @@ void DriveTrainSubsystemRobot2020::Init()
 
   #ifdef M_DISTANCE
     m_muxLeftDistance.Init(true);
+    m_muxRightDistance.Init(true);
   #endif
 
   #endif

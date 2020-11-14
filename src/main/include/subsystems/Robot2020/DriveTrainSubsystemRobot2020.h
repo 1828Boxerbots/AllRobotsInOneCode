@@ -79,6 +79,8 @@ class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
   const double WHEELDIAMETER = 6.0;
 
   int m_beat = 0;
+  int distance_beatR = 0;
+  int distance_beatL = 0;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

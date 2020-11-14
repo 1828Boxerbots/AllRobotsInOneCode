@@ -35,7 +35,7 @@ bool I2CMultiplexerDriver::SetChannel(uint8_t channel, bool log)
         // Command to the multiplexer to change which sensor to look at
         retVal = m_pDevice->WriteBulk(&channel, 1);
         
-        //if (retVal) {Util::SendErrorAndCode("Write to Mux failed!", 151, "I2CMultiplexerDriver.cpp");}
+        if (retVal) {Util::SendErrorAndCode("Write to Mux failed!", 151, "I2CMultiplexerDriver.cpp");}
     }
 
     // log is defaulted to true.
