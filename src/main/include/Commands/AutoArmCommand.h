@@ -53,11 +53,15 @@ class AutoArmCommand
 
     //Timer STuff
     frc::Timer m_timer;
+    
     double m_startTime = 0.0;
     const double PRECISECOLORSPIN = 0.4;
     const double ROUGHWHEELSPIN = 0.6;
     const double ZERO = 0.0;
 
+    //Check is for checking if the robot is aligned to the wheel before starting to spin the wheel
+    //ArmCheck is for checking if the arm is up before moving the robot to the wheel
     int check = 0;
+    int armCheck = 0;
 
 };
