@@ -40,7 +40,7 @@ bool MuxDistanceSensorDriver::IsRangeValid()
 
 void MuxDistanceSensorDriver::SetActive()
 {
-    m_breakout.SetChannel(m_breakoutChannel);
+    m_breakout.SetChannel(1 << (m_breakoutChannel + 1));
 }
 
 

@@ -36,7 +36,7 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   m_pArmUp =         new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseArm, .6, 0, ArmSubsystemBase::ArmPositions::HIGHEST_POS);
 
   //AutoArm Commands
-  m_pAutoArmUp =     new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 1/*1/*1=HIGHEST*/);
+  m_pAutoArmUp =     new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 1 /*1=HIGHEST*/);
   m_pAutoArmDown =   new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 2 /*2=LOWEST*/);
   m_pAutoArmSetup =  new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 3 /*3=Auto Mode*/);
   // Configure the button bindings
@@ -253,7 +253,13 @@ void RobotContainerRobot2020::AutonomousPeriodic() {}
 
 void RobotContainerRobot2020::TeleopPeriodic()
 {
-  m_pArm->GetPosition();
+  
+  //Reading all Mux Sensors for testing purposes
+  //m_pDrive->GetDistanceSensorDetectionDistanceRight(); //Right Distance Sensor
+  //m_pDrive->GetDistanceSensorDetectionDistanceLeft();  //Left Distance Sensor
+  
+  m_pSpin->GetColor();                                 //Color Sensor
+  /*m_pDrive->GetLidarDetectionDistance();               //Lidar Sensor*/
 
   //Gives color from FMS
   std::string gameData;

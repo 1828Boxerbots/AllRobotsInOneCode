@@ -19,7 +19,7 @@ MuxLidarDriver::MuxLidarDriver(frc::I2C::Port i2cPort, int address, I2CMultiplex
 
 void MuxLidarDriver::SetActive()
 {
-    m_breakout.SetChannel(1 << m_breakoutChannel);
+    m_breakout.SetChannel(1 << (m_breakoutChannel + 1));
 }
 
 

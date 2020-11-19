@@ -14,11 +14,6 @@ void DriveTrainSubsystemRobot2020::SetMotorL(double speed)
 {
   #ifndef NOHW
   m_leftMotor.Set(speed * speedLimit);
-  #ifdef M_DISTANCE
-    //m_muxLeftDistance.Init(true);
-    Util::Log("Left Rev Distance Sensor", m_muxLeftDistance.GetDistance());
-    Util::Log("Left Distance Beat", distance_beatL++);
-  #endif
   #endif
 }
 
@@ -27,11 +22,6 @@ void DriveTrainSubsystemRobot2020::SetMotorR(double speed)
 {
   #ifndef NOHW
   m_rightMotor.Set(speed * speedLimit);
-  #ifdef M_DISTANCE
-    //m_muxRightDistance.Init(true);
-    Util::Log("Right Rev Distance Sensor", m_muxRightDistance.GetDistance());
-    Util::Log("Right Distance Beat", distance_beatR++);
-  #endif
   #endif
 }
 
@@ -150,10 +140,10 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
 
   #ifdef M_DISTANCE
 
-  if(m_hasAntiCollision == false)
+  /*if(m_hasAntiCollision == false)
   {
     return 1;
-  }
+  }*/
   double val = m_muxLeftDistance.GetDistance();
   frc::SmartDashboard::PutNumber("DriveTrain Distance Left", val);
   return val;
@@ -172,10 +162,10 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceRight()
 
   #ifdef M_DISTANCE
 
-  if(m_hasAntiCollision == false)
+  /*if(m_hasAntiCollision == false)
   {
     return 1;
-  }
+  }*/
   double val = m_muxRightDistance.GetDistance();
   frc::SmartDashboard::PutNumber("DriveTrain Distance Right", val);
   return val;
@@ -190,10 +180,10 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceRight()
 double DriveTrainSubsystemRobot2020::GetLidarDetectionDistance()
 {
   #ifndef NOHW
-  if(m_hasAntiCollision == false)
+  /*if(m_hasAntiCollision == false)
   {
     return 1;
-  }
+  }*/
   double val = m_lidar.GetDistanceInInches();
    frc::SmartDashboard::PutNumber("DriveTrain Lidar", val);
   return val;
