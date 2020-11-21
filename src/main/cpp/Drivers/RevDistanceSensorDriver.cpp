@@ -43,7 +43,7 @@ double RevDistanceSensorDriver::GetDistance()
   }
   else 
   {
-      Util::SendErrorAndCode("Distance Sensor Range Invalid", 133, "DistanceSensorDriver.cpp");
+      //Util::SendErrorAndCode("Distance Sensor Range Invalid", 133, "DistanceSensorDriver.cpp");
       return -1.0;
   }
 }

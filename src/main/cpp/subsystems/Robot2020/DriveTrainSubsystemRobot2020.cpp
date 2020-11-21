@@ -39,9 +39,12 @@ void DriveTrainSubsystemRobot2020::Init()
   m_leftEncoder.SetDistancePerPulse( ( 1.0 / GetPulsesPerRevolution() ) * Util::PI * WHEELDIAMETER);
   m_rightEncoder.SetDistancePerPulse( ( 1.0 / GetPulsesPerRevolution() ) * Util::PI * WHEELDIAMETER);
 
-  #ifdef M_DISTANCE
-    m_muxLeftDistance.Init(true);
+  #ifdef M_DISTANCE_RIGHT
     m_muxRightDistance.Init(true);
+  #endif
+
+  #ifdef M_DISTANCE_LEFT
+    m_muxLeftDistance.Init(true);
   #endif
 
   #endif
@@ -136,9 +139,8 @@ void DriveTrainSubsystemRobot2020::GyroInit()
 
 double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
 {
-  #ifndef NOHW
 
-  #ifdef M_DISTANCE
+  #ifdef M_DISTANCE_LEFT
 
   /*if(m_hasAntiCollision == false)
   {
@@ -147,8 +149,6 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
   double val = m_muxLeftDistance.GetDistance();
   frc::SmartDashboard::PutNumber("DriveTrain Distance Left", val);
   return val;
-
-  #endif
 
   #else
   return 1;
@@ -160,7 +160,7 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceRight()
 {
   #ifndef NOHW
 
-  #ifdef M_DISTANCE
+  #ifdef M_DISTANCE_RIGHT
 
   /*if(m_hasAntiCollision == false)
   {
@@ -179,7 +179,7 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceRight()
 
 double DriveTrainSubsystemRobot2020::GetLidarDetectionDistance()
 {
-  #ifndef NOHW
+  #ifdef M_LIDAR
   /*if(m_hasAntiCollision == false)
   {
     return 1;
@@ -222,7 +222,7 @@ void DriveTrainSubsystemRobot2020::DetectionSoftware(double detectionDistance)
 //Sets up dead zone in lidar
 void DriveTrainSubsystemRobot2020::PrecisionMovementLidar(double wantedDistance)
 {
-  #ifndef NOHW
+  #ifdef M_LIDAR
   const double DEAD_ZONE = 5.0;
   double currentDistance = m_lidar.GetDistanceInInches();
   while(wantedDistance <  (currentDistance + DEAD_ZONE) && wantedDistance > (currentDistance - DEAD_ZONE))

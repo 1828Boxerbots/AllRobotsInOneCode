@@ -36,7 +36,7 @@ MuxColorSensorDriver::MuxColorSensorDriver(frc::I2C::Port i2cPort, I2CMultiplexe
  */
 void MuxColorSensorDriver::SetActive()
 {
-    m_breakout.SetChannel(1 << (m_breakoutChannel + 1));
+    m_breakout.SetChannel(1 << (m_breakoutChannel));
 }
 
 

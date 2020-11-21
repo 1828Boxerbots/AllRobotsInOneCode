@@ -21,8 +21,9 @@ void SpinSubsystemRobot2020::Init()
 
 void SpinSubsystemRobot2020::Periodic()
 {
-    #ifndef NOHW
+    #ifdef M_COLOR
     m_colorSensor.ReturnAllColors();
+    m_colorSensor.GetColor();
     Util::Log("Count Color Read", m_beatColorRead++, "spinRobot2020");
     #endif
 }
@@ -39,7 +40,7 @@ void SpinSubsystemRobot2020::SetSpinMotor (double speed)
 void SpinSubsystemRobot2020::SpinNumRotations(double speed, int wantedRotation)
 {   
 
-    #ifndef NOHW
+    #ifdef M_COLOR
     //Gets the starting color of the wheel
     FMSColors startColor = m_colorSensor.GetColor();
     
@@ -84,7 +85,7 @@ void SpinSubsystemRobot2020::SpinNumRotations(double speed, int wantedRotation)
 
 SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::ReadColorSensor()
 {
-    #ifndef NOHW
+    #ifdef M_COLOR
     return m_colorSensor.GetColor();
     #else
     return INVALID;
@@ -100,7 +101,7 @@ double SpinSubsystemRobot2020::GetTicksPerRevolution()
 
 std::string SpinSubsystemRobot2020::GetColor()
 {
-    #ifndef NOHW
+    #ifdef M_COLOR
     m_colorSensor.ReturnAllColors();
     return m_colorSensor.GetColorString();
     #else

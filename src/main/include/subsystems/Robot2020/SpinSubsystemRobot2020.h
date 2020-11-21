@@ -38,7 +38,10 @@ class SpinSubsystemRobot2020 : public SpinSubsystemBase {
  #ifndef NOHW
   frc::Victor m_spinMotor {PWM_SPINNERMOTOR_ROBOT2020};
   I2CMultiplexerDriver m_multiplexer{I2C_PORT_MULTIPLEXER_ROBOT2020};
-  MuxColorSensorDriver m_colorSensor{I2C_PORT_MULTIPLEXER_ROBOT2020, m_multiplexer, U8T_LINE_COLORSENSOR_ROBOT2020};
+
+  #ifdef M_COLOR
+    MuxColorSensorDriver m_colorSensor{I2C_PORT_MULTIPLEXER_ROBOT2020, m_multiplexer, U8T_LINE_COLORSENSOR_ROBOT2020};
+  #endif
  #endif
 
  double m_scale = 0.5;

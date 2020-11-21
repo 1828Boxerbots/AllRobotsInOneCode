@@ -80,24 +80,24 @@ std::string I2CMultiplexerDriver::GetChannelName(uint8_t channel)
     if (channel == (1 << (U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020 -1 )))  {name = "Left Distance Sensor";}
     if (channel == (1 << (U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020 -1 ))) {name = "Right Distance Sensor";}
     #endif
-    if (channel == (1 << (U8T_LINE_LIDAR_ROBOT2020 -1 )))               {name = "Lidar";}
+    if (channel == (1 << (U8T_LINE_LIDAR_ROBOT2020 -1 )))               {name = "Lidar";}*/
 
     //Shifted
     if (channel == (1 << U8T_LINE_COLORSENSOR_ROBOT2020))         {name = "Color Sensor";}
-    #ifdef M_DISTANCE
     if (channel == (1 << U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020 ))  {name = "Left Distance Sensor";}
     if (channel == (1 << U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020)) {name = "Right Distance Sensor";}
-    #endif
-    if (channel == (1 << U8T_LINE_LIDAR_ROBOT2020))               {name = "Lidar";}*/
+    if (channel == (1 << U8T_LINE_LIDAR_ROBOT2020))               {name = "Lidar";}
 
     //Shifted and +1
+
+    /*
     if (channel == (1 << (U8T_LINE_COLORSENSOR_ROBOT2020 +1 )))         {name = "Color Sensor";}
     #ifdef M_DISTANCE
     if (channel == (1 << (U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020 +1 )))  {name = "Left Distance Sensor";}
     if (channel == (1 << (U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020 +1 ))) {name = "Right Distance Sensor";}
     #endif
     if (channel == (1 << (U8T_LINE_LIDAR_ROBOT2020 +1 )))               {name = "Lidar";}
-    
+    */
     return name;
 }
 

@@ -258,8 +258,8 @@ void RobotContainerRobot2020::TeleopPeriodic()
   //m_pDrive->GetDistanceSensorDetectionDistanceRight(); //Right Distance Sensor
   //m_pDrive->GetDistanceSensorDetectionDistanceLeft();  //Left Distance Sensor
   
-  m_pSpin->GetColor();                                 //Color Sensor
-  /*m_pDrive->GetLidarDetectionDistance();               //Lidar Sensor*/
+  //m_pSpin->GetColor();                                 //Color Sensor
+  //m_pDrive->GetLidarDetectionDistance();               //Lidar Sensor
 
   //Gives color from FMS
   std::string gameData;

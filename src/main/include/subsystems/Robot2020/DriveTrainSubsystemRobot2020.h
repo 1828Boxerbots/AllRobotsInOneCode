@@ -64,11 +64,17 @@ class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
 
   ADIS16448_IMUDriver m_imu{};
   I2CMultiplexerDriver m_i2cBreakout{I2C_PORT_MULTIPLEXER_ROBOT2020};
-  MuxLidarDriver m_lidar{I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_LIDAR_ROBOT2020, m_i2cBreakout, U8T_LINE_LIDAR_ROBOT2020};
+  
+  #ifdef M_LIDAR
+    MuxLidarDriver m_lidar{I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_LIDAR_ROBOT2020, m_i2cBreakout, U8T_LINE_LIDAR_ROBOT2020};  
+  #endif
 
   //For both distance sensors on c418(Robot2020)
-  #ifdef M_DISTANCE
+  #ifdef M_DISTANCE_LEFT
     MuxDistanceSensorDriver m_muxLeftDistance{DISTANCESENSOR_PORT_ROBOT2020, I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020, m_i2cBreakout, U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020};
+  #endif
+
+  #ifdef M_DISTANCE_RIGHT
     MuxDistanceSensorDriver m_muxRightDistance{DISTANCESENSOR_PORT_ROBOT2020, I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020, m_i2cBreakout, U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020};
   #endif
 
