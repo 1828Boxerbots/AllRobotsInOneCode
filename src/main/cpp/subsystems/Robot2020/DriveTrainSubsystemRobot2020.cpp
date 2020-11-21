@@ -7,7 +7,22 @@
 
 #include "subsystems/Robot2020/DriveTrainSubsystemRobot2020.h"
 
-DriveTrainSubsystemRobot2020::DriveTrainSubsystemRobot2020() {}
+DriveTrainSubsystemRobot2020::DriveTrainSubsystemRobot2020(I2CMultiplexerDriver* pMultiplexerDriver)
+{
+  m_pMultiplexerDriver = pMultiplexerDriver;
+
+  #ifdef M_LIDAR
+    m_pLidar = new MuxLidarDriver(I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_LIDAR_ROBOT2020, *m_pMultiplexerDriver, U8T_LINE_LIDAR_ROBOT2020);
+  #endif
+
+  #ifdef M_DISTANCE_LEFT
+    m_pMuxLeftDistance = new MuxDistanceSensorDriver(DISTANCESENSOR_PORT_ROBOT2020, I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020, *m_pMultiplexerDriver, U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020);
+  #endif
+
+  #ifdef M_DISTANCE_RIGHT
+    m_pMuxRightDistance = new MuxDistanceSensorDriver(DISTANCESENSOR_PORT_ROBOT2020, I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020, *m_pMultiplexerDriver, U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020);
+  #endif
+}
 
 
 void DriveTrainSubsystemRobot2020::SetMotorL(double speed) 
@@ -40,11 +55,11 @@ void DriveTrainSubsystemRobot2020::Init()
   m_rightEncoder.SetDistancePerPulse( ( 1.0 / GetPulsesPerRevolution() ) * Util::PI * WHEELDIAMETER);
 
   #ifdef M_DISTANCE_RIGHT
-    m_muxRightDistance.Init(true);
+    m_pMuxRightDistance->Init(true);
   #endif
 
   #ifdef M_DISTANCE_LEFT
-    m_muxLeftDistance.Init(true);
+    m_pMuxLeftDistance->Init(true);
   #endif
 
   #endif
@@ -146,7 +161,7 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
   {
     return 1;
   }*/
-  double val = m_muxLeftDistance.GetDistance();
+  double val = m_pMuxLeftDistance->GetDistance();
   frc::SmartDashboard::PutNumber("DriveTrain Distance Left", val);
   return val;
 
@@ -166,7 +181,7 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceRight()
   {
     return 1;
   }*/
-  double val = m_muxRightDistance.GetDistance();
+  double val = m_pMuxRightDistance->GetDistance();
   frc::SmartDashboard::PutNumber("DriveTrain Distance Right", val);
   return val;
   
@@ -184,7 +199,7 @@ double DriveTrainSubsystemRobot2020::GetLidarDetectionDistance()
   {
     return 1;
   }*/
-  double val = m_lidar.GetDistanceInInches();
+  double val = m_pLidar->GetDistanceInInches();
    frc::SmartDashboard::PutNumber("DriveTrain Lidar", val);
   return val;
   #else
@@ -224,7 +239,7 @@ void DriveTrainSubsystemRobot2020::PrecisionMovementLidar(double wantedDistance)
 {
   #ifdef M_LIDAR
   const double DEAD_ZONE = 5.0;
-  double currentDistance = m_lidar.GetDistanceInInches();
+  double currentDistance = m_pLidar->GetDistanceInInches();
   while(wantedDistance <  (currentDistance + DEAD_ZONE) && wantedDistance > (currentDistance - DEAD_ZONE))
   {
     if(currentDistance < wantedDistance)
@@ -235,7 +250,7 @@ void DriveTrainSubsystemRobot2020::PrecisionMovementLidar(double wantedDistance)
     {
       MoveTank(.5,.5);
     }
-    currentDistance = m_lidar.GetDistanceInInches();
+    currentDistance = m_pLidar->GetDistanceInInches();
   }
   #endif
 }
@@ -249,15 +264,15 @@ void DriveTrainSubsystemRobot2020::EnableAnticollision(bool enable)
   if(enable == true)
   {
     #ifdef M_DISTANCE
-    m_muxLeftDistance.Init(true);
-    m_muxRightDistance.Init(true);
+    m_pMuxLeftDistance->Init(true);
+    m_pMuxRightDistance->Init(true);
     #endif
   }
   else 
   {
     #ifdef M_DISTANCE
-    m_muxLeftDistance.Init(false);
-    m_muxRightDistance.Init(false);
+    m_pMuxLeftDistance->Init(false);
+    m_pMuxRightDistance->Init(false);
     #endif
   }*/
 }
@@ -266,7 +281,7 @@ Detection code ripped from Rocky code for Robot 2020
 //Gets Detection distance; used for debugging
 double DriveTrainSubsystemRocky::GetLidarDetectionDistance()
 {
-  double val = m_lidar.GetDistanceInInches();
+  double val = m_pLidar->GetDistanceInInches();
    frc::SmartDashboard::PutNumber("DriveTrain Lidar", val);
   return val;
 }
@@ -290,7 +305,7 @@ void DriveTrainSubsystemRocky::DetectionSoftware(double detectionDistance)
 void DriveTrainSubsystemRocky::PrecisionMovementLidar(double wantedDistance)
 {
   const double DEAD_ZONE = 5.0;
-  double currentDistance = m_lidar.GetDistanceInInches();
+  double currentDistance = m_pLidar->GetDistanceInInches();
   while(wantedDistance <  currentDistance + DEAD_ZONE && wantedDistance > currentDistance - DEAD_ZONE)
   {
     if(currentDistance < wantedDistance)
@@ -301,7 +316,7 @@ void DriveTrainSubsystemRocky::PrecisionMovementLidar(double wantedDistance)
     {
       MoveTank(.5,.5);
     }
-    currentDistance = m_lidar.GetDistanceInInches();
+    currentDistance = m_pLidar->GetDistanceInInches();
   }
 }
 */

@@ -15,9 +15,11 @@ SpinSubsystemRobot2020::FMSColors RobotContainerRobot2020::givenColor = SpinSubs
 
 RobotContainerRobot2020::RobotContainerRobot2020()
 {
-  m_pDrive = new DriveTrainSubsystemRobot2020;
+  m_pMultiplexerDriver = new I2CMultiplexerDriver(I2C_PORT_MULTIPLEXER_ROBOT2020);
+
+  m_pDrive = new DriveTrainSubsystemRobot2020(m_pMultiplexerDriver);
   m_pLoader = new LoaderSubsystemRobot2020;
-  m_pSpin = new SpinSubsystemRobot2020;
+  m_pSpin = new SpinSubsystemRobot2020(m_pMultiplexerDriver);
   m_pShooter = new ShooterSubsystemRobot2020;
   m_pArm = new ArmSubsystemRobot2020;
 
@@ -42,7 +44,6 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   // Configure the button bindings
   ConfigureButtonBindings();
   m_pDrive->Init();
-  //if(m_pCamera!=nullptr)m_pCamera->Init();
   SetDrive();
 }
 

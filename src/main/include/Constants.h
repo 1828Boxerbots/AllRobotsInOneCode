@@ -45,9 +45,9 @@
 //#define NOHW
 //#define SEND_VIDEO
 //M_DISTANCE needs to be commented to not have M_DISTANCE code run. Uncommented to run the code.
-//#define M_DISTANCE_LEFT
-#define M_DISTANCE_RIGHT
-//#define M_LIDAR
+#define M_DISTANCE_LEFT
+//#define M_DISTANCE_RIGHT
+#define M_LIDAR
 #define M_COLOR
 
 //Controllers
@@ -190,7 +190,7 @@ static const Rev2mDistanceSensor::Port DISTANCESENSOR_PORT_ROBOT2020 = Rev2mDist
 // Positions of the sensors on the multiplexer
 const uint8_t U8T_LINE_LIDAR_ROBOT2020               = 7;
 const uint8_t U8T_LINE_COLORSENSOR_ROBOT2020         = 5;
-const uint8_t U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020 = 2;
+const uint8_t U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020 = 3;
 const uint8_t U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020  = 1;
 
 

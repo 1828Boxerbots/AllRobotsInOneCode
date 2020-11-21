@@ -23,7 +23,7 @@
 
 class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
  public:
-  DriveTrainSubsystemRobot2020();
+  DriveTrainSubsystemRobot2020(I2CMultiplexerDriver* pMultiplexerDriver);
 
   virtual void SetMotorL(double speed);
   virtual void SetMotorR(double speed); 
@@ -63,19 +63,20 @@ class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
   frc::Encoder m_rightEncoder{DIO_RIGHTENCODER_A_ROBOT2020, DIO_RIGHTENCODER_B_ROBOT2020};
 
   ADIS16448_IMUDriver m_imu{};
-  I2CMultiplexerDriver m_i2cBreakout{I2C_PORT_MULTIPLEXER_ROBOT2020};
   
+  I2CMultiplexerDriver* m_pMultiplexerDriver = nullptr;
+
   #ifdef M_LIDAR
-    MuxLidarDriver m_lidar{I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_LIDAR_ROBOT2020, m_i2cBreakout, U8T_LINE_LIDAR_ROBOT2020};  
+    MuxLidarDriver* m_pLidar = nullptr; // Paramaters: {I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_LIDAR_ROBOT2020, m_i2cBreakout, U8T_LINE_LIDAR_ROBOT2020};  
   #endif
 
   //For both distance sensors on c418(Robot2020)
   #ifdef M_DISTANCE_LEFT
-    MuxDistanceSensorDriver m_muxLeftDistance{DISTANCESENSOR_PORT_ROBOT2020, I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020, m_i2cBreakout, U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020};
+    MuxDistanceSensorDriver* m_pMuxLeftDistance = nullptr; // Paramaters: {DISTANCESENSOR_PORT_ROBOT2020, I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020, m_i2cBreakout, U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020};
   #endif
 
   #ifdef M_DISTANCE_RIGHT
-    MuxDistanceSensorDriver m_muxRightDistance{DISTANCESENSOR_PORT_ROBOT2020, I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020, m_i2cBreakout, U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020};
+    MuxDistanceSensorDriver* m_pMuxRightDistance = nullptr; // Paramaters: {DISTANCESENSOR_PORT_ROBOT2020, I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020, m_i2cBreakout, U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020};
   #endif
 
   #endif
