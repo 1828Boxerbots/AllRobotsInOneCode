@@ -135,7 +135,7 @@ double DriveTrainSubsystemRobot2020::GyroGetAngle()
 {
   #ifndef NOHW
   double m_gyroAngle = m_imu.GetAngleX();
-  m_imu.LogAllValues();
+  //m_imu.LogAllValues(); //causes lag
   return m_gyroAngle;
   #else
   return 0;
@@ -191,6 +191,7 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceRight()
   return 1;
   #endif
 }
+
 
 double DriveTrainSubsystemRobot2020::GetLidarDetectionDistance()
 {
@@ -254,6 +255,8 @@ void DriveTrainSubsystemRobot2020::PrecisionMovementLidar(double wantedDistance)
   }
   #endif
 }
+
+
 //Used to disable and enable anticollision
 void DriveTrainSubsystemRobot2020::EnableAnticollision(bool enable)
 {
