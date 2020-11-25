@@ -45,18 +45,20 @@
 //#define NOHW
 //#define SEND_VIDEO
 //M_DISTANCE needs to be commented to not have M_DISTANCE code run. Uncommented to run the code.
+
 #define M_DISTANCE_LEFT
-//#define M_DISTANCE_RIGHT
-#define M_LIDAR
-#define M_COLOR
+#define M_DISTANCE_RIGHT
+//#define M_LIDAR
+//#define M_COLOR
+//#define M_IMU
 
 //Controllers
 constexpr int USB_CONTROLLER_ONE         = 0;
 constexpr int USB_CONTROLLER_TWO         = 1;
 
 //Cameras
-constexpr int USB_CAMERA_ONE             = 0;
-constexpr int USB_CAMERA_TWO             = 1;
+//constexpr int USB_CAMERA_ONE             = 0;
+//constexpr int USB_CAMERA_TWO             = 1;
 
 //Encoder Types
 constexpr int k1X = 0;

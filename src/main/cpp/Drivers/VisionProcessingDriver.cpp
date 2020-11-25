@@ -5,6 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+/*
 #include "Drivers/VisionProcessingDriver.h"
 
 VisionProcessingDriver::VisionProcessingDriver() {}
@@ -44,3 +45,5 @@ void VisionProcessingDriver::VisionThreadAxis()
       outputStream.PutFrame(mat);
     }
 }
+*/
+

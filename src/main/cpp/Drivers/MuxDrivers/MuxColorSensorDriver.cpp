@@ -273,8 +273,6 @@ void MuxColorSensorDriver::DetectOverlap()
 {
     SetActive();
     frc::Color detectedColor = m_pColorSensor->GetColor();
-    
-    const char* fileLoc = "ColorSensorDriver.cpp";
 
     bool isRed = IsRed(detectedColor.red, detectedColor.green, detectedColor.blue);
     bool isGreen = IsGreen(detectedColor.red, detectedColor.green, detectedColor.blue);

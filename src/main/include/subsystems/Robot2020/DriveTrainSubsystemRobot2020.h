@@ -62,8 +62,10 @@ class DriveTrainSubsystemRobot2020 : public DriveTrainSubsystemBase {
   frc::Encoder m_leftEncoder{DIO_LEFTENCODER_A_ROBOT2020, DIO_LEFTENCODER_B_ROBOT2020};
   frc::Encoder m_rightEncoder{DIO_RIGHTENCODER_A_ROBOT2020, DIO_RIGHTENCODER_B_ROBOT2020};
 
+  #ifdef M_IMU
   ADIS16448_IMUDriver m_imu{};
-  
+  #endif
+
   I2CMultiplexerDriver* m_pMultiplexerDriver = nullptr;
 
   #ifdef M_LIDAR

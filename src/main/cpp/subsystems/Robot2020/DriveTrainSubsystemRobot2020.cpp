@@ -70,7 +70,7 @@ void DriveTrainSubsystemRobot2020::Init()
 double DriveTrainSubsystemRobot2020::IMUGetAngle()
 {
   // If this isn't giving you the correct angle, try .GetAngleZ() or .GetAngleX()
-  #ifndef NOHW
+  #ifdef M_IMU
   m_imuAngle = m_imu.GetAngleY();
   Util::Log("IMU Angle", m_imuAngle, "DriveTrainSubsystemRobot2020");
   return m_gyroAngle;
@@ -82,7 +82,7 @@ double DriveTrainSubsystemRobot2020::IMUGetAngle()
 
 void DriveTrainSubsystemRobot2020::IMUInit()
 {
-  #ifndef NOHW
+  #ifdef M_IMU
   Util::Log("GyroInit", true, "DriveTrainSubsystemRobot2020");
   m_imu.IMUGyroInit(true);
   #endif
@@ -119,7 +119,7 @@ double DriveTrainSubsystemRobot2020::GetRightEncoderInch()
 
 void DriveTrainSubsystemRobot2020::ResetEncoder()
 {
-  #ifndef NOHW
+  #ifdef M_IMU
   m_leftEncoder.Reset();
   m_rightEncoder.Reset();
   #endif
@@ -133,7 +133,7 @@ void DriveTrainSubsystemRobot2020::ResetEncoder()
 // Currently using IMU
 double DriveTrainSubsystemRobot2020::GyroGetAngle()
 {
-  #ifndef NOHW
+  #ifdef M_IMU
   double m_gyroAngle = m_imu.GetAngleX();
   //m_imu.LogAllValues(); //causes lag
   return m_gyroAngle;
@@ -146,7 +146,7 @@ double DriveTrainSubsystemRobot2020::GyroGetAngle()
 // Currently using IMU
 void DriveTrainSubsystemRobot2020::GyroInit()
 {
-  #ifndef NOHW
+  #ifdef M_IMU
   m_imu.IMUGyroInit(true);
   #endif
 }

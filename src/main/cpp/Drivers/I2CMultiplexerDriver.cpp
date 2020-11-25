@@ -46,6 +46,7 @@ bool I2CMultiplexerDriver::SetChannel(uint8_t channel, bool log)
     Util::Log("Raw Channel", m_current_channel, "Mux Driver");
     return retVal;
     }
+    return false;
 }
 
 

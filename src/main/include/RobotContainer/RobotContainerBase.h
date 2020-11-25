@@ -64,7 +64,7 @@ class RobotContainerBase {
   double ROBOT2020SPEEDLIMIT = 0.5;
 
   void SetDrive(DriveStyles style = TANK_STYLE);
-  void SetCamerastream();
+  //void SetCamerastream();
   protected:
   //DriveTrainSubsystemBase m_driveTrain;
     //Creating the controllers

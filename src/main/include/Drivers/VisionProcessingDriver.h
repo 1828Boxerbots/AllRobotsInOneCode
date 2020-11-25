@@ -4,7 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
+/*
 #pragma once
 
 #include <cameraserver/CameraServer.h>
@@ -22,3 +22,4 @@ class VisionProcessingDriver
   static void VisionThreadAxis();
 
 };
+*/
