@@ -31,6 +31,7 @@ void SpinSubsystemRobot2020::Periodic()
     #ifdef M_COLOR
     m_pColorSensor->ReturnAllColors();
     m_pColorSensor->GetColor();
+    m_pColorSensor->DetectOverlap();
     Util::Log("Count Color Read", m_beatColorRead++, "spinRobot2020");
     #endif
 }

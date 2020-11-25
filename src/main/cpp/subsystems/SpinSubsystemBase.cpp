@@ -9,7 +9,9 @@
 #include "Util.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
+
 SpinSubsystemBase::SpinSubsystemBase() {}
+
 
 // This method will be called once per scheduler run
 void SpinSubsystemBase::Periodic() 
@@ -17,6 +19,7 @@ void SpinSubsystemBase::Periodic()
     Util::Log("ControlPanel CurrentColor", GetColor());
     Util::Log("Wanted Color", FMStoString(m_colorTest));
 }
+
 
 void SpinSubsystemBase::SpinWithEncoders(double targetRadius, double ourRadius, double revolutions) 
 {
@@ -31,6 +34,7 @@ void SpinSubsystemBase::SpinWithEncoders(double targetRadius, double ourRadius, 
     SetSpinMotor(0.0);
 }
 
+
 double SpinSubsystemBase::GetNumberOfTicks(double targetRadius, double revolutions, double ourRadius)
 {
     double value = (GetTicksPerRevolution()*revolutions*targetRadius)/ourRadius ;
@@ -38,12 +42,14 @@ double SpinSubsystemBase::GetNumberOfTicks(double targetRadius, double revolutio
     return value;
 }
 
+
 void SpinSubsystemBase::Log()
 {
     frc::SmartDashboard::PutNumber("Spin Encoder Value", m_encoder);
     frc::SmartDashboard::PutNumber("Current (sensor) Color", ReadColorSensor());
     frc::SmartDashboard::PutNumber("Current (field) Color", (int)MapColors(ReadColorSensor()));
 }
+
 
 SpinSubsystemBase::FMSColors SpinSubsystemBase::MapColors(FMSColors color)
 {
@@ -104,6 +110,7 @@ void SpinSubsystemBase::InterpretFMS(std::string rawColor)
             break;
     }
 }
+
 
 std::string SpinSubsystemBase::FMStoString(FMSColors color)
 {
