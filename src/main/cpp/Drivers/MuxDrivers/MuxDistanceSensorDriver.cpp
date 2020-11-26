@@ -17,7 +17,8 @@ MuxDistanceSensorDriver::MuxDistanceSensorDriver(Rev2mDistanceSensor::Port Port,
                                                  m_breakout(breakout),
                                                  m_breakoutChannel(breakoutChannel)
 {
-    SetActive();
+    
+    SetActive(false);
 	m_pDistanceSensor = new RevDistanceSensorDriver(Port, units, profile);
 	m_pDistanceSensor->StartMeasuring();
 }
@@ -38,9 +39,13 @@ bool MuxDistanceSensorDriver::IsRangeValid()
 }
 
 
-void MuxDistanceSensorDriver::SetActive()
+void MuxDistanceSensorDriver::SetActive(bool isReady)
 {
     m_breakout.SetChannel(1 << (m_breakoutChannel));
+    if (isReady)
+    {
+       m_pDistanceSensor->StartMeasuring();
+    }
 }
 
 

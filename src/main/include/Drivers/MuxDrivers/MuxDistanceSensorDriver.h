@@ -20,7 +20,7 @@ class MuxDistanceSensorDriver
                           Rev2mDistanceSensor::DistanceUnit units = Rev2mDistanceSensor::DistanceUnit::kInches,
 					                Rev2mDistanceSensor::RangeProfile profile = Rev2mDistanceSensor::RangeProfile::kDefault);
 
-	void SetActive();
+	void SetActive(bool isReady = true);
 	bool IsRangeValid();
   double GetDistance();
 	bool StatusIsFatal();
