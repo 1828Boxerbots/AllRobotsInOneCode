@@ -21,10 +21,10 @@ I2CMultiplexerDriver::I2CMultiplexerDriver(frc::I2C::Port i2cPort, int breakoutA
 // Communicate which channel the mux should be on
 //          [x,x,x,x,x,x,x,x]
 // channel   7,6,5,4,3,2,1,0
+//
+// Returns whether or not the channel changed.
 bool I2CMultiplexerDriver::SetChannel(uint8_t channel, bool log)
 {
-    bool retVal = true;
-
     // This statement does not run if the current channel already matches the one sent.
     // Thus, you can spam the mux with SetChannel just to make sure it's looking at the right sensor.
     if(m_current_channel != channel)
@@ -33,9 +33,21 @@ bool I2CMultiplexerDriver::SetChannel(uint8_t channel, bool log)
         m_current_channel = channel;
 
         // Command to the multiplexer to change which sensor to look at
-        retVal = m_pDevice->WriteBulk(&channel, 1);
+        bool retVal = m_pDevice->WriteBulk(&channel, 1);
         
-        if (retVal) {Util::SendErrorAndCode("Write to Mux failed!", 151, "I2CMultiplexerDriver.cpp");}
+        if (retVal) 
+        {
+            Util::SendErrorAndCode("Write to Mux failed!", 151, "I2CMultiplexerDriver.cpp");
+            return false; // False because channel didn't change, mux write failed
+        }
+
+        if (log)
+        {
+        Util::Log("Current Mux Channel", GetChannelName(m_current_channel), "Mux Driver");
+        Util::Log("Raw Channel", m_current_channel, "Mux Driver");
+        }
+
+        return true; // True because the channel has changed
     }
 
     // log is defaulted to true.
@@ -44,9 +56,8 @@ bool I2CMultiplexerDriver::SetChannel(uint8_t channel, bool log)
     {
     Util::Log("Current Mux Channel", GetChannelName(m_current_channel), "Mux Driver");
     Util::Log("Raw Channel", m_current_channel, "Mux Driver");
-    return retVal;
     }
-    return false;
+    return false; // Channel has not changed because the channel was already set
 }
 
 

@@ -41,8 +41,12 @@ bool MuxDistanceSensorDriver::IsRangeValid()
 
 void MuxDistanceSensorDriver::SetActive(bool isReady)
 {
-    m_breakout.SetChannel(1 << (m_breakoutChannel));
-    if (isReady)
+    // isChanged determines if the channel has changed. 
+    // If it's true, then the sensor needs to reinitialize.
+    // Otherwise, the sensor was already active and it's fine.
+    
+    bool isChanged = m_breakout.SetChannel(1 << (m_breakoutChannel));
+    if (isReady and isChanged)
     {
        m_pDistanceSensor->StartMeasuring();
     }
