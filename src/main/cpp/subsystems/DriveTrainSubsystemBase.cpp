@@ -76,7 +76,7 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
         if(GetDistanceSensorDetectionDistanceLeft() < m_distanceCollisionDistanceLeft)
         {
         //If turning right,forward, or reverse, continue moving
-        if(leftY > 0.1 && rightY < -0.1 || leftY > 0.1 && rightY > 0.1 || leftY < -0.1 && rightY < -0.1)
+        if((leftY > 0.1 && rightY < -0.1) || (leftY > 0.1 && rightY > 0.1) || (leftY < -0.1 && rightY < -0.1))
         {
             SetMotorL(leftY);
             SetMotorR(rightY);

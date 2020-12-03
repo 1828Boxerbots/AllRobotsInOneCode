@@ -154,42 +154,71 @@ void DriveTrainSubsystemRobot2020::GyroInit()
 
 double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
 {
+  /*#ifndef NOHW
 
   #ifdef M_DISTANCE_LEFT
 
   /*if(m_hasAntiCollision == false)
   {
     return 1;
-  }*/
+  }*
   double val = m_pMuxLeftDistance->GetDistance();
-  frc::SmartDashboard::PutNumber("DriveTrain Distance Left", val);
+  Util::Log("DriveTrain Distance Left", val);
   return val;
-
+  #endif
   #else
   return 1;
+  #endif*/
+//------------------------------------
+  double val = -1;
+  #ifndef NOHW
+  #ifdef M_DISTANCE_LEFT
+
+  /*if(m_hasAntiCollision == false)
+  {
+    return 1;
+  }*/
+  val = m_pMuxLeftDistance->GetDistance();
   #endif
+  Util::Log("DriveTrain Distance Left", val);
+  #endif
+  return val;
+
 }
 
 
 double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceRight()
 {
-  #ifndef NOHW
+  /*#ifndef NOHW
 
   #ifdef M_DISTANCE_RIGHT
 
   /*if(m_hasAntiCollision == false)
   {
     return 1;
-  }*/
+  }*
   double val = m_pMuxRightDistance->GetDistance();
-  frc::SmartDashboard::PutNumber("DriveTrain Distance Right", val);
+  Util::Log("DriveTrain Distance Right", val);
   return val;
   
   #endif
-
   #else
   return 1;
+  #endif*/
+//-------------------------------------
+  double val = -1;
+  #ifndef NOHW
+  #ifdef M_DISTANCE_RIGHT
+
+  /*if(m_hasAntiCollision == false)
+  {
+    return 1;
+  }*/
+  val = m_pMuxRightDistance->GetDistance();
   #endif
+  Util::Log("DriveTrain Distance Right", val);
+  #endif
+  return val;
 }
 
 
