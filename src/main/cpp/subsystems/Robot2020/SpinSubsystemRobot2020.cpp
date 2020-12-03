@@ -249,9 +249,9 @@ int SpinSubsystemRobot2020::CalcDir()
             }
             break;
     
-    default:
-        direction = 0;
-        break;
+        default:
+            direction = 0;
+            break;
     }
 
     return direction;

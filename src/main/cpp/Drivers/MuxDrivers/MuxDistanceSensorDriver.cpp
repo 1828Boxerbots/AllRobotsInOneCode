@@ -31,7 +31,7 @@ double MuxDistanceSensorDriver::GetDistance()
 
     double retVal = m_pDistanceSensor->GetDistance();
 
-    m_pDistanceSensor->DisableInit();
+    //m_pDistanceSensor->DisableInit();
 
     return retVal; 
 }
@@ -42,7 +42,7 @@ bool MuxDistanceSensorDriver::IsRangeValid()
     SetActive();
     bool retVal = m_pDistanceSensor->IsRangeValid();
 
-    m_pDistanceSensor->DisableInit();
+    //m_pDistanceSensor->DisableInit();
 
     return retVal; 
 }
@@ -67,7 +67,7 @@ bool MuxDistanceSensorDriver::StatusIsFatal()
     SetActive();
     bool retVal = m_pDistanceSensor->StatusIsFatal();
 
-    m_pDistanceSensor->DisableInit();
+    //m_pDistanceSensor->DisableInit();
 
     return retVal;
 }
