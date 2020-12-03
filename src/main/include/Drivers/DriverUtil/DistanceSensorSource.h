@@ -199,6 +199,9 @@ class Rev2mDistanceSensor : public frc::ErrorBase, public frc::SendableBase, pub
 
 	void GetMeasurementData(void);
         double GetRangeMM(void);
+
+        void StopMeasurement(void);
+
      private:
         bool Initialize(RangeProfile);
         static void DoContinuous(void);
@@ -209,7 +212,6 @@ class Rev2mDistanceSensor : public frc::ErrorBase, public frc::SendableBase, pub
         bool SetProfileHighAccuracy(void);
         bool SetProfileHighSpeed(void);
         bool SetProfileDefault(void);
-        void StopMeasurement(void);
         void GetStopCompletedStatus(void);
         void SetProfile(RangeProfile);
 	bool GetMeasurementDataReady(void);

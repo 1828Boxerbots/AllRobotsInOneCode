@@ -28,14 +28,23 @@ double MuxDistanceSensorDriver::GetDistance()
 {
     SetActive();
     m_pDistanceSensor->GetMeasurementData();
-    return m_pDistanceSensor->GetDistance(); 
+
+    double retVal = m_pDistanceSensor->GetDistance();
+
+    m_pDistanceSensor->StopMeasuring();
+
+    return retVal; 
 }
 
 
 bool MuxDistanceSensorDriver::IsRangeValid()
 {
     SetActive();
-    return m_pDistanceSensor->IsRangeValid();
+    bool retVal = m_pDistanceSensor->IsRangeValid();
+
+    m_pDistanceSensor->StopMeasuring();
+
+    return retVal; 
 }
 
 
@@ -44,11 +53,11 @@ void MuxDistanceSensorDriver::SetActive(bool isReady)
     // isChanged determines if the channel has changed. 
     // If it's true, then the sensor needs to reinitialize.
     // Otherwise, the sensor was already active and it's fine.
-    
-    bool isChanged = m_breakout.SetChannel(1 << (m_breakoutChannel));
-    if (isReady and isChanged)
+
+    m_breakout.SetChannel(1 << (m_breakoutChannel));
+    if (isReady)
     {
-       m_pDistanceSensor->StartMeasuring();
+    m_pDistanceSensor->StartMeasuring();
     }
 }
 
@@ -56,7 +65,11 @@ void MuxDistanceSensorDriver::SetActive(bool isReady)
 bool MuxDistanceSensorDriver::StatusIsFatal()
 {
     SetActive();
-    return m_pDistanceSensor->StatusIsFatal();
+    bool retVal = m_pDistanceSensor->StatusIsFatal();
+
+    m_pDistanceSensor->StopMeasuring();
+
+    return retVal;
 }
 
 
@@ -71,6 +84,8 @@ void MuxDistanceSensorDriver::Init(bool isOn)
     {
         m_pDistanceSensor->DisableInit();
     }
+
+    m_pDistanceSensor->StopMeasuring();
 }
 
 

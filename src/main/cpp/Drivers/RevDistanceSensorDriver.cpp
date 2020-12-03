@@ -62,6 +62,12 @@ void RevDistanceSensorDriver::StartMeasuring()
 }
 
 
+void RevDistanceSensorDriver::StopMeasuring()
+{
+  m_pDistance->StopMeasurement();
+}
+
+
 double RevDistanceSensorDriver::GetMeasurementData()
 {
   return m_pDistance->GetRangeMM();

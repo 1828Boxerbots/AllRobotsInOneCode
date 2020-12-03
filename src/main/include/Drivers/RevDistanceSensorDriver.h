@@ -20,7 +20,10 @@ class RevDistanceSensorDriver
 
   void Init(bool log = false);
   void DisableInit();
+
   void StartMeasuring();
+  void StopMeasuring();
+
   double GetMeasurementData();
   double GetDistance();
   

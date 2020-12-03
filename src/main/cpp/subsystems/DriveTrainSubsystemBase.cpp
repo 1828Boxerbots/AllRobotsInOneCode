@@ -32,7 +32,7 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
     frc::SmartDashboard::PutNumber("Drive Right", rightY);
 
     //Lidar returns 0 if object is out of distance, minimum distance is to prevent an infinite loop 
-    //implemented soley for lidar, will change later for distance sensors
+    //implemented solely for lidar, will change later for distance sensors
     if (GetLidarDetectionDistance() > MINIMUMDISTANCE && m_hasAntiCollision == true)
     {
         //If turning, since sensor is generally on front, keep turning
