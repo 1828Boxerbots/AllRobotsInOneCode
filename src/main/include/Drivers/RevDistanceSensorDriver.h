@@ -26,7 +26,7 @@ class RevDistanceSensorDriver
 
   double GetMeasurementData();
   double GetDistance();
-  
+
   bool IsRangeValid();
   bool StatusIsFatal() {return m_pDistance->StatusIsFatal();}
 

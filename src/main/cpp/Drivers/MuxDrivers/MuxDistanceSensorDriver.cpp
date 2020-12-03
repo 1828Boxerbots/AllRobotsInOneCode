@@ -20,7 +20,7 @@ MuxDistanceSensorDriver::MuxDistanceSensorDriver(Rev2mDistanceSensor::Port Port,
     
     SetActive(false);
 	m_pDistanceSensor = new RevDistanceSensorDriver(Port, units, profile);
-	m_pDistanceSensor->StartMeasuring();
+	m_pDistanceSensor->Init();
 }
 
 
@@ -31,7 +31,7 @@ double MuxDistanceSensorDriver::GetDistance()
 
     double retVal = m_pDistanceSensor->GetDistance();
 
-    m_pDistanceSensor->StopMeasuring();
+    m_pDistanceSensor->DisableInit();
 
     return retVal; 
 }
@@ -42,7 +42,7 @@ bool MuxDistanceSensorDriver::IsRangeValid()
     SetActive();
     bool retVal = m_pDistanceSensor->IsRangeValid();
 
-    m_pDistanceSensor->StopMeasuring();
+    m_pDistanceSensor->DisableInit();
 
     return retVal; 
 }
@@ -57,7 +57,7 @@ void MuxDistanceSensorDriver::SetActive(bool isReady)
     m_breakout.SetChannel(1 << (m_breakoutChannel));
     if (isReady)
     {
-    m_pDistanceSensor->StartMeasuring();
+    m_pDistanceSensor->Init();
     }
 }
 
@@ -67,7 +67,7 @@ bool MuxDistanceSensorDriver::StatusIsFatal()
     SetActive();
     bool retVal = m_pDistanceSensor->StatusIsFatal();
 
-    m_pDistanceSensor->StopMeasuring();
+    m_pDistanceSensor->DisableInit();
 
     return retVal;
 }
@@ -84,8 +84,6 @@ void MuxDistanceSensorDriver::Init(bool isOn)
     {
         m_pDistanceSensor->DisableInit();
     }
-
-    m_pDistanceSensor->StopMeasuring();
 }
 
 

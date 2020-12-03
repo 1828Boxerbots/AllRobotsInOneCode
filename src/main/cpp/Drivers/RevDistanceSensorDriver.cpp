@@ -56,12 +56,14 @@ bool RevDistanceSensorDriver::IsRangeValid()
 }
 
 
+// DON'T USE THIS
 void RevDistanceSensorDriver::StartMeasuring()
 {
   m_pDistance->StartMeasurement();
 }
 
 
+// DON'T USE THIS
 void RevDistanceSensorDriver::StopMeasuring()
 {
   m_pDistance->StopMeasurement();
@@ -72,5 +74,4 @@ double RevDistanceSensorDriver::GetMeasurementData()
 {
   return m_pDistance->GetRangeMM();
 }
-
 
