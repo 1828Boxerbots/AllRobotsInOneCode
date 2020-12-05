@@ -70,42 +70,42 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
         SetMotorR(rightY);
     }
     //This is for distance sensor implementation, if distance sensor doesn't pick up anything, then go on with code
-    if(GetDistanceSensorDetectionDistanceLeft() != NULL && m_hasAntiCollision == true)
+    if(IsDistanceLeftActive() == true && m_hasAntiCollision == true)
     {
         //Distance less than collision range
         if(GetDistanceSensorDetectionDistanceLeft() < m_distanceCollisionDistanceLeft)
         {
-        //If turning right,forward, or reverse, continue moving
-        if((leftY > 0.1 && rightY < -0.1) || (leftY > 0.1 && rightY > 0.1) || (leftY < -0.1 && rightY < -0.1))
-        {
-            SetMotorL(leftY);
-            SetMotorR(rightY);
-        }
-        //If not turning, set motors to 0
-        else
-        {
-            SetMotorL(0.0);
-            SetMotorR(0.0);
-        }
+            //If turning right,forward, or reverse, continue moving
+            if((leftY > 0.1 && rightY < -0.1) || (leftY > 0.1 && rightY > 0.1) || (leftY < -0.1 && rightY < -0.1))
+            {
+                SetMotorL(leftY);
+                SetMotorR(rightY);
+            }
+            //If not turning, set motors to 0
+            else
+            {
+                SetMotorL(0.0);
+                SetMotorR(0.0);
+            }
         }
     }
-    if(GetDistanceSensorDetectionDistanceRight() != NULL && m_hasAntiCollision == true)
+    if(IsDistanceRightActive() == true && m_hasAntiCollision == true)
     {
         //Distance less than collision range
         if(GetDistanceSensorDetectionDistanceRight() < m_distanceCollisionDistanceRight)
         {
-        //If turning left,moving forward, or reversing, continue moving
-        if(leftY < -0.1 && rightY > 0.1 || leftY > 0.1 && rightY > 0.1 || leftY < -0.1 && rightY < -0.1)
-        {
-            SetMotorL(leftY);
-            SetMotorR(rightY);
-        }
-        //If not going reverse, set motors to 0
-        else
-        {
-            SetMotorL(0.0);
-            SetMotorR(0.0);
-        }
+            //If turning left,moving forward, or reversing, continue moving
+            if(((leftY < -0.1) && (rightY > 0.1)) || ((leftY > 0.1) && (rightY > 0.1)) || ((leftY < -0.1) && (rightY < -0.1)))
+            {
+                SetMotorL(leftY);
+                SetMotorR(rightY);
+            }
+            //If not going reverse, set motors to 0
+            else
+            {
+                SetMotorL(0.0);
+                SetMotorR(0.0);
+            }
         }
     }
     

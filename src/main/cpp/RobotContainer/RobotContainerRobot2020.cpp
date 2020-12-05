@@ -254,13 +254,24 @@ void RobotContainerRobot2020::AutonomousPeriodic() {}
 
 void RobotContainerRobot2020::TeleopPeriodic()
 {
-  
-  //Reading all Mux Sensors for testing purposes
-  m_pDrive->GetDistanceSensorDetectionDistanceLeft();  //Left Distance Sensor
-  m_pDrive->GetDistanceSensorDetectionDistanceRight(); //Right Distance Sensor
-  
-  //m_pSpin->GetColor();                                 //Color Sensor
-  //m_pDrive->GetLidarDetectionDistance();               //Lidar Sensor
+   #ifndef NOHW
+    //Reading all Mux Sensors for testing purposes
+    #ifdef M_DISTANCE_LEFT
+      m_pDrive->GetDistanceSensorDetectionDistanceLeft();  //Left Distance Sensor
+    #endif
+    #ifdef M_DISTANCE_RIGHT
+      m_pDrive->GetDistanceSensorDetectionDistanceRight(); //Right Distance Sensor
+    #endif
+/*
+    #ifdef M_COLOR
+      m_pSpin->GetColor();                                 //Color Sensor
+      Util::DelayInSeconds(1);
+    #endif
+    #ifdef M_LIDAR
+      m_pDrive->GetLidarDetectionDistance();               //Lidar Sensor
+      Util::DelayInSeconds(1);
+    #endif*/
+  #endif
 
   //Gives color from FMS
   std::string gameData;

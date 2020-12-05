@@ -54,17 +54,30 @@ void DriveTrainSubsystemRobot2020::Init()
   m_leftEncoder.SetDistancePerPulse( ( 1.0 / GetPulsesPerRevolution() ) * Util::PI * WHEELDIAMETER);
   m_rightEncoder.SetDistancePerPulse( ( 1.0 / GetPulsesPerRevolution() ) * Util::PI * WHEELDIAMETER);
 
-  #ifdef M_DISTANCE_RIGHT
+  /*#ifdef M_DISTANCE_RIGHT
     m_pMuxRightDistance->Init(true);
   #endif
 
   #ifdef M_DISTANCE_LEFT
     m_pMuxLeftDistance->Init(true);
-  #endif
+  #endif*/
 
   #endif
 }
 
+void DriveTrainSubsystemRobot2020::InitRight()
+{
+  #ifdef M_DISTANCE_RIGHT
+    m_pMuxRightDistance->Init(true);
+  #endif
+}
+
+void DriveTrainSubsystemRobot2020::InitLeft()
+{
+  #ifdef M_DISTANCE_LEFT
+    m_pMuxLeftDistance->Init(true);
+  #endif
+}
 
 // Function for getting the current angle of the robot relative to its starting position
 double DriveTrainSubsystemRobot2020::IMUGetAngle()
@@ -154,21 +167,6 @@ void DriveTrainSubsystemRobot2020::GyroInit()
 
 double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
 {
-  /*#ifndef NOHW
-
-  #ifdef M_DISTANCE_LEFT
-
-  /*if(m_hasAntiCollision == false)
-  {
-    return 1;
-  }*
-  double val = m_pMuxLeftDistance->GetDistance();
-  Util::Log("DriveTrain Distance Left", val);
-  return val;
-  #endif
-  #else
-  return 1;
-  #endif*/
 //------------------------------------
   double val = -1;
   #ifndef NOHW
@@ -178,9 +176,11 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
   {
     return 1;
   }*/
+  m_pMuxLeftDistance->Init(true);
   val = m_pMuxLeftDistance->GetDistance();
   #endif
   Util::Log("DriveTrain Distance Left", val);
+  Util::DelayInSeconds(1);
   #endif
   return val;
 
@@ -189,22 +189,6 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
 
 double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceRight()
 {
-  /*#ifndef NOHW
-
-  #ifdef M_DISTANCE_RIGHT
-
-  /*if(m_hasAntiCollision == false)
-  {
-    return 1;
-  }*
-  double val = m_pMuxRightDistance->GetDistance();
-  Util::Log("DriveTrain Distance Right", val);
-  return val;
-  
-  #endif
-  #else
-  return 1;
-  #endif*/
 //-------------------------------------
   double val = -1;
   #ifndef NOHW
@@ -214,9 +198,11 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceRight()
   {
     return 1;
   }*/
+  m_pMuxRightDistance->Init(true);
   val = m_pMuxRightDistance->GetDistance();
   #endif
   Util::Log("DriveTrain Distance Right", val);
+  Util::DelayInSeconds(1);
   #endif
   return val;
 }
