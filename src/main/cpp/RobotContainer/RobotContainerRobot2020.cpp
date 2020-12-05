@@ -256,8 +256,13 @@ void RobotContainerRobot2020::TeleopPeriodic()
 {
   
   //Reading all Mux Sensors for testing purposes
+<<<<<<< HEAD
   m_pDrive->GetDistanceSensorDetectionDistanceLeft();  //Left Distance Sensor
   m_pDrive->GetDistanceSensorDetectionDistanceRight(); //Right Distance Sensor
+=======
+  //m_pDrive->GetDistanceSensorDetectionDistanceRight(); //Right Distance Sensor
+  //m_pDrive->GetDistanceSensorDetectionDistanceLeft();  //Left Distance Sensor
+>>>>>>> parent of 912717e... Simultaneous distance sensors!
   
   //m_pSpin->GetColor();                                 //Color Sensor
   //m_pDrive->GetLidarDetectionDistance();               //Lidar Sensor

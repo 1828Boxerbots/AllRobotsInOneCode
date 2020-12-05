@@ -17,8 +17,7 @@ MuxDistanceSensorDriver::MuxDistanceSensorDriver(Rev2mDistanceSensor::Port Port,
                                                  m_breakout(breakout),
                                                  m_breakoutChannel(breakoutChannel)
 {
-    
-    SetActive(false);
+    SetActive();
 	m_pDistanceSensor = new RevDistanceSensorDriver(Port, units, profile);
 	m_pDistanceSensor->Init();
 }
@@ -48,17 +47,20 @@ bool MuxDistanceSensorDriver::IsRangeValid()
 }
 
 
-void MuxDistanceSensorDriver::SetActive(bool isReady)
+void MuxDistanceSensorDriver::SetActive()
 {
     // isChanged determines if the channel has changed. 
     // If it's true, then the sensor needs to reinitialize.
     // Otherwise, the sensor was already active and it's fine.
 
     m_breakout.SetChannel(1 << (m_breakoutChannel));
+<<<<<<< HEAD
     if (isReady)
     {
     m_pDistanceSensor->Init();
     }
+=======
+>>>>>>> parent of 912717e... Simultaneous distance sensors!
 }
 
 
