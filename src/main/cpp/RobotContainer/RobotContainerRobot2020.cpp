@@ -27,7 +27,7 @@ RobotContainerRobot2020::RobotContainerRobot2020()
 
   //m_pCamera = new CameraSubsystemBase(m_pDrive);
 
-  m_pShootLoad =     new ShootLoadCommand(m_pLoader, m_pShooter, m_encoderSpeedWanted, m_motorSpeed);
+  m_pShootLoad =     new ShootLoadCommand(m_pLoader, m_pShooter, m_pDrive, m_encoderSpeedWanted, m_shootSpeed, m_driveSpeed, LIDAR_LOW_C418, LIDAR_HIGH_C418);
   //SpinWithArm Commands
   m_pSpinMotor =     new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseSpinMotor, m_speed, 0, ArmSubsystemBase::ArmPositions::INVALID_POS);
   m_pSpinWithColor = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseSpinWithColor, m_speed, m_wantedRotation, ArmSubsystemBase::ArmPositions::INVALID_POS);
@@ -262,15 +262,15 @@ void RobotContainerRobot2020::TeleopPeriodic()
     #ifdef M_DISTANCE_RIGHT
       m_pDrive->GetDistanceSensorDetectionDistanceRight(); //Right Distance Sensor
     #endif
-/*
+
     #ifdef M_COLOR
       m_pSpin->GetColor();                                 //Color Sensor
       Util::DelayInSeconds(1);
     #endif
     #ifdef M_LIDAR
       m_pDrive->GetLidarDetectionDistance();               //Lidar Sensor
-      Util::DelayInSeconds(1);
-    #endif*/
+      //Util::DelayInSeconds(1);
+    #endif
   #endif
 
   //Gives color from FMS

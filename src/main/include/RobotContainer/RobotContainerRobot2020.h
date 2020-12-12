@@ -55,8 +55,9 @@ class RobotContainerRobot2020 : public RobotContainerBase {
 
 //ShootLoadCommand
   ShootLoadCommand* m_pShootLoad = nullptr;
-  double m_encoderSpeedWanted = -5500;
-  double m_motorSpeed = 1.0;
+  double m_encoderSpeedWanted = -2000;  //REAL ENCODER SPEED = -5500
+  double m_driveSpeed = 0.5;
+  double m_shootSpeed = 1.0;
 
 //SpinWithArm
   SpinWithArm* m_pSpinMotor = nullptr;

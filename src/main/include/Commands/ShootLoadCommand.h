@@ -11,6 +11,7 @@
 #include <frc2/command/CommandHelper.h>
 #include "..\subsystems\LoaderSubsystemBase.h"
 #include "..\subsystems\ShooterSubsystemBase.h"
+#include "..\subsystems\DriveTrainSubsystemBase.h"
 
 /**
  * An example command.
@@ -22,8 +23,8 @@
 class ShootLoadCommand
     : public frc2::CommandHelper<frc2::CommandBase, ShootLoadCommand> {
  public:
-  ShootLoadCommand(LoaderSubsystemBase *pLoader, ShooterSubsystemBase *pShooter
-  , double encoderSetting, double motorSpeed = 0.0);
+  ShootLoadCommand(LoaderSubsystemBase *pLoader, ShooterSubsystemBase *pShooter, DriveTrainSubsystemBase *pDrive
+  , double encoderSetting, double shootSpeed, double driveSpeed, double lidarDistanceLow, double lidarDistanceHigh);
 
   void Initialize() override;
 
@@ -36,10 +37,16 @@ class ShootLoadCommand
 private:
   LoaderSubsystemBase *m_pLoader = nullptr;
   ShooterSubsystemBase *m_pShooter = nullptr;
+  DriveTrainSubsystemBase *m_pDrive = nullptr;
+
   double m_encoderWanted = -5900.0;
-  double m_motorSpeed = 1.0;
+  double m_shootSpeed = 1.0;
+  double m_driveSpeed = 0.5;
+  double m_loaderSpeed = 1.0;
   double m_encoderTolerance = 100.0;
   double m_oneBallTime = 0.5;
+  double m_lidarLow = 90.0;
+  double m_lidarHigh = 120.0;
 
   bool m_isFinished = false;
   bool m_isBusy = false;

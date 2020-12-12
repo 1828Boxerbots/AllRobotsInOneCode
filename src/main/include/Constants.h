@@ -49,7 +49,7 @@
 //#define M_DISTANCE_LEFT
 //#define M_DISTANCE_RIGHT
 #define M_LIDAR
-#define M_COLOR
+//#define M_COLOR
 //#define M_IMU
 
 //Controllers
@@ -136,6 +136,10 @@ constexpr int DIO_RIGHTENCODER_B_ROBOT2020      = 3;
 constexpr int DIO_HALLEFFECT_UPPER_ROBOT2020    = 7;
 constexpr int DIO_HALLEFFECT_LOWER_ROBOT2020    = 6;
 constexpr int RLY_SPIKE_ROBOT2020               = 1;
+
+//Lidar Distances
+constexpr double LIDAR_LOW_C418                 = 60;
+constexpr double LIDAR_HIGH_C418                = 80;
 
 //Vision Bounds (Remember, the InRange function is in BGR format)
 constexpr int YELLOW_LOW_BLUE   = 0;

@@ -8,16 +8,22 @@
 #include "Commands/ShootLoadCommand.h"
 #include <frc/SmartDashboard/SmartDashboard.h>
 
-ShootLoadCommand::ShootLoadCommand(LoaderSubsystemBase *pLoader, ShooterSubsystemBase *pShooter, 
-double encoderWanted, double motorSpeed) 
+ShootLoadCommand::ShootLoadCommand(LoaderSubsystemBase *pLoader, ShooterSubsystemBase *pShooter, DriveTrainSubsystemBase *pDrive
+,double encoderWanted, double shootSpeed, double driveSpeed, double lidarLow, double lidarHigh) 
 {
   m_pLoader = pLoader;
   m_pShooter = pShooter;
+  m_pDrive = pDrive;
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(pLoader);
   AddRequirements(pShooter);
+  AddRequirements(pDrive);
+
   m_encoderWanted = encoderWanted;
-  m_motorSpeed = motorSpeed;
+  m_shootSpeed = shootSpeed;
+  m_driveSpeed = driveSpeed;
+  m_lidarLow = lidarLow;
+  m_lidarHigh = lidarHigh;
 }
 
 // Called when the command is initially scheduled.
@@ -29,71 +35,64 @@ void ShootLoadCommand::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ShootLoadCommand::Execute() 
 {
-  std::string methodName = "Execute";
-  std::string commandName = "ShootLoadCommand";
-  Util::Log(methodName, "starting...", commandName);
-
-  if(m_isBusy == true)
+  //Loading a ball to be ready to fire
+  while(m_pLoader->IsLoaded())
   {
-    Util::Log(methodName, "busy exiting", commandName);
+    m_pLoader->SetLoadMotor();
+  }
+  
+  m_pLoader->SetLoadMotor(0.0);
+
+
+  //Lidar getting correct distance
+  //Too High / Too far
+  if(m_pDrive->GetLidarDetectionDistance() > m_lidarHigh)
+  {
+    m_pDrive->SetMotorL(m_driveSpeed);
+    m_pDrive->SetMotorR(m_driveSpeed);
+    return;
+  }
+  //Too Low / Too close
+  if(m_pDrive->GetLidarDetectionDistance() < m_lidarLow)
+  {
+    m_pDrive->SetMotorL(-m_driveSpeed);
+    m_pDrive->SetMotorR(-m_driveSpeed);
     return;
   }
 
-  Util::Log(methodName, "not busy", commandName);
-  m_isBusy = true;
+  m_pDrive->Stop();
 
   //Since the speed is negative this is the "largest value"
   double encoderLowTol = m_encoderWanted - m_encoderTolerance;
   //"Smallest Value"
   double encoderHighTol = m_encoderWanted + m_encoderTolerance;
-  Util::Log("ShootLoad LowTol", encoderLowTol, commandName);
-  Util::Log("ShootLoad HighTol", encoderHighTol, commandName);
+  Util::Log("ShootLoad LowTol", encoderLowTol);
+  Util::Log("ShootLoad HighTol", encoderHighTol);
 
   //Set shooter motor
-  if (m_motorSpeed != 0.0)
+  if (m_shootSpeed != 0.0)
   {
-    Util::Log("motor speed 1", m_motorSpeed, commandName);
-    m_pShooter->SetShootMotor(m_motorSpeed);
+    Util::Log("motor speed 1", m_shootSpeed);
+    m_pShooter->SetShootMotor(m_shootSpeed);
   } 
   else
   {
-    Util::Log("motor speed 2", 1.0, commandName);
+    Util::Log("motor speed 2", 1.0);
     m_pShooter->SetShootMotor(1.0);
   }
 
-  //Check if there isn't a ball in the Photogate
-  /*
-  if(m_pLoader->GetPhotogate() != true)
-  {
-    //If there isn't a ball there do nothing
-    m_pShooter->Stop();
-    m_isFinished = true;
-    m_isBusy = false;
-    return;
-  }  */
-
   double shooterSpeed = m_pShooter->EncoderSpeed();
-  while(shooterSpeed < encoderLowTol || shooterSpeed > encoderHighTol)
+  if(shooterSpeed < encoderLowTol || shooterSpeed > encoderHighTol)
   {
-    Util::Log(methodName, "inside While", commandName);
-    if(shooterSpeed < encoderLowTol)
-    {
-      //m_motorSpeed += 0.1;
-    }
-    else if(shooterSpeed > encoderHighTol)
-    {
-      //m_motorSpeed -= 0.1;
-    }
-      
-    m_pShooter->SetShootMotor(m_motorSpeed);
+    m_pShooter->SetShootMotor(m_shootSpeed);
 
     shooterSpeed = m_pShooter->EncoderSpeed();
 
     Util::Log("ShootLoad ShooterSpeed", shooterSpeed);
+    return;
   }
 
-  Util::Log(methodName, "While done", commandName);
-  Util::Log("after while motorspeed", m_motorSpeed, commandName);
+  Util::Log("ShootLoad ShooterSpeed", m_shootSpeed);
 
   Util::DelayInSeconds(0.25);
 
@@ -103,10 +102,8 @@ void ShootLoadCommand::Execute()
   //Not Sure yet if we should have this
   m_pShooter->Stop();
   m_pLoader->SetLoadMotor(0.0, -1);
-  
-  m_isBusy = false;
+
   m_isFinished = true;
-  Util::Log(methodName, "Done", commandName);
 }
 
 // Called once the command ends or is interrupted.
