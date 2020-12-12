@@ -46,7 +46,7 @@
 //#define SEND_VIDEO
 //M_DISTANCE needs to be commented to not have M_DISTANCE code run. Uncommented to run the code.
 
-#define M_DISTANCE_LEFT
+//#define M_DISTANCE_LEFT
 //#define M_DISTANCE_RIGHT
 #define M_LIDAR
 #define M_COLOR
@@ -152,24 +152,27 @@ constexpr int GREEN_HIGH_GREEN  = 230;
 constexpr int GREEN_HIGH_RED    = 230;
 
 //Color Detection Bounds
-constexpr double RED_LOW_R     = 0.45;
+constexpr double RED_LOW_R     = 0.345;
 constexpr double RED_LOW_G     = 0.30;
 constexpr double RED_LOW_B     = 0.08;
 constexpr double RED_HIGH_R    = 0.55;
-constexpr double RED_HIGH_G    = 0.40;
-constexpr double RED_HIGH_B    = 0.18;
+constexpr double RED_HIGH_G    = 0.44;
+constexpr double RED_HIGH_B    = 0.23;
+
 constexpr double GREEN_LOW_R   = 0.11;
-constexpr double GREEN_LOW_G   = 0.53;
+constexpr double GREEN_LOW_G   = 0.52;
 constexpr double GREEN_LOW_B   = 0.20;
-constexpr double GREEN_HIGH_R  = 0.21;
+constexpr double GREEN_HIGH_R  = 0.23;
 constexpr double GREEN_HIGH_G  = 0.63;
 constexpr double GREEN_HIGH_B  = 0.30;
+
 constexpr double BLUE_LOW_R    = 0.07;
 constexpr double BLUE_LOW_G    = 0.38;
-constexpr double BLUE_LOW_B    = 0.41;
-constexpr double BLUE_HIGH_R   = 0.17;
+constexpr double BLUE_LOW_B    = 0.32;
+constexpr double BLUE_HIGH_R   = 0.19;
 constexpr double BLUE_HIGH_G   = 0.48;
 constexpr double BLUE_HIGH_B   = 0.51;
+
 constexpr double YELLOW_LOW_R  = 0.25;
 constexpr double YELLOW_LOW_G  = 0.51;
 constexpr double YELLOW_LOW_B  = 0.08;

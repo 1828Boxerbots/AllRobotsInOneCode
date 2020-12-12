@@ -55,7 +55,7 @@ void SpinWithArm::Execute()
     Util::Log("SpinWithArm", 1);
     break;
   case UseSpinToColor:
-    m_pSpinner->SpinToColor();
+    m_pSpinner->SpinToColor(m_speed);
     Util::Log("SpinWithArm", 2);
     break;
   case UseSpinWithColor:

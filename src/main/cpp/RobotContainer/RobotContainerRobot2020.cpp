@@ -41,6 +41,7 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   m_pAutoArmUp =     new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 1 /*1=HIGHEST*/);
   m_pAutoArmDown =   new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 2 /*2=LOWEST*/);
   m_pAutoArmSetup =  new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 3 /*3=Auto Mode*/);
+
   // Configure the button bindings
   ConfigureButtonBindings();
   m_pDrive->Init();
@@ -195,9 +196,8 @@ void RobotContainerRobot2020::SetRightTrigger()
   buttonRTOne.WhenReleased(&m_shooterStop);
   //m_shooterSpin;
 
-/*
   frc2::Button buttonRTTwo{[this] {return m_controller2.GetTriggerAxis(frc::GenericHID::kRightHand);}};
-  buttonRTTwo.(m_pSpinWithColor);*/
+  buttonRTTwo.WhenPressed(m_pSpinToColor);
 }
 
 
