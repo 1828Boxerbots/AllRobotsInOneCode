@@ -105,7 +105,7 @@ void RobotContainerBase::SetLeftBumper()
 void RobotContainerBase::SetRightBumper()
 {
     frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
-    bumperR.WhenHeld(&m_shooterSpin);
+    bumperR.WhenHeld(&m_shooterEject);
     bumperR.WhenReleased(&m_shooterStop);
 }
 
