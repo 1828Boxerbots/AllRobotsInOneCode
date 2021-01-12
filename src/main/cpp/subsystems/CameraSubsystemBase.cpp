@@ -99,7 +99,7 @@ int CameraSubsystemBase::WhereToTurn()
         frc::SmartDashboard::PutString("Camera Turn To", "Right");
         return GO_RIGHT;
     }
-    if(m_center.x  < GetCenterMin() && m_center.x  > GetCenterMax())
+    if(m_center.x  > GetCenterMin() && m_center.x  < GetCenterMax())
     {
         frc::SmartDashboard::PutString("Camera Turn To", "Center");
         return STOP;
@@ -145,10 +145,10 @@ void CameraSubsystemBase::CameraPeriodic()
 void CameraSubsystemBase::AutoCameraTurn()
 {
     int dir = WhereToTurn();
-    while (dir != 0)
+    while (dir != STOP)
     {
-        if (dir == +1) m_pDriveObject->TurnRight();
-        if (dir == -1) m_pDriveObject->TurnLeft();
+        if (dir == GO_RIGHT) m_pDriveObject->TurnRight();
+        if (dir == GO_LEFT) m_pDriveObject->TurnLeft();
         dir = WhereToTurn();
     }
 }
