@@ -7,12 +7,10 @@
 
 #include "Drivers/HallEffectOmnipolarDriver.h"
 
-
-HallEffectOmnipolarDriver::HallEffectOmnipolarDriver(int port) 
+HallEffectOmnipolarDriver::HallEffectOmnipolarDriver(int port)
 {
     m_pDevice = new frc::DigitalInput(port);
 }
-
 
 bool HallEffectOmnipolarDriver::Get()
 {

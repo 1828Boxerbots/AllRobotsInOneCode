@@ -7,20 +7,17 @@
 
 #include "Drivers/MuxDrivers/MuxDistanceSensorDriver.h"
 
-
 MuxDistanceSensorDriver::MuxDistanceSensorDriver(Rev2mDistanceSensor::Port Port,
                                                  int adr, //tito was here
-					                             I2CMultiplexerDriver& breakout,
+                                                 I2CMultiplexerDriver &breakout,
                                                  uint8_t breakoutChannel,
                                                  Rev2mDistanceSensor::DistanceUnit units,
-					                             Rev2mDistanceSensor::RangeProfile profile):
-                                                 m_breakout(breakout),
-                                                 m_breakoutChannel(breakoutChannel)
+                                                 Rev2mDistanceSensor::RangeProfile profile) : m_breakout(breakout),
+                                                                                              m_breakoutChannel(breakoutChannel)
 {
     SetActive();
-	m_pDistanceSensor = new RevDistanceSensorDriver(Port, units, profile);
+    m_pDistanceSensor = new RevDistanceSensorDriver(Port, units, profile);
 }
-
 
 double MuxDistanceSensorDriver::GetDistance()
 {
@@ -30,7 +27,6 @@ double MuxDistanceSensorDriver::GetDistance()
     return m_pDistanceSensor->GetDistance();
 }
 
-
 bool MuxDistanceSensorDriver::IsRangeValid()
 {
     SetActive();
@@ -38,19 +34,17 @@ bool MuxDistanceSensorDriver::IsRangeValid()
 
     //m_pDistanceSensor->DisableInit();
 
-    return retVal; 
+    return retVal;
 }
-
 
 void MuxDistanceSensorDriver::SetActive()
 {
-    // isChanged determines if the channel has changed. 
+    // isChanged determines if the channel has changed.
     // If it's true, then the sensor needs to reinitialize.
     // Otherwise, the sensor was already active and it's fine.
 
     m_breakout.SetChannel(1 << (m_breakoutChannel));
 }
-
 
 bool MuxDistanceSensorDriver::StatusIsFatal()
 {
@@ -62,18 +56,15 @@ bool MuxDistanceSensorDriver::StatusIsFatal()
     return retVal;
 }
 
-
 void MuxDistanceSensorDriver::Init(bool isOn)
 {
     SetActive();
-    if(isOn == true)
+    if (isOn == true)
     {
         m_pDistanceSensor->Init(true);
     }
-    else if(isOn == false) 
+    else if (isOn == false)
     {
         m_pDistanceSensor->DisableInit();
     }
 }
-
-

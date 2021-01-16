@@ -9,20 +9,20 @@
 
 #include <frc/Relay.h>
 
-class SpikeDriver 
+class SpikeDriver
 {
- public:
-  SpikeDriver(int port);
+public:
+    SpikeDriver(int port);
 
-  void TurnSpikeOn();
-  void TurnSpikeOff();
+    void TurnSpikeOn();
+    void TurnSpikeOff();
 
-  frc::Relay::Value GetState();
+    frc::Relay::Value GetState();
 
-  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+    bool StatusIsFatal() { return m_pDevice->StatusIsFatal(); }
 
- private:
- frc::Relay *m_pDevice = nullptr;
+private:
+    frc::Relay *m_pDevice = nullptr;
 };
 
 // 2/14/20

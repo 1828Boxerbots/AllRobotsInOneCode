@@ -19,8 +19,9 @@
  * Command will *not* work!
  */
 class MoveToDistanceCommand
-    : public frc2::CommandHelper<frc2::CommandBase, MoveToDistanceCommand> {
- public:
+    : public frc2::CommandHelper<frc2::CommandBase, MoveToDistanceCommand>
+{
+public:
   MoveToDistanceCommand(DriveTrainSubsystemBase *pDrive, double targetDistance = 0.0, double speed = 1.0);
 
   void Initialize() override;

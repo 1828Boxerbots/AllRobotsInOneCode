@@ -9,16 +9,16 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "../include/Util.h"
 
-ShooterSubsystemRobot2020::ShooterSubsystemRobot2020() 
+ShooterSubsystemRobot2020::ShooterSubsystemRobot2020()
 {
-    #ifndef NOHW
+#ifndef NOHW
     Init();
     m_timer.Start();
     m_timer.Reset();
     m_shooterEncoder.Reset();
     m_startTime = m_timer.Get();
     m_encoderRawStart = m_shooterEncoder.GetRaw();
-    #endif
+#endif
 }
 
 // This method will be called once per scheduler run
@@ -29,8 +29,8 @@ void ShooterSubsystemRobot2020::Periodic()
 
 double ShooterSubsystemRobot2020::EncoderSpeed()
 {
-    #ifndef NOHW
-    double difTime = m_timer.Get() -  m_startTime;
+#ifndef NOHW
+    double difTime = m_timer.Get() - m_startTime;
     double difRaw = m_shooterEncoder.GetRaw() - m_encoderRawStart;
     frc::SmartDashboard::PutNumber("Robot2020 Shooter Time Dif", difTime);
     frc::SmartDashboard::PutNumber("Robot2020 Shooter Raw Dif", difRaw);
@@ -42,38 +42,38 @@ double ShooterSubsystemRobot2020::EncoderSpeed()
     m_encoderRawStart = m_shooterEncoder.GetRaw();
     m_startTime = m_timer.Get();
     return speed;
-    #else
+#else
     return 0;
-    #endif
+#endif
 }
 
 void ShooterSubsystemRobot2020::SetShootMotor(double speed)
 {
-    #ifndef NOHW
+#ifndef NOHW
     m_shooterMotor.Set(speed);
     frc::SmartDashboard::PutNumber("Robot2020 Shooter Encoder", m_shooterEncoder.GetDistance());
     frc::SmartDashboard::PutNumber("Robot2020 Shooter Encoder RAW", m_shooterEncoder.GetRaw());
     frc::SmartDashboard::PutNumber("Robot2020 Shooter Encoder RATE", m_shooterEncoder.GetRate());
 
-    #endif
+#endif
 }
 
 void ShooterSubsystemRobot2020::Init()
 {
-    #ifndef NOHW
+#ifndef NOHW
     m_shooterEncoder.Reset();
-    m_shooterEncoder.SetDistancePerPulse(1/PULSES_PER_ROTATION);
+    m_shooterEncoder.SetDistancePerPulse(1 / PULSES_PER_ROTATION);
     m_shooterEncoder.SetReverseDirection(true);
     m_shooterMotor.SetInverted(true);
-    #endif
+#endif
 }
 
 void ShooterSubsystemRobot2020::ResetEncoder()
 {
-    #ifndef NOHW
+#ifndef NOHW
     m_shooterEncoder.Reset();
     frc::SmartDashboard::PutNumber("Robot2020 Shooter Encoder", m_shooterEncoder.GetDistance());
     frc::SmartDashboard::PutNumber("Robot2020 Shooter Encoder RAW", m_shooterEncoder.GetRaw());
     frc::SmartDashboard::PutNumber("Robot2020 Shooter Encoder RATE", m_shooterEncoder.GetRate());
-    #endif
+#endif
 }

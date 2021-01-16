@@ -17,8 +17,9 @@
 #include "RobotContainer/RobotContainerRobot2020.h"
 #include "RobotContainer/RobotContainerLipALoop.h"
 
-class Robot : public frc::TimedRobot {
- public:
+class Robot : public frc::TimedRobot
+{
+public:
   void RobotInit() override;
   void RobotPeriodic() override;
   void DisabledInit() override;
@@ -29,13 +30,12 @@ class Robot : public frc::TimedRobot {
   void TeleopPeriodic() override;
   void TestPeriodic() override;
 
- private:
-
+private:
   frc::Timer m_timer;
   double m_startTime = 0.0;
   // Have it null by default so that if testing teleop it
   // doesn't have undefined behavior and potentially crash.
-  frc2::Command* m_autonomousCommand = nullptr;
+  frc2::Command *m_autonomousCommand = nullptr;
 
   //RobotContainerRocky m_container;
   //RobotContainerSLAL m_container;

@@ -15,8 +15,9 @@
 #include "../Util.h"
 #include "../Constants.h"
 
-class DriveTrainSubsystemBase : public frc2::SubsystemBase {
- public:
+class DriveTrainSubsystemBase : public frc2::SubsystemBase
+{
+public:
   DriveTrainSubsystemBase();
 
   /**
@@ -30,10 +31,10 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   void ForwardInInch(double inch, double angle, double speed);
   void LogEncoder();
   bool MoveAlignPID(double targetDistance, double heading, double speed = 1.0);
-  void SetCollision(bool colliding = true) {m_isColliding = colliding;}
+  void SetCollision(bool colliding = true) { m_isColliding = colliding; }
   void FixRotation(double wantedAngle, double speed = 1.0);
-  virtual double GetPulsesPerRevolution() {return 0.0001;}//Random Small Number
-  virtual double GyroGetAngle() {return m_gyroAngle;}
+  virtual double GetPulsesPerRevolution() { return 0.0001; } //Random Small Number
+  virtual double GyroGetAngle() { return m_gyroAngle; }
   virtual void GyroInit() {}
   virtual void IMUInit() {}
   virtual void Init();
@@ -41,27 +42,27 @@ class DriveTrainSubsystemBase : public frc2::SubsystemBase {
   virtual void SetMotorR(double speed) {}
   virtual void TurnLeft(double speed = 1.0);
   virtual void TurnRight(double speed = 1.0);
-  virtual double GetLeftEncoderInch() {return -1.0;}
-  virtual double GetRightEncoderInch() {return -1.0;}
+  virtual double GetLeftEncoderInch() { return -1.0; }
+  virtual double GetRightEncoderInch() { return -1.0; }
   virtual void ResetEncoder() {}
   virtual void ForwardInSeconds(double goalTime);
   virtual void TurnInDegrees(double relativeAngle);
   //virtual void DetectionSoftware(double detectionDistance) {}
-  virtual double GetLidarDetectionDistance() {return 0.0;}
-  virtual double GetDistanceSensorDetectionDistanceLeft() {return 0.0;}
-  virtual double GetDistanceSensorDetectionDistanceRight() {return 0.0;}
+  virtual double GetLidarDetectionDistance() { return 0.0; }
+  virtual double GetDistanceSensorDetectionDistanceLeft() { return 0.0; }
+  virtual double GetDistanceSensorDetectionDistanceRight() { return 0.0; }
   virtual void PrecisionMovementLidar(double wantedDistance) {}
-  virtual bool IsDistanceLeftActive() {return false;}
-  virtual bool IsDistanceRightActive() {return false;}
-  virtual void InitLeft() {};
-  virtual void InitRight() {};
+  virtual bool IsDistanceLeftActive() { return false; }
+  virtual bool IsDistanceRightActive() { return false; }
+  virtual void InitLeft(){};
+  virtual void InitRight(){};
 
   virtual void EnableAnticollision(bool enable = true) { m_hasAntiCollision = enable; }
 
   //Temp Function meant to test turning function
   virtual void ForwardIninchTurn(double inch, double angle, double speed) {}
 
- protected:
+protected:
   bool m_isColliding = false;
 
   frc::Timer m_autoTimer;

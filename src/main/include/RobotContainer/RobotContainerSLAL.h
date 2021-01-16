@@ -11,7 +11,6 @@
 #include "subsystems/SLAL/ArmSubsystemSLAL.h"
 #include "RobotContainerBase.h"
 
-
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -19,18 +18,19 @@
  * scheduler calls).  Instead, the structure of the robot (including subsystems,
  * commands, and button mappings) should be declared here.
  */
-class RobotContainerSLAL : public RobotContainerBase{
- public:
+class RobotContainerSLAL : public RobotContainerBase
+{
+public:
   RobotContainerSLAL();
 
-  frc2::Command* GetAutonomousCommand();
+  frc2::Command *GetAutonomousCommand();
 
   virtual void Init() {}
   virtual void DisableInit() {}
   void SetRightBumper() override;
   void SetLeftBumper() override;
 
- private:
+private:
   // The robot's subsystems and commands are defined here...
 
   void ConfigureButtonBindings();

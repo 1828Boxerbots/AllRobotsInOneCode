@@ -25,17 +25,18 @@
  * scheduler calls).  Instead, the structure of the robot (including subsystems,
  * commands, and button mappings) should be declared here.
  */
-class RobotContainerRocky : public RobotContainerBase{
- public:
+class RobotContainerRocky : public RobotContainerBase
+{
+public:
   RobotContainerRocky();
 
-  frc2::Command* GetAutonomousCommand();
+  frc2::Command *GetAutonomousCommand();
 
   virtual void Init();
   virtual void DisableInit();
   int ReadDioSwitch();
 
- private:
+private:
   // The robot's subsystems and commands are defined here...
 
   void ConfigureButtonBindings();

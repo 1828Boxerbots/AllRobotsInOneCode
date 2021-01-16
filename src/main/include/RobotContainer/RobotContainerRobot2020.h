@@ -27,8 +27,9 @@
  * scheduler calls).  Instead, the structure of the robot (including subsystems,
  * commands, and button mappings) should be declared here.
  */
-class RobotContainerRobot2020 : public RobotContainerBase {
- public:
+class RobotContainerRobot2020 : public RobotContainerBase
+{
+public:
   RobotContainerRobot2020();
 
   void Init() override;
@@ -47,39 +48,37 @@ class RobotContainerRobot2020 : public RobotContainerBase {
   void SetBackButton() override;
   int ReadDioSwitch();
 
-  frc2::Command* GetAutonomousCommand();
+  frc2::Command *GetAutonomousCommand();
 
   static SpinSubsystemRobot2020::FMSColors givenColor;
 
- private:
-
-//ShootLoadCommand
-  ShootLoadCommand* m_pShootLoad = nullptr;
-  double m_encoderSpeedWanted = -2000;  //REAL ENCODER SPEED = -5500
+private:
+  //ShootLoadCommand
+  ShootLoadCommand *m_pShootLoad = nullptr;
+  double m_encoderSpeedWanted = -2000; //REAL ENCODER SPEED = -5500
   double m_driveSpeed = 0.5;
   double m_shootSpeed = 1.0;
 
-//SpinWithArm
-  SpinWithArm* m_pSpinMotor = nullptr;
-  SpinWithArm* m_pSpinWithColor = nullptr;
-  SpinWithArm* m_pSpinToColor = nullptr;
-  SpinWithArm* m_pSpinMotorOpp = nullptr;
-  SpinWithArm* m_pSpinStop = nullptr;
-  SpinWithArm* m_pArmUp = nullptr;
-  SpinWithArm* m_pArmDown = nullptr;
+  //SpinWithArm
+  SpinWithArm *m_pSpinMotor = nullptr;
+  SpinWithArm *m_pSpinWithColor = nullptr;
+  SpinWithArm *m_pSpinToColor = nullptr;
+  SpinWithArm *m_pSpinMotorOpp = nullptr;
+  SpinWithArm *m_pSpinStop = nullptr;
+  SpinWithArm *m_pArmUp = nullptr;
+  SpinWithArm *m_pArmDown = nullptr;
 
-//AutoArmCommands
-  AutoArmCommand* m_pAutoArmSetup = nullptr;
-  AutoArmCommand* m_pAutoArmDown = nullptr;
-  AutoArmCommand* m_pAutoArmUp = nullptr;
+  //AutoArmCommands
+  AutoArmCommand *m_pAutoArmSetup = nullptr;
+  AutoArmCommand *m_pAutoArmDown = nullptr;
+  AutoArmCommand *m_pAutoArmUp = nullptr;
 
   // Pulling a pointer variable to access distance sensor driver
-  I2CMultiplexerDriver* m_pMultiplexerDriver = nullptr;
+  I2CMultiplexerDriver *m_pMultiplexerDriver = nullptr;
 
   double m_speed = 1.0;
   int m_wantedRotation = 7;
   // The robot's subsystems and commands are defined here...
 
   void ConfigureButtonBindings();
-
 };

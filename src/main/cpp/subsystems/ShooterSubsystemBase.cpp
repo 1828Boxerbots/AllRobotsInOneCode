@@ -16,7 +16,7 @@ void ShooterSubsystemBase::Periodic() {}
 
 void ShooterSubsystemBase::Shoot(double shootSpeed)
 {
-    //The shooter shouldnt be able to shoot backwards
+    //The shooter shouldn't be able to shoot backwards
     shootSpeed = -Util::Limit(shootSpeed);
     frc::SmartDashboard::PutNumber("Shoot Speed", shootSpeed);
     SetShootMotor(shootSpeed);
@@ -24,19 +24,18 @@ void ShooterSubsystemBase::Shoot(double shootSpeed)
 
 void ShooterSubsystemBase::ShootBump(bool bumpL, bool bumpR)
 {
-    if(bumpL == true && bumpR == false)
+    if (bumpL == true && bumpR == false)
     {
         Shoot(-SHOOTSPEED);
     }
-    else if(bumpL == false && bumpR == true)
+    else if (bumpL == false && bumpR == true)
     {
         Shoot(SHOOTSPEED);
     }
-    else 
+    else
     {
         Shoot(0.0);
     }
-
 }
 
 bool ShooterSubsystemBase::AtSetpoint(double position)

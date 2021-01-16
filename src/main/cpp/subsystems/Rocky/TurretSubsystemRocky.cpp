@@ -21,11 +21,11 @@ void TurretSubsystemRocky::Turn(double angle)
 void TurretSubsystemRocky::Turn(bool aButton, bool bButton)
 {
     double motorSpeed;
-    if(aButton == true && bButton == false)
+    if (aButton == true && bButton == false)
     {
         motorSpeed = -MOTORSPEED;
     }
-    else if(aButton == false && bButton == true)
+    else if (aButton == false && bButton == true)
     {
         motorSpeed = MOTORSPEED;
     }
@@ -33,8 +33,8 @@ void TurretSubsystemRocky::Turn(bool aButton, bool bButton)
     {
         motorSpeed = 0.0;
     }
-    #ifndef NOHW
+#ifndef NOHW
     m_turretMotor.Set(motorSpeed);
-    #endif
+#endif
     frc::SmartDashboard::PutNumber("Turret Speed", motorSpeed);
 }

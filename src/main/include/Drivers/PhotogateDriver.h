@@ -11,16 +11,16 @@
 
 class PhotogateDriver
 {
- public:
+public:
   PhotogateDriver(int port);
 
   bool Get();
   void Init();
 
-  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+  bool StatusIsFatal() { return m_pDevice->StatusIsFatal(); }
 
-  private:
-    frc::DigitalInput *m_pDevice  = nullptr;
+private:
+  frc::DigitalInput *m_pDevice = nullptr;
 };
 
 // 2/14/20

@@ -14,30 +14,28 @@
 
 namespace Util
 {
-    double Limit(double value, double lowerLimit = -1.0, double higherLimit = 1.0);
-    double AbsMin(double input, double minValue);
-    double AbsMax(double input, double maxValue);
-    
-    void DelayInSeconds(double seconds);
+double Limit(double value, double lowerLimit = -1.0, double higherLimit = 1.0);
+double AbsMin(double input, double minValue);
+double AbsMax(double input, double maxValue);
 
-    bool CompareDouble(double value, double requiredValue, double tolerance = 0.001);
+void DelayInSeconds(double seconds);
 
-    //Log Functions
-    void Log(std::string title, double value, std::string subsystemName = "");
-    void Log(std::string title, int value, std::string subsystemName = "");
-    void Log(std::string title, bool value, std::string subsystemName = "");
-    void Log(std::string title, std::string value, std::string subsystemName = "");
-    void Log(std::string title, const char* value, std::string subsystemName = "");
-    void Log(std::string title, SpinSubsystemBase::FMSColors value, std::string subsystemName = "");
+bool CompareDouble(double value, double requiredValue, double tolerance = 0.001);
 
-    //Experimental Functions
-    void SendErrorAndCode(const wpi::Twine& error, int32_t code);
-    void SendErrorAndCode(const wpi::Twine& error, int32_t code, const char *location);
+//Log Functions
+void Log(std::string title, double value, std::string subsystemName = "");
+void Log(std::string title, int value, std::string subsystemName = "");
+void Log(std::string title, bool value, std::string subsystemName = "");
+void Log(std::string title, std::string value, std::string subsystemName = "");
+void Log(std::string title, const char *value, std::string subsystemName = "");
+void Log(std::string title, SpinSubsystemBase::FMSColors value, std::string subsystemName = "");
 
-    //Other Constants 
-    constexpr double ToInches = 0.393701;
-    constexpr double ToCM = 2.53;
-    constexpr double PI = 3.141592653589793238462643383279502884197169399375105820974944;
-}
+//Experimental Functions
+void SendErrorAndCode(const wpi::Twine &error, int32_t code);
+void SendErrorAndCode(const wpi::Twine &error, int32_t code, const char *location);
 
-
+//Other Constants
+constexpr double ToInches = 0.393701;
+constexpr double ToCM = 2.53;
+constexpr double PI = 3.141592653589793238462643383279502884197169399375105820974944;
+} // namespace Util

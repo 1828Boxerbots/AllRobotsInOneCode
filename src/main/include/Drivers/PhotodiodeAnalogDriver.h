@@ -11,7 +11,7 @@
 
 class PhotodiodeAnalogDriver
 {
- public:
+public:
   PhotodiodeAnalogDriver(int port);
 
   /**
@@ -21,9 +21,9 @@ class PhotodiodeAnalogDriver
   double Get();
   void Init();
 
-  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+  bool StatusIsFatal() { return m_pDevice->StatusIsFatal(); }
 
-  private:
+private:
   frc::AnalogInput *m_pDevice = nullptr;
 };
 

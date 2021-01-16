@@ -11,10 +11,10 @@
 
 class HallEffectOmnipolarDriver
 {
- public:
+public:
   HallEffectOmnipolarDriver(int port);
 
- /*
+  /*
   * Hall Effect Omnipolar
   * This sensor will be driven low when any magnetic pole is detected. 
   * Use this sensor as a magnetic limit switch.
@@ -22,9 +22,9 @@ class HallEffectOmnipolarDriver
   bool Get();
   void Init();
 
-  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
- 
- private:
+  bool StatusIsFatal() { return m_pDevice->StatusIsFatal(); }
+
+private:
   frc::DigitalInput *m_pDevice = nullptr;
 };
 

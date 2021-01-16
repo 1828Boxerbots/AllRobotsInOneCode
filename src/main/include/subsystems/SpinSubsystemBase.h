@@ -9,15 +9,23 @@
 
 #include <frc2/command/SubsystemBase.h>
 
-class SpinSubsystemBase : public frc2::SubsystemBase {
- public:
+class SpinSubsystemBase : public frc2::SubsystemBase
+{
+public:
   SpinSubsystemBase();
 
-  static constexpr double COLORWHEELRADIUS = 16.0; //inches
-  static constexpr double SPINWHEELRADIUS = 2.0; //inches
+  static constexpr double COLORWHEELRADIUS = 16.0;  //inches
+  static constexpr double SPINWHEELRADIUS = 2.0;    //inches
   static constexpr double DEFAULTREVOLUTIONS = 4.0; //Revolutions
 
-  enum FMSColors {INVALID = -1, RED, GREEN, BLUE, YELLOW};
+  enum FMSColors
+  {
+    INVALID = -1,
+    RED,
+    GREEN,
+    BLUE,
+    YELLOW
+  };
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -30,22 +38,22 @@ class SpinSubsystemBase : public frc2::SubsystemBase {
   FMSColors MapColors(FMSColors color);
   virtual void InterpretFMS(std::string rawColor);
   virtual void Init() {}
-  virtual FMSColors ReadColorSensor() {return m_color;};
-  virtual void SetSpinMotor (double speed = 1.0) {}
-  void Stop() {SetSpinMotor(0.0);}
+  virtual FMSColors ReadColorSensor() { return m_color; };
+  virtual void SetSpinMotor(double speed = 1.0) {}
+  void Stop() { SetSpinMotor(0.0); }
   virtual double GetNumberOfTicks(double targetRadius, double revolutions, double ourRadius); //inches
-  virtual double GetEncoderTicks() {return m_encoder++;}
-  virtual double GetTicksPerRevolution() {return 256;}
-  virtual std::string GetColor() {return "NULL";}
+  virtual double GetEncoderTicks() { return m_encoder++; }
+  virtual double GetTicksPerRevolution() { return 256; }
+  virtual std::string GetColor() { return "NULL"; }
   virtual void SpinToColor(double speed = 1.0) {}
   void Log();
 
- protected:
+protected:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 
   double m_encoder = 1;
-  
+
   FMSColors m_colorTest;
 
   FMSColors m_color = INVALID;

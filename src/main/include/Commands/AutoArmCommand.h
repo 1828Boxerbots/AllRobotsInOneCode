@@ -23,9 +23,10 @@
  * Command will *not* work!
  */
 class AutoArmCommand
-    : public frc2::CommandHelper<frc2::CommandBase, AutoArmCommand> {
- public:
-  AutoArmCommand(ArmSubsystemBase *pArm, SpinSubsystemBase *pSpin, DriveTrainSubsystemBase *pDrive, double speed, /*ArmSubsystemBase::ArmPositions*/int wantedPos);
+    : public frc2::CommandHelper<frc2::CommandBase, AutoArmCommand>
+{
+public:
+  AutoArmCommand(ArmSubsystemBase *pArm, SpinSubsystemBase *pSpin, DriveTrainSubsystemBase *pDrive, double speed, /*ArmSubsystemBase::ArmPositions*/ int wantedPos);
 
   void Initialize() override;
 
@@ -35,33 +36,31 @@ class AutoArmCommand
 
   bool IsFinished() override;
 
-  private:
-    //Subsystem Variables
-    ArmSubsystemBase *m_pArm;
-    SpinSubsystemBase *m_pSpin;
-    DriveTrainSubsystemBase *m_pDrive;
-    
-    
-    //Sim Variables
-    int upNum = 0;
-    int downNum = 0;
+private:
+  //Subsystem Variables
+  ArmSubsystemBase *m_pArm;
+  SpinSubsystemBase *m_pSpin;
+  DriveTrainSubsystemBase *m_pDrive;
 
-    //Needed Variables
-    int m_wantedPos;
-    double m_speed;
-    bool m_isFinished = false;
+  //Sim Variables
+  int upNum = 0;
+  int downNum = 0;
 
-    //Timer STuff
-    frc::Timer m_timer;
-    
-    double m_startTime = 0.0;
-    const double PRECISECOLORSPIN = 0.4;
-    const double ROUGHWHEELSPIN = 0.6;
-    const double ZERO = 0.0;
+  //Needed Variables
+  int m_wantedPos;
+  double m_speed;
+  bool m_isFinished = false;
 
-    //Check is for checking if the robot is aligned to the wheel before starting to spin the wheel
-    //ArmCheck is for checking if the arm is up before moving the robot to the wheel
-    int check = 0;
-    int armCheck = 0;
+  //Timer STuff
+  frc::Timer m_timer;
 
+  double m_startTime = 0.0;
+  const double PRECISECOLORSPIN = 0.4;
+  const double ROUGHWHEELSPIN = 0.6;
+  const double ZERO = 0.0;
+
+  //Check is for checking if the robot is aligned to the wheel before starting to spin the wheel
+  //ArmCheck is for checking if the arm is up before moving the robot to the wheel
+  int check = 0;
+  int armCheck = 0;
 };

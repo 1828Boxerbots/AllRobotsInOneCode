@@ -21,10 +21,10 @@
  * Command will *not* work!
  */
 class ShootLoadCommand
-    : public frc2::CommandHelper<frc2::CommandBase, ShootLoadCommand> {
- public:
-  ShootLoadCommand(LoaderSubsystemBase *pLoader, ShooterSubsystemBase *pShooter, DriveTrainSubsystemBase *pDrive
-  , double encoderSetting, double shootSpeed, double driveSpeed, double lidarDistanceLow, double lidarDistanceHigh);
+    : public frc2::CommandHelper<frc2::CommandBase, ShootLoadCommand>
+{
+public:
+  ShootLoadCommand(LoaderSubsystemBase *pLoader, ShooterSubsystemBase *pShooter, DriveTrainSubsystemBase *pDrive, double encoderSetting, double shootSpeed, double driveSpeed, double lidarDistanceLow, double lidarDistanceHigh);
 
   void Initialize() override;
 

@@ -10,19 +10,20 @@
 #include <frc/Victor.h>
 #include "../DriveTrainSubsystemBase.h"
 
-class DriveTrainSubsystemLipALoop : public DriveTrainSubsystemBase {
- public:
+class DriveTrainSubsystemLipALoop : public DriveTrainSubsystemBase
+{
+public:
   DriveTrainSubsystemLipALoop();
 
-  virtual void SetMotorL(double speed);	
-  virtual void SetMotorR(double speed); 	
+  virtual void SetMotorL(double speed);
+  virtual void SetMotorR(double speed);
   virtual void Init();
 
- private:
-  #ifndef NOHW	
-  frc::Victor m_leftMotor{PWM_LEFTMOTOR_LIPALOOP};	
-  frc::Victor m_rightMotor{PWM_RIGHTMOTOR_LIPALOOP};	
-  #endif	
+private:
+#ifndef NOHW
+  frc::Victor m_leftMotor{PWM_LEFTMOTOR_LIPALOOP};
+  frc::Victor m_rightMotor{PWM_RIGHTMOTOR_LIPALOOP};
+#endif
   double m_scaleL = 0.7;
   double m_scaleR = 0.5;
   // Components (e.g. motor controllers and sensors) should generally be

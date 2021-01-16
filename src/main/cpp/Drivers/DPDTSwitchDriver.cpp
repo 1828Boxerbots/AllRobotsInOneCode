@@ -8,8 +8,7 @@
 #include "Drivers/DPDTSwitchDriver.h"
 #include "Util.h"
 
-
-DPDTSwitchDriver::DPDTSwitchDriver(int CHANNEL_A, int CHANNEL_B) 
+DPDTSwitchDriver::DPDTSwitchDriver(int CHANNEL_A, int CHANNEL_B)
 {
     m_pChannelA = new frc::DigitalInput(CHANNEL_A);
     m_pChannelB = new frc::DigitalInput(CHANNEL_B);
@@ -24,7 +23,7 @@ DPDTSwitchDriver::DPDTSwitchDriver(int CHANNEL_A, int CHANNEL_B)
 int DPDTSwitchDriver::Get()
 {
     //Util::DelayInSeconds(3);
-    if(m_pChannelA->Get() && !(m_pChannelB->Get()))
+    if (m_pChannelA->Get() && !(m_pChannelB->Get()))
     {
         return 1;
     }

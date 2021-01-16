@@ -7,47 +7,45 @@
 
 #include "Drivers/RevDistanceSensorDriver.h"
 
-
-RevDistanceSensorDriver::RevDistanceSensorDriver(Rev2mDistanceSensor::Port port, Rev2mDistanceSensor::DistanceUnit unit, Rev2mDistanceSensor::RangeProfile profile) 
+RevDistanceSensorDriver::RevDistanceSensorDriver(Rev2mDistanceSensor::Port port, Rev2mDistanceSensor::DistanceUnit unit, Rev2mDistanceSensor::RangeProfile profile)
 {
-  m_pDistance = new Rev2mDistanceSensor(port, unit, profile);   
+  m_pDistance = new Rev2mDistanceSensor(port, unit, profile);
 }
 
-
-void RevDistanceSensorDriver::Init(bool log) 
+void RevDistanceSensorDriver::Init(bool log)
 {
-  if (log) {Util::Log("Distance Sensor Initialized?", true, "RevdistanceSensorDriver");}
+  if (log)
+  {
+    Util::Log("Distance Sensor Initialized?", true, "RevdistanceSensorDriver");
+  }
   m_pDistance->SetAutomaticMode(true);
   m_pDistance->SetEnabled(true);
 }
 
-
-void RevDistanceSensorDriver::DisableInit() 
+void RevDistanceSensorDriver::DisableInit()
 {
   m_pDistance->SetAutomaticMode(false);
   m_pDistance->SetEnabled(false);
 }
 
-
-double RevDistanceSensorDriver::GetDistance() 
+double RevDistanceSensorDriver::GetDistance()
 {
   bool isValid = m_pDistance->IsRangeValid();
-  if(isValid) 
+  if (isValid)
   {
-     //For debugging and checking
-     frc::SmartDashboard::PutNumber("DistanceSens Range", m_pDistance->GetRange());
-     frc::SmartDashboard::PutNumber("DistanceSens Timestamp", m_pDistance->GetTimestamp());
-     //The current measured range is returned from GetRange(). By default
-     // this range is returned in inches. I switched it from inches to millimeters for preference -Zach
-     return (double)m_pDistance->GetRange();
+    //For debugging and checking
+    frc::SmartDashboard::PutNumber("DistanceSens Range", m_pDistance->GetRange());
+    frc::SmartDashboard::PutNumber("DistanceSens Timestamp", m_pDistance->GetTimestamp());
+    //The current measured range is returned from GetRange(). By default
+    // this range is returned in inches. I switched it from inches to millimeters for preference -Zach
+    return (double)m_pDistance->GetRange();
   }
-  else 
+  else
   {
-      //Util::SendErrorAndCode("Distance Sensor Range Invalid", 133, "DistanceSensorDriver.cpp");
-      return -1.0;
+    //Util::SendErrorAndCode("Distance Sensor Range Invalid", 133, "DistanceSensorDriver.cpp");
+    return -1.0;
   }
 }
-
 
 bool RevDistanceSensorDriver::IsRangeValid()
 {
@@ -55,13 +53,11 @@ bool RevDistanceSensorDriver::IsRangeValid()
   return m_pDistance->IsRangeValid();
 }
 
-
 // DON'T USE THIS
 void RevDistanceSensorDriver::StartMeasuring()
 {
   m_pDistance->StartMeasurement();
 }
-
 
 // DON'T USE THIS
 void RevDistanceSensorDriver::StopMeasuring()
@@ -69,9 +65,7 @@ void RevDistanceSensorDriver::StopMeasuring()
   m_pDistance->StopMeasurement();
 }
 
-
 double RevDistanceSensorDriver::GetMeasurementData()
 {
   return m_pDistance->GetRangeMM();
 }
-

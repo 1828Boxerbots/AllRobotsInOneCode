@@ -9,7 +9,7 @@
 #include <frc2/command/button/JoystickButton.h>
 
 RobotContainerKurgan::RobotContainerKurgan()
- {
+{
   m_pDrive = new DriveTrainSubsystemKurgan;
   //This is disable due to kurgan broken loader(vail pride day 2/15/20) - Aidan Clark
   m_pLoader = new LoaderSubsystemKurgan;
@@ -18,7 +18,7 @@ RobotContainerKurgan::RobotContainerKurgan()
   ConfigureButtonBindings();
   m_pDrive->Init();
   SetDrive();
-} 
+}
 
 void RobotContainerKurgan::ConfigureButtonBindings()
 {
@@ -31,21 +31,22 @@ void RobotContainerKurgan::ConfigureButtonBindings()
   SetRightBumper();
 }
 
-frc2::Command* RobotContainerKurgan::GetAutonomousCommand() {
+frc2::Command *RobotContainerKurgan::GetAutonomousCommand()
+{
   // An example command will be run in autonomous
   return 0;
 }
 
 void RobotContainerKurgan::SetButtonA()
 {
-  frc2::Button buttonA{[this] {return m_controller.GetAButton();}};
+  frc2::Button buttonA{[this] { return m_controller.GetAButton(); }};
   buttonA.WhenHeld(&m_loaderEject);
   buttonA.WhenReleased(&m_loaderStop);
 }
 
 void RobotContainerKurgan::SetButtonB()
 {
-  frc2::Button buttonB{[this] {return m_controller.GetBButton();}};
+  frc2::Button buttonB{[this] { return m_controller.GetBButton(); }};
   buttonB.WhenHeld(&m_loaderLoad);
   buttonB.WhenReleased(&m_loaderStop);
 }

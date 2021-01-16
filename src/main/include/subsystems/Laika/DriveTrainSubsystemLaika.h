@@ -10,22 +10,23 @@
 #include <frc/Spark.h>
 #include "../DriveTrainSubsystemBase.h"
 
-class DriveTrainSubsystemLaika : public DriveTrainSubsystemBase {
- public:
+class DriveTrainSubsystemLaika : public DriveTrainSubsystemBase
+{
+public:
   DriveTrainSubsystemLaika();
 
   virtual void SetMotorL(double speed);
-  virtual void SetMotorR(double speed); 
+  virtual void SetMotorR(double speed);
   virtual void Init();
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
 
- private:
- #ifndef NOHW
+private:
+#ifndef NOHW
   frc::Spark m_leftMotor{PWM_LEFTMOTOR_LAIKA};
   frc::Spark m_rightMotor{PWM_RIGHTMOTOR_LAIKA};
-  #endif
+#endif
   double m_scale = .5;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.

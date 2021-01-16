@@ -10,14 +10,14 @@
 // Might actually be analog, but not important yet.
 #include <frc/Encoder.h>
 
-class RotaryMagneticEncoderDriver 
+class RotaryMagneticEncoderDriver
 {
- public:
+public:
   RotaryMagneticEncoderDriver();
 
-  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+  bool StatusIsFatal() { return m_pDevice->StatusIsFatal(); }
 
-  private:
+private:
   frc::Encoder *m_pDevice = nullptr;
 };
 

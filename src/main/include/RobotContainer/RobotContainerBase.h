@@ -28,8 +28,9 @@
 #include "subsystems/LipALoop/HandSubsystemLipALoop.h"
 #include "subsystems/Rocky/TurretSubsystemRocky.h"
 
-class RobotContainerBase {
- public:
+class RobotContainerBase
+{
+public:
   RobotContainerBase();
 
   virtual void SetButtonA();
@@ -48,8 +49,7 @@ class RobotContainerBase {
   virtual void TeleopPeriodic() {}
   virtual void AutonomousPeriodic() {}
 
-  
-  std::string ReadFMS() {return frc::DriverStation::GetInstance().GetGameSpecificMessage();}
+  std::string ReadFMS() { return frc::DriverStation::GetInstance().GetGameSpecificMessage(); }
 
   enum DriveStyles
   {
@@ -65,220 +65,210 @@ class RobotContainerBase {
 
   void SetDrive(DriveStyles style = TANK_STYLE);
   //void SetCamerastream();
-  protected:
+protected:
   //DriveTrainSubsystemBase m_driveTrain;
-    //Creating the controllers
-    frc::XboxController m_controller{USB_CONTROLLER_ONE};
-    frc::XboxController m_controller2{USB_CONTROLLER_TWO};
-    
+  //Creating the controllers
+  frc::XboxController m_controller{USB_CONTROLLER_ONE};
+  frc::XboxController m_controller2{USB_CONTROLLER_TWO};
 
-    //Camera
-    //CameraSubsystemBase* m_pCamera = nullptr;
-    
+  //Camera
+  //CameraSubsystemBase* m_pCamera = nullptr;
 
-    //DriveTrain subsystem commands
-    DriveTrainSubsystemBase *m_pDrive = nullptr;
-    frc2::RunCommand m_pDriveMoveTank       {[this] { if(m_pDrive != nullptr) m_pDrive->MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand)); }, {m_pDrive}};
-    frc2::RunCommand m_pDriveMoveArcade     {[this] { if(m_pDrive != nullptr) m_pDrive->MoveArcade(m_controller.GetX(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kLeftHand)); }, {m_pDrive}};
+  //DriveTrain subsystem commands
+  DriveTrainSubsystemBase *m_pDrive = nullptr;
+  frc2::RunCommand m_pDriveMoveTank{[this] { if(m_pDrive != nullptr) m_pDrive->MoveTank(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kRightHand)); }, {m_pDrive}};
+  frc2::RunCommand m_pDriveMoveArcade{[this] { if(m_pDrive != nullptr) m_pDrive->MoveArcade(m_controller.GetX(frc::GenericHID::kLeftHand), m_controller.GetY(frc::GenericHID::kLeftHand)); }, {m_pDrive}};
 
-    // Loader subsystem commands
-    LoaderSubsystemBase *m_pLoader = nullptr;
-    //Every Other Robot
-    frc2::RunCommand m_loaderEject          {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(-1.0);}, {m_pLoader}};
-    frc2::RunCommand m_loaderLoad           {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(1.0);}, {m_pLoader}};
-    frc2::RunCommand m_loaderStop           {[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(0.0);}, {m_pLoader}};
-    
-  
-    //Robot2020
-    frc2::RunCommand m_loaderFeed           {[this]
-    {
-      if(m_pLoader!=nullptr)
-      {
-        if(m_pLoader->GetInverted() != true)
-        {
-          m_pLoader->SetLoadMotor(LOAD, 2); 
-        } 
-        else 
-        {
-          m_pLoader->SetLoadMotor(EJECT, 2);
-        }
-      }
-    }, {m_pLoader}};
+  // Loader subsystem commands
+  LoaderSubsystemBase *m_pLoader = nullptr;
+  //Every Other Robot
+  frc2::RunCommand m_loaderEject{[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(-1.0); }, {m_pLoader}};
+  frc2::RunCommand m_loaderLoad{[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(1.0); }, {m_pLoader}};
+  frc2::RunCommand m_loaderStop{[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(0.0); }, {m_pLoader}};
 
-    frc2::RunCommand m_loaderMiddle           {[this]
-    {
-      if(m_pLoader!=nullptr)
-      {
-        if(m_pLoader->GetInverted() != true)
-        {
-          m_pLoader->SetLoadMotor(LOAD, 1); 
-        } 
-        else 
-        {
-          m_pLoader->SetLoadMotor(EJECT, 1);
-        }
-      }
-    }, {m_pLoader}};
+  //Robot2020
+  frc2::RunCommand m_loaderFeed{[this] {
+                                  if (m_pLoader != nullptr)
+                                  {
+                                    if (m_pLoader->GetInverted() != true)
+                                    {
+                                      m_pLoader->SetLoadMotor(LOAD, 2);
+                                    }
+                                    else
+                                    {
+                                      m_pLoader->SetLoadMotor(EJECT, 2);
+                                    }
+                                  }
+                                },
+                                {m_pLoader}};
 
-    frc2::RunCommand m_loaderTop             {[this]
-    {
-      if(m_pLoader!=nullptr)
-      {
-        if(m_pLoader->GetInverted() != true)
-        {
-          m_pLoader->SetLoadMotor(LOAD, 0); 
-        } 
-        else 
-        {
-          m_pLoader->SetLoadMotor(EJECT, 0);
-        }
-      }
-    }, {m_pLoader}};
+  frc2::RunCommand m_loaderMiddle{[this] {
+                                    if (m_pLoader != nullptr)
+                                    {
+                                      if (m_pLoader->GetInverted() != true)
+                                      {
+                                        m_pLoader->SetLoadMotor(LOAD, 1);
+                                      }
+                                      else
+                                      {
+                                        m_pLoader->SetLoadMotor(EJECT, 1);
+                                      }
+                                    }
+                                  },
+                                  {m_pLoader}};
 
-    frc2::RunCommand m_loaderAllIntake           {[this]
-    {
-      if(m_pLoader!=nullptr)
-      {
-        if (m_pLoader->GetInverted() != true)
-        {
-          m_pLoader->SetLoadMotor(LOAD); 
-        } 
-        else 
-        {
-          m_pLoader->SetLoadMotor(EJECT);
-        }
-      }
-    }, {m_pLoader}};
+  frc2::RunCommand m_loaderTop{[this] {
+                                 if (m_pLoader != nullptr)
+                                 {
+                                   if (m_pLoader->GetInverted() != true)
+                                   {
+                                     m_pLoader->SetLoadMotor(LOAD, 0);
+                                   }
+                                   else
+                                   {
+                                     m_pLoader->SetLoadMotor(EJECT, 0);
+                                   }
+                                 }
+                               },
+                               {m_pLoader}};
 
-    frc2::RunCommand m_loaderPhotogate      {[this] { if(m_pLoader!=nullptr) m_pLoader->PhotogateStop();}, {m_pLoader}};
+  frc2::RunCommand m_loaderAllIntake{[this] {
+                                       if (m_pLoader != nullptr)
+                                       {
+                                         if (m_pLoader->GetInverted() != true)
+                                         {
+                                           m_pLoader->SetLoadMotor(LOAD);
+                                         }
+                                         else
+                                         {
+                                           m_pLoader->SetLoadMotor(EJECT);
+                                         }
+                                       }
+                                     },
+                                     {m_pLoader}};
 
-    frc2::RunCommand m_loaderFeedStop       {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP, 2);}, {m_pLoader}};
-    frc2::RunCommand m_loaderMiddleStop     {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP, 1);}, {m_pLoader}};
-    frc2::RunCommand m_loaderTopStop        {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP, 0);}, {m_pLoader}};
-    frc2::RunCommand m_loaderAllStop        {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP);}, {m_pLoader}};
+  frc2::RunCommand m_loaderPhotogate{[this] { if(m_pLoader!=nullptr) m_pLoader->PhotogateStop(); }, {m_pLoader}};
 
-    frc2::RunCommand m_loaderAllEject       {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0);}, {m_pLoader}};
-    frc2::RunCommand m_loaderMiddleEject    {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0, 1);}, {m_pLoader}};
-    frc2::RunCommand m_loaderBottomEject    {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0, 2);}, {m_pLoader}};
-    frc2::RunCommand m_loaderTopEject       {[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0, 0);}, {m_pLoader}};
+  frc2::RunCommand m_loaderFeedStop{[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP, 2); }, {m_pLoader}};
+  frc2::RunCommand m_loaderMiddleStop{[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP, 1); }, {m_pLoader}};
+  frc2::RunCommand m_loaderTopStop{[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP, 0); }, {m_pLoader}};
+  frc2::RunCommand m_loaderAllStop{[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(STOP); }, {m_pLoader}};
 
-    frc2::InstantCommand m_loaderSetInverted{[this] { if(m_pLoader!=nullptr) m_pLoader->SetInverted(true);}, {m_pLoader}};
-    frc2::InstantCommand m_loaderResetInverted{[this]{ if(m_pLoader!=nullptr) m_pLoader->SetInverted(false);}, {m_pLoader}};
+  frc2::RunCommand m_loaderAllEject{[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0); }, {m_pLoader}};
+  frc2::RunCommand m_loaderMiddleEject{[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0, 1); }, {m_pLoader}};
+  frc2::RunCommand m_loaderBottomEject{[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0, 2); }, {m_pLoader}};
+  frc2::RunCommand m_loaderTopEject{[this] { if(m_pLoader!=nullptr) m_pLoader->SetLoadMotor(-1.0, 0); }, {m_pLoader}};
 
-    // Shooter subsystem commands
-    ShooterSubsystemBase *m_pShooter = nullptr;
-    frc2::RunCommand m_shooterSpin          {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(-1.0);}, {m_pShooter}};
-    frc2::RunCommand m_shooterSpinTrigger   {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(-m_controller.GetTriggerAxis(frc::GenericHID::kRightHand));}, {m_pShooter}};
-    frc2::RunCommand m_shooterEject         {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(1.0);}, {m_pShooter}};
-    frc2::RunCommand m_shooterEjectTrigger  {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(m_controller.GetTriggerAxis(frc::GenericHID::kRightHand));}, {m_pShooter}};
-    frc2::RunCommand m_shooterStop          {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(0.0);}, {m_pShooter}};
-    frc2::RunCommand m_shooterEncoderReset  {[this] { if(m_pShooter!=nullptr) m_pShooter->ResetEncoder();}, {m_pShooter}};
+  frc2::InstantCommand m_loaderSetInverted{[this] { if(m_pLoader!=nullptr) m_pLoader->SetInverted(true); }, {m_pLoader}};
+  frc2::InstantCommand m_loaderResetInverted{[this] { if(m_pLoader!=nullptr) m_pLoader->SetInverted(false); }, {m_pLoader}};
 
-    frc2::RunCommand m_shooterSpinMax       {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(-1.0);}, {m_pShooter}};
-    frc2::RunCommand m_shooterSpinHalf      {[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(-0.5);}, {m_pShooter}};
+  // Shooter subsystem commands
+  ShooterSubsystemBase *m_pShooter = nullptr;
+  frc2::RunCommand m_shooterSpin{[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(-1.0); }, {m_pShooter}};
+  frc2::RunCommand m_shooterSpinTrigger{[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(-m_controller.GetTriggerAxis(frc::GenericHID::kRightHand)); }, {m_pShooter}};
+  frc2::RunCommand m_shooterEject{[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(1.0); }, {m_pShooter}};
+  frc2::RunCommand m_shooterEjectTrigger{[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(m_controller.GetTriggerAxis(frc::GenericHID::kRightHand)); }, {m_pShooter}};
+  frc2::RunCommand m_shooterStop{[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(0.0); }, {m_pShooter}};
+  frc2::RunCommand m_shooterEncoderReset{[this] { if(m_pShooter!=nullptr) m_pShooter->ResetEncoder(); }, {m_pShooter}};
 
-    //TurretSubsystemBase *m_*pTurret = nullptr;
-    TurretSubsystemRocky *m_pTurret = nullptr;
-    frc2::RunCommand m_turretTurnLeft       {[this] { if (m_pTurret!=nullptr) m_pTurret->Turn(m_controller.GetAButton(), m_controller.GetBButton());}, {m_pTurret}};
-    frc2::RunCommand m_turretTurnRight      {[this] { if (m_pTurret!=nullptr) m_pTurret->Turn(m_controller.GetAButton(), m_controller.GetBButton());}, {m_pTurret}};
-    frc2::RunCommand m_turretStop           {[this] { if (m_pTurret!=nullptr) m_pTurret->Turn(false, false);}, {m_pTurret}};
+  frc2::RunCommand m_shooterSpinMax{[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(-1.0); }, {m_pShooter}};
+  frc2::RunCommand m_shooterSpinHalf{[this] { if(m_pShooter!=nullptr) m_pShooter->Shoot(-0.5); }, {m_pShooter}};
 
-    //Arm Control
-    ArmSubsystemBase *m_pArm = nullptr;
-    //LipALoop
-    frc2::RunCommand m_armUp_Servo          {[this] { if(m_pArm != nullptr) m_pArm->LiftArmUp();}, {m_pArm}};
-    frc2::RunCommand m_armDown_Servo        {[this] { if(m_pArm != nullptr) m_pArm->LiftArmDown();}, {m_pArm}};
-    frc2::RunCommand m_armStop              {[this] { if(m_pArm != nullptr) m_pArm->StopMotor();}, {m_pArm}};
-    //SLAL
-    frc2::RunCommand m_armLift_Motor        {[this] {if(m_pArm != nullptr) m_pArm->Raise();}, {m_pArm}};
-    frc2::RunCommand m_armLower_Motor       {[this] {if(m_pArm != nullptr) m_pArm->Lower();}, {m_pArm}};
-    //Robot2020
-    frc2::InstantCommand m_armPosition_Low  {[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::LOWEST_POS);}, {m_pArm}};
-    frc2::InstantCommand m_armPosition_LowTime{[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::LOWEST_POS_TIME);}, {m_pArm}};
-    frc2::InstantCommand m_armPosition_High {[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::HIGHEST_POS);}, {m_pArm}};
-    frc2::InstantCommand m_armPosition_Stop {[this] {if(m_pArm != nullptr) m_pArm->SetMotor(0.0);}, {m_pArm}};
+  //TurretSubsystemBase *m_*pTurret = nullptr;
+  TurretSubsystemRocky *m_pTurret = nullptr;
+  frc2::RunCommand m_turretTurnLeft{[this] { if (m_pTurret!=nullptr) m_pTurret->Turn(m_controller.GetAButton(), m_controller.GetBButton()); }, {m_pTurret}};
+  frc2::RunCommand m_turretTurnRight{[this] { if (m_pTurret!=nullptr) m_pTurret->Turn(m_controller.GetAButton(), m_controller.GetBButton()); }, {m_pTurret}};
+  frc2::RunCommand m_turretStop{[this] { if (m_pTurret!=nullptr) m_pTurret->Turn(false, false); }, {m_pTurret}};
 
-    //Wrist Control
-    WristSubsystemLipALoop *m_pWrist = nullptr;
-    frc2::RunCommand m_wristUp              {[this] { if(m_pWrist != nullptr) m_pWrist->MoveWristUp();}, {m_pWrist}};
-    frc2::RunCommand m_wristDown            {[this] { if(m_pWrist != nullptr) m_pWrist->MoveWristDown();}, {m_pWrist}};
-    frc2::RunCommand m_wristStop            {[this] { if(m_pWrist != nullptr) m_pWrist->MoveWristStop();}, {m_pWrist}};
+  //Arm Control
+  ArmSubsystemBase *m_pArm = nullptr;
+  //LipALoop
+  frc2::RunCommand m_armUp_Servo{[this] { if(m_pArm != nullptr) m_pArm->LiftArmUp(); }, {m_pArm}};
+  frc2::RunCommand m_armDown_Servo{[this] { if(m_pArm != nullptr) m_pArm->LiftArmDown(); }, {m_pArm}};
+  frc2::RunCommand m_armStop{[this] { if(m_pArm != nullptr) m_pArm->StopMotor(); }, {m_pArm}};
+  //SLAL
+  frc2::RunCommand m_armLift_Motor{[this] {if(m_pArm != nullptr) m_pArm->Raise(); }, {m_pArm}};
+  frc2::RunCommand m_armLower_Motor{[this] {if(m_pArm != nullptr) m_pArm->Lower(); }, {m_pArm}};
+  //Robot2020
+  frc2::InstantCommand m_armPosition_Low{[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::LOWEST_POS); }, {m_pArm}};
+  frc2::InstantCommand m_armPosition_LowTime{[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::LOWEST_POS_TIME); }, {m_pArm}};
+  frc2::InstantCommand m_armPosition_High{[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::HIGHEST_POS); }, {m_pArm}};
+  frc2::InstantCommand m_armPosition_Stop{[this] {if(m_pArm != nullptr) m_pArm->SetMotor(0.0); }, {m_pArm}};
 
-    //Hand Control
-    HandSubsystemLipALoop *m_pHand = nullptr;
-    frc2::RunCommand m_handUp               {[this] { if(m_pHand != nullptr) m_pHand->MoveHandOpen();}, {m_pHand}};
-    frc2::RunCommand m_handDown             {[this] { if(m_pHand != nullptr) m_pHand->MoveHandClose();}, {m_pHand}};
-    frc2::RunCommand m_handStop             {[this] { if(m_pHand != nullptr) m_pHand->MoveHandStop();}, {m_pHand}};
+  //Wrist Control
+  WristSubsystemLipALoop *m_pWrist = nullptr;
+  frc2::RunCommand m_wristUp{[this] { if(m_pWrist != nullptr) m_pWrist->MoveWristUp(); }, {m_pWrist}};
+  frc2::RunCommand m_wristDown{[this] { if(m_pWrist != nullptr) m_pWrist->MoveWristDown(); }, {m_pWrist}};
+  frc2::RunCommand m_wristStop{[this] { if(m_pWrist != nullptr) m_pWrist->MoveWristStop(); }, {m_pWrist}};
 
-    //Spin Control
-    SpinSubsystemBase *m_pSpin = nullptr;
-    frc2::RunCommand m_spinToColor          {[this] { if(m_pSpin != nullptr) m_pSpin->SpinUntilColor();}, {m_pSpin}};
-    frc2::RunCommand m_spinEncoder          {[this] { if(m_pSpin != nullptr) m_pSpin->SpinWithEncoders();}, {m_pSpin}};
-    frc2::RunCommand m_spinColor            {[this] { 
+  //Hand Control
+  HandSubsystemLipALoop *m_pHand = nullptr;
+  frc2::RunCommand m_handUp{[this] { if(m_pHand != nullptr) m_pHand->MoveHandOpen(); }, {m_pHand}};
+  frc2::RunCommand m_handDown{[this] { if(m_pHand != nullptr) m_pHand->MoveHandClose(); }, {m_pHand}};
+  frc2::RunCommand m_handStop{[this] { if(m_pHand != nullptr) m_pHand->MoveHandStop(); }, {m_pHand}};
+
+  //Spin Control
+  SpinSubsystemBase *m_pSpin = nullptr;
+  frc2::RunCommand m_spinToColor{[this] { if(m_pSpin != nullptr) m_pSpin->SpinUntilColor(); }, {m_pSpin}};
+  frc2::RunCommand m_spinEncoder{[this] { if(m_pSpin != nullptr) m_pSpin->SpinWithEncoders(); }, {m_pSpin}};
+  frc2::RunCommand m_spinColor{[this] { 
       if(m_pSpin != nullptr) 
       {
         bool isUp = m_pArm->GetPosition();
         m_pSpin->SpinNumRotations(isUp);
-    } }, {m_pSpin} };
-    frc2::RunCommand m_spinHoldP            {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(1.0);}, {m_pSpin}};
-    frc2::RunCommand m_spinHoldN            {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(-1.0);}, {m_pSpin}};
-    frc2::RunCommand m_spinStop             {[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(0.0);}, {m_pSpin}};
+    } }, {m_pSpin}};
+  frc2::RunCommand m_spinHoldP{[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(1.0); }, {m_pSpin}};
+  frc2::RunCommand m_spinHoldN{[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(-1.0); }, {m_pSpin}};
+  frc2::RunCommand m_spinStop{[this] { if(m_pSpin != nullptr) m_pSpin->SetSpinMotor(0.0); }, {m_pSpin}};
 
+  frc2::SequentialCommandGroup m_autoInFrontTargetZone = frc2::SequentialCommandGroup{
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->Init(); }, {m_pDrive}},
+      //frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)   m_pCamera->Init();}, {m_pCamera}},
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->EnableAnticollision(true); }},
+      frc2::InstantCommand{[this] {if(m_pShooter != nullptr)  m_pDrive->ForwardInInch(12, 0.0, 0.75); }, {m_pDrive}},
+      frc2::InstantCommand{[this] {if(m_pShooter != nullptr)  m_pDrive->TurnInDegrees(180); }, {m_pDrive}},
+      frc2::InstantCommand{[this] {if(m_pShooter != nullptr)  m_pDrive->ForwardInInch(24, 180.0, 0.75); }, {m_pDrive}},
+      //frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)   m_pCamera->AutoCameraTurn();}, {m_pCamera, m_pDrive},},
+      frc2::InstantCommand{[this] {if(m_pShooter != nullptr)  m_pShooter->Shoot(1.0); }, {m_pShooter}},
+      frc2::InstantCommand{[this] {if(m_pShooter != nullptr)  m_pShooter->WaitShooter(5); }, {m_pShooter}},
+      frc2::InstantCommand{[this] {if(m_pLoader != nullptr)   m_pLoader->SetLoadMotor(1.0); }, {m_pLoader}},
+      frc2::InstantCommand{[this] {if(m_pLoader != nullptr)   m_pLoader->WaitLoader(5); }, {m_pLoader}},
+      frc2::InstantCommand{[this] {if(m_pLoader != nullptr)   m_pLoader->SetLoadMotor(0.0); }, {m_pLoader}},
+      frc2::InstantCommand{[this] {if(m_pShooter != nullptr)  m_pShooter->Shoot(0.0); }, {m_pShooter}},
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->Stop(); }, {m_pDrive}}};
 
-  frc2::SequentialCommandGroup m_autoInFrontTargetZone = frc2::SequentialCommandGroup
-  {
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)    m_pDrive->Init();}, {m_pDrive}},
-    //frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)   m_pCamera->Init();}, {m_pCamera}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)    m_pDrive->EnableAnticollision(true);}},
-    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr)  m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr)  m_pDrive->TurnInDegrees(180);}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr)  m_pDrive->ForwardInInch(24, 180.0, 0.75);}, {m_pDrive}},
-    //frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)   m_pCamera->AutoCameraTurn();}, {m_pCamera, m_pDrive},},
-    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr)  m_pShooter->Shoot(1.0);}, {m_pShooter}},
-    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr)  m_pShooter->WaitShooter(5);}, {m_pShooter}}, 
-    frc2::InstantCommand{  [this] {if(m_pLoader != nullptr)   m_pLoader->SetLoadMotor(1.0);}, {m_pLoader}},
-    frc2::InstantCommand{  [this] {if(m_pLoader != nullptr)   m_pLoader->WaitLoader(5);}, {m_pLoader}},
-    frc2::InstantCommand{  [this] {if(m_pLoader != nullptr)   m_pLoader->SetLoadMotor(0.0);}, {m_pLoader}},
-    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr)  m_pShooter->Shoot(0.0);}, {m_pShooter}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)    m_pDrive->Stop();}, {m_pDrive}}
-  };
-  
-  frc2::SequentialCommandGroup m_autoBetweenTargetZoneLoadingZone = frc2::SequentialCommandGroup
-  {
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->Init();}, {m_pDrive}},
-    //frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)  m_pCamera->Init();}, {m_pCamera}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->EnableAnticollision(true);}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(24, -80.0, 0.75);}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
-    //frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)  m_pCamera->AutoCameraTurn();}, {m_pCamera, m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->Shoot(1.0);}, {m_pShooter}},
-    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->WaitShooter(5);}, {m_pShooter}}, 
-    frc2::InstantCommand{  [this] {if(m_pLoader != nullptr)  m_pLoader->SetLoadMotor(1.0);}, {m_pLoader}},
-    frc2::InstantCommand{  [this] {if(m_pLoader != nullptr)  m_pLoader->WaitLoader(5);}, {m_pLoader}},
-    frc2::InstantCommand{  [this] {if(m_pLoader != nullptr)  m_pLoader->SetLoadMotor(0.0);}, {m_pLoader}},
-    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->Shoot(0.0);}, {m_pShooter}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->Stop();}, {m_pDrive}}
-  };
-  frc2::SequentialCommandGroup m_autoInFrontLoadingZone = frc2::SequentialCommandGroup
-  {
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->Init();}, {m_pDrive}},
-    //frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)  m_pCamera->Init();}, {m_pCamera}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->EnableAnticollision(true);}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(12, 0.0, 0.75);}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(72, -90.0, 0.75);}, {m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90);}, {m_pDrive}},
-    //frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)  m_pCamera->AutoCameraTurn();}, {m_pCamera, m_pDrive}},
-    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->Shoot(1.0);}, {m_pShooter}},
-    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->WaitShooter(5);}, {m_pShooter}}, 
-    frc2::InstantCommand{  [this] {if(m_pLoader != nullptr)  m_pLoader->SetLoadMotor(1.0);}, {m_pLoader}},
-    frc2::InstantCommand{  [this] {if(m_pLoader != nullptr)  m_pLoader->WaitLoader(5);}, {m_pLoader}},
-    frc2::InstantCommand{  [this] {if(m_pLoader != nullptr)  m_pLoader->SetLoadMotor(0.0);}, {m_pLoader}},
-    frc2::InstantCommand{  [this] {if(m_pShooter != nullptr) m_pShooter->Shoot(0.0);}, {m_pShooter}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)     m_pDrive->Stop();}, {m_pDrive}}
-  };
+  frc2::SequentialCommandGroup m_autoBetweenTargetZoneLoadingZone = frc2::SequentialCommandGroup{
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)   m_pDrive->Init(); }, {m_pDrive}},
+      //frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)  m_pCamera->Init();}, {m_pCamera}},
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)   m_pDrive->EnableAnticollision(true); }},
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(12, 0.0, 0.75); }, {m_pDrive}},
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90); }, {m_pDrive}},
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(24, -80.0, 0.75); }, {m_pDrive}},
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90); }, {m_pDrive}},
+      //frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)  m_pCamera->AutoCameraTurn();}, {m_pCamera, m_pDrive}},
+      frc2::InstantCommand{[this] {if(m_pShooter != nullptr) m_pShooter->Shoot(1.0); }, {m_pShooter}},
+      frc2::InstantCommand{[this] {if(m_pShooter != nullptr) m_pShooter->WaitShooter(5); }, {m_pShooter}},
+      frc2::InstantCommand{[this] {if(m_pLoader != nullptr)  m_pLoader->SetLoadMotor(1.0); }, {m_pLoader}},
+      frc2::InstantCommand{[this] {if(m_pLoader != nullptr)  m_pLoader->WaitLoader(5); }, {m_pLoader}},
+      frc2::InstantCommand{[this] {if(m_pLoader != nullptr)  m_pLoader->SetLoadMotor(0.0); }, {m_pLoader}},
+      frc2::InstantCommand{[this] {if(m_pShooter != nullptr) m_pShooter->Shoot(0.0); }, {m_pShooter}},
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)   m_pDrive->Stop(); }, {m_pDrive}}};
+  frc2::SequentialCommandGroup m_autoInFrontLoadingZone = frc2::SequentialCommandGroup{
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)   m_pDrive->Init(); }, {m_pDrive}},
+      //frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)  m_pCamera->Init();}, {m_pCamera}},
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)   m_pDrive->EnableAnticollision(true); }},
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(12, 0.0, 0.75); }, {m_pDrive}},
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90); }, {m_pDrive}},
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)   m_pDrive->ForwardInInch(72, -90.0, 0.75); }, {m_pDrive}},
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)   m_pDrive->TurnInDegrees(-90); }, {m_pDrive}},
+      //frc2::InstantCommand{  [this] {if(m_pCamera != nullptr)  m_pCamera->AutoCameraTurn();}, {m_pCamera, m_pDrive}},
+      frc2::InstantCommand{[this] {if(m_pShooter != nullptr) m_pShooter->Shoot(1.0); }, {m_pShooter}},
+      frc2::InstantCommand{[this] {if(m_pShooter != nullptr) m_pShooter->WaitShooter(5); }, {m_pShooter}},
+      frc2::InstantCommand{[this] {if(m_pLoader != nullptr)  m_pLoader->SetLoadMotor(1.0); }, {m_pLoader}},
+      frc2::InstantCommand{[this] {if(m_pLoader != nullptr)  m_pLoader->WaitLoader(5); }, {m_pLoader}},
+      frc2::InstantCommand{[this] {if(m_pLoader != nullptr)  m_pLoader->SetLoadMotor(0.0); }, {m_pLoader}},
+      frc2::InstantCommand{[this] {if(m_pShooter != nullptr) m_pShooter->Shoot(0.0); }, {m_pShooter}},
+      frc2::InstantCommand{[this] {if(m_pDrive != nullptr)     m_pDrive->Stop(); }, {m_pDrive}}};
   /*
   frc2::SequentialCommandGroup m_follower = frc2::SequentialCommandGroup
   {

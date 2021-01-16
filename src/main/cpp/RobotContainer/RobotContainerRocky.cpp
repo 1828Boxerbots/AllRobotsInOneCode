@@ -11,25 +11,22 @@
 #include "../include/Drivers/DPDTSwitchDriver.h"
 
 RobotContainerRocky::RobotContainerRocky()
- {
+{
   m_pDrive = new DriveTrainSubsystemRocky;
   m_pTurret = new TurretSubsystemRocky;
   m_pLoader = new LoaderSubsystemRocky;
   m_pShooter = new ShooterSubsystemRocky;
   //m_pCamera = new CameraSubsystemBase(m_pDrive);
 
-  frc::SmartDashboard::PutString("test","test");
+  frc::SmartDashboard::PutString("test", "test");
 
   // Configure the button bindings
   ConfigureButtonBindings();
   m_pShooter->Init();
   m_pDrive->Init();
   //m_pCamera->Init();
-  
-  
-  
+
   SetDrive();
-  
 }
 
 void RobotContainerRocky::ConfigureButtonBindings()
@@ -46,20 +43,19 @@ void RobotContainerRocky::ConfigureButtonBindings()
   SetButtonX();
   SetButtonY();
 
- //Allign Control
-//SetStartButton();
-  
+  //Allign Control
+  //SetStartButton();
 }
 
 int RobotContainerRocky::ReadDioSwitch()
 {
-   //Object hooked up to double pole double throw switch driver {Channel A, Channel B}
-  DPDTSwitchDriver dpdtSwitch{2,3};
+  //Object hooked up to double pole double throw switch driver {Channel A, Channel B}
+  DPDTSwitchDriver dpdtSwitch{2, 3};
   return dpdtSwitch.Get();
-
 }
 
-frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
+frc2::Command *RobotContainerRocky::GetAutonomousCommand()
+{
 
   //DIO variable meant to switch the autonomous scenario
   int dioAutoSwitcher;
@@ -68,35 +64,35 @@ frc2::Command* RobotContainerRocky::GetAutonomousCommand() {
   frc::SmartDashboard::PutBoolean("Case 2", false);
   frc::SmartDashboard::PutBoolean("Case 3", false);
   frc::SmartDashboard::PutBoolean("Case Default", false);
-  switch(dioAutoSwitcher)
+  switch (dioAutoSwitcher)
   {
-    case 1:
+  case 1:
     frc::SmartDashboard::PutBoolean("Case 1", true);
-      return &m_autoInFrontTargetZone;
-      break;
+    return &m_autoInFrontTargetZone;
+    break;
 
-    case 2:
-      frc::SmartDashboard::PutBoolean("Case 2", true);
-      return &m_autoBetweenTargetZoneLoadingZone;
-    case 3:
-      frc::SmartDashboard::PutBoolean("Case 3", true);
-      return &m_autoInFrontLoadingZone;
-      break;
-    default:
-      frc::SmartDashboard::PutBoolean("Case Default", true);
-      //return &m_autoInFrontTargetZone;
-      break;
+  case 2:
+    frc::SmartDashboard::PutBoolean("Case 2", true);
+    return &m_autoBetweenTargetZoneLoadingZone;
+  case 3:
+    frc::SmartDashboard::PutBoolean("Case 3", true);
+    return &m_autoInFrontLoadingZone;
+    break;
+  default:
+    frc::SmartDashboard::PutBoolean("Case Default", true);
+    //return &m_autoInFrontTargetZone;
+    break;
   }
   return nullptr;
 }
 
-void RobotContainerRocky::Init() 
+void RobotContainerRocky::Init()
 {
   m_pDrive->Init();
   m_pShooter->Init();
 }
 
-void RobotContainerRocky::DisableInit() 
+void RobotContainerRocky::DisableInit()
 {
-  m_pShooter->DisableInit(); 
+  m_pShooter->DisableInit();
 }

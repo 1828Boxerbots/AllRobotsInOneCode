@@ -12,14 +12,14 @@
 #include "../subsystems/SpinSubsystemBase.h"
 #include "Util.h"
 
-class ColorSensorDriver 
+class ColorSensorDriver
 {
- public:
+public:
   ColorSensorDriver(frc::I2C::Port port);
 
   void Init() {}
 
-  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+  bool StatusIsFatal() { return m_pDevice->StatusIsFatal(); }
 
   // Function designed to give you an FMSColor (Specific to robot2020)
   SpinSubsystemBase::FMSColors GetColor();
@@ -44,10 +44,9 @@ class ColorSensorDriver
   // Debug function used to determine whether or not a color returns 2 or more different colors.
   void DetectOverlap();
 
-  private:
-
+private:
   // Private because it's integrated into DetectOverlap only. Easiest and fastest to use direct integration.
-  void DetectTripleOverlap(bool isRed, bool isBlue, bool isGreen, bool isYellow, const char* fileLoc);
+  void DetectTripleOverlap(bool isRed, bool isBlue, bool isGreen, bool isYellow, const char *fileLoc);
 
   rev::ColorSensorV3 *m_pDevice = nullptr;
 };

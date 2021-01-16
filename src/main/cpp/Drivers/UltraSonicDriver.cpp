@@ -7,19 +7,16 @@
 
 #include "Drivers/UltrasonicDriver.h"
 
-
-UltrasonicDriver::UltrasonicDriver(int port) 
+UltrasonicDriver::UltrasonicDriver(int port)
 {
     m_pDevice = new frc::AnalogInput(port);
 }
-
 
 // Returns distance in centimeters by grabbing raw values and scaling them.
 double UltrasonicDriver::GetDistanceInCM()
 {
     return (m_pDevice->GetVoltage() * m_calibration);
 }
-
 
 // Returns distance in inches by converting from centimeters.
 double UltrasonicDriver::GetDistanceInInch()

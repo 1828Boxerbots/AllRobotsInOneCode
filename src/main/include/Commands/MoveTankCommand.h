@@ -13,15 +13,16 @@
 
 class MoveTankCommand
     : public frc2::CommandHelper<frc2::InstantCommand,
-                                 MoveTankCommand> {
- public:
-  MoveTankCommand(DriveTrainSubsystemBase *pDrive, double left=1.0, double right=1.0);
+                                 MoveTankCommand>
+{
+public:
+  MoveTankCommand(DriveTrainSubsystemBase *pDrive, double left = 1.0, double right = 1.0);
 
   void Initialize() override;
   void Execute() override;
 
-  private:
-    DriveTrainSubsystemBase *m_pDrive;
-    double m_left = 1.0;
-    double m_right = 1.0;
+private:
+  DriveTrainSubsystemBase *m_pDrive;
+  double m_left = 1.0;
+  double m_right = 1.0;
 };

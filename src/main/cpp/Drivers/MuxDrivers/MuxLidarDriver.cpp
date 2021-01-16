@@ -7,21 +7,17 @@
 
 #include "Drivers/MuxDrivers/MuxLidarDriver.h"
 
-
-MuxLidarDriver::MuxLidarDriver(frc::I2C::Port i2cPort, int address, I2CMultiplexerDriver &breakout, uint8_t breakoutChannel):
-    m_breakout(breakout),
-    m_breakoutChannel(breakoutChannel)
+MuxLidarDriver::MuxLidarDriver(frc::I2C::Port i2cPort, int address, I2CMultiplexerDriver &breakout, uint8_t breakoutChannel) : m_breakout(breakout),
+                                                                                                                               m_breakoutChannel(breakoutChannel)
 {
     SetActive();
     m_lidar = new LidarDriver(i2cPort, address);
 }
 
-
 void MuxLidarDriver::SetActive()
 {
     m_breakout.SetChannel(1 << (m_breakoutChannel));
 }
-
 
 double MuxLidarDriver::GetDistanceInCM()
 {
@@ -29,13 +25,11 @@ double MuxLidarDriver::GetDistanceInCM()
     return m_lidar->GetDistanceInCM();
 }
 
-
 double MuxLidarDriver::GetDistanceInInches()
 {
     SetActive();
     return m_lidar->GetDistanceInInches();
 }
-
 
 bool MuxLidarDriver::StatusIsFatal()
 {

@@ -11,7 +11,7 @@
 
 class PhotodiodeThresholdDriver
 {
- public:
+public:
   PhotodiodeThresholdDriver(int port);
 
   /*
@@ -21,9 +21,9 @@ class PhotodiodeThresholdDriver
   bool Get();
   void Init();
 
-  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+  bool StatusIsFatal() { return m_pDevice->StatusIsFatal(); }
 
-  private:
+private:
   frc::DigitalInput *m_pDevice = nullptr;
 };
 

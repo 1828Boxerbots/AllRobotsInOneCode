@@ -9,28 +9,28 @@
 
 DriveTrainSubsystemKurgan::DriveTrainSubsystemKurgan() {}
 
-void DriveTrainSubsystemKurgan::SetMotorL(double speed) 
+void DriveTrainSubsystemKurgan::SetMotorL(double speed)
 {
-  #ifndef NOHW
+#ifndef NOHW
   m_leftMotor1.Set(speed);
   m_leftMotor2.Set(speed);
-  #endif
+#endif
 }
 
-void DriveTrainSubsystemKurgan::SetMotorR(double speed) 
+void DriveTrainSubsystemKurgan::SetMotorR(double speed)
 {
-  #ifndef NOHW
+#ifndef NOHW
   m_rightMotor1.Set(speed);
   m_rightMotor2.Set(speed);
-  #endif
+#endif
 }
 
 void DriveTrainSubsystemKurgan::Init()
 {
-  #ifndef NOHW
+#ifndef NOHW
   m_leftMotor1.SetInverted(false);
   m_leftMotor2.SetInverted(false);
   m_rightMotor1.SetInverted(true);
   m_rightMotor2.SetInverted(true);
-  #endif
+#endif
 }

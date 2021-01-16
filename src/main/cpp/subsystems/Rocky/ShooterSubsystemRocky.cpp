@@ -15,27 +15,27 @@ ShooterSubsystemRocky::ShooterSubsystemRocky() {}
 
 void ShooterSubsystemRocky::SetShootMotor(double speed)
 {
-    #ifndef NOHW
+#ifndef NOHW
     m_shooterMotor.Set(speed);
-    #endif
+#endif
 }
 
 double ShooterSubsystemRocky::GetSetPoint()
 {
-    #ifndef NOHW
+#ifndef NOHW
     return m_shooterMotor.Get();
-    #else
+#else
     return 0.0;
-    #endif
+#endif
 }
 bool ShooterSubsystemRocky::AutoShooterRunTime()
 {
-     bool shooterComplete = false;
+    bool shooterComplete = false;
     double shooterTime = 2;
     Util::DelayInSeconds(shooterTime);
     return shooterComplete = true;
 }
 void ShooterSubsystemRocky::WaitShooter(double waitTime)
 {
-     Util::DelayInSeconds(waitTime);
+    Util::DelayInSeconds(waitTime);
 }

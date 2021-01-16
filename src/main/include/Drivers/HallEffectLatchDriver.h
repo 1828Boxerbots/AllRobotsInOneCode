@@ -11,10 +11,10 @@
 
 class HallEffectLatchDriver
 {
- public:
+public:
   HallEffectLatchDriver(int port);
 
- /*
+  /*
   * Hall Effect Latch
   * This sensor will pull the output low when a south pole is applied to the sensor. 
   * It will stay low until a north pole is applied.
@@ -22,9 +22,9 @@ class HallEffectLatchDriver
   bool Get();
   void Init();
 
-  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+  bool StatusIsFatal() { return m_pDevice->StatusIsFatal(); }
 
- private:
+private:
   frc::DigitalInput *m_pDevice = nullptr;
 };
 

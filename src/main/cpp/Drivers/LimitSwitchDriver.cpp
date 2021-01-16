@@ -7,16 +7,12 @@
 
 #include "Drivers/LimitSwitchDriver.h"
 
-
-LimitSwitchDriver::LimitSwitchDriver(int port) 
+LimitSwitchDriver::LimitSwitchDriver(int port)
 {
     m_pDevice = new frc::DigitalInput(port);
 }
-
 
 bool LimitSwitchDriver::Get()
 {
     return m_pDevice->Get();
 }
-
-

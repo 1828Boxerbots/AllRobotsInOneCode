@@ -6,8 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "../include/RobotContainer/RobotContainerLipALoop.h"
-#include <frc2/command/button/JoystickButton.h>	
-
+#include <frc2/command/button/JoystickButton.h>
 
 RobotContainerLipALoop::RobotContainerLipALoop()
 {
@@ -26,10 +25,9 @@ RobotContainerLipALoop::RobotContainerLipALoop()
   SetDrive();
 }
 
-
 void RobotContainerLipALoop::ConfigureButtonBindings()
 {
-  
+
   SetRightBumper();
   SetLeftBumper();
 
@@ -38,69 +36,58 @@ void RobotContainerLipALoop::ConfigureButtonBindings()
 
   SetButtonX();
   SetButtonY();
-    
-    
 }
 
-
-frc2::Command* RobotContainerLipALoop::GetAutonomousCommand() {
+frc2::Command *RobotContainerLipALoop::GetAutonomousCommand()
+{
   // An example command will be run in autonomous
   return 0;
 }
 
-
 void RobotContainerLipALoop::SetRightBumper()
 {
-  frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
+  frc2::Button bumperR{[this] { return m_controller.GetBumper(frc::GenericHID::kRightHand); }};
   bumperR.WhenHeld(&m_armDown_Servo);
   bumperR.WhenReleased(&m_armStop);
 }
 
-
 void RobotContainerLipALoop::SetLeftBumper()
 {
-  frc2::Button bumperL{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
+  frc2::Button bumperL{[this] { return m_controller.GetBumper(frc::GenericHID::kLeftHand); }};
   bumperL.WhenHeld(&m_armUp_Servo);
   bumperL.WhenReleased(&m_armStop);
-
 }
-
 
 void RobotContainerLipALoop::SetButtonA()
 {
-  frc2::Button buttonA{[this] {return m_controller.GetAButton();}};
+  frc2::Button buttonA{[this] { return m_controller.GetAButton(); }};
   buttonA.WhenHeld(&m_wristUp);
   buttonA.WhenReleased(&m_wristStop);
 }
 
-
 void RobotContainerLipALoop::SetButtonB()
 {
-  frc2::Button buttonB{[this] {return m_controller.GetBButton();}};
+  frc2::Button buttonB{[this] { return m_controller.GetBButton(); }};
   buttonB.WhenHeld(&m_wristDown);
   buttonB.WhenReleased(&m_wristStop);
 }
 
-
 void RobotContainerLipALoop::SetButtonX()
 {
-  frc2::Button buttonX{[this] {return m_controller.GetXButton();}};
+  frc2::Button buttonX{[this] { return m_controller.GetXButton(); }};
   buttonX.WhenHeld(&m_handUp);
   buttonX.WhenReleased(&m_handStop);
 }
 
-
 void RobotContainerLipALoop::SetButtonY()
 {
-  frc2::Button buttonY{[this] {return m_controller.GetYButton();}};
+  frc2::Button buttonY{[this] { return m_controller.GetYButton(); }};
   buttonY.WhenHeld(&m_handDown);
   buttonY.WhenReleased(&m_handStop);
 }
-
 
 void RobotContainerLipALoop::SetStartButton()
 {
   //frc2::Button startButton{[this] {return m_controller.GetStartButton();}};
   //startButton.WhenPressed(&m_follower);
 }
-

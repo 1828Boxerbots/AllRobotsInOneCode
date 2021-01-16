@@ -13,7 +13,7 @@ LoaderSubsystemRobot2020::LoaderSubsystemRobot2020() {}
 // This method will be called once per scheduler run
 void LoaderSubsystemRobot2020::Periodic()
 {
-    #ifndef NOHW
+#ifndef NOHW
     Util::Log("Load Photogate", IsLoaded());
     if (m_photogate.Get())
     {
@@ -23,13 +23,12 @@ void LoaderSubsystemRobot2020::Periodic()
     {
         m_spike.TurnSpikeOff();
     }
-    #endif
+#endif
 }
-
 
 void LoaderSubsystemRobot2020::SetLoadMotor(double speed, int motorNumber)
 {
-    #ifndef NOHW
+#ifndef NOHW
     Util::Log("MotorSpeed", speed, GetName());
     Util::Log("Motor Number", motorNumber, GetName());
     switch (motorNumber)
@@ -37,11 +36,10 @@ void LoaderSubsystemRobot2020::SetLoadMotor(double speed, int motorNumber)
     case MOTOR_TOP:
         m_loaderMotorTop.Set(speed);
         break;
-    
+
     case MOTOR_BOTTOM:
         m_loaderMotorBottom.Set(speed);
         break;
-        
 
     case MOTOR_INTAKE:
         m_loaderMotorIntake.Set(speed);
@@ -57,22 +55,21 @@ void LoaderSubsystemRobot2020::SetLoadMotor(double speed, int motorNumber)
         Util::Log("BottomLoader", m_loaderMotorBottom.Get());
         break;
     }
-    #endif
+#endif
 }
-
 
 void LoaderSubsystemRobot2020::PhotogateStop(double speed)
 {
     int count = 0;
-    //Continue spining motor until photogate is set.
-    #ifndef NOHW
-    while(m_photogate.Get() == true)
+//Continue spining motor until photogate is set.
+#ifndef NOHW
+    while (m_photogate.Get() == true)
     {
         SetLoadMotor(speed);
-        count ++;
+        count++;
         Util::Log("Spinning Loader", count++, GetName());
         Util::Log("PhotoCount", m_photoCount, GetName());
-        
+
         /*
         if(count > m_photoCount)
         {
@@ -83,28 +80,25 @@ void LoaderSubsystemRobot2020::PhotogateStop(double speed)
     }
     SetLoadMotor(0.0);
     SetLoadMotor(0.0, MOTOR_BOTTOM);
-    #endif
+#endif
 }
-
 
 //Checks to see if the ball is loaded
 bool LoaderSubsystemRobot2020::IsLoaded()
 {
-    //returns the vail of the photogate
-    #ifndef NOHW
+//returns the vail of the photogate
+#ifndef NOHW
     return m_photogate.Get();
-    #else
+#else
     return 0;
-    #endif
+#endif
 }
-
 
 void LoaderSubsystemRobot2020::Init()
 {
-    #ifndef NOHW
+#ifndef NOHW
     m_loaderMotorTop.SetInverted(false);
     m_loaderMotorIntake.SetInverted(false);
     m_loaderMotorBottom.SetInverted(true);
-    #endif
+#endif
 }
-

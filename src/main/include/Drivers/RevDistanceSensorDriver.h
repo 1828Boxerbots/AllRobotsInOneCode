@@ -11,9 +11,9 @@
 #include "Util.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-class RevDistanceSensorDriver 
+class RevDistanceSensorDriver
 {
- public:
+public:
   RevDistanceSensorDriver(Rev2mDistanceSensor::Port port = Rev2mDistanceSensor::Port::kOnboard,
                           Rev2mDistanceSensor::DistanceUnit unit = Rev2mDistanceSensor::DistanceUnit::kMilliMeters,
                           Rev2mDistanceSensor::RangeProfile profile = Rev2mDistanceSensor::RangeProfile::kDefault);
@@ -28,9 +28,9 @@ class RevDistanceSensorDriver
   double GetDistance();
 
   bool IsRangeValid();
-  bool StatusIsFatal() {return m_pDistance->StatusIsFatal();}
+  bool StatusIsFatal() { return m_pDistance->StatusIsFatal(); }
 
-  private:
+private:
   Rev2mDistanceSensor *m_pDistance = nullptr;
 };
 

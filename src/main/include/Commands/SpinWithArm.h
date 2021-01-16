@@ -20,15 +20,20 @@
  * Command will *not* work!
  */
 class SpinWithArm
-    : public frc2::CommandHelper<frc2::CommandBase, SpinWithArm> {
- public:
+    : public frc2::CommandHelper<frc2::CommandBase, SpinWithArm>
+{
+public:
   enum SpinSelector
   {
-    UseSpinMotor, UseSpinWithColor, UseSpinToColor, UseSpinStop, UseArm
+    UseSpinMotor,
+    UseSpinWithColor,
+    UseSpinToColor,
+    UseSpinStop,
+    UseArm
   };
 
-  SpinWithArm(ArmSubsystemBase *pArm, SpinSubsystemBase *pSpinner, enum SpinSelector selector, double speed, int wantedRotation, 
-  ArmSubsystemBase::ArmPositions armPos);
+  SpinWithArm(ArmSubsystemBase *pArm, SpinSubsystemBase *pSpinner, enum SpinSelector selector, double speed, int wantedRotation,
+              ArmSubsystemBase::ArmPositions armPos);
 
   void Initialize() override;
 

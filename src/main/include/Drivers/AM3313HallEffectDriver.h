@@ -11,21 +11,21 @@
 
 class AM3313HallEffectDriver
 {
- public:
+public:
   AM3313HallEffectDriver(int port);
 
- /*
+  /*
   * Hall Effect Sensor
   * Sensor is driven low in the presence of a magnetic field, and high impedance
   * when there is no magnet present
   * Use this as a limit switch.
   */
- bool Get();
- void Init();
+  bool Get();
+  void Init();
 
- bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+  bool StatusIsFatal() { return m_pDevice->StatusIsFatal(); }
 
- private:
+private:
   frc::DigitalInput *m_pDevice = nullptr;
 };
 

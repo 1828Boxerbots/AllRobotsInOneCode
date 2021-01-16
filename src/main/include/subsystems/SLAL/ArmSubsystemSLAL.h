@@ -11,8 +11,9 @@
 #include <frc/Talon.h>
 #include <frc/DigitalInput.h>
 
-class ArmSubsystemSLAL : public ArmSubsystemBase {
- public:
+class ArmSubsystemSLAL : public ArmSubsystemBase
+{
+public:
   ArmSubsystemSLAL();
 
   /**
@@ -30,13 +31,13 @@ class ArmSubsystemSLAL : public ArmSubsystemBase {
   virtual void Raise(double speed = 1.0);
   virtual void Lower(double speed = 1.0);
 
- private:
- #ifndef NOHW
+private:
+#ifndef NOHW
   frc::Talon m_liftMotorOne{PWM_ARM_SLAL_ONE};
   frc::Talon m_liftMotorTwo{PWM_ARM_SLAL_TWO};
   frc::DigitalInput m_topSwitch{DIO_TOPSWITCH_SLAL};
   frc::DigitalInput m_bottomSwitch{DIO_BOTTOMSWITCH_SLAL};
-  #endif
+#endif
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

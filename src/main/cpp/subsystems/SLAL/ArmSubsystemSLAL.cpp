@@ -14,20 +14,19 @@ ArmSubsystemSLAL::ArmSubsystemSLAL() {}
 
 void ArmSubsystemSLAL::SetMotor(double speed)
 {
-    #ifndef NOHW
-    m_liftMotorOne.Set(speed);
-    m_liftMotorTwo.Set(-speed);
-    #endif 
+#ifndef NOHW
+   m_liftMotorOne.Set(speed);
+   m_liftMotorTwo.Set(-speed);
+#endif
 }
 
 double ArmSubsystemSLAL::GetMotor()
 {
-   #ifndef NOHW
+#ifndef NOHW
    return (m_liftMotorOne.Get() + m_liftMotorTwo.Get()) / 2.0;
-   #else
+#else
    return 0.0;
-   #endif
-
+#endif
 }
 
 void ArmSubsystemSLAL::Raise(double speed)
@@ -42,29 +41,29 @@ void ArmSubsystemSLAL::Lower(double speed)
 
 bool ArmSubsystemSLAL::UpperLimitHit()
 {
-   #ifndef NOHW
+#ifndef NOHW
    return m_topSwitch.Get();
-   #else
+#else
    return false;
-   #endif
+#endif
 }
 
 bool ArmSubsystemSLAL::LowerLimitHit()
 {
-   #ifndef NOHW
+#ifndef NOHW
    return m_bottomSwitch.Get();
-   #else
+#else
    return false;
-   #endif
+#endif
 }
 
 int ArmSubsystemSLAL::GetPosition()
 {
-   if(UpperLimitHit() == true)
+   if (UpperLimitHit() == true)
    {
       return HIGHEST_POS;
    }
-   else if(LowerLimitHit() == true)
+   else if (LowerLimitHit() == true)
    {
       return LOWEST_POS;
    }
@@ -80,16 +79,16 @@ void ArmSubsystemSLAL::SetPosition(int pos)
    {
    case LOWEST_POS:
       SetMotor(-m_liftSpeed);
-      while(LowerLimitHit() != true)
+      while (LowerLimitHit() != true)
       {
          SetMotor(-m_liftSpeed);
       }
       StopMotor();
       break;
-   
+
    case HIGHEST_POS:
       SetMotor(m_liftSpeed);
-      while(UpperLimitHit() != true)
+      while (UpperLimitHit() != true)
       {
          SetMotor(m_liftSpeed);
       }
@@ -97,7 +96,7 @@ void ArmSubsystemSLAL::SetPosition(int pos)
       break;
    default:
       SetMotor(m_liftSpeed);
-      while(UpperLimitHit() != true)
+      while (UpperLimitHit() != true)
       {
          SetMotor(m_liftSpeed);
       }

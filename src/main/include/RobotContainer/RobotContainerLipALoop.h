@@ -23,10 +23,10 @@
  */
 class RobotContainerLipALoop : public RobotContainerBase
 {
- public:
+public:
   RobotContainerLipALoop();
 
-  frc2::Command* GetAutonomousCommand();
+  frc2::Command *GetAutonomousCommand();
 
   virtual void Init() {}
   virtual void DisableInit() {}
@@ -38,7 +38,7 @@ class RobotContainerLipALoop : public RobotContainerBase
   void SetButtonY() override;
   void SetStartButton() override;
 
- private:
+private:
   // The robot's subsystems and commands are defined here...
 
   //Align Control

@@ -9,25 +9,24 @@
 
 DriveTrainSubsystemSLAL::DriveTrainSubsystemSLAL() {}
 
-void DriveTrainSubsystemSLAL::SetMotorL(double speed) 
+void DriveTrainSubsystemSLAL::SetMotorL(double speed)
 {
-  #ifndef NOHW
+#ifndef NOHW
   m_leftMotor.Set(speed);
-  #endif
+#endif
 }
 
-void DriveTrainSubsystemSLAL::SetMotorR(double speed) 
+void DriveTrainSubsystemSLAL::SetMotorR(double speed)
 {
-  #ifndef NOHW
+#ifndef NOHW
   m_rightMotor.Set(speed);
-  #endif
+#endif
 }
 
 void DriveTrainSubsystemSLAL::Init()
 {
-  #ifndef NOHW
+#ifndef NOHW
   m_leftMotor.SetInverted(true);
   m_rightMotor.SetInverted(false);
-  #endif
+#endif
 }
-

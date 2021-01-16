@@ -11,9 +11,9 @@
 
 #include "Util.h"
 
-class ADIS16448_IMUDriver 
+class ADIS16448_IMUDriver
 {
- public:
+public:
   ADIS16448_IMUDriver();
 
   void IMUGyroInit(bool log = false);
@@ -34,10 +34,9 @@ class ADIS16448_IMUDriver
   void CalibrateIMU();
   void LogAllValues();
 
-  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+  bool StatusIsFatal() { return m_pDevice->StatusIsFatal(); }
 
-  private:
-   
+private:
   // The IMU sensor object
   frc::ADIS16448_IMU *m_pDevice = nullptr;
 };

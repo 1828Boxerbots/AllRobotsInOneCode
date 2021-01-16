@@ -10,24 +10,22 @@
 
 #include "Util.h"
 
-
 double Util::Limit(double value, double lowerLimit, double higherLimit)
 {
-    if(lowerLimit > higherLimit)
+    if (lowerLimit > higherLimit)
     {
         return value;
     }
-    if(value > higherLimit)
+    if (value > higherLimit)
     {
         value = higherLimit;
-    } 
-    if(value < lowerLimit)
+    }
+    if (value < lowerLimit)
     {
         value = lowerLimit;
-    }   
+    }
     return value;
 }
-
 
 void Util::DelayInSeconds(double seconds)
 {
@@ -37,7 +35,7 @@ void Util::DelayInSeconds(double seconds)
     double startTime = timer.Get();
     double currentTime = timer.Get();
     //Keep looping until end time is reached
-    while(currentTime - startTime < seconds)
+    while (currentTime - startTime < seconds)
     {
         //Gets current time and sends it to the smartdashboard for checking
         currentTime = timer.Get();
@@ -47,10 +45,9 @@ void Util::DelayInSeconds(double seconds)
     timer.Reset();
 }
 
-
 bool Util::CompareDouble(double value, double requiredValue, double tolerance)
 {
-    if((value > requiredValue - tolerance) && (value < requiredValue + tolerance))
+    if ((value > requiredValue - tolerance) && (value < requiredValue + tolerance))
     {
         return true;
     }
@@ -62,8 +59,7 @@ bool Util::CompareDouble(double value, double requiredValue, double tolerance)
     //return (value > requiredValue - tolerance) && (value < requiredValue + tolerance);
 }
 
-
-double Util::AbsMax(double input, double maxValue) 
+double Util::AbsMax(double input, double maxValue)
 {
     // Just in case the max is negative
     maxValue = std::abs(maxValue);
@@ -77,9 +73,8 @@ double Util::AbsMax(double input, double maxValue)
         return std::max(input, -maxValue);
     }
 }
-	
 
-double Util::AbsMin(double input, double minValue) 
+double Util::AbsMin(double input, double minValue)
 {
 
     // Just in case the max is negative
@@ -91,49 +86,42 @@ double Util::AbsMin(double input, double minValue)
         return std::min(input, -minValue);
 }
 
-
 void Util::Log(std::string title, double value, std::string subsystemName)
 {
     frc::SmartDashboard::PutNumber(subsystemName + " " + title, value);
 }
-
 
 void Util::Log(std::string title, int value, std::string subsystemName)
 {
     frc::SmartDashboard::PutNumber(subsystemName + " " + title, value);
 }
 
-
 void Util::Log(std::string title, bool value, std::string subsystemName)
 {
     frc::SmartDashboard::PutBoolean(subsystemName + " " + title, value);
 }
-
 
 void Util::Log(std::string title, std::string value, std::string subsystemName)
 {
     frc::SmartDashboard::PutString(subsystemName + " " + title, value);
 }
 
-
-void Util::Log(std::string title, const char* value, std::string subsystemName)
+void Util::Log(std::string title, const char *value, std::string subsystemName)
 {
     std::string newvalue = (std::string)value;
     frc::SmartDashboard::PutString(subsystemName + " " + title, newvalue);
 }
-
 
 /* 
 *  Specialized error reporting (Adam's test)
 *  
 *  Allows you to report to the driver station with a custom error code.
 */
-void Util::SendErrorAndCode(const wpi::Twine& error, int32_t code)
+void Util::SendErrorAndCode(const wpi::Twine &error, int32_t code)
 {
     wpi::SmallString<128> temp;
     HAL_SendError(1, code, 0, error.toNullTerminatedStringRef(temp).data(), "", "", 1);
 }
-
 
 /* 
 *  Overload of the other error function (Adam's test)
@@ -142,7 +130,7 @@ void Util::SendErrorAndCode(const wpi::Twine& error, int32_t code)
 *
 *  Const Char* is just a string, or anything in quotes (e.g. "abc")
 */
-void Util::SendErrorAndCode(const wpi::Twine& error, int32_t code, const char *location)
+void Util::SendErrorAndCode(const wpi::Twine &error, int32_t code, const char *location)
 {
     wpi::SmallString<128> temp;
     HAL_SendError(1, code, 0, error.toNullTerminatedStringRef(temp).data(), location, "", 1);
@@ -174,4 +162,3 @@ void Util::Log(std::string title, SpinSubsystemBase::FMSColors value, std::strin
 
     frc::SmartDashboard::PutString(subsystemName + " " + title, newvalue);
 }
-

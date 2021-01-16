@@ -13,8 +13,9 @@
 #include "../../Util.h"
 #include "../../Constants.h"
 
-class TurretSubsystemRocky : public frc2::SubsystemBase {
- public:
+class TurretSubsystemRocky : public frc2::SubsystemBase
+{
+public:
   TurretSubsystemRocky();
 
   /**
@@ -25,14 +26,15 @@ class TurretSubsystemRocky : public frc2::SubsystemBase {
   void Turn(bool aButton, bool bButton);
 
   double m_turretAngle = 0.0;
-  private:
+
+private:
   const double LOWERLIMIT = -50.0;
   const double UPPERLIMIT = 50.0;
   const double MOTORSPEED = 0.5;
 
-  #ifndef NOHW
-  frc::Spark m_turretMotor {PWM_TURRETMOTOR_ROCKY};
-  #endif
+#ifndef NOHW
+  frc::Spark m_turretMotor{PWM_TURRETMOTOR_ROCKY};
+#endif
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

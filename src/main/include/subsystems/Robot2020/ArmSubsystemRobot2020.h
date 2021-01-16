@@ -13,8 +13,9 @@
 #include <frc/AnalogEncoder.h>
 #include "../../Drivers/HallEffectOmnipolarDriver.h"
 
-class ArmSubsystemRobot2020 : public ArmSubsystemBase {
- public:
+class ArmSubsystemRobot2020 : public ArmSubsystemBase
+{
+public:
   ArmSubsystemRobot2020();
 
   void Init() override;
@@ -33,17 +34,17 @@ class ArmSubsystemRobot2020 : public ArmSubsystemBase {
    */
   void Periodic();
 
- private:
- #ifndef NOHW
+private:
+#ifndef NOHW
   frc::Victor m_armMotor{PWM_ARMMOTOR_ROBOT2020};
   HallEffectOmnipolarDriver m_hallEffectLower{DIO_HALLEFFECT_LOWER_ROBOT2020};
   HallEffectOmnipolarDriver m_hallEffectUpper{DIO_HALLEFFECT_UPPER_ROBOT2020};
- #endif
+#endif
   double m_scale = 0.5;
   double m_lowValue = 0.0;
   double m_highValue = 150.0;
   double m_armDownTime = 1.5;
-  
+
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

@@ -10,8 +10,9 @@
 #include <frc/Victor.h>
 #include "../LoaderSubsystemBase.h"
 
-class LoaderSubsystemKurgan : public LoaderSubsystemBase {
- public:
+class LoaderSubsystemKurgan : public LoaderSubsystemBase
+{
+public:
   LoaderSubsystemKurgan();
 
   void SetLoadMotor(double speed = 1.0, int motorNumber = -1) override;
@@ -20,11 +21,11 @@ class LoaderSubsystemKurgan : public LoaderSubsystemBase {
    * Will be called periodically whenever the CommandScheduler runs.
    */
 
- private:
-  #ifndef NOHW
-  frc::Victor m_loaderMotor {PWM_LOADMOTOR_KURGAN};
-  #endif
-  
+private:
+#ifndef NOHW
+  frc::Victor m_loaderMotor{PWM_LOADMOTOR_KURGAN};
+#endif
+
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

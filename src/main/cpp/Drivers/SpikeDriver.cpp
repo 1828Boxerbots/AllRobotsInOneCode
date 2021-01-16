@@ -7,12 +7,10 @@
 
 #include "Drivers/SpikeDriver.h"
 
-
-SpikeDriver::SpikeDriver(int port) 
+SpikeDriver::SpikeDriver(int port)
 {
     m_pDevice = new frc::Relay(port);
 }
-
 
 // Sets the Relay to the "On" position.
 void SpikeDriver::TurnSpikeOn()
@@ -20,17 +18,15 @@ void SpikeDriver::TurnSpikeOn()
     m_pDevice->Set(frc::Relay::Value::kForward);
 }
 
-
 // Sets the Relay to the "Off" position.
-void SpikeDriver::TurnSpikeOff() 
+void SpikeDriver::TurnSpikeOff()
 {
     m_pDevice->Set(frc::Relay::Value::kOff);
 }
-
 
 frc::Relay::Value SpikeDriver::GetState()
 {
     return m_pDevice->Get();
 }
 
-// 2/18/2020      
+// 2/18/2020

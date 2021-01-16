@@ -27,12 +27,12 @@ void LoaderSubsystemBase::Load(double loadSpeed, double ejectSpeed)
     frc::SmartDashboard::PutNumber("Load Speed", loadSpeed);
     frc::SmartDashboard::PutNumber("Eject Speed", ejectSpeed);
 
-    if(loadSpeed > 0.1 && ejectSpeed < 0.1)
+    if (loadSpeed > 0.1 && ejectSpeed < 0.1)
     {
         LoadMotor(loadSpeed);
         frc::SmartDashboard::PutBoolean("Running Motor", true);
     }
-    else if(loadSpeed < 0.1 && ejectSpeed > 0.1)
+    else if (loadSpeed < 0.1 && ejectSpeed > 0.1)
     {
         LoadMotor(-ejectSpeed);
         frc::SmartDashboard::PutBoolean("Running Motor", true);
@@ -41,20 +41,19 @@ void LoaderSubsystemBase::Load(double loadSpeed, double ejectSpeed)
     {
         frc::SmartDashboard::PutBoolean("Running Motor", false);
     }
-    
 }
 
 void LoaderSubsystemBase::LoadXY(bool xButton, bool yButton)
 {
-    if(xButton == true && yButton == false)
+    if (xButton == true && yButton == false)
     {
         LoadMotor(EJECTSPEED);
     }
-    else if(xButton == false && yButton == true)
+    else if (xButton == false && yButton == true)
     {
         LoadMotor(LOADSPEED);
     }
-    else 
+    else
     {
         LoadMotor(0.0);
     }

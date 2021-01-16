@@ -19,19 +19,24 @@
  * scheduler calls).  Instead, the structure of the robot (including subsystems,
  * commands, and button mappings) should be declared here.
  */
-class RobotContainerKurgan : public RobotContainerBase{
- public:
+class RobotContainerKurgan : public RobotContainerBase
+{
+public:
   RobotContainerKurgan();
 
-  frc2::Command* GetAutonomousCommand();
+  frc2::Command *GetAutonomousCommand();
 
   void SetButtonA() override;
   void SetButtonB() override;
 
-  virtual void Init() { m_pDrive->Init(); m_pLoader->SetLoadMotor(0.0);}
-  virtual void DisableInit() {m_pLoader->SetLoadMotor(0.0);}
+  virtual void Init()
+  {
+    m_pDrive->Init();
+    m_pLoader->SetLoadMotor(0.0);
+  }
+  virtual void DisableInit() { m_pLoader->SetLoadMotor(0.0); }
 
- private:
+private:
   // The robot's subsystems and commands are defined here...
 
   void ConfigureButtonBindings();

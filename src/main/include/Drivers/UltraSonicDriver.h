@@ -9,20 +9,20 @@
 
 #include <frc/AnalogInput.h>
 
-class UltrasonicDriver 
+class UltrasonicDriver
 {
- public:
+public:
   UltrasonicDriver(int port);
 
   double GetDistanceInCM();
   double GetDistanceInInch();
 
   // Every Ultrasonic sensor has its own calibration factor, use this to select the correct one.
-  void SetCalibration(double value) {m_calibration = value;}
+  void SetCalibration(double value) { m_calibration = value; }
 
-  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+  bool StatusIsFatal() { return m_pDevice->StatusIsFatal(); }
 
-  private:
+private:
   frc::AnalogInput *m_pDevice = nullptr;
   const double CMtoIN = 0.393701;
   double m_calibration = 1.0;

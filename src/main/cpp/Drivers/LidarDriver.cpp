@@ -7,25 +7,22 @@
 
 #include "Drivers/LidarDriver.h"
 
-
-LidarDriver::LidarDriver(frc::I2C::Port port, int address) 
+LidarDriver::LidarDriver(frc::I2C::Port port, int address)
 {
     m_pDevice = new frc::I2C(port, address);
 }
 
-
 void LidarDriver::CommandInit()
 {
-   m_pDevice->Write(ACQ_COMMAND, ACQ_CONFIG_REG);
+    m_pDevice->Write(ACQ_COMMAND, ACQ_CONFIG_REG);
 }
-
 
 double LidarDriver::GetDistanceInCM()
 {
     CommandInit();
 
     uint8_t val;
-    while(m_pDevice->Read(STATUS, 1, &val) == false) 
+    while (m_pDevice->Read(STATUS, 1, &val) == false)
     {
         if ((val & 0x1) == 0)
         {
@@ -36,7 +33,7 @@ double LidarDriver::GetDistanceInCM()
     uint8_t high;
     uint8_t low;
     m_pDevice->Read(FULL_DELAY_HIGH, 1, &high);
-    m_pDevice->Read(FULL_DELAY_LOW , 1, &low );
+    m_pDevice->Read(FULL_DELAY_LOW, 1, &low);
     uint16_t centimeters = (high << 8) | low;
     // Use this if you want to see distance on Smashboard
     //Util::Log("Lidar Distance", centimeters, "LidarDriver");
@@ -44,12 +41,10 @@ double LidarDriver::GetDistanceInCM()
     return (double)centimeters;
 }
 
-
 double LidarDriver::GetDistanceInInches()
 {
-    return GetDistanceInCM()*CMtoIN;
+    return GetDistanceInCM() * CMtoIN;
 }
-
 
 /*double LidarDriver::LidarDetectionSoftware(double detectionDistance)
 {

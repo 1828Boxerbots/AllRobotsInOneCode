@@ -13,7 +13,7 @@
 
 class DPDTSwitchDriver
 {
- public:
+public:
   DPDTSwitchDriver(int CHANNEL_A, int CHANNEL_B);
 
   /**
@@ -28,7 +28,7 @@ class DPDTSwitchDriver
   int Get();
   void Init();
 
-  private:
+private:
   frc::DigitalInput *m_pChannelA = nullptr;
   frc::DigitalInput *m_pChannelB = nullptr;
 };

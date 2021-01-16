@@ -7,16 +7,12 @@
 
 #include "Drivers/PhotodiodeAnalogDriver.h"
 
-
-PhotodiodeAnalogDriver::PhotodiodeAnalogDriver(int port) 
+PhotodiodeAnalogDriver::PhotodiodeAnalogDriver(int port)
 {
     m_pDevice = new frc::AnalogInput(port);
 }
-
 
 double PhotodiodeAnalogDriver::Get()
 {
     return m_pDevice->GetVoltage();
 }
-
-

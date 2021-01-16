@@ -9,7 +9,7 @@
 #include <frc2/command/button/JoystickButton.h>
 
 RobotContainerLaika::RobotContainerLaika()
- {
+{
 
   m_pDrive = new DriveTrainSubsystemLaika;
   // Configure the button bindings
@@ -27,12 +27,12 @@ void RobotContainerLaika::ConfigureButtonBindings()
   SetLiftButton();
 }
 
-frc2::Command* RobotContainerLaika::GetAutonomousCommand() {
+frc2::Command *RobotContainerLaika::GetAutonomousCommand()
+{
   // An example command will be run in autonomous
   return 0;
 }
 
 void RobotContainerLaika::SetLiftButton()
 {
-  
 }

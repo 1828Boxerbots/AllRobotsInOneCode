@@ -10,25 +10,25 @@
 #include "../I2CMultiplexerDriver.h"
 #include "../RevDistanceSensorDriver.h"
 
-class MuxDistanceSensorDriver 
+class MuxDistanceSensorDriver
 {
- public:
+public:
   MuxDistanceSensorDriver(Rev2mDistanceSensor::Port Port,
                           int adr, //tito was here
-					                I2CMultiplexerDriver& breakout,
+                          I2CMultiplexerDriver &breakout,
                           uint8_t breakoutChannel,
                           Rev2mDistanceSensor::DistanceUnit units = Rev2mDistanceSensor::DistanceUnit::kInches,
-					                Rev2mDistanceSensor::RangeProfile profile = Rev2mDistanceSensor::RangeProfile::kDefault);
+                          Rev2mDistanceSensor::RangeProfile profile = Rev2mDistanceSensor::RangeProfile::kDefault);
 
-	void SetActive();
-	bool IsRangeValid();
+  void SetActive();
+  bool IsRangeValid();
   double GetDistance();
-	bool StatusIsFatal();
+  bool StatusIsFatal();
   void Init(bool isOn = false);
 
-  private:
-   I2CMultiplexerDriver &m_breakout;
-	 uint8_t m_breakoutChannel;
-	 frc::I2C::Port m_i2cPort;
-   RevDistanceSensorDriver* m_pDistanceSensor;
+private:
+  I2CMultiplexerDriver &m_breakout;
+  uint8_t m_breakoutChannel;
+  frc::I2C::Port m_i2cPort;
+  RevDistanceSensorDriver *m_pDistanceSensor;
 };

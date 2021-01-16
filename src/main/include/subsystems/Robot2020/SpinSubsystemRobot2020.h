@@ -15,37 +15,37 @@
 #include "../../Drivers/MuxDrivers/MuxColorSensorDriver.h"
 #include "../../Drivers/I2CMultiplexerDriver.h"
 
-class SpinSubsystemRobot2020 : public SpinSubsystemBase {
- public:
-  
-  SpinSubsystemRobot2020(I2CMultiplexerDriver* pMultiplexerDriver);
+class SpinSubsystemRobot2020 : public SpinSubsystemBase
+{
+public:
+  SpinSubsystemRobot2020(I2CMultiplexerDriver *pMultiplexerDriver);
 
   void Periodic() override;
 
   void Init() override;
-  void SetSpinMotor (double speed = 1.0) override;
+  void SetSpinMotor(double speed = 1.0) override;
   double GetTicksPerRevolution() override;
   void SpinNumRotations(double speed = 1.0, int wantedRotation = 7) override;
   void SpinToColor(double speed = 1.0) override;
-  std::string GetColor() override; 
+  std::string GetColor() override;
   FMSColors ReadColorSensor() override;
 
- private:
+private:
   FMSColors GetFMSColor();
   int CalcDir();
   FMSColors ConvertColor(FMSColors color);
 
- #ifndef NOHW
-  frc::Victor m_spinMotor {PWM_SPINNERMOTOR_ROBOT2020};
+#ifndef NOHW
+  frc::Victor m_spinMotor{PWM_SPINNERMOTOR_ROBOT2020};
 
-  I2CMultiplexerDriver* m_pMultiplexerDiver = nullptr;
+  I2CMultiplexerDriver *m_pMultiplexerDiver = nullptr;
 
-  #ifdef M_COLOR
-    MuxColorSensorDriver* m_pColorSensor = nullptr; // Paramaters: {I2C_PORT_MULTIPLEXER_ROBOT2020, m_multiplexer, U8T_LINE_COLORSENSOR_ROBOT2020};
-  #endif
- #endif
+#ifdef M_COLOR
+  MuxColorSensorDriver *m_pColorSensor = nullptr; // Paramaters: {I2C_PORT_MULTIPLEXER_ROBOT2020, m_multiplexer, U8T_LINE_COLORSENSOR_ROBOT2020};
+#endif
+#endif
 
- double m_scale = 0.5;
+  double m_scale = 0.5;
 
- int m_beatColorRead = 0;
+  int m_beatColorRead = 0;
 };

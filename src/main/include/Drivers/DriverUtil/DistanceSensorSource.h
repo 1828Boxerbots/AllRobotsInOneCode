@@ -50,11 +50,27 @@
  * The Distance sensor class is intended to be used with the RevRobotics
  * 2M Distance Sensor.
  */
-class Rev2mDistanceSensor : public frc::ErrorBase, public frc::SendableBase, public frc::PIDSource {
-    public:
-        enum Port { kOnboard = 0, kMXP };
-        enum DistanceUnit { kInches = 0, kMilliMeters = 1, kCurrent = 2 };
-        enum RangeProfile { kDefault = 0, kHighAccuracy, kLongRange, kHighSpeed };
+class Rev2mDistanceSensor : public frc::ErrorBase, public frc::SendableBase, public frc::PIDSource
+{
+public:
+        enum Port
+        {
+                kOnboard = 0,
+                kMXP
+        };
+        enum DistanceUnit
+        {
+                kInches = 0,
+                kMilliMeters = 1,
+                kCurrent = 2
+        };
+        enum RangeProfile
+        {
+                kDefault = 0,
+                kHighAccuracy,
+                kLongRange,
+                kHighSpeed
+        };
 
         /**
          * Creat an instance of the Distance Sensor.
@@ -72,8 +88,8 @@ class Rev2mDistanceSensor : public frc::ErrorBase, public frc::SendableBase, pub
 
         ~Rev2mDistanceSensor() override;
 
-        Rev2mDistanceSensor(Rev2mDistanceSensor&&) = default;
-        Rev2mDistanceSensor& operator=(Rev2mDistanceSensor&&) = default;
+        Rev2mDistanceSensor(Rev2mDistanceSensor &&) = default;
+        Rev2mDistanceSensor &operator=(Rev2mDistanceSensor &&) = default;
 
         /**
          * Check if the device is enabled in round robin mode
@@ -193,16 +209,16 @@ class Rev2mDistanceSensor : public frc::ErrorBase, public frc::SendableBase, pub
 
         void SetPIDSourceType(frc::PIDSourceType pidSource) override;
 
-        void InitSendable(frc::SendableBuilder& builder) override;
+        void InitSendable(frc::SendableBuilder &builder) override;
 
         void StartMeasurement(void);
 
-	void GetMeasurementData(void);
+        void GetMeasurementData(void);
         double GetRangeMM(void);
 
         void StopMeasurement(void);
 
-     private:
+private:
         bool Initialize(RangeProfile);
         static void DoContinuous(void);
         int32_t ValidateI2C(void);
@@ -214,7 +230,7 @@ class Rev2mDistanceSensor : public frc::ErrorBase, public frc::SendableBase, pub
         bool SetProfileDefault(void);
         void GetStopCompletedStatus(void);
         void SetProfile(RangeProfile);
-	bool GetMeasurementDataReady(void);
+        bool GetMeasurementDataReady(void);
         // measurement parameters
         double m_currentRange = -1;
         double m_timestamp = -1;
@@ -235,7 +251,7 @@ class Rev2mDistanceSensor : public frc::ErrorBase, public frc::SendableBase, pub
 
         static std::atomic<double> m_measurementPeriod;
         static std::thread m_thread;
-        static std::vector<Rev2mDistanceSensor*> m_sensors;
+        static std::vector<Rev2mDistanceSensor *> m_sensors;
         static std::atomic<bool> m_automaticEnabled;
 };
 

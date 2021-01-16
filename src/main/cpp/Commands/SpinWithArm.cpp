@@ -8,7 +8,7 @@
 #include "Commands/SpinWithArm.h"
 
 SpinWithArm::SpinWithArm(ArmSubsystemBase *pArm, SpinSubsystemBase *pSpinner, enum SpinSelector selector, double speed,
-int wantedRotation, ArmSubsystemBase::ArmPositions armPos)
+                         int wantedRotation, ArmSubsystemBase::ArmPositions armPos)
 {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pArm = pArm;
@@ -25,12 +25,12 @@ int wantedRotation, ArmSubsystemBase::ArmPositions armPos)
 void SpinWithArm::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void SpinWithArm::Execute() 
+void SpinWithArm::Execute()
 {
   Util::Log("SpinWithArm Selection", m_selector);
 
-  //The spinner can stop at anytime it doesnt need to be at the top
-  if(m_selector == UseSpinStop)
+  //The spinner can stop at anytime it doesn't need to be at the top
+  if (m_selector == UseSpinStop)
   {
     m_pSpinner->SetSpinMotor(0);
     Util::Log("SpinWithArm", 0);
@@ -41,7 +41,7 @@ void SpinWithArm::Execute()
   //Spinner Stuff
 
   //Checks if we are in the up arm position
-  if(m_pArm->GetPosition() == 0)
+  if (m_pArm->GetPosition() == 0)
   {
     //if we are not do not do anything
     return;

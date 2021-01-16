@@ -11,23 +11,24 @@
 #include <frc/Victor.h>
 #include "../ShooterSubsystemBase.h"
 
-class ShooterSubsystemKurgan : public ShooterSubsystemBase {
- public:
+class ShooterSubsystemKurgan : public ShooterSubsystemBase
+{
+public:
   ShooterSubsystemKurgan();
 
-  void SetShootMotor (double speed) override;
+  void SetShootMotor(double speed) override;
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
 
- private:
- #ifndef NOHW
+private:
+#ifndef NOHW
   frc::Spark m_shootOne{PWM_SHOOTER_KURGAN_ONE};
   frc::Victor m_shootTwo{PWM_SHOOTER_KURGAN_TWO};
   frc::Victor m_shootThree{PWM_SHOOTER_KURGAN_THREE};
   frc::Victor m_shootFour{PWM_SHOOTER_KURGAN_FOUR};
-  #endif
+#endif
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

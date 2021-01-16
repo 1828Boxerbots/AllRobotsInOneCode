@@ -7,7 +7,7 @@
 
 #include "Commands/MoveToDistanceCommand.h"
 
-MoveToDistanceCommand::MoveToDistanceCommand(DriveTrainSubsystemBase *pDrive, double targetDistance, double speed) 
+MoveToDistanceCommand::MoveToDistanceCommand(DriveTrainSubsystemBase *pDrive, double targetDistance, double speed)
 {
   m_pDrive = pDrive;
   m_targetDistance = targetDistance;
@@ -16,24 +16,23 @@ MoveToDistanceCommand::MoveToDistanceCommand(DriveTrainSubsystemBase *pDrive, do
 }
 
 // Called when the command is initially scheduled.
-void MoveToDistanceCommand::Initialize() 
+void MoveToDistanceCommand::Initialize()
 {
-
 }
 
 // Called repeatedly when this Command is scheduled to run
-void MoveToDistanceCommand::Execute() 
+void MoveToDistanceCommand::Execute()
 {
   double lowTolerance = m_targetDistance - m_toleranceValue;
   double highTolerance = m_targetDistance + m_toleranceValue;
   double currentDistance = m_pDrive->GetLidarDetectionDistance();
   while (currentDistance < lowTolerance || currentDistance > highTolerance)
   {
-    if(currentDistance < lowTolerance)
+    if (currentDistance < lowTolerance)
     {
       m_pDrive->MoveTank(-1.0, -1.0);
     }
-    else if(currentDistance > highTolerance)
+    else if (currentDistance > highTolerance)
     {
       m_pDrive->MoveTank(1.0, 1.0);
     }
@@ -45,13 +44,13 @@ void MoveToDistanceCommand::Execute()
 }
 
 // Called once the command ends or is interrupted.
-void MoveToDistanceCommand::End(bool interrupted) 
+void MoveToDistanceCommand::End(bool interrupted)
 {
   m_pDrive->Stop();
 }
 
 // Returns true when the command should end.
-bool MoveToDistanceCommand::IsFinished() 
-{ 
-  return false; 
+bool MoveToDistanceCommand::IsFinished()
+{
+  return false;
 }

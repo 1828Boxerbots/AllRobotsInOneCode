@@ -17,17 +17,18 @@
  * scheduler calls).  Instead, the structure of the robot (including subsystems,
  * commands, and button mappings) should be declared here.
  */
-class RobotContainerLaika : public RobotContainerBase {
- public:
+class RobotContainerLaika : public RobotContainerBase
+{
+public:
   RobotContainerLaika();
 
-  frc2::Command* GetAutonomousCommand();
+  frc2::Command *GetAutonomousCommand();
 
   virtual void Init() {}
   virtual void DisableInit() {}
   void SetLiftButton();
 
- private:
+private:
   // The robot's subsystems and commands are defined here...
 
   //Controller

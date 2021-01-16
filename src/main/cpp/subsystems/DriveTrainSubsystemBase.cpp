@@ -12,31 +12,30 @@ DriveTrainSubsystemBase::DriveTrainSubsystemBase() {}
 // This method will be called once per scheduler run
 void DriveTrainSubsystemBase::Periodic() {}
 
-
 void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
-{ 
+{
     GyroGetAngle();
-    GetRightEncoderInch();  
+    GetRightEncoderInch();
     GetLeftEncoderInch();
     leftY = Util::Limit(leftY);
     rightY = Util::Limit(rightY);
-    if(leftY > 0.1 || leftY < -0.1)
+    if (leftY > 0.1 || leftY < -0.1)
     {
         GetLeftEncoderInch();
     }
-    if(rightY > 0.1 || rightY < -0.1)
+    if (rightY > 0.1 || rightY < -0.1)
     {
-        GetRightEncoderInch();    
+        GetRightEncoderInch();
     }
     frc::SmartDashboard::PutNumber("Drive Left", leftY);
     frc::SmartDashboard::PutNumber("Drive Right", rightY);
 
-    //Lidar returns 0 if object is out of distance, minimum distance is to prevent an infinite loop 
+    //Lidar returns 0 if object is out of distance, minimum distance is to prevent an infinite loop
     //implemented solely for lidar, will change later for distance sensors
     if (GetLidarDetectionDistance() > MINIMUMDISTANCE && m_hasAntiCollision == true)
     {
         //If turning, since sensor is generally on front, keep turning
-        if(leftY < -0.1 || rightY < -0.1)
+        if (leftY < -0.1 || rightY < -0.1)
         {
             SetMotorL(leftY);
             SetMotorR(rightY);
@@ -44,7 +43,7 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
         //Again, if turning,but object is within collision range, still turn, but if not turning, then set motors to stop
         else if (GetLidarDetectionDistance() < m_lidarCollisionDistance)
         {
-            if(leftY < -0.1 || rightY < -0.1)
+            if (leftY < -0.1 || rightY < -0.1)
             {
                 SetMotorL(leftY);
                 SetMotorR(rightY);
@@ -54,8 +53,7 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
                 SetMotorL(0.0);
                 SetMotorR(0.0);
             }
-                
-        }   
+        }
         // If object is not within collision range, just continue with driving
         else
         {
@@ -70,13 +68,13 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
         SetMotorR(rightY);
     }
     //This is for distance sensor implementation, if distance sensor doesn't pick up anything, then go on with code
-    if(IsDistanceLeftActive() == true && m_hasAntiCollision == true)
+    if (IsDistanceLeftActive() == true && m_hasAntiCollision == true)
     {
         //Distance less than collision range
-        if(GetDistanceSensorDetectionDistanceLeft() < m_distanceCollisionDistanceLeft)
+        if (GetDistanceSensorDetectionDistanceLeft() < m_distanceCollisionDistanceLeft)
         {
             //If turning right,forward, or reverse, continue moving
-            if((leftY > 0.1 && rightY < -0.1) || (leftY > 0.1 && rightY > 0.1) || (leftY < -0.1 && rightY < -0.1))
+            if ((leftY > 0.1 && rightY < -0.1) || (leftY > 0.1 && rightY > 0.1) || (leftY < -0.1 && rightY < -0.1))
             {
                 SetMotorL(leftY);
                 SetMotorR(rightY);
@@ -89,13 +87,13 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
             }
         }
     }
-    if(IsDistanceRightActive() == true && m_hasAntiCollision == true)
+    if (IsDistanceRightActive() == true && m_hasAntiCollision == true)
     {
         //Distance less than collision range
-        if(GetDistanceSensorDetectionDistanceRight() < m_distanceCollisionDistanceRight)
+        if (GetDistanceSensorDetectionDistanceRight() < m_distanceCollisionDistanceRight)
         {
             //If turning left,moving forward, or reversing, continue moving
-            if(((leftY < -0.1) && (rightY > 0.1)) || ((leftY > 0.1) && (rightY > 0.1)) || ((leftY < -0.1) && (rightY < -0.1)))
+            if (((leftY < -0.1) && (rightY > 0.1)) || ((leftY > 0.1) && (rightY > 0.1)) || ((leftY < -0.1) && (rightY < -0.1)))
             {
                 SetMotorL(leftY);
                 SetMotorR(rightY);
@@ -108,9 +106,6 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
             }
         }
     }
-    
-    
-    
 }
 
 void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
@@ -120,18 +115,15 @@ void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
     MoveTank(leftY, rightY);
 }
 
-
 void DriveTrainSubsystemBase::TurnRight(double speed)
 {
     MoveTank(-speed, speed);
 }
 
-
 void DriveTrainSubsystemBase::TurnLeft(double speed)
 {
     MoveTank(speed, -speed);
 }
-
 
 void DriveTrainSubsystemBase::LogEncoder()
 {
@@ -167,7 +159,7 @@ bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading
     if (std::abs(leftEncoder) > std::abs(rightEncoder))
     {
         encoderDistance = leftEncoder;
-    } 
+    }
     else
     {
         encoderDistance = rightEncoder;
@@ -175,16 +167,16 @@ bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading
 
     // Get Control Loop Period
     double loopTime = LOOPTIME;
-    
+
     double error = targetDistance - encoderDistance;
-    
+
     // Linear-Proportional control
-    
+
     // Linear-Integral control
-    if (error < m_deadZone) 
+    if (error < m_deadZone)
     {
         m_sumError += error / loopTime;
-    } 
+    }
     else
     {
         m_sumError = 0;
@@ -224,11 +216,11 @@ bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading
 
     //Determine if the robot made it to the target
     //and then wait a bit so that it can be correct any overshoot.
-    if(error > 2 || errorRotation > 3.0)
+    if (error > 2 || errorRotation > 3.0)
     {
         m_autoTimer.Reset();
     }
-    else if(m_autoTimer.Get() > 0.75)
+    else if (m_autoTimer.Get() > 0.75)
     {
         return true;
     }
@@ -240,10 +232,10 @@ bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading
 void DriveTrainSubsystemBase::FixRotation(double wantedAngle, double speed)
 {
     double currentAngle = GyroGetAngle();
-    while(currentAngle != wantedAngle)
+    while (currentAngle != wantedAngle)
     {
         currentAngle = GyroGetAngle();
-        if(currentAngle > wantedAngle)
+        if (currentAngle > wantedAngle)
         {
             TurnRight(speed);
         }
@@ -260,21 +252,21 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
     //This is Regular
     double startDistance = GetLeftEncoderInch();
     double currentDistance = GetLeftEncoderInch();
-    while(currentDistance-startDistance < inch)
+    while (currentDistance - startDistance < inch)
     {
         MoveTank(speed, speed);
         currentDistance = GetLeftEncoderInch();
         frc::SmartDashboard::PutNumber("LeftEncoderInches", GetLeftEncoderInch());
         //Util::DelayInSeconds(1.0);
     }
-    if(currentDistance > inch)
+    if (currentDistance > inch)
     {
         ResetEncoder();
     }
     Stop();
-    
+
     //This is PIDS
-/*
+    /*
     //Creates and Starts Timer
     frc::Timer timer;
     timer.Reset();
@@ -307,24 +299,23 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
     double startAngle = GyroGetAngle();
     double currentAngle = GyroGetAngle();
     //logic used to turn the robot left or right and keeping it turned
-    if(relativeAngle > 0)
+    if (relativeAngle > 0)
     {
         TurnLeft(.75);
-        while (currentAngle-startAngle < relativeAngle)
+        while (currentAngle - startAngle < relativeAngle)
         {
             currentAngle = GyroGetAngle();
         }
     }
-    if(relativeAngle < 0)
+    if (relativeAngle < 0)
     {
         TurnRight(.75);
-        while (currentAngle-startAngle > relativeAngle)
+        while (currentAngle - startAngle > relativeAngle)
         {
             currentAngle = GyroGetAngle();
         }
     }
 }
-
 
 void DriveTrainSubsystemBase::Init()
 {
@@ -340,4 +331,3 @@ void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime)
     Util::TimeInSeconds(goalTime);
     Stop();*/
 }
-

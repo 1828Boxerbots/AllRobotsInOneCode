@@ -10,18 +10,18 @@
 #include "../I2CMultiplexerDriver.h"
 #include "../LidarDriver.h"
 
-class MuxLidarDriver 
+class MuxLidarDriver
 {
- public:
+public:
   MuxLidarDriver(frc::I2C::Port i2cPort, int address, I2CMultiplexerDriver &breakout, uint8_t breakoutChannel);
 
   void SetActive();
-	double GetDistanceInCM();
+  double GetDistanceInCM();
   double GetDistanceInInches();
-	bool StatusIsFatal();
+  bool StatusIsFatal();
 
- private:
-   I2CMultiplexerDriver &m_breakout;
-	 uint8_t m_breakoutChannel;
-   LidarDriver* m_lidar;
+private:
+  I2CMultiplexerDriver &m_breakout;
+  uint8_t m_breakoutChannel;
+  LidarDriver *m_lidar;
 };

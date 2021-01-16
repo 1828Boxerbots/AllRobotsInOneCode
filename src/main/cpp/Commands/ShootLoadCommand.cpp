@@ -8,8 +8,7 @@
 #include "Commands/ShootLoadCommand.h"
 #include <frc/SmartDashboard/SmartDashboard.h>
 
-ShootLoadCommand::ShootLoadCommand(LoaderSubsystemBase *pLoader, ShooterSubsystemBase *pShooter, DriveTrainSubsystemBase *pDrive
-,double encoderWanted, double shootSpeed, double driveSpeed, double lidarLow, double lidarHigh) 
+ShootLoadCommand::ShootLoadCommand(LoaderSubsystemBase *pLoader, ShooterSubsystemBase *pShooter, DriveTrainSubsystemBase *pDrive, double encoderWanted, double shootSpeed, double driveSpeed, double lidarLow, double lidarHigh)
 {
   m_pLoader = pLoader;
   m_pShooter = pShooter;
@@ -27,33 +26,31 @@ ShootLoadCommand::ShootLoadCommand(LoaderSubsystemBase *pLoader, ShooterSubsyste
 }
 
 // Called when the command is initially scheduled.
-void ShootLoadCommand::Initialize() 
+void ShootLoadCommand::Initialize()
 {
-
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ShootLoadCommand::Execute() 
+void ShootLoadCommand::Execute()
 {
   //Loading a ball to be ready to fire
-  while(m_pLoader->IsLoaded())
+  while (m_pLoader->IsLoaded())
   {
     m_pLoader->SetLoadMotor();
   }
-  
-  m_pLoader->SetLoadMotor(0.0);
 
+  m_pLoader->SetLoadMotor(0.0);
 
   //Lidar getting correct distance
   //Too High / Too far
-  if(m_pDrive->GetLidarDetectionDistance() > m_lidarHigh)
+  if (m_pDrive->GetLidarDetectionDistance() > m_lidarHigh)
   {
     m_pDrive->SetMotorL(m_driveSpeed);
     m_pDrive->SetMotorR(m_driveSpeed);
     return;
   }
   //Too Low / Too close
-  if(m_pDrive->GetLidarDetectionDistance() < m_lidarLow)
+  if (m_pDrive->GetLidarDetectionDistance() < m_lidarLow)
   {
     m_pDrive->SetMotorL(-m_driveSpeed);
     m_pDrive->SetMotorR(-m_driveSpeed);
@@ -74,7 +71,7 @@ void ShootLoadCommand::Execute()
   {
     Util::Log("motor speed 1", m_shootSpeed);
     m_pShooter->SetShootMotor(m_shootSpeed);
-  } 
+  }
   else
   {
     Util::Log("motor speed 2", 1.0);
@@ -82,7 +79,7 @@ void ShootLoadCommand::Execute()
   }
 
   double shooterSpeed = m_pShooter->EncoderSpeed();
-  if(shooterSpeed < encoderLowTol || shooterSpeed > encoderHighTol)
+  if (shooterSpeed < encoderLowTol || shooterSpeed > encoderHighTol)
   {
     m_pShooter->SetShootMotor(m_shootSpeed);
 
@@ -107,14 +104,14 @@ void ShootLoadCommand::Execute()
 }
 
 // Called once the command ends or is interrupted.
-void ShootLoadCommand::End(bool interrupted) 
+void ShootLoadCommand::End(bool interrupted)
 {
   m_pLoader->Stop();
   m_pShooter->Stop();
 }
 
 // Returns true when the command should end.
-bool ShootLoadCommand::IsFinished() 
-{ 
-  return m_isFinished; 
+bool ShootLoadCommand::IsFinished()
+{
+  return m_isFinished;
 }

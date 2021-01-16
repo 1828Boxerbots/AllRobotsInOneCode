@@ -13,14 +13,14 @@
 
 class ADXRS_450GyroDriver
 {
- public:
+public:
   ADXRS_450GyroDriver(frc::SPI::Port port);
 
   /** 
    * Initializes the Gyro
    * 
    * @param log: put true if you want to see if the gyro has been initialized
-  */  
+  */
   void GyroInit(bool log = false);
 
   // Resets the Gyro to a heading of 0 degrees
@@ -36,9 +36,9 @@ class ADXRS_450GyroDriver
   double GetRate();
 
   // States whether or not the sensor is compromised
-  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+  bool StatusIsFatal() { return m_pDevice->StatusIsFatal(); }
 
-  private:
+private:
   frc::ADXRS450_Gyro *m_pDevice = nullptr;
 };
 

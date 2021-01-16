@@ -25,58 +25,51 @@ void RobotContainerBase::SetDrive(DriveStyles driveStyle)
     m_pDrive->EnableAnticollision(false);
     switch (driveStyle)
     {
-        case TANK_STYLE:
-            m_pDrive->SetDefaultCommand(frc2::RunCommand(
-            [this] 
-            {
+    case TANK_STYLE:
+        m_pDrive->SetDefaultCommand(frc2::RunCommand(
+            [this] {
                 m_pDrive->MoveTank(-m_controller.GetY(frc::GenericHID::kLeftHand), -m_controller.GetY(frc::GenericHID::kRightHand));
-            }
-            ,{m_pDrive}));
-            break;
+            },
+            {m_pDrive}));
+        break;
 
-        case ARCADE_STYLE:
-            m_pDrive->SetDefaultCommand(frc2::RunCommand(
-            [this] 
-            {
+    case ARCADE_STYLE:
+        m_pDrive->SetDefaultCommand(frc2::RunCommand(
+            [this] {
                 m_pDrive->MoveArcade(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetX(frc::GenericHID::kLeftHand));
-            }
-            ,{m_pDrive}));
-            break;
+            },
+            {m_pDrive}));
+        break;
     }
 }
 
-
 void RobotContainerBase::SetButtonA()
 {
-    frc2::Button buttonA{[this] {return m_controller.GetAButton();}};
+    frc2::Button buttonA{[this] { return m_controller.GetAButton(); }};
     buttonA.WhileHeld(&m_turretTurnLeft);
     buttonA.WhenReleased(&m_turretStop);
 }
 
-
 void RobotContainerBase::SetButtonB()
 {
-    frc2::Button buttonB{[this] {return m_controller.GetBButton();}};
+    frc2::Button buttonB{[this] { return m_controller.GetBButton(); }};
     buttonB.WhenHeld(&m_turretTurnRight);
     buttonB.WhenReleased(&m_turretStop);
 }
 
-
 void RobotContainerBase::SetButtonX()
 {
-    frc2::Button buttonX{[this] {return m_controller.GetXButton();}};
+    frc2::Button buttonX{[this] { return m_controller.GetXButton(); }};
     buttonX.WhenHeld(&m_loaderEject);
     buttonX.WhenReleased(&m_loaderStop);
 }
 
-
 void RobotContainerBase::SetButtonY()
 {
-    frc2::Button buttonY{[this] {return m_controller.GetYButton();}};
+    frc2::Button buttonY{[this] { return m_controller.GetYButton(); }};
     buttonY.WhenHeld(&m_loaderLoad);
     buttonY.WhenReleased(&m_loaderStop);
 }
-
 
 void RobotContainerBase::SetStartButton()
 {
@@ -86,29 +79,24 @@ void RobotContainerBase::SetStartButton()
     */
 }
 
-
 void RobotContainerBase::SetBackButton()
 {
-    
 }
-
 
 void RobotContainerBase::SetLeftBumper()
 {
-    frc2::Button bumperL{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand);}};
+    frc2::Button bumperL{[this] { return m_controller.GetBumper(frc::GenericHID::kLeftHand); }};
     // Set the bottom back to eject eventually maybe
     bumperL.WhenHeld(&m_shooterSpin);
     bumperL.WhenReleased(&m_shooterStop);
 }
 
-
 void RobotContainerBase::SetRightBumper()
 {
-    frc2::Button bumperR{[this] {return m_controller.GetBumper(frc::GenericHID::kRightHand);}};
+    frc2::Button bumperR{[this] { return m_controller.GetBumper(frc::GenericHID::kRightHand); }};
     bumperR.WhenHeld(&m_shooterEject);
     bumperR.WhenReleased(&m_shooterStop);
 }
-
 
 void RobotContainerBase::SetLeftTrigger()
 {
@@ -116,9 +104,6 @@ void RobotContainerBase::SetLeftTrigger()
     //leftTrigger.WhenPressed(&m_resetEncoder);
 }
 
-
 void RobotContainerBase::SetRightTrigger()
 {
-    
 }
-

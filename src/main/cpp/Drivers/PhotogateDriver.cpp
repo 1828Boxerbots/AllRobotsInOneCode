@@ -7,22 +7,17 @@
 
 #include "Drivers/PhotogateDriver.h"
 
-
-PhotogateDriver::PhotogateDriver(int port) 
+PhotogateDriver::PhotogateDriver(int port)
 {
     m_pDevice = new frc::DigitalInput(port);
 }
-
 
 bool PhotogateDriver::Get()
 {
     return m_pDevice->Get();
 }
 
-
 void PhotogateDriver::Init()
 {
     //I AM USELESS
 }
-
-

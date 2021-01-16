@@ -10,8 +10,9 @@
 #include <frc/Spark.h>
 #include "../LoaderSubsystemBase.h"
 
-class LoaderSubsystemRocky : public LoaderSubsystemBase {
- public:
+class LoaderSubsystemRocky : public LoaderSubsystemBase
+{
+public:
   LoaderSubsystemRocky();
 
   void SetLoadMotor(double speed = 1.0, int motorNumber = -1) override;
@@ -21,11 +22,11 @@ class LoaderSubsystemRocky : public LoaderSubsystemBase {
    * Will be called periodically whenever the CommandScheduler runs.
    */
 
- private:
-  #ifndef NOHW
-  frc::Spark m_loaderMotor {PWM_LOADMOTOR_ROCKY};
-  #endif
-  
+private:
+#ifndef NOHW
+  frc::Spark m_loaderMotor{PWM_LOADMOTOR_ROCKY};
+#endif
+
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

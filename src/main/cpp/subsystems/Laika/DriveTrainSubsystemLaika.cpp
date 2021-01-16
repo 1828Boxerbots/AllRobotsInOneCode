@@ -9,24 +9,24 @@
 
 DriveTrainSubsystemLaika::DriveTrainSubsystemLaika() {}
 
-void DriveTrainSubsystemLaika::SetMotorL(double speed) 
+void DriveTrainSubsystemLaika::SetMotorL(double speed)
 {
-  #ifndef NOHW
+#ifndef NOHW
   m_leftMotor.Set(speed * m_scale);
-  #endif
+#endif
 }
 
-void DriveTrainSubsystemLaika::SetMotorR(double speed) 
+void DriveTrainSubsystemLaika::SetMotorR(double speed)
 {
-  #ifndef NOHW
+#ifndef NOHW
   m_rightMotor.Set(speed * m_scale);
-  #endif
+#endif
 }
 
 void DriveTrainSubsystemLaika::Init()
 {
-  #ifndef NOHW
+#ifndef NOHW
   m_leftMotor.SetInverted(false);
   m_rightMotor.SetInverted(true);
-  #endif
+#endif
 }

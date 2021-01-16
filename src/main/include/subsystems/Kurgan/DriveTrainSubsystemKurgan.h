@@ -10,24 +10,25 @@
 #include <frc/Victor.h>
 #include "../DriveTrainSubsystemBase.h"
 
-class DriveTrainSubsystemKurgan : public DriveTrainSubsystemBase {
- public:
+class DriveTrainSubsystemKurgan : public DriveTrainSubsystemBase
+{
+public:
   DriveTrainSubsystemKurgan();
 
   virtual void SetMotorL(double speed);
-  virtual void SetMotorR(double speed); 
+  virtual void SetMotorR(double speed);
   virtual void Init();
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
 
- private:
- #ifndef NOHW
+private:
+#ifndef NOHW
   frc::Victor m_leftMotor1{PWM_LEFTMOTOR_KURGAN_ONE};
   frc::Victor m_leftMotor2{PWM_LEFTMOTOR_KURGAN_TWO};
   frc::Victor m_rightMotor1{PWM_RIGHTMOTOR_KURGAN_ONE};
   frc::Victor m_rightMotor2{PWM_RIGHTMOTOR_KURGAN_TWO};
-  #endif
+#endif
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

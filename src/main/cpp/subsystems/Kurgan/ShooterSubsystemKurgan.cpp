@@ -13,14 +13,12 @@ ShooterSubsystemKurgan::ShooterSubsystemKurgan() {}
 
 // This method will be called once per scheduler run
 
-
 void ShooterSubsystemKurgan::SetShootMotor(double speed)
 {
-    #ifndef NOHW
+#ifndef NOHW
     m_shootOne.Set(-speed);
     m_shootTwo.Set(-speed);
     m_shootThree.Set(-speed);
     m_shootFour.Set(-speed);
-    #endif
+#endif
 }
-

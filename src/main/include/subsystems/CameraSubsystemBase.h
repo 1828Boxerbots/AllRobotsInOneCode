@@ -66,11 +66,11 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   void PrintTurn(int turn);
   */
 
-  /**
+/**
    * Will be called periodically whenever the CommandScheduler runs.
    */
- 
-  /*
+
+/*
   void Periodic();
 
  private:
@@ -107,6 +107,5 @@ class CameraSubsystemBase : public frc2::SubsystemBase {
   
 };
 */
-
 
 //COMMENTED OUT FOR RESTART PURPOSES. THIS IS FOR REFERENCE.

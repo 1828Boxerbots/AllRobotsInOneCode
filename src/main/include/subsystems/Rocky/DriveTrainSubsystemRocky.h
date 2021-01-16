@@ -14,12 +14,13 @@
 #include "../../Drivers/LidarDriver.h"
 #include "../../Drivers/ADXRS_450GyroDriver.h"
 
-class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
- public:
+class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase
+{
+public:
   DriveTrainSubsystemRocky();
 
   void SetMotorL(double speed) override;
-  void SetMotorR(double speed) override; 
+  void SetMotorR(double speed) override;
   double GyroGetAngle() override;
   void GyroInit() override;
   void Init() override;
@@ -30,22 +31,22 @@ class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase {
   //void DetectionSoftware(double detectionDistance) override;
   double GetLidarDetectionDistance() override;
   void PrecisionMovementLidar(double wantedDistance) override;
-  double GetPulsesPerRevolution() override {return PULSE_PER_REVOLUTION;}
+  double GetPulsesPerRevolution() override { return PULSE_PER_REVOLUTION; }
   void EnableAnticollision(bool enable) override;
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
 
- private:
- #ifndef NOHW
+private:
+#ifndef NOHW
   frc::Spark m_leftMotor{PWM_LEFTMOTOR_ROCKY};
   frc::Spark m_rightMotor{PWM_RIGHTMOTOR_ROCKY};
   frc::Encoder m_leftEncoder{DIO_LEFTENCODER_ROCKY_ONE, DIO_LEFTENCODER_ROCKY_TWO};
   frc::Encoder m_rightEncoder{DIO_RIGHTENCODER_ROCKY_ONE, DIO_RIGHTENCODER_ROCKY_TWO};
   frc::ADXRS450_Gyro m_gyro;
   LidarDriver m_lidar{frc::I2C::Port::kOnboard, LidarDriver::LIDAR_ADDRESS};
-  #endif
+#endif
 
   const double PULSE_PER_REVOLUTION = 240;
   const double WHEELDIAMETER = 8.0;

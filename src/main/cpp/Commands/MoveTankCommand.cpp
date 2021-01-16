@@ -10,7 +10,7 @@
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-MoveTankCommand:: MoveTankCommand(DriveTrainSubsystemBase *pDrive, double left, double right)
+MoveTankCommand::MoveTankCommand(DriveTrainSubsystemBase *pDrive, double left, double right)
 {
   m_pDrive = pDrive;
   m_left = left;
@@ -21,12 +21,11 @@ MoveTankCommand:: MoveTankCommand(DriveTrainSubsystemBase *pDrive, double left, 
 }
 
 // Called when the command is initially scheduled.
-void MoveTankCommand::Initialize() 
+void MoveTankCommand::Initialize()
 {
-
 }
 
-void MoveTankCommand::Execute() 
+void MoveTankCommand::Execute()
 {
   if (m_pDrive != nullptr)
   {

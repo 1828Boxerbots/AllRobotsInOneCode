@@ -10,13 +10,13 @@
 ArmSubsystemRobot2020::ArmSubsystemRobot2020() {}
 
 // This method will be called once per scheduler run
-void ArmSubsystemRobot2020::Periodic() 
+void ArmSubsystemRobot2020::Periodic()
 {
-    #ifndef NOHW
+#ifndef NOHW
     //Log the Halleffects
     Log("Lower HallEffect", m_hallEffectLower.Get());
     Log("Upper HallEffect", m_hallEffectUpper.Get());
-    #endif
+#endif
 }
 
 void ArmSubsystemRobot2020::Init()
@@ -31,18 +31,18 @@ void ArmSubsystemRobot2020::DisableInit()
 
 void ArmSubsystemRobot2020::SetMotor(double speed)
 {
-    #ifndef NOHW
+#ifndef NOHW
     m_armMotor.Set(speed);
-    #endif
+#endif
 }
 
 double ArmSubsystemRobot2020::GetMotor()
 {
-    #ifndef NOHW
+#ifndef NOHW
     return m_armMotor.Get();
-    #else
+#else
     return 0.0;
-    #endif
+#endif
 }
 
 void ArmSubsystemRobot2020::LiftArmUp(double scale, double speed)
@@ -67,18 +67,18 @@ void ArmSubsystemRobot2020::Lower(double speed)
 
 int ArmSubsystemRobot2020::GetPosition()
 {
-    #ifndef NOHW
-    if(!m_hallEffectLower.Get())
+#ifndef NOHW
+    if (!m_hallEffectLower.Get())
     {
         Util::Log("Arm Position GetPosition()", "Lowest Position");
         return LOWEST_POS;
     }
-    if(!m_hallEffectUpper.Get())
+    if (!m_hallEffectUpper.Get())
     {
         Util::Log("Arm Position GetPosition()", "Highest Position");
         return HIGHEST_POS;
     }
-    #endif
+#endif
     Util::Log("Arm Position GetPosition()", "Invalid Position");
     return INVALID_POS;
 }
@@ -89,7 +89,7 @@ HighestPos = 1
 */
 void ArmSubsystemRobot2020::SetPosition(int pos)
 {
-    #ifndef NOHW
+#ifndef NOHW
     Log("Pos", pos);
     Log("Lower HallEffect", m_hallEffectLower.Get());
     Log("Upper HallEffect", m_hallEffectUpper.Get());
@@ -97,8 +97,8 @@ void ArmSubsystemRobot2020::SetPosition(int pos)
     switch (pos)
     {
     case LOWEST_POS:
-    //Checks if the HallEffect is true and moves the arm up until it is
-        while(m_hallEffectLower.Get() == true)
+        //Checks if the HallEffect is true and moves the arm up until it is
+        while (m_hallEffectLower.Get() == true)
         {
             LiftArmDown(m_scale);
             frc::SmartDashboard::PutString("Condition", "Moving Down");
@@ -107,8 +107,8 @@ void ArmSubsystemRobot2020::SetPosition(int pos)
         frc::SmartDashboard::PutString("Condition", "Done");
         break;
     case HIGHEST_POS:
-    //Checks if the HallEffect is true and moves the arm down until it is
-        while(m_hallEffectUpper.Get() == true)
+        //Checks if the HallEffect is true and moves the arm down until it is
+        while (m_hallEffectUpper.Get() == true)
         {
             LiftArmUp(m_scale);
             frc::SmartDashboard::PutString("Condition", "Moving Up");
@@ -122,5 +122,5 @@ void ArmSubsystemRobot2020::SetPosition(int pos)
         StopMotor();
         break;
     }
-    #endif
+#endif
 }

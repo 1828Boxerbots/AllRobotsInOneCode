@@ -11,9 +11,9 @@
 
 #include "Util.h"
 
-class LidarDriver 
+class LidarDriver
 {
- public:
+public:
   //Constructor
   LidarDriver(frc::I2C::Port port, int address);
 
@@ -23,39 +23,39 @@ class LidarDriver
   */
   double GetDistanceInCM();
 
-  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+  bool StatusIsFatal() { return m_pDevice->StatusIsFatal(); }
 
   // Utilizes a conversion factor to get Inches.
   double GetDistanceInInches();
   //double LidarDetectionSoftware(double detectionDistance);
- private:
-
+private:
   /* 
   *  Required init function: Writes the command bit to the Lidar.
   *  This must be called or else you will not get any return from 
   *  the sensor.
-  */ 
+  */
   void CommandInit();
 
   // Conversion Factor
   const double CMtoIN = 0.393701;
 
   // Default I2C Address
-  public:
+public:
   static const int LIDAR_ADDRESS = 0x62;
-  private:
+
+private:
   // Command Bit
   const int ACQ_COMMAND = 0x00;
-  
+
   // Command Register
   const int ACQ_CONFIG_REG = 0x04;
-  
+
   // Return Register
   const int STATUS = 0x01;
-  
+
   // High Bit
   const int FULL_DELAY_HIGH = 0x0f;
-  
+
   // Low Bit
   const int FULL_DELAY_LOW = 0x10;
 

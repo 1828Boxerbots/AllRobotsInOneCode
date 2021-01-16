@@ -12,26 +12,25 @@
 #include "Util.h"
 #include "Constants.h"
 
-class I2CMultiplexerDriver 
+class I2CMultiplexerDriver
 {
- public:
+public:
   I2CMultiplexerDriver(frc::I2C::Port i2cPort, int breakoutAddress = breakoutAddress_base);
 
   bool SetChannel(uint8_t channel, bool log = true);
   uint8_t GetChannel();
 
-  bool StatusIsFatal() {return m_pDevice->StatusIsFatal();}
+  bool StatusIsFatal() { return m_pDevice->StatusIsFatal(); }
 
   std::string GetChannelName(uint8_t channel);
-  
- private:
 
+private:
   // This is the address of the multiplexer itself
   static const uint8_t breakoutAddress_base = 0x70;
 
   // Which sensor are we currently reading from?
-  uint8_t m_current_channel; 
-  
+  uint8_t m_current_channel;
+
   // This is the I2C object of the multiplexer
   frc::I2C *m_pDevice = nullptr;
 };

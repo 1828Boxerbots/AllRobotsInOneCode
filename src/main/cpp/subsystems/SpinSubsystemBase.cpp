@@ -9,19 +9,16 @@
 #include "Util.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-
 SpinSubsystemBase::SpinSubsystemBase() {}
 
-
 // This method will be called once per scheduler run
-void SpinSubsystemBase::Periodic() 
+void SpinSubsystemBase::Periodic()
 {
     Util::Log("ControlPanel CurrentColor", GetColor());
     Util::Log("Wanted Color", FMStoString(m_colorTest));
 }
 
-
-void SpinSubsystemBase::SpinWithEncoders(double targetRadius, double ourRadius, double revolutions) 
+void SpinSubsystemBase::SpinWithEncoders(double targetRadius, double ourRadius, double revolutions)
 {
     double limit = GetNumberOfTicks(targetRadius, revolutions, ourRadius);
 
@@ -29,19 +26,16 @@ void SpinSubsystemBase::SpinWithEncoders(double targetRadius, double ourRadius, 
     do
     {
         Log();
-    }
-    while(GetEncoderTicks() < limit);
+    } while (GetEncoderTicks() < limit);
     SetSpinMotor(0.0);
 }
 
-
 double SpinSubsystemBase::GetNumberOfTicks(double targetRadius, double revolutions, double ourRadius)
 {
-    double value = (GetTicksPerRevolution()*revolutions*targetRadius)/ourRadius ;
+    double value = (GetTicksPerRevolution() * revolutions * targetRadius) / ourRadius;
     frc::SmartDashboard::PutNumber("Spin Target Number Ticks", value);
     return value;
 }
-
 
 void SpinSubsystemBase::Log()
 {
@@ -49,7 +43,6 @@ void SpinSubsystemBase::Log()
     frc::SmartDashboard::PutNumber("Current (sensor) Color", ReadColorSensor());
     frc::SmartDashboard::PutNumber("Current (field) Color", (int)MapColors(ReadColorSensor()));
 }
-
 
 SpinSubsystemBase::FMSColors SpinSubsystemBase::MapColors(FMSColors color)
 {
@@ -62,10 +55,9 @@ SpinSubsystemBase::FMSColors SpinSubsystemBase::MapColors(FMSColors color)
     return finalcolor;
 }
 
-
 void SpinSubsystemBase::SpinUntilColor(FMSColors targetColor)
 {
-    if ( targetColor == INVALID)
+    if (targetColor == INVALID)
     {
         targetColor = m_color;
     }
@@ -73,11 +65,9 @@ void SpinSubsystemBase::SpinUntilColor(FMSColors targetColor)
     do
     {
         Log();
-    }
-    while(MapColors(ReadColorSensor()) != targetColor);
+    } while (MapColors(ReadColorSensor()) != targetColor);
     SetSpinMotor(0.0);
 }
-
 
 void SpinSubsystemBase::InterpretFMS(std::string rawColor)
 {
@@ -88,29 +78,28 @@ void SpinSubsystemBase::InterpretFMS(std::string rawColor)
 
     switch (rawColor[0])
     {
-        case 'B' :
-            m_color = BLUE;
-            m_colorTest = BLUE;
-            break;
-        case 'G' :
-            m_color = GREEN;
-            m_colorTest = GREEN;
-            break;
-        case 'R' :
-            m_color = RED;
-            m_colorTest = RED;
-            break;
-        case 'Y' :
-            m_color = YELLOW;
-            m_colorTest = YELLOW;
-            break;
-        default:
-            m_color = INVALID; 
-            m_colorTest = INVALID;
-            break;
+    case 'B':
+        m_color = BLUE;
+        m_colorTest = BLUE;
+        break;
+    case 'G':
+        m_color = GREEN;
+        m_colorTest = GREEN;
+        break;
+    case 'R':
+        m_color = RED;
+        m_colorTest = RED;
+        break;
+    case 'Y':
+        m_color = YELLOW;
+        m_colorTest = YELLOW;
+        break;
+    default:
+        m_color = INVALID;
+        m_colorTest = INVALID;
+        break;
     }
 }
-
 
 std::string SpinSubsystemBase::FMStoString(FMSColors color)
 {
