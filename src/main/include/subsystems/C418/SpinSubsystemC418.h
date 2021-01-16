@@ -15,10 +15,10 @@
 #include "../../Drivers/MuxDrivers/MuxColorSensorDriver.h"
 #include "../../Drivers/I2CMultiplexerDriver.h"
 
-class SpinSubsystemRobot2020 : public SpinSubsystemBase
+class SpinSubsystemC418 : public SpinSubsystemBase
 {
 public:
-  SpinSubsystemRobot2020(I2CMultiplexerDriver *pMultiplexerDriver);
+  SpinSubsystemC418(I2CMultiplexerDriver *pMultiplexerDriver);
 
   void Periodic() override;
 
@@ -36,12 +36,12 @@ private:
   FMSColors ConvertColor(FMSColors color);
 
 #ifndef NOHW
-  frc::Victor m_spinMotor{PWM_SPINNERMOTOR_ROBOT2020};
+  frc::Victor m_spinMotor{PWM_SPINNERMOTOR_C418};
 
   I2CMultiplexerDriver *m_pMultiplexerDiver = nullptr;
 
 #ifdef M_COLOR
-  MuxColorSensorDriver *m_pColorSensor = nullptr; // Paramaters: {I2C_PORT_MULTIPLEXER_ROBOT2020, m_multiplexer, U8T_LINE_COLORSENSOR_ROBOT2020};
+  MuxColorSensorDriver *m_pColorSensor = nullptr; // Paramaters: {I2C_PORT_MULTIPLEXER_C418, m_multiplexer, U8T_LINE_COLORSENSOR_C418};
 #endif
 #endif
 

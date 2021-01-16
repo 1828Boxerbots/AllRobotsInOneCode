@@ -13,10 +13,10 @@
 #include <frc/AnalogEncoder.h>
 #include "../../Drivers/HallEffectOmnipolarDriver.h"
 
-class ArmSubsystemRobot2020 : public ArmSubsystemBase
+class ArmSubsystemC418 : public ArmSubsystemBase
 {
 public:
-  ArmSubsystemRobot2020();
+  ArmSubsystemC418();
 
   void Init() override;
   void SetMotor(double speed) override;
@@ -36,9 +36,9 @@ public:
 
 private:
 #ifndef NOHW
-  frc::Victor m_armMotor{PWM_ARMMOTOR_ROBOT2020};
-  HallEffectOmnipolarDriver m_hallEffectLower{DIO_HALLEFFECT_LOWER_ROBOT2020};
-  HallEffectOmnipolarDriver m_hallEffectUpper{DIO_HALLEFFECT_UPPER_ROBOT2020};
+  frc::Victor m_armMotor{PWM_ARMMOTOR_C418};
+  HallEffectOmnipolarDriver m_hallEffectLower{DIO_HALLEFFECT_LOWER_C418};
+  HallEffectOmnipolarDriver m_hallEffectUpper{DIO_HALLEFFECT_UPPER_C418};
 #endif
   double m_scale = 0.5;
   double m_lowValue = 0.0;

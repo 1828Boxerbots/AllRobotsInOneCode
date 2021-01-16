@@ -11,10 +11,10 @@
 #include <frc/Victor.h>
 #include <frc/Encoder.h>
 
-class ShooterSubsystemRobot2020 : public ShooterSubsystemBase
+class ShooterSubsystemC418 : public ShooterSubsystemBase
 {
 public:
-  ShooterSubsystemRobot2020();
+  ShooterSubsystemC418();
   void Init() override;
 
   void SetShootMotor(double speed) override;
@@ -28,8 +28,8 @@ public:
 
 private:
 #ifndef NOHW
-  frc::Victor m_shooterMotor{PWM_SHOOTMOTOR_ROBOT2020};
-  frc::Encoder m_shooterEncoder{DIO_SHOOTER_ENCODER_ONE_ROBOT2020, DIO_SHOOTER_ENCODER_TWO_ROBOT2020};
+  frc::Victor m_shooterMotor{PWM_SHOOTMOTOR_C418};
+  frc::Encoder m_shooterEncoder{DIO_SHOOTER_ENCODER_ONE_C418, DIO_SHOOTER_ENCODER_TWO_C418};
 #endif
 
   const int PULSES_PER_ROTATION = 80;

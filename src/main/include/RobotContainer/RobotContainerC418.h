@@ -27,10 +27,10 @@
  * scheduler calls).  Instead, the structure of the robot (including subsystems,
  * commands, and button mappings) should be declared here.
  */
-class RobotContainerRobot2020 : public RobotContainerBase
+class RobotContainerC418 : public RobotContainerBase
 {
 public:
-  RobotContainerRobot2020();
+  RobotContainerC418();
 
   void Init() override;
   void DisableInit() override;
@@ -50,7 +50,7 @@ public:
 
   frc2::Command *GetAutonomousCommand();
 
-  static SpinSubsystemRobot2020::FMSColors givenColor;
+  static SpinSubsystemC418::FMSColors givenColor;
 
 private:
   //ShootLoadCommand

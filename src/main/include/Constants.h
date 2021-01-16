@@ -115,26 +115,26 @@ constexpr int PWM_ARMSERVO_LIPALOOP = 0;
 constexpr int PWM_WRISTSERVO_LIPALOOP = 1;
 constexpr int PWM_HANDSERVO_LIPALOOP = 2;
 
-//C418 (Robot 2020)
-constexpr int PWM_RIGHTMOTOR_ROBOT2020 = 0;
-constexpr int PWM_LEFTMOTOR_ROBOT2020 = 1;
-constexpr int PWM_SHOOTMOTOR_ROBOT2020 = 3;
-constexpr int PWM_LOADMOTOR_INTAKE_ROBOT2020 = 5;
-constexpr int PWM_LOADMOTOR_BOTTOM_ROBOT2020 = 4;
-constexpr int PWM_LOADMOTOR_TOP_ROBOT2020 = 6;
-constexpr int PWM_ARMMOTOR_ROBOT2020 = 7;
-constexpr int PWM_SPINNERMOTOR_ROBOT2020 = 2;
-constexpr int PWM_HOOKMOTOR_ROBOT2020 = 9;
-constexpr int DIO_SHOOTER_ENCODER_ONE_ROBOT2020 = 4;
-constexpr int DIO_SHOOTER_ENCODER_TWO_ROBOT2020 = 5;
-constexpr int DIO_PHOTOGATE_ROBOT2020 = 8;
-constexpr int DIO_LEFTENCODER_A_ROBOT2020 = 0;
-constexpr int DIO_LEFTENCODER_B_ROBOT2020 = 1;
-constexpr int DIO_RIGHTENCODER_A_ROBOT2020 = 2;
-constexpr int DIO_RIGHTENCODER_B_ROBOT2020 = 3;
-constexpr int DIO_HALLEFFECT_UPPER_ROBOT2020 = 7;
-constexpr int DIO_HALLEFFECT_LOWER_ROBOT2020 = 6;
-constexpr int RLY_SPIKE_ROBOT2020 = 1;
+//C418
+constexpr int PWM_RIGHTMOTOR_C418 = 0;
+constexpr int PWM_LEFTMOTOR_C418 = 1;
+constexpr int PWM_SHOOTMOTOR_C418 = 3;
+constexpr int PWM_LOADMOTOR_INTAKE_C418 = 5;
+constexpr int PWM_LOADMOTOR_BOTTOM_C418 = 4;
+constexpr int PWM_LOADMOTOR_TOP_C418 = 6;
+constexpr int PWM_ARMMOTOR_C418 = 7;
+constexpr int PWM_SPINNERMOTOR_C418 = 2;
+constexpr int PWM_HOOKMOTOR_C418 = 9;
+constexpr int DIO_SHOOTER_ENCODER_ONE_C418 = 4;
+constexpr int DIO_SHOOTER_ENCODER_TWO_C418 = 5;
+constexpr int DIO_PHOTOGATE_C418 = 8;
+constexpr int DIO_LEFTENCODER_A_C418 = 0;
+constexpr int DIO_LEFTENCODER_B_C418 = 1;
+constexpr int DIO_RIGHTENCODER_A_C418 = 2;
+constexpr int DIO_RIGHTENCODER_B_C418 = 3;
+constexpr int DIO_HALLEFFECT_UPPER_C418 = 7;
+constexpr int DIO_HALLEFFECT_LOWER_C418 = 6;
+constexpr int RLY_SPIKE_C418 = 1;
 
 //Lidar Distances
 constexpr double LIDAR_LOW_C418 = 60;
@@ -192,18 +192,18 @@ constexpr double YELLOW_HIGH_B = 0.25;
 * All frc/I2C calls require that the ports be const rather than constexpr.
 * This is also true for SPI ports.
 */
-static const auto I2C_PORT_MULTIPLEXER_ROBOT2020 = frc::I2C::Port::kOnboard;
-static const Rev2mDistanceSensor::Port DISTANCESENSOR_PORT_ROBOT2020 = Rev2mDistanceSensor::Port::kOnboard;
+static const auto I2C_PORT_MULTIPLEXER_C418 = frc::I2C::Port::kOnboard;
+static const Rev2mDistanceSensor::Port DISTANCESENSOR_PORT_C418 = Rev2mDistanceSensor::Port::kOnboard;
 
 // Positions of the sensors on the multiplexer
-const uint8_t U8T_LINE_LIDAR_ROBOT2020 = 7;
-const uint8_t U8T_LINE_COLORSENSOR_ROBOT2020 = 5;
-const uint8_t U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020 = 3;
-const uint8_t U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020 = 1;
+const uint8_t U8T_LINE_LIDAR_C418 = 7;
+const uint8_t U8T_LINE_COLORSENSOR_C418 = 5;
+const uint8_t U8T_LINE_RIGHTDISTANCESENSOR_C418 = 3;
+const uint8_t U8T_LINE_LEFTDISTANCESENSOR_C418 = 1;
 
 // Addresses of the individual I2C sensors
-const int I2C_ADDR_MULTIPLEXER_ROBOT2020 = 0x70;
-const int I2C_ADDR_LIDAR_ROBOT2020 = 0x62;
-const int I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020 = 0x52;
-const int I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020 = 0x52;
-const int I2C_ADDR_COLORSENSOR_ROBOT2020 = 0x52;
+const int I2C_ADDR_MULTIPLEXER_C418 = 0x70;
+const int I2C_ADDR_LIDAR_C418 = 0x62;
+const int I2C_ADDR_LEFTDISTANCESENSOR_C418 = 0x52;
+const int I2C_ADDR_RIGHTDISTANCESENSOR_C418 = 0x52;
+const int I2C_ADDR_COLORSENSOR_C418 = 0x52;

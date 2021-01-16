@@ -10,17 +10,17 @@
 #include "../include/Drivers/DPDTSwitchDriver.h"
 #include <frc/DriverStation.h>
 
-SpinSubsystemRobot2020::FMSColors RobotContainerRobot2020::givenColor = SpinSubsystemRobot2020::FMSColors::INVALID;
+SpinSubsystemC418::FMSColors RobotContainerC418::givenColor = SpinSubsystemC418::FMSColors::INVALID;
 
-RobotContainerRobot2020::RobotContainerRobot2020()
+RobotContainerC418::RobotContainerC418()
 {
-  m_pMultiplexerDriver = new I2CMultiplexerDriver(I2C_PORT_MULTIPLEXER_ROBOT2020);
+  m_pMultiplexerDriver = new I2CMultiplexerDriver(I2C_PORT_MULTIPLEXER_C418);
 
-  m_pDrive = new DriveTrainSubsystemRobot2020(m_pMultiplexerDriver);
-  m_pLoader = new LoaderSubsystemRobot2020;
-  m_pSpin = new SpinSubsystemRobot2020(m_pMultiplexerDriver);
-  m_pShooter = new ShooterSubsystemRobot2020;
-  m_pArm = new ArmSubsystemRobot2020;
+  m_pDrive = new DriveTrainSubsystemC418(m_pMultiplexerDriver);
+  m_pLoader = new LoaderSubsystemC418;
+  m_pSpin = new SpinSubsystemC418(m_pMultiplexerDriver);
+  m_pShooter = new ShooterSubsystemC418;
+  m_pArm = new ArmSubsystemC418;
 
   //Sensors
 
@@ -47,9 +47,9 @@ RobotContainerRobot2020::RobotContainerRobot2020()
   SetDrive();
 }
 
-void RobotContainerRobot2020::ConfigureButtonBindings()
+void RobotContainerC418::ConfigureButtonBindings()
 {
-  //Robot2020
+  //C418
 
   //Loader
   SetButtonA();
@@ -68,7 +68,7 @@ void RobotContainerRobot2020::ConfigureButtonBindings()
   SetLeftBumper();
 }
 
-int RobotContainerRobot2020::ReadDioSwitch()
+int RobotContainerC418::ReadDioSwitch()
 {
   //Object hooked up to double pole double throw switch driver {Channel A, Channel B}
   /*
@@ -80,7 +80,7 @@ int RobotContainerRobot2020::ReadDioSwitch()
   return changeOneTwoThree;
 }
 
-frc2::Command *RobotContainerRobot2020::GetAutonomousCommand()
+frc2::Command *RobotContainerC418::GetAutonomousCommand()
 {
   int dioAutoSwitcher;
   dioAutoSwitcher = ReadDioSwitch();
@@ -110,7 +110,7 @@ frc2::Command *RobotContainerRobot2020::GetAutonomousCommand()
   return nullptr;
 }
 
-void RobotContainerRobot2020::Init()
+void RobotContainerC418::Init()
 {
   if (m_pSpin != nullptr)
     m_pSpin->InterpretFMS(ReadFMS());
@@ -122,7 +122,7 @@ void RobotContainerRobot2020::Init()
   m_pShooter->Init();
 }
 
-void RobotContainerRobot2020::DisableInit()
+void RobotContainerC418::DisableInit()
 {
   if (m_pLoader != nullptr)
     m_pLoader->SetLoadMotor(0.0);
@@ -130,7 +130,7 @@ void RobotContainerRobot2020::DisableInit()
   frc::SmartDashboard::PutBoolean("Is Enabled", false);
 }
 
-void RobotContainerRobot2020::SetButtonA()
+void RobotContainerC418::SetButtonA()
 {
   frc2::Button buttonAOne{[this] { return m_controller.GetAButton(); }};
   buttonAOne.WhileHeld(&m_loaderFeed);
@@ -141,7 +141,7 @@ void RobotContainerRobot2020::SetButtonA()
   buttonATwo.ToggleWhenPressed(m_pAutoArmUp);
 }
 
-void RobotContainerRobot2020::SetButtonB()
+void RobotContainerC418::SetButtonB()
 {
   frc2::Button buttonBOne{[this] { return m_controller.GetBButton(); }};
   buttonBOne.WhenHeld(&m_loaderAllIntake);
@@ -151,7 +151,7 @@ void RobotContainerRobot2020::SetButtonB()
   buttonBTwo.ToggleWhenPressed(m_pAutoArmDown);
 }
 
-void RobotContainerRobot2020::SetButtonX()
+void RobotContainerC418::SetButtonX()
 {
   frc2::Button buttonXOne{[this] { return m_controller.GetXButton(); }};
   buttonXOne.WhenHeld(&m_loaderMiddle);
@@ -165,7 +165,7 @@ void RobotContainerRobot2020::SetButtonX()
   buttonXTwo.WhenReleased(m_pSpinStop);
 }
 
-void RobotContainerRobot2020::SetButtonY()
+void RobotContainerC418::SetButtonY()
 {
   frc2::Button buttonYOne{[this] { return m_controller.GetYButton(); }};
   buttonYOne.WhenHeld(&m_loaderTop);
@@ -179,7 +179,7 @@ void RobotContainerRobot2020::SetButtonY()
   buttonYTwo.WhenReleased(m_pSpinStop);
 }
 
-void RobotContainerRobot2020::SetRightTrigger()
+void RobotContainerC418::SetRightTrigger()
 {
   frc2::Button buttonRTOne{[this] { return m_controller.GetTriggerAxis(frc::GenericHID::kRightHand); }};
   buttonRTOne.WhenPressed(&m_shooterSpin);
@@ -190,7 +190,7 @@ void RobotContainerRobot2020::SetRightTrigger()
   buttonRTTwo.WhenPressed(m_pSpinToColor);
 }
 
-void RobotContainerRobot2020::SetLeftBumper()
+void RobotContainerC418::SetLeftBumper()
 {
   frc2::Button buttonLBOne{[this] { return m_controller.GetBumper(frc::GenericHID::kLeftHand); }};
   buttonLBOne.WhenPressed(&m_shooterEncoderReset);
@@ -200,7 +200,7 @@ void RobotContainerRobot2020::SetLeftBumper()
   buttonLBTwo.WhenPressed(m_pShootLoad);
 }
 
-void RobotContainerRobot2020::SetRightBumper()
+void RobotContainerC418::SetRightBumper()
 {
   frc2::Button buttonRBOne{[this] { return m_controller.GetBumper(frc::GenericHID::kRightHand); }};
   buttonRBOne.WhenHeld(&m_loaderSetInverted);
@@ -211,7 +211,7 @@ void RobotContainerRobot2020::SetRightBumper()
   buttonRBTwo.WhenReleased(&m_loaderAllStop);
 }
 
-void RobotContainerRobot2020::SetStartButton()
+void RobotContainerC418::SetStartButton()
 {
   frc2::Button startButtonOne{[this] { return m_controller.GetStartButton(); }};
   startButtonOne.WhenPressed(&m_shooterSpinMax);
@@ -222,7 +222,7 @@ void RobotContainerRobot2020::SetStartButton()
   startButttonTwo.WhenReleased(&m_armStop);
 }
 
-void RobotContainerRobot2020::SetBackButton()
+void RobotContainerC418::SetBackButton()
 {
   frc2::Button backButtonOne{[this] { return m_controller.GetBackButton(); }};
 
@@ -235,9 +235,9 @@ void RobotContainerRobot2020::SetBackButton()
   backButttonTwo.WhenReleased(&m_armStop);
 }
 
-void RobotContainerRobot2020::AutonomousPeriodic() {}
+void RobotContainerC418::AutonomousPeriodic() {}
 
-void RobotContainerRobot2020::TeleopPeriodic()
+void RobotContainerC418::TeleopPeriodic()
 {
 #ifndef NOHW
 //Reading all Mux Sensors for testing purposes
@@ -266,27 +266,27 @@ void RobotContainerRobot2020::TeleopPeriodic()
     switch (gameData[0])
     {
     case 'B':
-      givenColor = SpinSubsystemRobot2020::FMSColors::BLUE;
+      givenColor = SpinSubsystemC418::FMSColors::BLUE;
       Util::Log("FMSColor", givenColor);
       //Blue case code
       break;
     case 'G':
-      givenColor = SpinSubsystemRobot2020::FMSColors::GREEN;
+      givenColor = SpinSubsystemC418::FMSColors::GREEN;
       Util::Log("FMSColor", givenColor);
       //Green case code
       break;
     case 'R':
-      givenColor = SpinSubsystemRobot2020::FMSColors::RED;
+      givenColor = SpinSubsystemC418::FMSColors::RED;
       Util::Log("FMSColor", givenColor);
       //Red case code
       break;
     case 'Y':
-      givenColor = SpinSubsystemRobot2020::FMSColors::YELLOW;
+      givenColor = SpinSubsystemC418::FMSColors::YELLOW;
       Util::Log("FMSColor", givenColor);
       //Yellow case code
       break;
     default:
-      givenColor = SpinSubsystemRobot2020::FMSColors::INVALID;
+      givenColor = SpinSubsystemC418::FMSColors::INVALID;
       Util::Log("FMSColor", givenColor);
       //This is corrupt data
       break;
