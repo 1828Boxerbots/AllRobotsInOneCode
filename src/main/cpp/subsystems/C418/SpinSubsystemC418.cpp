@@ -5,10 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "subsystems/Robot2020/SpinSubsystemRobot2020.h"
+#include "subsystems/C418/SpinSubsystemC418.h"
 #include <frc/smartdashboard/SmartDashboard.h>
-#include "../../../include/RobotContainer/RobotContainerRobot2020.h"
-#include "../../../include/subsystems/Robot2020/ArmSubsystemRobot2020.h"
+#include "../../../include/RobotContainer/RobotContainerC418.h"
+#include "../../../include/subsystems/C418/ArmSubsystemC418.h"
 #include "../../../include/subsystems/ArmSubsystemBase.h"
 
 SpinSubsystemRobot2020::SpinSubsystemRobot2020(I2CMultiplexerDriver *pMultiplexerDriver)
