@@ -29,6 +29,8 @@ public:
   void SetButtonA() override;
   void SetButtonB() override;
 
+  void TeleopPeriodic() override;
+
   virtual void Init()
   {
     m_pDrive->Init();

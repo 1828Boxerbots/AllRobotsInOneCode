@@ -9,16 +9,17 @@
 
 #include <frc/Victor.h>
 #include "../DriveTrainSubsystemBase.h"
-#include "../../Drivers/CameraDeviceDriver.h"
+#include "../../Drivers/CameraVision.h"
 
 class DriveTrainSubsystemKurgan : public DriveTrainSubsystemBase
 {
 public:
   DriveTrainSubsystemKurgan();
 
-  virtual void SetMotorL(double speed);
-  virtual void SetMotorR(double speed);
-  virtual void Init();
+  void SetMotorL(double speed) override;
+  void SetMotorR(double speed) override;
+  void Init() override;
+  double WhereToTurnVision() override;
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -30,7 +31,9 @@ private:
   frc::Victor m_rightMotor1{PWM_RIGHTMOTOR_KURGAN_ONE};
   frc::Victor m_rightMotor2{PWM_RIGHTMOTOR_KURGAN_TWO};
 
-  CameraDeviceDriver m_camera{1};
+  CameraVision m_cameraVision{USB_CAMERA_ONE};
+
+  double m_deadZone = 50;
 #endif
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.

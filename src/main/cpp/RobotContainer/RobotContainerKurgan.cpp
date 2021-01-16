@@ -50,3 +50,8 @@ void RobotContainerKurgan::SetButtonB()
   buttonB.WhenHeld(&m_loaderLoad);
   buttonB.WhenReleased(&m_loaderStop);
 }
+
+void RobotContainerKurgan::TeleopPeriodic()
+{
+
+}

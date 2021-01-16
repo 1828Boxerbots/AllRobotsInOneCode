@@ -33,7 +33,12 @@ void DriveTrainSubsystemKurgan::Init()
   m_rightMotor1.SetInverted(true);
   m_rightMotor2.SetInverted(true);
 
-  m_camera.Init();
-  m_camera.DisplayCamera();
+  //bool isVision = m_cameraVision.Init();
+  //Util::Log("isVision Working", isVision);
 #endif
+}
+
+double DriveTrainSubsystemKurgan::WhereToTurnVision()
+{
+  
 }

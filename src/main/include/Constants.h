@@ -154,6 +154,15 @@ constexpr int GREEN_HIGH_BLUE = 100;
 constexpr int GREEN_HIGH_GREEN = 230;
 constexpr int GREEN_HIGH_RED = 230;
 
+//New Vision colors
+const int LOWH_RED = 169;
+const int HIGHH_RED = 179;
+const int LOWS_RED = 135;
+const int HIGHS_RED = 255;
+const int LOWV_RED = 0;
+const int HIGHV_RED = 255;
+
+
 //Color Detection Bounds
 constexpr double RED_LOW_R = 0.345;
 constexpr double RED_LOW_G = 0.30;

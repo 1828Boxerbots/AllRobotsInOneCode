@@ -31,6 +31,7 @@ public:
   void TestPeriodic() override;
 
 private:
+  static void VisionThread();
   frc::Timer m_timer;
   double m_startTime = 0.0;
   // Have it null by default so that if testing teleop it

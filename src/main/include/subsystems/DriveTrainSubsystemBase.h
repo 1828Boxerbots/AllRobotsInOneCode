@@ -62,6 +62,8 @@ public:
   //Temp Function meant to test turning function
   virtual void ForwardIninchTurn(double inch, double angle, double speed) {}
 
+  virtual double WhereToTurnVision(){return 0.0;}
+
 protected:
   bool m_isColliding = false;
 

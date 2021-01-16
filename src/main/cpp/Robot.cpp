@@ -9,12 +9,51 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/core/core.hpp>
+#include "Drivers/CameraVision.h"
+
+void Robot::VisionThread()
+{
+    // // Init()
+    // cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture();
+    // camera.SetResolution(640, 480);
+    // cs::CvSink cvSink = frc::CameraServer::GetInstance()->GetVideo();
+    // cs::CvSource outputStreamStd = frc::CameraServer::GetInstance()->PutVideo("Gray", 640, 480);
+    // cv::Mat source;
+    // cv::Mat output;
+
+    // while(true) {
+    //   // GrabFrame
+    //   int  validImage = cvSink.GrabFrame(source);
+    //   // Where To Turn
+    //   if (validImage == 0) {
+    //     continue;
+    //   }
+
+    //   // process imag
+    //   cv::cvtColor(source, output, cv::COLOR_BGR2GRAY);
+    //   outputStreamStd.PutFrame(output);
+    // }
+
+    CameraVision cam{0};
+    cam.Init();
+    while (true)
+    {
+      cam.Tick();
+    }
+}
 
 void Robot::RobotInit()
 {
+  std::thread visionThread(VisionThread);
+  visionThread.detach();
+  
   m_timer.Start();
   m_timer.Reset();
 }
+
+
 
 /**
  * This function is called every robot packet, no matter the mode. Use

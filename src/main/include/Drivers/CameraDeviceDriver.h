@@ -9,16 +9,25 @@
 
 #include <cameraserver/CameraServer.h>
 #include <opencv/cxcore.h>
-#include <opencv2/imgproc/imgproc.hpp>
+//#include <openvc2/videoio.hpp>
+#include "../Util.h"
 
 class CameraDeviceDriver {
  public:
   CameraDeviceDriver(int index);
   bool Init();
   void DisplayCamera();
+  double WhereToTurn(double deadZone);
 
+private:
   cv::Mat m_frame;
   cs::UsbCamera m_USBcamera;
   //cv::VideoCapture m_CVcamera;
   int m_index;
+  double m_centroidX;
+  double m_centroidY;
+  double m_deadZone = 50.0;
+
+  bool GetBlob();
+  void SetColor();
 };
