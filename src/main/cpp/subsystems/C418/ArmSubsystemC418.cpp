@@ -5,12 +5,12 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "subsystems/Robot2020/ArmSubsystemRobot2020.h"
+#include "subsystems/C418/ArmSubsystemC418.h"
 
-ArmSubsystemRobot2020::ArmSubsystemRobot2020() {}
+ArmSubsystemC418::ArmSubsystemC418() {}
 
 // This method will be called once per scheduler run
-void ArmSubsystemRobot2020::Periodic()
+void ArmSubsystemC418::Periodic()
 {
 #ifndef NOHW
     //Log the Halleffects
@@ -19,24 +19,24 @@ void ArmSubsystemRobot2020::Periodic()
 #endif
 }
 
-void ArmSubsystemRobot2020::Init()
+void ArmSubsystemC418::Init()
 {
     //SetPosition(LOWEST_POS);
 }
 
-void ArmSubsystemRobot2020::DisableInit()
+void ArmSubsystemC418::DisableInit()
 {
     //SetPosition(LOWEST_POS);
 }
 
-void ArmSubsystemRobot2020::SetMotor(double speed)
+void ArmSubsystemC418::SetMotor(double speed)
 {
 #ifndef NOHW
     m_armMotor.Set(speed);
 #endif
 }
 
-double ArmSubsystemRobot2020::GetMotor()
+double ArmSubsystemC418::GetMotor()
 {
 #ifndef NOHW
     return m_armMotor.Get();
@@ -45,27 +45,27 @@ double ArmSubsystemRobot2020::GetMotor()
 #endif
 }
 
-void ArmSubsystemRobot2020::LiftArmUp(double scale, double speed)
+void ArmSubsystemC418::LiftArmUp(double scale, double speed)
 {
     SetMotor(speed * scale);
 }
 
-void ArmSubsystemRobot2020::LiftArmDown(double scale, double speed)
+void ArmSubsystemC418::LiftArmDown(double scale, double speed)
 {
     SetMotor(-speed * scale);
 }
 
-void ArmSubsystemRobot2020::Raise(double speed)
+void ArmSubsystemC418::Raise(double speed)
 {
     SetMotor(speed * m_scale);
 }
 
-void ArmSubsystemRobot2020::Lower(double speed)
+void ArmSubsystemC418::Lower(double speed)
 {
     SetMotor(-speed * m_scale);
 }
 
-int ArmSubsystemRobot2020::GetPosition()
+int ArmSubsystemC418::GetPosition()
 {
 #ifndef NOHW
     if (!m_hallEffectLower.Get())
@@ -87,7 +87,7 @@ int ArmSubsystemRobot2020::GetPosition()
 LowestPos = 0 
 HighestPos = 1
 */
-void ArmSubsystemRobot2020::SetPosition(int pos)
+void ArmSubsystemC418::SetPosition(int pos)
 {
 #ifndef NOHW
     Log("Pos", pos);

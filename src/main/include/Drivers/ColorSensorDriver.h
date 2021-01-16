@@ -21,7 +21,7 @@ public:
 
   bool StatusIsFatal() { return m_pDevice->StatusIsFatal(); }
 
-  // Function designed to give you an FMSColor (Specific to robot2020)
+  // Function designed to give you an FMSColor (Specific to C418)
   SpinSubsystemBase::FMSColors GetColor();
 
   // Function designed to return Red, Yellow, Green, or Blue as a string.

@@ -61,7 +61,7 @@ public:
   double LOAD = 1.0;
   double EJECT = -1.0;
   double STOP = 0.0;
-  double ROBOT2020SPEEDLIMIT = 0.5;
+  double C418SPEEDLIMIT = 0.5;
 
   void SetDrive(DriveStyles style = TANK_STYLE);
   //void SetCamerastream();
@@ -86,7 +86,7 @@ protected:
   frc2::RunCommand m_loaderLoad{[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(1.0); }, {m_pLoader}};
   frc2::RunCommand m_loaderStop{[this] { if(m_pLoader!=nullptr) m_pLoader->LoadMotor(0.0); }, {m_pLoader}};
 
-  //Robot2020
+  //C418
   frc2::RunCommand m_loaderFeed{[this] {
                                   if (m_pLoader != nullptr)
                                   {
@@ -189,7 +189,7 @@ protected:
   //SLAL
   frc2::RunCommand m_armLift_Motor{[this] {if(m_pArm != nullptr) m_pArm->Raise(); }, {m_pArm}};
   frc2::RunCommand m_armLower_Motor{[this] {if(m_pArm != nullptr) m_pArm->Lower(); }, {m_pArm}};
-  //Robot2020
+  //C418
   frc2::InstantCommand m_armPosition_Low{[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::LOWEST_POS); }, {m_pArm}};
   frc2::InstantCommand m_armPosition_LowTime{[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::LOWEST_POS_TIME); }, {m_pArm}};
   frc2::InstantCommand m_armPosition_High{[this] {if(m_pArm != nullptr) m_pArm->SetPosition(ArmSubsystemBase::HIGHEST_POS); }, {m_pArm}};

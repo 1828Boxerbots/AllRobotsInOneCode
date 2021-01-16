@@ -5,13 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "../include/subsystems/Robot2020/LoaderSubsystemRobot2020.h"
+#include "../include/subsystems/C418/LoaderSubsystemC418.h"
 #include "../include/Util.h"
 
-LoaderSubsystemRobot2020::LoaderSubsystemRobot2020() {}
+LoaderSubsystemC418::LoaderSubsystemC418() {}
 
 // This method will be called once per scheduler run
-void LoaderSubsystemRobot2020::Periodic()
+void LoaderSubsystemC418::Periodic()
 {
 #ifndef NOHW
     Util::Log("Load Photogate", IsLoaded());
@@ -26,7 +26,7 @@ void LoaderSubsystemRobot2020::Periodic()
 #endif
 }
 
-void LoaderSubsystemRobot2020::SetLoadMotor(double speed, int motorNumber)
+void LoaderSubsystemC418::SetLoadMotor(double speed, int motorNumber)
 {
 #ifndef NOHW
     Util::Log("MotorSpeed", speed, GetName());
@@ -58,7 +58,7 @@ void LoaderSubsystemRobot2020::SetLoadMotor(double speed, int motorNumber)
 #endif
 }
 
-void LoaderSubsystemRobot2020::PhotogateStop(double speed)
+void LoaderSubsystemC418::PhotogateStop(double speed)
 {
     int count = 0;
 //Continue spining motor until photogate is set.
@@ -84,7 +84,7 @@ void LoaderSubsystemRobot2020::PhotogateStop(double speed)
 }
 
 //Checks to see if the ball is loaded
-bool LoaderSubsystemRobot2020::IsLoaded()
+bool LoaderSubsystemC418::IsLoaded()
 {
 //returns the vail of the photogate
 #ifndef NOHW
@@ -94,7 +94,7 @@ bool LoaderSubsystemRobot2020::IsLoaded()
 #endif
 }
 
-void LoaderSubsystemRobot2020::Init()
+void LoaderSubsystemC418::Init()
 {
 #ifndef NOHW
     m_loaderMotorTop.SetInverted(false);

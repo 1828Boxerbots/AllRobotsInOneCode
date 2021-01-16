@@ -12,10 +12,10 @@
 #include "../../Drivers/PhotogateDriver.h"
 #include "../../Drivers/SpikeDriver.h"
 
-class LoaderSubsystemRobot2020 : public LoaderSubsystemBase
+class LoaderSubsystemC418 : public LoaderSubsystemBase
 {
 public:
-  LoaderSubsystemRobot2020();
+  LoaderSubsystemC418();
 
   enum LoaderMotors
   {
@@ -33,12 +33,12 @@ public:
 
 private:
 #ifndef NOHW
-  frc::Victor m_loaderMotorIntake{PWM_LOADMOTOR_INTAKE_ROBOT2020};
-  frc::Victor m_loaderMotorBottom{PWM_LOADMOTOR_BOTTOM_ROBOT2020};
-  frc::Victor m_loaderMotorTop{PWM_LOADMOTOR_TOP_ROBOT2020};
+  frc::Victor m_loaderMotorIntake{PWM_LOADMOTOR_INTAKE_C418};
+  frc::Victor m_loaderMotorBottom{PWM_LOADMOTOR_BOTTOM_C418};
+  frc::Victor m_loaderMotorTop{PWM_LOADMOTOR_TOP_C418};
 
-  PhotogateDriver m_photogate{DIO_PHOTOGATE_ROBOT2020};
-  SpikeDriver m_spike{RLY_SPIKE_ROBOT2020};
+  PhotogateDriver m_photogate{DIO_PHOTOGATE_C418};
+  SpikeDriver m_spike{RLY_SPIKE_C418};
 #endif
 
   int m_photoCount = 100;

@@ -5,40 +5,40 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "subsystems/Robot2020/DriveTrainSubsystemRobot2020.h"
+#include "subsystems/C418/DriveTrainSubsystemC418.h"
 
-DriveTrainSubsystemRobot2020::DriveTrainSubsystemRobot2020(I2CMultiplexerDriver *pMultiplexerDriver)
+DriveTrainSubsystemC418::DriveTrainSubsystemC418(I2CMultiplexerDriver *pMultiplexerDriver)
 {
   m_pMultiplexerDriver = pMultiplexerDriver;
 
 #ifdef M_LIDAR
-  m_pLidar = new MuxLidarDriver(I2C_PORT_MULTIPLEXER_ROBOT2020, I2C_ADDR_LIDAR_ROBOT2020, *m_pMultiplexerDriver, U8T_LINE_LIDAR_ROBOT2020);
+  m_pLidar = new MuxLidarDriver(I2C_PORT_MULTIPLEXER_C418, I2C_ADDR_LIDAR_C418, *m_pMultiplexerDriver, U8T_LINE_LIDAR_C418);
 #endif
 
 #ifdef M_DISTANCE_LEFT
-  m_pMuxLeftDistance = new MuxDistanceSensorDriver(DISTANCESENSOR_PORT_ROBOT2020, I2C_ADDR_LEFTDISTANCESENSOR_ROBOT2020, *m_pMultiplexerDriver, U8T_LINE_LEFTDISTANCESENSOR_ROBOT2020);
+  m_pMuxLeftDistance = new MuxDistanceSensorDriver(DISTANCESENSOR_PORT_C418, I2C_ADDR_LEFTDISTANCESENSOR_C418, *m_pMultiplexerDriver, U8T_LINE_LEFTDISTANCESENSOR_C418);
 #endif
 
 #ifdef M_DISTANCE_RIGHT
-  m_pMuxRightDistance = new MuxDistanceSensorDriver(DISTANCESENSOR_PORT_ROBOT2020, I2C_ADDR_RIGHTDISTANCESENSOR_ROBOT2020, *m_pMultiplexerDriver, U8T_LINE_RIGHTDISTANCESENSOR_ROBOT2020);
+  m_pMuxRightDistance = new MuxDistanceSensorDriver(DISTANCESENSOR_PORT_C418, I2C_ADDR_RIGHTDISTANCESENSOR_C418, *m_pMultiplexerDriver, U8T_LINE_RIGHTDISTANCESENSOR_C418);
 #endif
 }
 
-void DriveTrainSubsystemRobot2020::SetMotorL(double speed)
+void DriveTrainSubsystemC418::SetMotorL(double speed)
 {
 #ifndef NOHW
   m_leftMotor.Set(speed * speedLimit);
 #endif
 }
 
-void DriveTrainSubsystemRobot2020::SetMotorR(double speed)
+void DriveTrainSubsystemC418::SetMotorR(double speed)
 {
 #ifndef NOHW
   m_rightMotor.Set(speed * speedLimit);
 #endif
 }
 
-void DriveTrainSubsystemRobot2020::Init()
+void DriveTrainSubsystemC418::Init()
 {
 #ifndef NOHW
   m_leftMotor.SetInverted(false);
@@ -62,14 +62,14 @@ void DriveTrainSubsystemRobot2020::Init()
 #endif
 }
 
-void DriveTrainSubsystemRobot2020::InitRight()
+void DriveTrainSubsystemC418::InitRight()
 {
 #ifdef M_DISTANCE_RIGHT
   m_pMuxRightDistance->Init(true);
 #endif
 }
 
-void DriveTrainSubsystemRobot2020::InitLeft()
+void DriveTrainSubsystemC418::InitLeft()
 {
 #ifdef M_DISTANCE_LEFT
   m_pMuxLeftDistance->Init(true);
@@ -77,27 +77,27 @@ void DriveTrainSubsystemRobot2020::InitLeft()
 }
 
 // Function for getting the current angle of the robot relative to its starting position
-double DriveTrainSubsystemRobot2020::IMUGetAngle()
+double DriveTrainSubsystemC418::IMUGetAngle()
 {
 // If this isn't giving you the correct angle, try .GetAngleZ() or .GetAngleX()
 #ifdef M_IMU
   m_imuAngle = m_imu.GetAngleY();
-  Util::Log("IMU Angle", m_imuAngle, "DriveTrainSubsystemRobot2020");
+  Util::Log("IMU Angle", m_imuAngle, "DriveTrainSubsystemC418");
   return m_gyroAngle;
 #else
   return 0;
 #endif
 }
 
-void DriveTrainSubsystemRobot2020::IMUInit()
+void DriveTrainSubsystemC418::IMUInit()
 {
 #ifdef M_IMU
-  Util::Log("GyroInit", true, "DriveTrainSubsystemRobot2020");
+  Util::Log("GyroInit", true, "DriveTrainSubsystemC418");
   m_imu.IMUGyroInit(true);
 #endif
 }
 
-double DriveTrainSubsystemRobot2020::GetLeftEncoderInch()
+double DriveTrainSubsystemC418::GetLeftEncoderInch()
 {
   m_leftEncoderSim++;
 #ifndef NOHW
@@ -110,20 +110,20 @@ double DriveTrainSubsystemRobot2020::GetLeftEncoderInch()
   return m_leftEncoderSim;
 }
 
-double DriveTrainSubsystemRobot2020::GetRightEncoderInch()
+double DriveTrainSubsystemC418::GetRightEncoderInch()
 {
   m_rightEncoderSim++;
 #ifndef NOHW
   m_rightEncoderSim = m_rightEncoder.GetDistance();
-  Util::Log("RightEncoder Raw", m_rightEncoder.Get(), "DriveTrainSubsystemRobot2020");
-  Util::Log("RightEncoder Direction", m_rightEncoder.GetDirection(), "DriveTrainSubsystemRobot2020");
-  Util::Log("RightEncoder Running", m_rightEncoder.GetStopped(), "DriveTrainSubsystemRobot2020");
+  Util::Log("RightEncoder Raw", m_rightEncoder.Get(), "DriveTrainSubsystemC418");
+  Util::Log("RightEncoder Direction", m_rightEncoder.GetDirection(), "DriveTrainSubsystemC418");
+  Util::Log("RightEncoder Running", m_rightEncoder.GetStopped(), "DriveTrainSubsystemC418");
 #endif
   LogEncoder();
   return m_rightEncoderSim;
 }
 
-void DriveTrainSubsystemRobot2020::ResetEncoder()
+void DriveTrainSubsystemC418::ResetEncoder()
 {
 #ifdef M_IMU
   m_leftEncoder.Reset();
@@ -136,7 +136,7 @@ void DriveTrainSubsystemRobot2020::ResetEncoder()
 }
 
 // Currently using IMU
-double DriveTrainSubsystemRobot2020::GyroGetAngle()
+double DriveTrainSubsystemC418::GyroGetAngle()
 {
 #ifdef M_IMU
   double m_gyroAngle = m_imu.GetAngleX();
@@ -148,14 +148,14 @@ double DriveTrainSubsystemRobot2020::GyroGetAngle()
 }
 
 // Currently using IMU
-void DriveTrainSubsystemRobot2020::GyroInit()
+void DriveTrainSubsystemC418::GyroInit()
 {
 #ifdef M_IMU
   m_imu.IMUGyroInit(true);
 #endif
 }
 
-double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
+double DriveTrainSubsystemC418::GetDistanceSensorDetectionDistanceLeft()
 {
   //------------------------------------
   double val = -1;
@@ -175,7 +175,7 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceLeft()
   return val;
 }
 
-double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceRight()
+double DriveTrainSubsystemC418::GetDistanceSensorDetectionDistanceRight()
 {
   //-------------------------------------
   double val = -1;
@@ -195,7 +195,7 @@ double DriveTrainSubsystemRobot2020::GetDistanceSensorDetectionDistanceRight()
   return val;
 }
 
-double DriveTrainSubsystemRobot2020::GetLidarDetectionDistance()
+double DriveTrainSubsystemC418::GetLidarDetectionDistance()
 {
 #ifdef M_LIDAR
   /*if(m_hasAntiCollision == false)
@@ -213,7 +213,7 @@ double DriveTrainSubsystemRobot2020::GetLidarDetectionDistance()
 //Makes is so that the robot doesn't run into things head on
 /*
 //Don't really know what this code is doing, but considering that stop is commented out, it might be the first iteration of detection software. Meat of code found in Drive base cpp
-void DriveTrainSubsystemRobot2020::DetectionSoftware(double detectionDistance)
+void DriveTrainSubsystemC418::DetectionSoftware(double detectionDistance)
 {
   #ifndef NOHW
   frc::SmartDashboard::PutNumber("Lidar Distance", GetLidarDetectionDistance());
@@ -236,7 +236,7 @@ void DriveTrainSubsystemRobot2020::DetectionSoftware(double detectionDistance)
 */
 
 //Sets up dead zone in lidar
-void DriveTrainSubsystemRobot2020::PrecisionMovementLidar(double wantedDistance)
+void DriveTrainSubsystemC418::PrecisionMovementLidar(double wantedDistance)
 {
 #ifdef M_LIDAR
   const double DEAD_ZONE = 5.0;
@@ -257,7 +257,7 @@ void DriveTrainSubsystemRobot2020::PrecisionMovementLidar(double wantedDistance)
 }
 
 //Used to disable and enable anticollision
-void DriveTrainSubsystemRobot2020::EnableAnticollision(bool enable)
+void DriveTrainSubsystemC418::EnableAnticollision(bool enable)
 {
   Util::Log("EAB", m_beat++, "DriveTrain2020");
   Util::Log("enabled?", enable, "DriveTrain2020");

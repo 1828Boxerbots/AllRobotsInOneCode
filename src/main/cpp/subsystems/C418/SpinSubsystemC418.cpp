@@ -5,36 +5,36 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "subsystems/Robot2020/SpinSubsystemRobot2020.h"
+#include "subsystems/C418/SpinSubsystemC418.h"
 #include <frc/smartdashboard/SmartDashboard.h>
-#include "../../../include/RobotContainer/RobotContainerRobot2020.h"
-#include "../../../include/subsystems/Robot2020/ArmSubsystemRobot2020.h"
+#include "../../../include/RobotContainer/RobotContainerC418.h"
+#include "../../../include/subsystems/C418/ArmSubsystemC418.h"
 #include "../../../include/subsystems/ArmSubsystemBase.h"
 
-SpinSubsystemRobot2020::SpinSubsystemRobot2020(I2CMultiplexerDriver *pMultiplexerDriver)
+SpinSubsystemC418::SpinSubsystemC418(I2CMultiplexerDriver *pMultiplexerDriver)
 {
     m_pMultiplexerDiver = pMultiplexerDriver;
 
 #ifdef M_COLOR
-    m_pColorSensor = new MuxColorSensorDriver(I2C_PORT_MULTIPLEXER_ROBOT2020, *pMultiplexerDriver, U8T_LINE_COLORSENSOR_ROBOT2020);
+    m_pColorSensor = new MuxColorSensorDriver(I2C_PORT_MULTIPLEXER_C418, *pMultiplexerDriver, U8T_LINE_COLORSENSOR_C418);
 #endif
 }
 
-void SpinSubsystemRobot2020::Init()
+void SpinSubsystemC418::Init()
 {
 }
 
-void SpinSubsystemRobot2020::Periodic()
+void SpinSubsystemC418::Periodic()
 {
 #ifdef M_COLOR
     m_pColorSensor->ReturnAllColors();
     m_pColorSensor->GetColor();
     m_pColorSensor->DetectOverlap();
-    Util::Log("Count Color Read", m_beatColorRead++, "spinRobot2020");
+    Util::Log("Count Color Read", m_beatColorRead++, "spinC418");
 #endif
 }
 
-void SpinSubsystemRobot2020::SetSpinMotor(double speed)
+void SpinSubsystemC418::SetSpinMotor(double speed)
 {
 #ifndef NOHW
     m_spinMotor.Set(speed * m_scale);
@@ -42,7 +42,7 @@ void SpinSubsystemRobot2020::SetSpinMotor(double speed)
 }
 
 //SpinNumRotations is where it spins the Control Panel a certain number of times.
-void SpinSubsystemRobot2020::SpinNumRotations(double speed, int wantedRotation)
+void SpinSubsystemC418::SpinNumRotations(double speed, int wantedRotation)
 {
 
 #ifdef M_COLOR
@@ -83,7 +83,7 @@ void SpinSubsystemRobot2020::SpinNumRotations(double speed, int wantedRotation)
 #endif
 }
 
-SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::ReadColorSensor()
+SpinSubsystemBase::FMSColors SpinSubsystemC418::ReadColorSensor()
 {
 #ifdef M_COLOR
     return m_pColorSensor->GetColor();
@@ -92,12 +92,12 @@ SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::ReadColorSensor()
 #endif
 }
 
-double SpinSubsystemRobot2020::GetTicksPerRevolution()
+double SpinSubsystemC418::GetTicksPerRevolution()
 {
     return 360;
 }
 
-std::string SpinSubsystemRobot2020::GetColor()
+std::string SpinSubsystemC418::GetColor()
 {
 #ifdef M_COLOR
     m_pColorSensor->ReturnAllColors();
@@ -108,10 +108,10 @@ std::string SpinSubsystemRobot2020::GetColor()
 }
 
 //SpinToColor spins the Control Panel to where the mapped color is a certain color.
-void SpinSubsystemRobot2020::SpinToColor(double speed)
+void SpinSubsystemC418::SpinToColor(double speed)
 {
 
-    FMSColors wantedColor = RobotContainerRobot2020::givenColor;
+    FMSColors wantedColor = RobotContainerC418::givenColor;
     FMSColors realColor;
 
     if (ReadColorSensor() == INVALID)
@@ -132,13 +132,13 @@ void SpinSubsystemRobot2020::SpinToColor(double speed)
     Stop();
 }
 
-SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::GetFMSColor()
+SpinSubsystemBase::FMSColors SpinSubsystemC418::GetFMSColor()
 {
     //tbt
     return FMSColors::RED;
 }
 
-SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::ConvertColor(FMSColors color)
+SpinSubsystemBase::FMSColors SpinSubsystemC418::ConvertColor(FMSColors color)
 {
     switch (color)
     {
@@ -164,7 +164,7 @@ SpinSubsystemBase::FMSColors SpinSubsystemRobot2020::ConvertColor(FMSColors colo
     }
 }
 
-int SpinSubsystemRobot2020::CalcDir()
+int SpinSubsystemC418::CalcDir()
 {
     /*
     0 = dont move
