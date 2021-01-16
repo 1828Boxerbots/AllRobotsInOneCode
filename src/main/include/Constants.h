@@ -56,7 +56,7 @@ constexpr int USB_CONTROLLER_ONE = 0;
 constexpr int USB_CONTROLLER_TWO = 1;
 
 //Cameras
-//constexpr int USB_CAMERA_ONE             = 0;
+constexpr int USB_CAMERA_ONE             = 0;
 //constexpr int USB_CAMERA_TWO             = 1;
 
 //Encoder Types

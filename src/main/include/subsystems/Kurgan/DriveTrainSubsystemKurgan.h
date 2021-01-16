@@ -9,6 +9,7 @@
 
 #include <frc/Victor.h>
 #include "../DriveTrainSubsystemBase.h"
+#include "../../Drivers/CameraDeviceDriver.h"
 
 class DriveTrainSubsystemKurgan : public DriveTrainSubsystemBase
 {
@@ -28,6 +29,8 @@ private:
   frc::Victor m_leftMotor2{PWM_LEFTMOTOR_KURGAN_TWO};
   frc::Victor m_rightMotor1{PWM_RIGHTMOTOR_KURGAN_ONE};
   frc::Victor m_rightMotor2{PWM_RIGHTMOTOR_KURGAN_TWO};
+
+  CameraDeviceDriver m_camera{1};
 #endif
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.

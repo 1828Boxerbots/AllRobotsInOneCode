@@ -32,5 +32,8 @@ void DriveTrainSubsystemKurgan::Init()
   m_leftMotor2.SetInverted(false);
   m_rightMotor1.SetInverted(true);
   m_rightMotor2.SetInverted(true);
+
+  m_camera.Init();
+  m_camera.DisplayCamera();
 #endif
 }
