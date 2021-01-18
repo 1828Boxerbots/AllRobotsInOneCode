@@ -43,8 +43,6 @@ RobotContainerC418::RobotContainerC418()
 
   // Configure the button bindings
   ConfigureButtonBindings();
-  m_pDrive->Init();
-  SetDrive();
 }
 
 void RobotContainerC418::ConfigureButtonBindings()
@@ -115,6 +113,7 @@ void RobotContainerC418::Init()
   if (m_pSpin != nullptr)
     m_pSpin->InterpretFMS(ReadFMS());
   m_pDrive->Init();
+  SetDrive();
   if (m_pLoader != nullptr)
     m_pLoader->SetLoadMotor(0.0);
   m_pLoader->Init();

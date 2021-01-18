@@ -29,6 +29,8 @@ void DriveTrainSubsystemC418::SetMotorL(double speed)
 #ifndef NOHW
   m_leftMotor.Set(speed * speedLimit);
 #endif
+
+  m_camera.Tick();
 }
 
 void DriveTrainSubsystemC418::SetMotorR(double speed)
@@ -36,6 +38,7 @@ void DriveTrainSubsystemC418::SetMotorR(double speed)
 #ifndef NOHW
   m_rightMotor.Set(speed * speedLimit);
 #endif
+
 }
 
 void DriveTrainSubsystemC418::Init()
@@ -50,6 +53,8 @@ void DriveTrainSubsystemC418::Init()
   m_rightEncoder.SetReverseDirection(true);
   m_leftEncoder.SetDistancePerPulse((1.0 / GetPulsesPerRevolution()) * Util::PI * WHEELDIAMETER);
   m_rightEncoder.SetDistancePerPulse((1.0 / GetPulsesPerRevolution()) * Util::PI * WHEELDIAMETER);
+
+  m_camera.Init();
 
   /*#ifdef M_DISTANCE_RIGHT
     m_pMuxRightDistance->Init(true);

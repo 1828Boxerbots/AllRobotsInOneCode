@@ -5,9 +5,9 @@
 #include <opencv2/imgproc/imgproc.hpp>
 
 
-CameraVision::CameraVision(int index)
+CameraVision::CameraVision(int port)
 {
-	m_index = index;
+	m_index = port;
 }
 
 bool CameraVision::Init()
@@ -21,21 +21,23 @@ bool CameraVision::Init()
 	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
 	m_camera.SetResolution(640,480);
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
-	m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Normal", 640, 480);
+	m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Filtered One", 640, 480);
 
 	return true;
 }
 
 void CameraVision::Tick()
 {
-	if(m_cvSink.GrabFrame(m_frame) == 0)
-	{
-		return;
-	}
+	// if(m_cvSink.GrabFrame(m_frame) == 0)
+	// {
+	// 	return;
+	// }
 
-	cv::line(m_frame, cv::Point(0, 0), cv::Point(m_frame.size().width, m_frame.size().height), cv::Scalar(0,0,255), 3);
+	//cv::line(m_frame, cv::Point(0, 0), cv::Point(m_frame.size().width, m_frame.size().height), cv::Scalar(0,0,255), 3);
 
-	m_outputStream.PutFrame(m_frame);
+	GetBlob();
+
+	//m_outputStream.PutFrame(m_frame);
 }
 
 double CameraVision::WhereToTurn(double deadZone)
@@ -90,20 +92,20 @@ bool CameraVision::GetBlob()
 		return false; //Exit if empty*/
 
 	//Filter the image
-	//SetColor();
+	SetColor();
 
 	//Place a 2 line where the blob is
-	// cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
-	// cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
+	cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
+	cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
 
-	// //Show where the center of the screen is on the camera
-	// double screenCenter = m_frame.size().width / 2;
-	// cv::line(m_frame, cv::Point(screenCenter, 0), cv::Point(screenCenter, m_frame.size().height), cv::Scalar(255, 0, 0), 3);
+	//Show where the center of the screen is on the camera
+	double screenCenter = m_frame.size().width / 2;
+	cv::line(m_frame, cv::Point(screenCenter, 0), cv::Point(screenCenter, m_frame.size().height), cv::Scalar(255, 0, 0), 3);
 
 	// //Display the new image
-	//SendImage("raw image", m_frame, m_frame.size().width, m_frame.size().height);
+	SendImage("raw image", m_frame);
 
-	cv::waitKey(1);
+	//cv::waitKey(1);
 
 	//Checks is there is no blob
 	// if (isnan(m_centroidX) && isnan(m_centroidY))

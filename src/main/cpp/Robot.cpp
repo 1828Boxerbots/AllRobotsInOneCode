@@ -36,18 +36,18 @@ void Robot::VisionThread()
     //   outputStreamStd.PutFrame(output);
     // }
 
-    CameraVision cam{0};
-    cam.Init();
-    while (true)
-    {
-      cam.Tick();
-    }
+    // CameraVision cam{0};
+    // cam.Init();
+    // while (true)
+    // {
+    //   cam.Tick();
+    // }
 }
 
 void Robot::RobotInit()
 {
-  std::thread visionThread(VisionThread);
-  visionThread.detach();
+  // std::thread visionThread(VisionThread);
+  // visionThread.detach();
   
   m_timer.Start();
   m_timer.Reset();
