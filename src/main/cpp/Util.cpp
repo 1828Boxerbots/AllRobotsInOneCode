@@ -81,9 +81,13 @@ double Util::AbsMin(double input, double minValue)
     minValue = std::abs(minValue);
 
     if (input > 0)
+    {
         return std::max(input, minValue);
+    }
     else
+    {
         return std::min(input, -minValue);
+    }
 }
 
 void Util::Log(std::string title, double value, std::string subsystemName)
