@@ -161,6 +161,13 @@ const int LOWS_RED = 135;
 const int HIGHS_RED = 255;
 const int LOWV_RED = 0;
 const int HIGHV_RED = 255;
+//Reflected Neon Green
+const int LOWH_GREEN = 79;
+const int HIGHH_GREEN = 91;
+const int LOWS_GREEN = 56;
+const int HIGHS_GREEN = 255;
+const int LOWV_GREEN = 250;
+const int HIGHV_GREEN = 255;
 
 
 //Color Detection Bounds
