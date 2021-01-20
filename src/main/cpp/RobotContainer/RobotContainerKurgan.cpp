@@ -18,6 +18,24 @@ RobotContainerKurgan::RobotContainerKurgan()
   ConfigureButtonBindings();
   m_pDrive->Init();
   SetDrive();
+  InitializeAutonomousFunctions();
+}
+
+void RobotContainerKurgan::InitializeAutonomousFunctions()
+{
+  m_pAutoHouse = new frc2::SequentialCommandGroup{
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->Init(); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->EnableAnticollision(true); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->ForwardInSeconds(10); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->TurnInDegrees(45); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->ForwardInSeconds(5); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->TurnInDegrees(90); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->ForwardInSeconds(5); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->TurnInDegrees(45); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->ForwardInSeconds(10); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->TurnInDegrees(90); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->ForwardInSeconds(sqrt(50)); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->TurnInDegrees(90); }, {m_pDrive}}};
 }
 
 void RobotContainerKurgan::ConfigureButtonBindings()
@@ -33,8 +51,7 @@ void RobotContainerKurgan::ConfigureButtonBindings()
 
 frc2::Command *RobotContainerKurgan::GetAutonomousCommand()
 {
-  // An example command will be run in autonomous
-  return 0;
+  return m_pAutoHouse;
 }
 
 void RobotContainerKurgan::SetButtonA()
