@@ -10,7 +10,7 @@
 #include <cameraserver/CameraServer.h>
 #include <opencv/cxcore.h>
 //#include <openvc2/videoio.hpp>
-#include "../Util.h"
+#include "Util.h"
 
 class CameraDeviceDriver {
  public:

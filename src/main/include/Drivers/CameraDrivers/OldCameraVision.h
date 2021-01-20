@@ -2,18 +2,18 @@
 
 #include <opencv2/core.hpp>
 #include <opencv2/videoio.hpp>
-#include "../Constants.h"
+#include "../../Constants.h"
 #include <cameraserver/CameraServer.h>
 
 
-class CameraVision
+class OldCameraVision
 {
 public:
 	/// <summary>
 	/// Constructor
 	/// </summary>
 	/// <param name="index"> 0 = webcam, 1 = USB camera </param>
-	CameraVision(int index);
+	OldCameraVision(int index);
 
 	/// <summary>
 	/// Initialize Hardware

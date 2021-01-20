@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Drivers/CameraDeviceDriver.h"
+#include "Drivers/CameraDrivers/CameraDeviceDriver.h"
 
 CameraDeviceDriver::CameraDeviceDriver(int index) 
 {

@@ -1,16 +1,16 @@
-#include "Drivers/CameraVision.h"
+#include "Drivers/CameraDrivers/OldCameraVision.h"
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
 
-CameraVision::CameraVision(int port)
+OldCameraVision::OldCameraVision(int port)
 {
 	m_index = port;
 }
 
-bool CameraVision::Init()
+bool OldCameraVision::Init()
 {
 	// cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture();
     // camera.SetResolution(640, 480);
@@ -26,7 +26,7 @@ bool CameraVision::Init()
 	return true;
 }
 
-void CameraVision::Tick()
+void OldCameraVision::Tick()
 {
 	// if(m_cvSink.GrabFrame(m_frame) == 0)
 	// {
@@ -40,7 +40,7 @@ void CameraVision::Tick()
 	//m_outputStream.PutFrame(m_frame);
 }
 
-double CameraVision::WhereToTurn(double deadZone)
+double OldCameraVision::WhereToTurn(double deadZone)
 {
 	//Check if there is a blob
 	if (GetBlob() == false /*|| m_centroidX == nan( && m_centroidY == nan(ind)*/)
@@ -75,13 +75,13 @@ double CameraVision::WhereToTurn(double deadZone)
 }
 
 
-void CameraVision::SendImage(std::string title, cv::Mat frame/*, int width, int height*/)
+void OldCameraVision::SendImage(std::string title, cv::Mat frame/*, int width, int height*/)
 {
 	//cs::CvSource outputVideo = frc::CameraServer::GetInstance()->PutVideo(title, width, height);
 	m_outputStream.PutFrame(frame);
 }
 
-bool CameraVision::GetBlob()
+bool OldCameraVision::GetBlob()
 {
 	//Gets one frame from camera
 	if(m_cvSink.GrabFrame(m_frame) == 0)
@@ -116,7 +116,7 @@ bool CameraVision::GetBlob()
 	return true;
 }
 
-void CameraVision::SetColor()
+void OldCameraVision::SetColor()
 {
 	//Change the camera image from BGR to HSV - Blue Green Red to Hue Saturation Value
 	cv::Mat imgHSV;

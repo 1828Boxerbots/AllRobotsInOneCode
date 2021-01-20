@@ -30,7 +30,7 @@ void DriveTrainSubsystemC418::SetMotorL(double speed)
   m_leftMotor.Set(speed * speedLimit);
 #endif
 
-  m_camera.Tick();
+  //m_camera.Tick();
 }
 
 void DriveTrainSubsystemC418::SetMotorR(double speed)
@@ -54,7 +54,7 @@ void DriveTrainSubsystemC418::Init()
   m_leftEncoder.SetDistancePerPulse((1.0 / GetPulsesPerRevolution()) * Util::PI * WHEELDIAMETER);
   m_rightEncoder.SetDistancePerPulse((1.0 / GetPulsesPerRevolution()) * Util::PI * WHEELDIAMETER);
 
-  m_camera.Init();
+  //m_camera.Init();
 
   /*#ifdef M_DISTANCE_RIGHT
     m_pMuxRightDistance->Init(true);
