@@ -42,4 +42,6 @@ private:
   // The robot's subsystems and commands are defined here...
 
   void ConfigureButtonBindings();
+  void InitializeAutonomousFunctions();
+  frc2::SequentialCommandGroup *m_pAutoHouse = nullptr;
 };
