@@ -21,6 +21,7 @@
 #include "Drivers/MuxDrivers/MuxDistanceSensorDriver.h"
 #include "Drivers/RevDistanceSensorDriver.h"
 
+#include "Drivers/CameraDrivers/RobotVision.h"
 #include "Drivers/CameraDrivers/OldCameraVision.h"
 
 class DriveTrainSubsystemC418 : public DriveTrainSubsystemBase
@@ -73,6 +74,8 @@ private:
   frc::Encoder m_leftEncoder{DIO_LEFTENCODER_A_C418, DIO_LEFTENCODER_B_C418};
   frc::Encoder m_rightEncoder{DIO_RIGHTENCODER_A_C418, DIO_RIGHTENCODER_B_C418};
 
+  OldCameraVision m_camera{0};
+
 #ifdef M_IMU
   ADIS16448_IMUDriver m_imu{};
 #endif
@@ -103,6 +106,4 @@ private:
   int distance_beatL = 0;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-
-  OldCameraVision m_camera{0};
 };

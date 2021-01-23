@@ -2,22 +2,27 @@
 #include <opencv2/imgproc/imgproc.hpp>
 
 
-RobotVision::RobotVision() : WindowsVisionBase(0)
+RobotVision::RobotVision(int port) : WindowsVisionBase(port)
 {
 	
 }
 
-void RobotVision::Init()
+bool RobotVision::Init()
 {
+	Util::Log("Shadow", "RobotVision Init-1");
 	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
 	m_camera.SetResolution(640,480);
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
-	m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Filtered Two", 640, 480);
-	
+	m_outputStreamLine = frc::CameraServer::GetInstance()->PutVideo(IMAGE_LINE, 640, 480);
+	m_outputStreamThreshold = frc::CameraServer::GetInstance()->PutVideo(IMAGE_THRESHOLD, 640, 480);
+	m_outputStreamHSV = frc::CameraServer::GetInstance()->PutVideo(IMAGE_HSV, 640, 480);
+	Util::Log("Shadow", "RobotVision Init-2");
+	return true;
 }
 
 void RobotVision::Tick()
 {
+	Util::Log("Shadow", "RobotVision Tick-1");
 	if(GetImage() == false)
     {
         return;
@@ -26,21 +31,43 @@ void RobotVision::Tick()
 	cv::line(m_frame, cv::Point(0, 0), cv::Point(m_frame.size().width, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
 
 	//m_outputStream.PutFrame(m_frame);
-	SendImage("output", m_frame);
+	SendImage(IMAGE_LINE, m_frame);
+
+	Util::Log("Shadow", "RobotVision Tick-2");
 }
 
 void RobotVision::SendImage(std::string title, cv::Mat frame)
 {
-	m_outputStream.PutFrame(frame);
+	Util::Log("Shadow", "RobotVision SendImage-1");
+	return;
+	if(title == IMAGE_LINE)
+	{
+		m_outputStreamLine.PutFrame(frame);
+	}
+	else if(title == IMAGE_THRESHOLD)
+	{
+		m_outputStreamThreshold.PutFrame(frame);
+	}
+	else if(title == IMAGE_HSV)
+	{
+		m_outputStreamHSV.PutFrame(frame);
+	}
+	else
+	{
+		m_outputStreamLine.PutFrame(frame);
+	}
+	Util::Log("Shadow", "RobotVision SendImage-2");
 }
 
 bool RobotVision::GetImage()
 {
+	Util::Log("Shadow", "RobotVision GetImage-1");
     if (m_cvSink.GrabFrame(m_frame) == 0)
 	{
+		Util::Log("Shadow", "RobotVision GetImage-3");
 		return false;
 	}
-
+	Util::Log("Shadow", "RobotVision GetImage-2");
     return true;
 }
 

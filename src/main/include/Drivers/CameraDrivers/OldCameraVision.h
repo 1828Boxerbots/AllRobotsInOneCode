@@ -38,13 +38,24 @@ public:
 private:
  	int m_frameCounter = 0;
 
+	const int LOWH_GREEN_CONE  = 38;
+	const int HIGHH_GREEN_CONE  = 79;
+	const int LOWS_GREEN_CONE  = 127;
+	const int HIGHS_GREEN_CONE  = 255;
+	const int LOWV_GREEN_CONE = 123;
+	const int HIGHV_GREEN_CONE = 255;
+
+	const std::string IMAGE_FILTERED = "Filtered";
+	const std::string IMAGE_THRESHOLD = "Threshold";
+
+
 	//Values that it is filtering by
-	int m_iLowH = LOWH_RED;
-	int m_iHighH = HIGHH_RED;
-	int m_iLowS = LOWS_RED;
-	int m_iHighS = HIGHS_RED;
-	int m_iLowV = LOWV_RED;
-	int m_iHighV = HIGHV_RED;
+	int m_iLowH = LOWH_GREEN_CONE;
+	int m_iHighH = HIGHH_GREEN_CONE;
+	int m_iLowS = LOWS_GREEN_CONE;
+	int m_iHighS = HIGHS_GREEN_CONE;
+	int m_iLowV = LOWV_GREEN_CONE;
+	int m_iHighV = HIGHV_GREEN_CONE;
 
 	//The index/port of the camera - given in the constructor
 	int m_index;
@@ -61,6 +72,7 @@ private:
 	cs::UsbCamera m_camera;
 	cs::CvSink m_cvSink;
 	cs::CvSource m_outputStream;
+	cs::CvSource m_outputStreamTwo;
 
 	/// <summary>
 	/// Create a new window to display an image

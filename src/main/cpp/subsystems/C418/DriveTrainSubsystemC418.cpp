@@ -43,7 +43,7 @@ void DriveTrainSubsystemC418::SetMotorR(double speed)
 
 double DriveTrainSubsystemC418::WhereToTurnVision()
 {
-  return m_camera.WhereToTurn(50);
+  return m_camera.WhereToTurn(100);
 }
 
 void DriveTrainSubsystemC418::Init()

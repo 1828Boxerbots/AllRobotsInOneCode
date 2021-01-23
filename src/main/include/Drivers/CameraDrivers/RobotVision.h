@@ -8,8 +8,8 @@
 class RobotVision : public WindowsVisionBase
 {
 public:
-	RobotVision();
-	void Init();
+	RobotVision(int port);
+	bool Init() override;
 	void Tick() override;
     void Log(std::string title, std::string value) override;
 private:
@@ -24,17 +24,18 @@ private:
 	double m_deadZone = 50.0;
 
 	//Holds the camera and raw image
-	cv::Mat m_frame;
 	cs::UsbCamera m_camera;
 	cs::CvSink m_cvSink;
-	cs::CvSource m_outputStream;
+	cs::CvSource m_outputStreamLine;
+	cs::CvSource m_outputStreamThreshold;
+	cs::CvSource m_outputStreamHSV;
 
 	//Values that it is filtering by
-	int m_iLowH = LOWH_RED;
-	int m_iHighH = HIGHH_RED;
-	int m_iLowS = LOWS_RED;
-	int m_iHighS = HIGHS_RED;
-	int m_iLowV = LOWV_RED;
-	int m_iHighV = HIGHV_RED;
+	int m_iLowH = LOWH_GREEN_CONE;
+	int m_iHighH = HIGHH_GREEN_CONE;
+	int m_iLowS = LOWS_GREEN_CONE;
+	int m_iHighS = HIGHS_GREEN_CONE;
+	int m_iLowV = LOWV_GREEN_CONE;
+	int m_iHighV = HIGHV_GREEN_CONE;
 };
 

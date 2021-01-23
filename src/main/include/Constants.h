@@ -155,11 +155,11 @@ constexpr int GREEN_HIGH_GREEN = 230;
 constexpr int GREEN_HIGH_RED = 230;
 
 //New Vision colors
-const int LOWH_RED = 169;
+const int LOWH_RED = 160;
 const int HIGHH_RED = 179;
 const int LOWS_RED = 135;
 const int HIGHS_RED = 255;
-const int LOWV_RED = 0;
+const int LOWV_RED = 130;
 const int HIGHV_RED = 255;
 //Reflected Neon Green
 const int LOWH_GREEN = 79;

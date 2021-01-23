@@ -130,32 +130,26 @@ void RobotContainerC418::ConfigureAutonomousCommands()
     {
       [this] 
       {
-        Util::Log("Shadow", "is drive good");
         if(m_pDrive != nullptr)
         {
-          Util::Log("Shadow", "AutonomousS");
           double result = m_pDrive->WhereToTurnVision();
-          if(result < -1)
-          {
-            //Cannot find thing, so rotate right at maximum speed to find the object
-            m_pDrive->TurnRight(1.0);
-          }
-          else if (result < 0)
+          Util::Log("Shadow", result);
+          if (result < 0)
           {
             //Turn left if object is on the left
-            m_pDrive->TurnRight(0.4);
+            m_pDrive->TurnRight(0.3);
           }
           else if(result > 0)
           {
             //Turn right if object is on the right
-            m_pDrive->TurnLeft(0.4);
+            m_pDrive->TurnLeft(0.2);
           }
           else
           {
             //Object is in the center
             m_pDrive->Stop();
           }
-          Util::Log("Shadow", "AutonomousE");
+          //Util::DelayInSeconds(0.2);
         }
       }, {m_pDrive}
     }

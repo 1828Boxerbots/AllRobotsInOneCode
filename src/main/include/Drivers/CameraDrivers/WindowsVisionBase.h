@@ -19,7 +19,7 @@ public:
 	///		true = initialization successful
 	///		false = error occured
 	/// </returns>
-	bool Init();
+	virtual bool Init();
 
 	/// <summary>
 	/// Which direction should the robot turn and how fast
@@ -28,7 +28,7 @@ public:
 	/// <returns>
 	///		range is -1.0 to +1.0, negative value is turn left
 	/// </returns>
-	double WhereToTurn();
+	virtual double WhereToTurn(int deadZone = 50);
 
 	/// <summary>
 	/// Filters the image and gets the position of its center
@@ -54,8 +54,18 @@ protected:
 	const int HIGHS_GREEN  = 255;
 	const int LOWV_GREEN = 250;
 	const int HIGHV_GREEN = 255;
+	//Green Cone
+	const int LOWH_GREEN_CONE  = 38;
+	const int HIGHH_GREEN_CONE  = 79;
+	const int LOWS_GREEN_CONE  = 127;
+	const int HIGHS_GREEN_CONE  = 255;
+	const int LOWV_GREEN_CONE = 123;
+	const int HIGHV_GREEN_CONE = 255;
 
-private:
+	//Const window names
+	const std::string IMAGE_LINE = "Lined Image";
+	const std::string IMAGE_THRESHOLD = "Thresholded Image";
+	const std::string IMAGE_HSV = "HSV Image";
 
 	//Values that it is filtering by
 	int m_iLowH = LOWH_RED ;
@@ -73,7 +83,7 @@ private:
 	double m_centroidY;
 
 	//How big is the dead zone where WhereToTurn() = 0.0
-	double m_deadZone = 50.0;
+	int m_deadZone = 50;
 
 	//Holds the camera and raw image
 	cv::VideoCapture m_camera;

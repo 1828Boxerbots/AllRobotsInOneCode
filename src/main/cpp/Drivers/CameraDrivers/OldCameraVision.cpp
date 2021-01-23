@@ -4,6 +4,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include "Util.h"
+#include <math.h>
 
 OldCameraVision::OldCameraVision(int port)
 {
@@ -21,8 +22,8 @@ bool OldCameraVision::Init()
 	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
 	m_camera.SetResolution(640,480);
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
-	m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Filtered Three", 640, 480);
-
+	m_outputStream = frc::CameraServer::GetInstance()->PutVideo(IMAGE_FILTERED, 640, 480);
+	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo(IMAGE_THRESHOLD, 640, 480);
 	return true;
 }
 
@@ -56,8 +57,8 @@ double OldCameraVision::WhereToTurn(double deadZone)
 	//Get the Center of the screen
 	double screenCenter = m_frame.size().width / 2;
 	//Get Dead zone values
-	double highDedZone = screenCenter + m_deadZone;
-	double lowDedZone = screenCenter - m_deadZone;
+	double highDedZone = screenCenter + deadZone;
+	double lowDedZone = screenCenter - deadZone;
 	//Check if we are in the dead zone
 	if (m_centroidX > lowDedZone && m_centroidX < highDedZone)
 	{
@@ -80,7 +81,14 @@ double OldCameraVision::WhereToTurn(double deadZone)
 void OldCameraVision::SendImage(std::string title, cv::Mat frame/*, int width, int height*/)
 {
 	//cs::CvSource outputVideo = frc::CameraServer::GetInstance()->PutVideo(title, width, height);
-	m_outputStream.PutFrame(frame);
+	if(title == IMAGE_FILTERED)
+	{
+		m_outputStream.PutFrame(frame);
+	}
+	else if(title == IMAGE_THRESHOLD)
+	{
+		m_outputStreamTwo.PutFrame(frame);
+	}
 }
 
 bool OldCameraVision::GetBlob()
@@ -96,16 +104,22 @@ bool OldCameraVision::GetBlob()
 	//Filter the image
 	SetColor();
 
-	//Place a 2 line where the blob is
-	cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
-	cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
+	if(m_centroidY > 0.0 && m_centroidX > 0.0)
+	{
+		//Place a 2 line where the blob is
+		cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
+		cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
 
-	//Show where the center of the screen is on the camera
-	double screenCenter = m_frame.size().width / 2;
-	cv::line(m_frame, cv::Point(screenCenter, 0), cv::Point(screenCenter, m_frame.size().height), cv::Scalar(255, 0, 0), 3);
-
+		//Show where the center of the screen is on the camera
+		double screenCenter = m_frame.size().width / 2;
+		cv::line(m_frame, cv::Point(screenCenter, 0), cv::Point(screenCenter, m_frame.size().height), cv::Scalar(255, 0, 0), 3);
+	}
+	else
+	{
+		return false;
+	}
 	// //Display the new image
-	SendImage("raw image", m_frame);
+	SendImage(IMAGE_FILTERED, m_frame);
 
 	//cv::waitKey(1);
 
@@ -129,11 +143,20 @@ void OldCameraVision::SetColor()
 	cv::Mat imgThresholded;
 	cv::inRange(imgHSV, cv::Scalar(m_iLowH, m_iLowS, m_iLowV), cv::Scalar(m_iHighH, m_iHighS, m_iHighV), imgThresholded);
 	//Display Filtered Image
-	//SendImage("Threshold", imgThresholded);
+	SendImage(IMAGE_THRESHOLD, imgThresholded);
 	// Find moments of the image
 	cv::Moments m = cv::moments(imgThresholded, true);
-	m_centroidX = m.m10 / m.m00;
-	m_centroidY = m.m01 / m.m00;
-	cv::Point p(m_centroidX, m_centroidY);
-
+	if(m.m00 != 0)
+	{
+		Util::Log("OldCameraVision", "centroids were valid");
+		m_centroidX = m.m10 / m.m00;
+		m_centroidY = m.m01 / m.m00;
+		cv::Point p(m_centroidX, m_centroidY);
+	}
+	else
+	{
+		Util::Log("OldCameraVision", "centroids were divied by 0");
+		m_centroidX = -1.0;
+		m_centroidY = -1.0;
+	}
 }
