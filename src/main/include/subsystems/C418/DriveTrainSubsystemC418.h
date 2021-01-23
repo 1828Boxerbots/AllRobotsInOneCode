@@ -21,6 +21,8 @@
 #include "Drivers/MuxDrivers/MuxDistanceSensorDriver.h"
 #include "Drivers/RevDistanceSensorDriver.h"
 
+#include "Drivers/CameraDrivers/OldCameraVision.h"
+
 class DriveTrainSubsystemC418 : public DriveTrainSubsystemBase
 {
 public:
@@ -58,6 +60,7 @@ public:
   void ResetEncoder() override;
   double GetPulsesPerRevolution() override { return PULSE_PER_REVOLUTION; }
 
+  double WhereToTurnVision() override;
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -100,4 +103,6 @@ private:
   int distance_beatL = 0;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
+
+  OldCameraVision m_camera{0};
 };

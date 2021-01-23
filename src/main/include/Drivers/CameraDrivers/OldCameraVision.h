@@ -36,6 +36,7 @@ public:
 	void Tick();
 
 private:
+ 	int m_frameCounter = 0;
 
 	//Values that it is filtering by
 	int m_iLowH = LOWH_RED;

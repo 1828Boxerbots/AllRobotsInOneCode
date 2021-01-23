@@ -41,6 +41,11 @@ void DriveTrainSubsystemC418::SetMotorR(double speed)
 
 }
 
+double DriveTrainSubsystemC418::WhereToTurnVision()
+{
+  return m_camera.WhereToTurn(50);
+}
+
 void DriveTrainSubsystemC418::Init()
 {
 #ifndef NOHW
@@ -54,7 +59,7 @@ void DriveTrainSubsystemC418::Init()
   m_leftEncoder.SetDistancePerPulse((1.0 / GetPulsesPerRevolution()) * Util::PI * WHEELDIAMETER);
   m_rightEncoder.SetDistancePerPulse((1.0 / GetPulsesPerRevolution()) * Util::PI * WHEELDIAMETER);
 
-  //m_camera.Init();
+  m_camera.Init();
 
   /*#ifdef M_DISTANCE_RIGHT
     m_pMuxRightDistance->Init(true);

@@ -43,6 +43,7 @@ RobotContainerC418::RobotContainerC418()
 
   // Configure the button bindings
   ConfigureButtonBindings();
+  ConfigureAutonomousCommands();
 }
 
 void RobotContainerC418::ConfigureButtonBindings()
@@ -66,6 +67,102 @@ void RobotContainerC418::ConfigureButtonBindings()
   SetLeftBumper();
 }
 
+void RobotContainerC418::ConfigureAutonomousCommands()
+{
+  m_pAutoHouse = new frc2::SequentialCommandGroup {
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->Init(); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->EnableAnticollision(true); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->ForwardInSeconds(10); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->TurnInDegrees(45); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->ForwardInSeconds(5); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->TurnInDegrees(90); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->ForwardInSeconds(5); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->TurnInDegrees(45); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->ForwardInSeconds(10); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->TurnInDegrees(90); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->ForwardInSeconds(sqrt(50)); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->TurnInDegrees(90); }, {m_pDrive}}
+  };
+
+  m_pAutoFollowRed = new frc2::SequentialCommandGroup 
+  {
+    frc2::InstantCommand 
+    {
+      [this] 
+      {
+        Util::Log("Shadow", "is drive good");
+        if(m_pDrive != nullptr)
+        {
+          while (true)
+          {
+            Util::Log("Shadow", "AutonomousS");
+            double result = m_pDrive->WhereToTurnVision();
+            if(result < -1)
+            {
+              //Cannot find thing, so rotate right at maximum speed to find the object
+              m_pDrive->TurnRight(1.0);
+            }
+            else if (result < 0)
+            {
+              //Turn left if object is on the left
+              m_pDrive->TurnLeft(-result);
+            }
+            else if(result > 0)
+            {
+              //Turn right if object is on the right
+              m_pDrive->TurnRight(result);
+            }
+            else
+            {
+              //Object is in the center
+              m_pDrive->Stop();
+            }
+            Util::Log("Shadow", "AutonomousE");
+          }
+        }
+      }, {m_pDrive}
+    }
+  };
+
+   m_pAutoFollowRed = new frc2::SequentialCommandGroup 
+  {
+    frc2::RunCommand 
+    {
+      [this] 
+      {
+        Util::Log("Shadow", "is drive good");
+        if(m_pDrive != nullptr)
+        {
+          Util::Log("Shadow", "AutonomousS");
+          double result = m_pDrive->WhereToTurnVision();
+          if(result < -1)
+          {
+            //Cannot find thing, so rotate right at maximum speed to find the object
+            m_pDrive->TurnRight(1.0);
+          }
+          else if (result < 0)
+          {
+            //Turn left if object is on the left
+            m_pDrive->TurnRight(0.4);
+          }
+          else if(result > 0)
+          {
+            //Turn right if object is on the right
+            m_pDrive->TurnLeft(0.4);
+          }
+          else
+          {
+            //Object is in the center
+            m_pDrive->Stop();
+          }
+          Util::Log("Shadow", "AutonomousE");
+        }
+      }, {m_pDrive}
+    }
+  };
+
+}
+
 int RobotContainerC418::ReadDioSwitch()
 {
   //Object hooked up to double pole double throw switch driver {Channel A, Channel B}
@@ -80,6 +177,7 @@ int RobotContainerC418::ReadDioSwitch()
 
 frc2::Command *RobotContainerC418::GetAutonomousCommand()
 {
+  /*
   int dioAutoSwitcher;
   dioAutoSwitcher = ReadDioSwitch();
   frc::SmartDashboard::PutBoolean("Case 1", false);
@@ -106,6 +204,19 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     break;
   }
   return nullptr;
+  */
+
+  Util::Log("Shadow 2", "m_pAutoFollowRed");
+  if(m_pAutoFollowRed != nullptr)
+  {
+    Util::Log("Shadow 3", "m_pAutoFollowRed is NOT null");
+    return m_pAutoFollowRed;
+  }
+  else
+  {
+    Util::Log("Shadow 3", "m_pAutoFollowRed is null");
+    return nullptr;
+  }
 }
 
 void RobotContainerC418::Init()

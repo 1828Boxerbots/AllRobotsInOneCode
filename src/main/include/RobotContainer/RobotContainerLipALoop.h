@@ -26,7 +26,7 @@ class RobotContainerLipALoop : public RobotContainerBase
 public:
   RobotContainerLipALoop();
 
-  frc2::Command *GetAutonomousCommand();
+  frc2::Command *GetAutonomousCommand() override;
 
   virtual void Init() {}
   virtual void DisableInit() {}

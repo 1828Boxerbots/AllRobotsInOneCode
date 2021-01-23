@@ -3,7 +3,7 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-
+#include "Util.h"
 
 OldCameraVision::OldCameraVision(int port)
 {
@@ -21,7 +21,7 @@ bool OldCameraVision::Init()
 	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
 	m_camera.SetResolution(640,480);
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
-	m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Filtered One", 640, 480);
+	m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Filtered Three", 640, 480);
 
 	return true;
 }
@@ -42,6 +42,8 @@ void OldCameraVision::Tick()
 
 double OldCameraVision::WhereToTurn(double deadZone)
 {
+	Util::Log("Frame Counter", m_frameCounter++);
+
 	//Check if there is a blob
 	if (GetBlob() == false /*|| m_centroidX == nan( && m_centroidY == nan(ind)*/)
 	{

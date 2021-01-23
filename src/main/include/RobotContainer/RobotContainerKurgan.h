@@ -24,7 +24,7 @@ class RobotContainerKurgan : public RobotContainerBase
 public:
   RobotContainerKurgan();
 
-  frc2::Command *GetAutonomousCommand();
+  frc2::Command *GetAutonomousCommand() override;
 
   void SetButtonA() override;
   void SetButtonB() override;

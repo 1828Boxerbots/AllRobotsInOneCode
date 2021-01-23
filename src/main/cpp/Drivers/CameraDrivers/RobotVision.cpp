@@ -12,7 +12,7 @@ void RobotVision::Init()
 	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
 	m_camera.SetResolution(640,480);
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
-	m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Filtered One", 640, 480);
+	m_outputStream = frc::CameraServer::GetInstance()->PutVideo("Filtered Two", 640, 480);
 	
 }
 

@@ -23,7 +23,7 @@ class RobotContainerSLAL : public RobotContainerBase
 public:
   RobotContainerSLAL();
 
-  frc2::Command *GetAutonomousCommand();
+  frc2::Command *GetAutonomousCommand() override;
 
   virtual void Init() {}
   virtual void DisableInit() {}

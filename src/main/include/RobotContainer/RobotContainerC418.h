@@ -48,7 +48,7 @@ public:
   void SetBackButton() override;
   int ReadDioSwitch();
 
-  frc2::Command *GetAutonomousCommand();
+  frc2::Command *GetAutonomousCommand() override;
 
   static SpinSubsystemC418::FMSColors givenColor;
 
@@ -81,4 +81,8 @@ private:
   // The robot's subsystems and commands are defined here...
 
   void ConfigureButtonBindings();
+  void ConfigureAutonomousCommands();
+
+  frc2::SequentialCommandGroup *m_pAutoHouse = nullptr;
+  frc2::SequentialCommandGroup *m_pAutoFollowRed = nullptr;
 };

@@ -48,6 +48,7 @@ public:
 
   virtual void TeleopPeriodic() {}
   virtual void AutonomousPeriodic() {}
+  virtual frc2::Command *GetAutonomousCommand() { return nullptr; }
 
   std::string ReadFMS() { return frc::DriverStation::GetInstance().GetGameSpecificMessage(); }
 
