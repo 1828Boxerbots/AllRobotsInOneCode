@@ -36,17 +36,21 @@ void OldCameraVision::Tick()
 
 	//cv::line(m_frame, cv::Point(0, 0), cv::Point(m_frame.size().width, m_frame.size().height), cv::Scalar(0,0,255), 3);
 
-	GetBlob();
+	GetBlob(1000000000000000000000000000000);
 
 	//m_outputStream.PutFrame(m_frame);
 }
 
-double OldCameraVision::WhereToTurn(double deadZone)
+//deadZone can be a range of -1 to 1
+double OldCameraVision::WhereToTurn(double deadZoneLocation, int deadZoneRange)
 {
 	Util::Log("Frame Counter", m_frameCounter++);
 
+	double screenCenter = m_frame.size().width / 2;
+	int deadZone2 = (deadZoneLocation*screenCenter)+screenCenter;
+
 	//Check if there is a blob
-	if (GetBlob() == false /*|| m_centroidX == nan( && m_centroidY == nan(ind)*/)
+	if (GetBlob(deadZone2) == false /*|| m_centroidX == nan( && m_centroidY == nan(ind)*/)
 	{
 		return -2.0;
 	}
@@ -55,10 +59,13 @@ double OldCameraVision::WhereToTurn(double deadZone)
 	//std::cout << m_centroidY << std::endl;
 
 	//Get the Center of the screen
-	double screenCenter = m_frame.size().width / 2;
+
+	//Use some MATH to turn the deadZone from a percentage to the size of the screen
+
 	//Get Dead zone values
-	double highDedZone = screenCenter + deadZone;
-	double lowDedZone = screenCenter - deadZone;
+	int highDedZone = deadZone2 + deadZoneRange;
+	int lowDedZone = deadZone2 - deadZoneRange;
+	Util::Log("Shadow 4", deadZone2);
 	//Check if we are in the dead zone
 	if (m_centroidX > lowDedZone && m_centroidX < highDedZone)
 	{
@@ -66,7 +73,15 @@ double OldCameraVision::WhereToTurn(double deadZone)
 	}
 
 	//Use some MATH to turn our position into a percentage and return
-	double powerPercentage = (m_centroidX - screenCenter) / screenCenter;
+	double powerPercentage = ((m_centroidX - screenCenter) / screenCenter) - deadZoneLocation;
+	if(powerPercentage>1.0)
+	{
+		powerPercentage = 1.0;
+	}
+	if(powerPercentage<-1.0)
+	{
+		powerPercentage = -1.0;
+	}
 	// cv::Mat textImg = m_frame;
 	// cv::QtFont font;
 	// std::string powerPercentageStr = std::to_string(powerPercentage);
@@ -91,7 +106,7 @@ void OldCameraVision::SendImage(std::string title, cv::Mat frame/*, int width, i
 	}
 }
 
-bool OldCameraVision::GetBlob()
+bool OldCameraVision::GetBlob(int deadZonePixel)
 {
 	//Gets one frame from camera
 	if(m_cvSink.GrabFrame(m_frame) == 0)
@@ -107,12 +122,23 @@ bool OldCameraVision::GetBlob()
 	if(m_centroidY > 0.0 && m_centroidX > 0.0)
 	{
 		//Place a 2 line where the blob is
-		cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
-		cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
+		switch (m_visionColor)
+		{
+		case VisionColors::GREEN_CONE:
+			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,255,0), 3);
+			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 255, 0), 3);
+			break;
+		case VisionColors::RED_CONE:
+			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
+			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
+		default:
+			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
+			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
+			break;
+		}
 
-		//Show where the center of the screen is on the camera
-		double screenCenter = m_frame.size().width / 2;
-		cv::line(m_frame, cv::Point(screenCenter, 0), cv::Point(screenCenter, m_frame.size().height), cv::Scalar(255, 0, 0), 3);
+		//Show where deadzone is
+		cv::line(m_frame, cv::Point(deadZonePixel, 0), cv::Point(deadZonePixel, m_frame.size().height), cv::Scalar(255, 0, 0), 3);
 	}
 	else
 	{
@@ -135,17 +161,44 @@ bool OldCameraVision::GetBlob()
 void OldCameraVision::SetColor()
 {
 	//Change the camera image from BGR to HSV - Blue Green Red to Hue Saturation Value
-	cv::Mat imgHSV;
-	cv::cvtColor(m_frame, imgHSV, cv::COLOR_BGR2HSV);
+	cv::cvtColor(m_frame, m_imgHSV, cv::COLOR_BGR2HSV);
 	//SendImage("grey image", imgHSV);
 
 	//Looks for specifc colors in the image
-	cv::Mat imgThresholded;
-	cv::inRange(imgHSV, cv::Scalar(m_iLowH, m_iLowS, m_iLowV), cv::Scalar(m_iHighH, m_iHighS, m_iHighV), imgThresholded);
+
+	cv::Scalar resultL;
+	cv::Scalar resultH;
+
+	switch(m_visionColor)
+	{
+		case VisionColors::GREEN_CONE:
+			resultL = GREEN_CONE_LOW;
+			resultH = GREEN_CONE_HIGH;
+			break;
+		case VisionColors::RED_CONE:
+			resultL = RED_CONE_LOW;
+			resultH = RED_CONE_LOW;
+			break;
+		case VisionColors::YELLOW_CONE:
+			resultL = YELLOW_CONE_LOW;
+			resultH = YELLOW_CONE_LOW;
+			break;
+		case VisionColors::ORANGE_CONE:
+			resultL = ORANGE_CONE_LOW;
+			resultH = ORANGE_CONE_LOW;
+			break;
+		default:
+			resultL = GREEN_CONE_LOW;
+			resultH = GREEN_CONE_LOW;
+			break;
+	}
+
+	cv::inRange(m_imgHSV, resultL, resultH, m_imgThresholded);
+
 	//Display Filtered Image
-	SendImage(IMAGE_THRESHOLD, imgThresholded);
+	SendImage(IMAGE_THRESHOLD, m_imgThresholded);
 	// Find moments of the image
-	cv::Moments m = cv::moments(imgThresholded, true);
+	cv::Moments m = cv::moments(m_imgThresholded, true);
 	if(m.m00 != 0)
 	{
 		Util::Log("OldCameraVision", "centroids were valid");

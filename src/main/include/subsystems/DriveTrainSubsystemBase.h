@@ -62,7 +62,7 @@ public:
   //Temp Function meant to test turning function
   virtual void ForwardIninchTurn(double inch, double angle, double speed) {}
 
-  virtual double WhereToTurnVision(){return 0.0;}
+  virtual double WhereToTurnVision(double deadZone = 0.0, int deadZoneRange = 100){return 0.0;}
 
 protected:
   bool m_isColliding = false;

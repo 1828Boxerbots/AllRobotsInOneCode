@@ -61,7 +61,7 @@ public:
   void ResetEncoder() override;
   double GetPulsesPerRevolution() override { return PULSE_PER_REVOLUTION; }
 
-  double WhereToTurnVision() override;
+  double WhereToTurnVision( double deadZoneLocation = 0.0, int deadZoneRange = 100) override;
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */

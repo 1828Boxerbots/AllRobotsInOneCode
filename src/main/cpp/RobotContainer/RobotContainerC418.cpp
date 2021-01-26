@@ -124,24 +124,37 @@ void RobotContainerC418::ConfigureAutonomousCommands()
     }
   };
 
-   m_pAutoFollowRed = new frc2::SequentialCommandGroup 
+  m_pAutoFollowRed = new frc2::SequentialCommandGroup 
   {
+    //frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->Init(); }, {m_pDrive}},
     frc2::RunCommand 
     {
       [this] 
       {
         if(m_pDrive != nullptr)
         {
-          double result = m_pDrive->WhereToTurnVision();
+          double centerScreen = 0.5;
+          double result = m_pDrive->WhereToTurnVision(centerScreen, 50);
           Util::Log("Shadow", result);
-          if (result < 0)
+          //camera flips the image
+          if(result == 0.0)
           {
-            //Turn left if object is on the left
+            //Stop if object is in center
+            m_pDrive->Stop();
+          }
+          else if(result < -1.0)
+          {
+            //Turn right if object is not seen
             m_pDrive->TurnRight(0.3);
           }
-          else if(result > 0)
+          else if (result < 0.0)
           {
             //Turn right if object is on the right
+            m_pDrive->TurnRight(0.3);
+          }
+          else if(result > 0.0)
+          {
+            //Turn left if object is on the left
             m_pDrive->TurnLeft(0.2);
           }
           else
@@ -154,7 +167,16 @@ void RobotContainerC418::ConfigureAutonomousCommands()
       }, {m_pDrive}
     }
   };
+  // m_pAutoChallenge1 = new frc2::SequentialCommandGroup 
+  // {
+  //   frc2::RunCommand 
+  //   {
+  //     [this] 
+  //     {
 
+  //     }, {m_pDrive}
+  //   }
+  // };
 }
 
 int RobotContainerC418::ReadDioSwitch()

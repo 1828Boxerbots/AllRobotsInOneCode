@@ -38,7 +38,7 @@ void DriveTrainSubsystemKurgan::Init()
 #endif
 }
 
-double DriveTrainSubsystemKurgan::WhereToTurnVision()
-{
-  
-}
+// double DriveTrainSubsystemKurgan::WhereToTurnVision(double deadZoneRange, double deadZone)
+// {
+//   return 0.0;
+// }

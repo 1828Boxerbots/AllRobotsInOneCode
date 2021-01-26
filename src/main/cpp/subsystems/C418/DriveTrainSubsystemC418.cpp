@@ -41,9 +41,9 @@ void DriveTrainSubsystemC418::SetMotorR(double speed)
 
 }
 
-double DriveTrainSubsystemC418::WhereToTurnVision()
+double DriveTrainSubsystemC418::WhereToTurnVision( double deadZoneLocation, int deadZoneRange)
 {
-  return m_camera.WhereToTurn(100);
+  return m_camera.WhereToTurn(deadZoneLocation, deadZoneRange);
 }
 
 void DriveTrainSubsystemC418::Init()

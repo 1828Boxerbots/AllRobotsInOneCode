@@ -18,7 +18,7 @@ public:
   void SetMotorL(double speed) override;
   void SetMotorR(double speed) override;
   void Init() override;
-  double WhereToTurnVision() override;
+  //double WhereToTurnVision(double deadZoneRange = 100.0, double deadZone = 0.0) override;
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
