@@ -37,7 +37,7 @@ public:
 
 	virtual void Tick();
 
-private:
+protected:
 	int m_frameCounter = 0;
 
 	//Values that it is filtering by
@@ -51,12 +51,13 @@ private:
 	const cv::Scalar ORANGE_CONE_LOW{ 0,76,255 };
 	const cv::Scalar ORANGE_CONE_HIGH{ 21,255,255 };
 
-	cv::Scalar m_resultL = RED_CONE_LOW;
-	cv::Scalar m_resultH = RED_CONE_HIGH;
+	cv::Scalar m_resultL = GREEN_CONE_LOW;
+	cv::Scalar m_resultH = GREEN_CONE_HIGH;
 
 	//Window Names
-	const std::string IMAGE_FILTERED = "Filtered";
+	const std::string IMAGE_LINE = "Line Image";
 	const std::string IMAGE_THRESHOLD = "Threshold";
+	const std::string IMAGE_HSV = "HSV Image";
 	const std::string SLIDERS_WINDOW = "Control";
 
 	//The index/port of the camera - given in the constructor

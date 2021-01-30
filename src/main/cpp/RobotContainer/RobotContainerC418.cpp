@@ -90,12 +90,12 @@ void RobotContainerC418::ConfigureAutonomousCommands()
     {
       [this] 
       {
-        Util::Log("Shadow", "is drive good");
+        Util::Log("Shadow 3", "is drive good");
         if(m_pDrive != nullptr)
         {
           while (true)
           {
-            Util::Log("Shadow", "AutonomousS");
+            Util::Log("Shadow 3", "AutonomousS");
             double result = m_pDrive->WhereToTurnVision();
             if(result < -1)
             {
@@ -117,7 +117,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
               //Object is in the center
               m_pDrive->Stop();
             }
-            Util::Log("Shadow", "AutonomousE");
+            Util::Log("Shadow 3", "AutonomousE");
           }
         }
       }, {m_pDrive}
@@ -135,7 +135,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
         {
           double centerScreen = 0.5;
           double result = m_pDrive->WhereToTurnVision(centerScreen, 50);
-          Util::Log("Shadow", result);
+          Util::Log("Shadow 3", result);
           //camera flips the image
           if(result == 0.0)
           {

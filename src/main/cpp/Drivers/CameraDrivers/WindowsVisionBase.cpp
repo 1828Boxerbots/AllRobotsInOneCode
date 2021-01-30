@@ -47,7 +47,8 @@ void WindowsVisionBase::Tick()
 //deadZone can be a range of -1 to 1
 double WindowsVisionBase::WhereToTurn(double deadZoneLocation, int deadZoneRange)
 {
-	Log("Frame Counter", m_frameCounter++);
+	Log("Vision Frame Counter", m_frameCounter++);
+	Log("Shadow 2", "WhereToTurn-1");
 
 	double screenCenter = m_frame.size().width / 2;
 	int deadZone2 = (deadZoneLocation * screenCenter) + screenCenter;
@@ -55,6 +56,7 @@ double WindowsVisionBase::WhereToTurn(double deadZoneLocation, int deadZoneRange
 	//Check if there is a blob
 	if (GetBlob(deadZone2) == false /*|| m_centroidX == nan( && m_centroidY == nan(ind)*/)
 	{
+		Log("Shadow 2", "WhereToTurn-3");
 		return -2.0;
 	}
 
@@ -63,10 +65,10 @@ double WindowsVisionBase::WhereToTurn(double deadZoneLocation, int deadZoneRange
 	//Get Dead zone values
 	int highDedZone = deadZone2 + deadZoneRange;
 	int lowDedZone = deadZone2 - deadZoneRange;
-	Log("Shadow 4", deadZone2);
 	//Check if we are in the dead zone
 	if (m_centroidX > lowDedZone && m_centroidX < highDedZone)
 	{
+		Log("Shadow 2", "WhereToTurn-4");
 		return 0.0;
 	}
 
@@ -87,6 +89,7 @@ double WindowsVisionBase::WhereToTurn(double deadZoneLocation, int deadZoneRange
 	// cv::putText(textImg, powerPercentageStr, cv::Point(m_centroidX, m_centroidY), cv::FONT_HERSHEY_SIMPLEX, 2.0, cv::Scalar(255, 0, 0), 2);
 	// SendImage("TextImage", textImg);
 
+	Log("Shadow 2", "WhereToTurn-2");
 	return powerPercentage;
 }
 
@@ -122,9 +125,11 @@ void WindowsVisionBase::Log(std::string title, double value)
 
 bool WindowsVisionBase::GetBlob(int deadZonePixel)
 {
+	Log("Shadow 2", "GetBlob-1");
 	//Gets one frame from camera
 	if (GrabFrame() == false)
 	{
+		Log("Shadow 2", "WhereToTurn-3");
 		return false;
 	}
 
@@ -154,13 +159,12 @@ bool WindowsVisionBase::GetBlob(int deadZonePixel)
 	}
 	else
 	{
-		Log("Send Image", "is called");
-		SendImage(IMAGE_FILTERED, m_frame);
+		SendImage(IMAGE_LINE, m_frame);
+		Log("Shadow 2", "WhereToTurn-4");
 		return false;
 	}
 	// //Display the new image
-	Log("Send Image", "is called");
-	SendImage(IMAGE_FILTERED, m_frame);
+	SendImage(IMAGE_LINE, m_frame);
 
 	cv::waitKey(1);
 
@@ -170,22 +174,25 @@ bool WindowsVisionBase::GetBlob(int deadZonePixel)
 	// 	return false;
 	// }
 
+	Log("Shadow 2", "WhereToTurn-2");
 	return true;
 }
 
 void WindowsVisionBase::SetColor()
 {
+	Log("Shadow 2", "SetColor-1");
 	//Change the camera image from BGR to HSV - Blue Green Red to Hue Saturation Value
 	cv::cvtColor(m_frame, m_imgHSV, cv::COLOR_BGR2HSV);
 	//SendImage("grey image", imgHSV);
 
-	if (m_seeSlider == true)
-	{
-		//AddSliders();
-	}
-	else
+	// if (m_seeSlider == true)
+	// {
+	// 	//AddSliders();
+	// }
+	// else
 	{
 		//Looks for specifc colors in the image
+		Log("Shadow 2", "WhereToTurn-Begin Switch");
 		switch (m_visionColor)
 		{
 		case VisionColors::GREEN_CONE:
@@ -209,6 +216,7 @@ void WindowsVisionBase::SetColor()
 			m_resultH = GREEN_CONE_LOW;
 			break;
 		}
+		Log("Shadow 2", "WhereToTurn-End Switch");
 	}
 	cv::inRange(m_imgHSV, m_resultL, m_resultH, m_imgThresholded);
 
@@ -218,17 +226,16 @@ void WindowsVisionBase::SetColor()
 	cv::Moments m = cv::moments(m_imgThresholded, true);
 	if (m.m00 != 0)
 	{
-		Log("Vision", "centroids were valid");
 		m_centroidX = m.m10 / m.m00;
 		m_centroidY = m.m01 / m.m00;
 		cv::Point p(m_centroidX, m_centroidY);
 	}
 	else
 	{
-		Log("Vision", "centroids were divied by 0");
 		m_centroidX = -1.0;
 		m_centroidY = -1.0;
 	}
+	Log("Shadow 2", "WhereToTurn-2");
 }
 
 void WindowsVisionBase::AddSliders()

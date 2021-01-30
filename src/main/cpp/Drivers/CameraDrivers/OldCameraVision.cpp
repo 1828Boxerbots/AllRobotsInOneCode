@@ -106,10 +106,19 @@ void OldCameraVision::SendImage(std::string title, cv::Mat frame/*, int width, i
 	}
 }
 
+bool OldCameraVision::GrabFrame()
+{
+	if(m_cvSink.GrabFrame(m_frame) == 0)
+	{
+		return false;
+	}
+	return true;
+}
+
 bool OldCameraVision::GetBlob(int deadZonePixel)
 {
 	//Gets one frame from camera
-	if(m_cvSink.GrabFrame(m_frame) == 0)
+	if(GrabFrame() == false)
 	{
 		return false;
 	}

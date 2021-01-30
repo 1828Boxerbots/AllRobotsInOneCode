@@ -115,5 +115,6 @@ private:
 	/// </summary>
 	void SetColor();
 
+	bool GrabFrame();
 };
 
