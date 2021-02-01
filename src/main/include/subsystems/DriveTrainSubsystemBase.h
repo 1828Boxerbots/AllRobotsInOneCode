@@ -65,6 +65,11 @@ public:
 
   virtual double WhereToTurnVision(double deadZone = 0.0, int deadZoneRange = 100){return 0.0;}
 
+  enum Colors {
+    BROWN, BLUE, GREEN_CONE, RED_CONE, YELLOW_CONE, ORANGE_CONE
+  };
+
+
 protected:
   bool m_isColliding = false;
 
