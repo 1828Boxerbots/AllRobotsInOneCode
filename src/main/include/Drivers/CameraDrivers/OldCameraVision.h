@@ -67,6 +67,8 @@ private:
 	const std::string IMAGE_FILTERED = "Filtered";
 	const std::string IMAGE_THRESHOLD = "Threshold";
 
+	const double OUT_OF_CAMERA_RANGE = -3.0;
+
 
 	//Values that it is filtering by
 	// int m_iLowH = LOWH_GREEN_CONE;

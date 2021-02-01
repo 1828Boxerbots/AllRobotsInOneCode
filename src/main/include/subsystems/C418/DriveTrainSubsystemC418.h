@@ -32,7 +32,7 @@ public:
   virtual void SetMotorL(double speed);
   virtual void SetMotorR(double speed);
 
-  double IMUGetAngle();
+  double IMUGetAngle() override;
 
   double GetLeftEncoderInch() override;
   double GetRightEncoderInch() override;

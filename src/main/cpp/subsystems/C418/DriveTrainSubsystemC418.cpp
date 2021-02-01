@@ -93,7 +93,7 @@ double DriveTrainSubsystemC418::IMUGetAngle()
 #ifdef M_IMU
   m_imuAngle = m_imu.GetAngleY();
   Util::Log("IMU Angle", m_imuAngle, "DriveTrainSubsystemC418");
-  return m_gyroAngle;
+  return m_imuAngle;
 #else
   return 0;
 #endif
@@ -180,7 +180,7 @@ double DriveTrainSubsystemC418::GetDistanceSensorDetectionDistanceLeft()
   val = m_pMuxLeftDistance->GetDistance();
 #endif
   Util::Log("DriveTrain Distance Left", val);
-  Util::DelayInSeconds(1);
+  //Util::DelayInSeconds(1);
 #endif
   return val;
 }
@@ -200,7 +200,7 @@ double DriveTrainSubsystemC418::GetDistanceSensorDetectionDistanceRight()
   val = m_pMuxRightDistance->GetDistance();
 #endif
   Util::Log("DriveTrain Distance Right", val);
-  Util::DelayInSeconds(1);
+  //Util::DelayInSeconds(1);
 #endif
   return val;
 }

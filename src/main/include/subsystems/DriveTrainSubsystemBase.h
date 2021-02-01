@@ -37,6 +37,7 @@ public:
   virtual double GyroGetAngle() { return m_gyroAngle; }
   virtual void GyroInit() {}
   virtual void IMUInit() {}
+  virtual double IMUGetAngle() { return 1.0; }
   virtual void Init();
   virtual void SetMotorL(double speed) {}
   virtual void SetMotorR(double speed) {}

@@ -52,7 +52,7 @@ double OldCameraVision::WhereToTurn(double deadZoneLocation, int deadZoneRange)
 	//Check if there is a blob
 	if (GetBlob(deadZone2) == false /*|| m_centroidX == nan( && m_centroidY == nan(ind)*/)
 	{
-		return -2.0;
+		return OUT_OF_CAMERA_RANGE;
 	}
 
 	//std::cout << m_centroidX << std::endl;

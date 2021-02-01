@@ -167,16 +167,143 @@ void RobotContainerC418::ConfigureAutonomousCommands()
       }, {m_pDrive}
     }
   };
-  // m_pAutoChallenge1 = new frc2::SequentialCommandGroup 
-  // {
-  //   frc2::RunCommand 
-  //   {
-  //     [this] 
-  //     {
 
-  //     }, {m_pDrive}
-  //   }
-  // };
+  //Bens Work - 1834
+  m_pAutoChallengeOne = new frc2::SequentialCommandGroup 
+  {
+    frc2::RunCommand 
+    {
+      [this] 
+      {
+        if(m_pDrive != nullptr)
+        {
+          double centerScreen = -0.75;
+          double result = -79.60;
+          Util::Log("Shadow 2","while result != 0");
+          while(result != 0.0)
+          {
+            result = m_pDrive->WhereToTurnVision(centerScreen, 50);
+            Util::Log("Shadow", result);
+            //camera flips the image
+            if(result == 0.0)
+            {
+              //Stop if object is in center
+              m_pDrive->Stop();
+              
+            }
+            else if(result < -1.0)
+            {
+              //Turn right if object is not seen
+              m_pDrive->TurnRight(0.1);
+            }
+            else if (result < 0.0)
+            {
+              //Turn right if object is on the right
+              m_pDrive->TurnRight(0.1);; ;;
+            }
+            else if(result > 0.0)
+            {
+              //Turn left if object is on the left
+              m_pDrive->TurnLeft(0.1) ; ; ; ;;
+            }
+            else
+            {
+              //Object is in the center
+              m_pDrive->Stop();
+            }
+          }
+          Util::Log("Shadow 2","Forward in Inch");
+          m_pDrive->ForwardInInch(0.0,100, .3);
+
+          //m_pDrive->TurnInDegrees(-45) 
+          while(m_pDrive->IMUGetAngle() < 361)
+          {
+            Util::Log("Shadow 2","while IMU-1");
+            double rightDistance = m_pDrive->GetDistanceSensorDetectionDistanceRight();
+            if (rightDistance < 0.0)
+            {
+              m_pDrive->TurnRight(0.3);
+            }
+            else
+            {
+              m_pDrive->Forward(0.3);
+            }
+            Util::Log("Shadow 2","while IMU-2");
+          }
+          m_pDrive->Stop();
+        }
+      }, {m_pDrive}
+    }
+  };
+
+
+  // test 
+  m_pAutoChallengeOne = new frc2::SequentialCommandGroup 
+  {
+    frc2::RunCommand 
+    {
+      [this] 
+      {
+        if(m_pDrive != nullptr)
+        {
+          double centerScreen = -0.75;
+          double result = -79.60;
+          Util::Log("Shadow 2","while result != 0");
+//          while(result != 0.0)
+          {
+            result = m_pDrive->WhereToTurnVision(centerScreen, 50);
+            Util::Log("Shadow", result);
+            //camera flips the image
+            if(result == 0.0)
+            {
+              //Stop if object is in center
+              m_pDrive->Stop();
+              
+            }
+            else if(result < -1.0)
+            {
+              //Turn right if object is not seen
+              m_pDrive->TurnRight(0.3);
+            }
+            else if (result < 0.0)
+            {
+              //Turn right if object is on the right
+              m_pDrive->TurnRight(0.3);; ;;
+            }
+            else if(result > 0.0)
+            {
+              //Turn left if object is on the left
+              m_pDrive->TurnLeft(0.2) ; ; ; ;;
+            }
+            else
+            {
+              //Object is in the center
+              m_pDrive->Stop();
+            }
+          }
+          // Util::Log("Shadow 2","Forward in Inch");
+          // m_pDrive->ForwardInInch(0.0,100, .3);
+
+          // //m_pDrive->TurnInDegrees(-45) 
+          // while(m_pDrive->IMUGetAngle() < 361)
+          // {
+          //   Util::Log("Shadow 2","while IMU-1");
+          //   double rightDistance = m_pDrive->GetDistanceSensorDetectionDistanceRight();
+          //   if (rightDistance < 0.0)
+          //   {
+          //     m_pDrive->TurnRight(0.3);
+          //   }
+          //   else
+          //   {
+          //     m_pDrive->Forward(0.3);
+          //   }
+          //   Util::Log("Shadow 2","while IMU-2");
+          // }
+          m_pDrive->Stop();
+        }
+      }, {m_pDrive}
+    }
+  };
 }
 
 int RobotContainerC418::ReadDioSwitch()
