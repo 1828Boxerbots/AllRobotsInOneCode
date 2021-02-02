@@ -17,7 +17,9 @@ class Autonomous2021_2 : public frc::Command {
   void Interrupted() override;
  private:
 
-  int m_loops = 0;
+  int m_state = 0;
+  double result = 0;
+  int m_loopsUpdate = 0;
   double GetCameraState();
   void loop1();
   void loop2();

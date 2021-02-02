@@ -20,6 +20,7 @@ void Autonomous2021_2::Execute()
 {
   if (m_pDrive != nullptr)
   {
+    /*
     SwitchColor(DriveTrainSubsystemBase::BROWN);
     loop1();
     loop2();
@@ -28,6 +29,76 @@ void Autonomous2021_2::Execute()
     loop4();
     loop5();
     loop6();
+    */
+
+    if(m_state != m_loopsUpdate)
+    {
+      m_state = m_loopsUpdate;
+      result = 0;
+    }
+
+    switch (m_state)
+    {
+    case 0:
+      result = m_pDrive->WhereToTurnVision(0.75, 50);
+      if (result < 0)
+      {
+        m_pDrive->TurnLeft(0.2);
+      }
+      else if (result > 0)
+      {
+        m_pDrive->TurnRight(0.2);
+      }
+      else
+      {
+        m_loopsUpdate++;
+      }
+      break;
+    case 1:
+      if(result >= -2.5)
+      {
+        result = m_pDrive->WhereToTurnVision(0.75, 50);
+        m_pDrive->MoveTank(0.2, 0.4); //Turns left and moves forward
+      }
+      else
+      {
+        m_loopsUpdate++;
+      }
+      break;
+    case 2:
+      if(result >= -2.5)
+      {
+        result = m_pDrive->WhereToTurnVision(0.75, 50);
+        if (result < 0) //Is on the left side
+        {
+          m_pDrive->TurnLeft(0.2); //Turn left so that its on the right side
+        }
+        else /*if?*/
+        {
+          m_pDrive->MoveTank(0.4, 0.2); //Move forward and right
+        }
+      }
+      else
+      {
+        m_loopsUpdate++;
+      }
+      break;
+    case 3:
+      if(result >= 0)
+      {
+        result = m_pDrive->WhereToTurnVision(0.75, 50);
+        m_pDrive->Forward(0.3);
+      }
+      else
+      {
+        m_loopsUpdate++;
+      }
+      break;
+    case 4: //loop4()
+
+    default:
+      break;
+    }
 
     m_pDrive->Stop();
   }
@@ -197,14 +268,14 @@ void Autonomous2021_2::loop6()
 			stop
   */
   double result = 0;
-  while(result > -2.5) //While it's on screen
+  while (result > -2.5) //While it's on screen
   {
-    result = m_pDrive->WhereToTurnVision(0.25, 50); 
+    result = m_pDrive->WhereToTurnVision(0.25, 50);
     m_pDrive->Forward(0.3);
   }
   SwitchColor(DriveTrainSubsystemBase::BROWN);
   m_pDrive->ForwardInSeconds(0.5);
-  
+
   loop1();
   loop2();
   loop3();
@@ -212,9 +283,9 @@ void Autonomous2021_2::loop6()
   loop4();
   loop5();
 
-  while(result > -2.5) //While it's on screen
+  while (result > -2.5) //While it's on screen
   {
-    result = m_pDrive->WhereToTurnVision(0.25, 50); 
+    result = m_pDrive->WhereToTurnVision(0.25, 50);
     m_pDrive->Forward(0.3);
   }
 }
