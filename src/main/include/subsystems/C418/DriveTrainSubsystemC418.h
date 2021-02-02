@@ -23,6 +23,7 @@
 
 #include "Drivers/CameraDrivers/RobotVision.h"
 #include "Drivers/CameraDrivers/OldCameraVision.h"
+#include "Drivers/CameraDrivers/CameraVision.h"
 
 class DriveTrainSubsystemC418 : public DriveTrainSubsystemBase
 {
@@ -74,7 +75,7 @@ private:
   frc::Encoder m_leftEncoder{DIO_LEFTENCODER_A_C418, DIO_LEFTENCODER_B_C418};
   frc::Encoder m_rightEncoder{DIO_RIGHTENCODER_A_C418, DIO_RIGHTENCODER_B_C418};
 
-  RobotVision m_camera{0};
+  CameraVision m_camera{0};
 
 #ifdef M_IMU
   ADIS16448_IMUDriver m_imu{};

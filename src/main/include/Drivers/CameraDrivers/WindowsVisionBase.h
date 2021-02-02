@@ -4,10 +4,17 @@
 #include <opencv2/videoio.hpp>
 #include <opencv2/highgui.hpp>
 //#include <cameraserver/CameraServer.h>
-
+#include <frc/Timer.h>
+#include <cameraserver/CameraServer.h>
+#include "Util.h"
+#include <opencv2/core.hpp>
+#include <opencv2/videoio.hpp>
 
 class WindowsVisionBase
 {
+
+//#define M_WINDOWS
+
 public:
 	/// <summary>
 	/// Constructor
@@ -74,11 +81,16 @@ protected:
 	cv::Mat m_frame;
 	cv::Mat m_imgHSV;
 	cv::Mat m_imgThresholded;
-	cv::VideoCapture m_camera;
-	//cs::UsbCamera m_camera;
-	//cs::CvSink m_cvSink;
-	//cs::CvSource m_outputStream;
-	//cs::CvSource m_outputStreamTwo;
+	frc::Timer timer;
+	#ifdef M_WINDOWS
+		cv::VideoCapture m_camera;
+	#else
+	cs::UsbCamera m_camera;
+	cs::CvSink m_cvSink;
+	cs::CvSource m_outputStreamLine;
+	cs::CvSource m_outputStreamThreshold;
+	cs::CvSource m_outputStreamHSV;
+	#endif
 
 	/// <summary>
 	/// Create a new window to display an image

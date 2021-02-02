@@ -5,6 +5,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <math.h>
 #include <iostream>
+#include <opencv2/imgproc/imgproc.hpp>
 
 WindowsVisionBase::WindowsVisionBase(int port, bool slider)
 {
@@ -20,28 +21,37 @@ bool WindowsVisionBase::Init()
 	//m_outputStream = frc::CameraServer::GetInstance()->PutVideo(IMAGE_FILTERED, 640, 480);
 	//m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo(IMAGE_THRESHOLD, 640, 480);
 
+	#ifdef M_WINDOWS
 	if (m_camera.open(m_index) == 0)
 	{
 		return false;
 	}
 	
 	AddSliders();
+	#else
+	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
+	m_camera.SetResolution(640,480);
+	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
+	m_outputStreamLine = frc::CameraServer::GetInstance()->PutVideo(IMAGE_LINE, 640, 480);
+	m_outputStreamThreshold = frc::CameraServer::GetInstance()->PutVideo(IMAGE_THRESHOLD, 640, 480);
+	m_outputStreamHSV = frc::CameraServer::GetInstance()->PutVideo(IMAGE_HSV, 640, 480);
+	#endif
 
 	return true;
 }
 
 void WindowsVisionBase::Tick()
 {
-	// if(m_cvSink.GrabFrame(m_frame) == 0)
-	// {
-	// 	return;
-	// }
-
-	//cv::line(m_frame, cv::Point(0, 0), cv::Point(m_frame.size().width, m_frame.size().height), cv::Scalar(0,0,255), 3);
-
-	GetBlob(1);
-
-	//m_outputStream.PutFrame(m_frame);
+	#ifdef M_WINDOWS
+		GetBlob(1);
+	#else
+		if(GrabFrame() == false)
+		{
+			return;
+		}
+		cv::line(m_frame, cv::Point(0, 0), cv::Point(m_frame.size().width, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
+		SendImage(IMAGE_LINE, m_frame);
+	#endif
 }
 
 //deadZone can be a range of -1 to 1
@@ -96,31 +106,69 @@ double WindowsVisionBase::WhereToTurn(double deadZoneLocation, int deadZoneRange
 
 void WindowsVisionBase::SendImage(std::string title, cv::Mat frame)
 {
-	cv::imshow(title.c_str(), frame);
+	#ifdef M_WINDOWS
+		cv::imshow(title.c_str(), frame);
+	#else
+		if(title == IMAGE_LINE)
+		{
+			m_outputStreamLine.PutFrame(frame);
+		}
+		else if(title == IMAGE_THRESHOLD)
+		{
+			m_outputStreamThreshold.PutFrame(frame);
+		}
+		else if(title == IMAGE_HSV)
+		{
+			m_outputStreamHSV.PutFrame(frame);
+		}
+		else
+		{
+			m_outputStreamLine.PutFrame(frame);
+		}
+	#endif
 }
 
 bool WindowsVisionBase::GrabFrame()
 {
-	m_camera >> m_frame;
+	#ifdef M_WINDOWS
+		m_camera >> m_frame;
 
-	if (m_frame.empty())
-	{
-		return false;
-	}
+		if (m_frame.empty())
+		{
+			return false;
+		}
+	#else
+		if(m_cvSink.GrabFrame(m_frame) == 0)
+		{
+			return false;
+		}
+	#endif
 	return true;
 }
 
 void WindowsVisionBase::Log(std::string title, std::string value)
 {
+	#ifdef M_WINDOWS
 	std::cout << title << ": " << value << "\n";
+	#else
+	Util::Log(title, value);
+	#endif
 }
 void WindowsVisionBase::Log(std::string title, int value)
 {
+	#ifdef M_WINDOWS
 	std::cout << title << ": " << value << "\n";
+	#else
+	Util::Log(title, value);
+	#endif
 }
 void WindowsVisionBase::Log(std::string title, double value)
 {
+	#ifdef M_WINDOWS
 	std::cout << title << ": " << value << "\n";
+	#else
+	Util::Log(title, value);
+	#endif
 }
 
 bool WindowsVisionBase::GetBlob(int deadZonePixel)
@@ -132,6 +180,8 @@ bool WindowsVisionBase::GetBlob(int deadZonePixel)
 		Log("Shadow 2", "WhereToTurn-3");
 		return false;
 	}
+	timer.Reset();
+	timer.Start();
 
 	//Filter the image
 	SetColor();
@@ -220,6 +270,9 @@ void WindowsVisionBase::SetColor()
 	}
 	cv::inRange(m_imgHSV, m_resultL, m_resultH, m_imgThresholded);
 
+	double time = timer.Get();
+	Log("Vision Timer", time);
+	timer.Stop();
 	//Display Filtered Image
 	SendImage(IMAGE_THRESHOLD, m_imgThresholded);
 	// Find moments of the image
