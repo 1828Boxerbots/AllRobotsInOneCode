@@ -43,11 +43,41 @@ void DriveTrainSubsystemC418::SetMotorR(double speed)
 
 double DriveTrainSubsystemC418::WhereToTurnVision( double deadZoneLocation, int deadZoneRange)
 {
-  return m_camera.WhereToTurn(deadZoneLocation, deadZoneRange);
+ double m_turn =  m_camera.WhereToTurn(deadZoneLocation, deadZoneRange);
+ while(m_turn != 0.0)
+{
+m_turn = m_camera.WhereToTurn(deadZoneLocation, deadZoneRange);
+if(m_turn < -1.0)
+{
+  //Turn right if object is not seen
+  TurnRight(0.3);
+}
+else if (m_turn < 0.0)
+{
+  //Turn right if object is on the right
+  TurnRight(0.3);
+}
+else if(m_turn > 0.0)
+{
+  //Turn left if object is on the left
+  TurnLeft(0.2);
+}
+else
+{
+  //Object is in the center
+  Stop();
+}
+}
+if(m_turn == 0.0)
+{
+  //Stop if object is in center
+  Stop();
+}
 }
 
 void DriveTrainSubsystemC418::Init()
 {
+  Util::Log("Camera Init", false);
 #ifndef NOHW
   m_leftMotor.SetInverted(false);
   m_rightMotor.SetInverted(true);
@@ -58,16 +88,16 @@ void DriveTrainSubsystemC418::Init()
   m_rightEncoder.SetReverseDirection(true);
   m_leftEncoder.SetDistancePerPulse((1.0 / GetPulsesPerRevolution()) * Util::PI * WHEELDIAMETER);
   m_rightEncoder.SetDistancePerPulse((1.0 / GetPulsesPerRevolution()) * Util::PI * WHEELDIAMETER);
-
   m_camera.Init();
+  Util::Log("Camera Init", true);
 
-  /*#ifdef M_DISTANCE_RIGHT
+  #ifdef M_DISTANCE_RIGHT
     m_pMuxRightDistance->Init(true);
   #endif
 
   #ifdef M_DISTANCE_LEFT
     m_pMuxLeftDistance->Init(true);
-  #endif*/
+  #endif
 
 #endif
 }
@@ -264,6 +294,26 @@ void DriveTrainSubsystemC418::PrecisionMovementLidar(double wantedDistance)
     currentDistance = m_pLidar->GetDistanceInInches();
   }
 #endif
+}
+
+void DriveTrainSubsystemC418::GoAroundCone()
+{
+  IMUInit();
+  while(IMUGetAngle() < -361)
+{
+  Util::Log("Shadow 2","while IMU-1");
+  double rightDistance = GetDistanceSensorDetectionDistanceRight();
+  if (rightDistance < 0.0)
+  {
+    TurnRight(0.3);
+  }
+  else
+  {
+    Forward(0.3);
+  }
+  Util::Log("Shadow 2","while IMU-2");
+}
+Stop();
 }
 
 //Used to disable and enable anticollision

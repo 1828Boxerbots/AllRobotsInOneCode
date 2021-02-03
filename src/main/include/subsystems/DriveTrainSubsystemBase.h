@@ -57,6 +57,7 @@ public:
   virtual bool IsDistanceRightActive() { return false; }
   virtual void InitLeft(){};
   virtual void InitRight(){};
+  virtual void GoAroundCone(){};
 
   virtual void EnableAnticollision(bool enable = true) { m_hasAntiCollision = enable; }
 

@@ -250,13 +250,13 @@ void DriveTrainSubsystemBase::FixRotation(double wantedAngle, double speed)
 void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double speed)
 {
     //This is Regular
-    double startDistance = GetLeftEncoderInch();
-    double currentDistance = GetLeftEncoderInch();
+    double startDistance = GetRightEncoderInch();
+    double currentDistance = GetRightEncoderInch();
     while (currentDistance - startDistance < inch)
     {
         MoveTank(speed, speed);
-        currentDistance = GetLeftEncoderInch();
-        frc::SmartDashboard::PutNumber("LeftEncoderInches", GetLeftEncoderInch());
+        currentDistance = GetRightEncoderInch();
+        frc::SmartDashboard::PutNumber("LeftEncoderInches", GetRightEncoderInch());
         //Util::DelayInSeconds(1.0);
     }
     if (currentDistance > inch)
@@ -326,8 +326,12 @@ void DriveTrainSubsystemBase::Init()
 //Dead function used to turn the robot in seconds; Use at your own risk
 void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime)
 {
-    /*m_time.Reset();
-    m_time.Start();
-    Util::TimeInSeconds(goalTime);
-    Stop();*/
+    m_autoTimer.Stop();
+    m_autoTimer.Reset();
+    m_autoTimer.Start();
+    while(goalTime < m_autoTimer.Get())
+    {
+        Forward();
+    }
+    Stop();
 }
