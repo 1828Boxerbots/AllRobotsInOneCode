@@ -31,27 +31,32 @@ void Autonomous2021_2::Execute()
     loop6();
     */
 
-    if(m_state != m_loopsUpdate)
+    if(m_loopsUpdate != 0)
     {
-      m_state = m_loopsUpdate;
-      result = 0;
+      m_state++;
+      m_loopsUpdate = 0;
+      //result = 0;
     }
 
+    Util::Log("Auto2021 State", m_state);
     switch (m_state)
     {
     case 0:
       result = m_pDrive->WhereToTurnVision(0.75, 50);
       if (result < 0)
       {
-        m_pDrive->TurnLeft(0.4);
+        Util::Log("Auto2021 S1 Direction", "Turning Left");
+        m_pDrive->TurnLeft(0.2);
       }
       else if (result > 0)
       {
-        m_pDrive->TurnRight(0.4);
+        Util::Log("Auto2021 S1 Direction", "Turning Right");
+        m_pDrive->TurnRight(0.2);
       }
       else
       {
-        m_loopsUpdate++;
+        Util::Log("Auto2021 S1 Direction", "Stopped");
+        m_state = 1;
       }
       break;
     case 1:
@@ -62,7 +67,7 @@ void Autonomous2021_2::Execute()
       }
       else
       {
-        m_loopsUpdate++;
+        m_pDrive->TurnLeft(0.2);
       }
       break;
     /*
@@ -100,8 +105,6 @@ void Autonomous2021_2::Execute()
     default:
       break;
     }
-
-    m_pDrive->Stop();
   }
 }
 
@@ -109,8 +112,14 @@ bool Autonomous2021_2::IsFinished()
 {
   if (m_IsFinished)
   {
+    Util::Log("Auto2021 Finished", "IsFinished = true");
     m_pDrive->Stop();
   }
+  else
+  {
+     Util::Log("Auto2021 Finished", "IsFinished = false");
+  }
+  
   return m_IsFinished;
 }
 

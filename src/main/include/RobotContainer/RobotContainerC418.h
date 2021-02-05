@@ -19,6 +19,7 @@
 #include "subsystems/SpinSubsystemBase.h"
 #include "../include/Drivers/RevDistanceSensorDriver.h"
 #include "../Commands/AutoArmCommand.h"
+#include "Commands/Autonomous2021_2.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -86,4 +87,6 @@ private:
   frc2::SequentialCommandGroup *m_pAutoHouse = nullptr;
   frc2::SequentialCommandGroup *m_pAutoFollowRed = nullptr;
   frc2::SequentialCommandGroup *m_pAutoChallengeOne = nullptr;
+
+  Autonomous2021_2 *m_pScenario2 = nullptr;
 };

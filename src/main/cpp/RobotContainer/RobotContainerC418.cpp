@@ -304,6 +304,8 @@ void RobotContainerC418::ConfigureAutonomousCommands()
       }, {m_pDrive}
     }
   };
+
+  m_pScenario2 = new Autonomous2021_2(m_pDrive);
 }
 
 int RobotContainerC418::ReadDioSwitch()
@@ -347,7 +349,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     break;
   }
   return nullptr;
-  */
+  
 
   Util::Log("Shadow 2", "m_pAutoFollowRed");
   if(m_pAutoFollowRed != nullptr)
@@ -360,6 +362,9 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     Util::Log("Shadow 3", "m_pAutoFollowRed is null");
     return nullptr;
   }
+  */
+
+  return m_pScenario2;
 }
 
 void RobotContainerC418::Init()
