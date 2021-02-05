@@ -31,7 +31,7 @@ void Autonomous2021_2::Execute()
     loop6();
     */
 
-    if(m_loopsUpdate != 0)
+    if (m_loopsUpdate != 0)
     {
       m_state++;
       m_loopsUpdate = 0;
@@ -42,66 +42,19 @@ void Autonomous2021_2::Execute()
     switch (m_state)
     {
     case 0:
-      result = m_pDrive->WhereToTurnVision(0.75, 50);
-      if (result < 0)
-      {
-        Util::Log("Auto2021 S1 Direction", "Turning Left");
-        m_pDrive->TurnLeft(0.2);
-      }
-      else if (result > 0)
-      {
-        Util::Log("Auto2021 S1 Direction", "Turning Right");
-        m_pDrive->TurnRight(0.2);
-      }
-      else
-      {
-        Util::Log("Auto2021 S1 Direction", "Stopped");
-        m_state = 1;
-      }
+      loop0();
       break;
     case 1:
-      if(result >= -2.5)
-      {
-        result = m_pDrive->WhereToTurnVision(0.75, 50);
-        m_pDrive->MoveTank(0.4, 0.6); //Turns left and moves forward
-      }
-      else
-      {
-        m_pDrive->TurnLeft(0.2);
-      }
+      loop1();
       break;
-    /*
     case 2:
-      if(result >= -2.5)
-      {
-        result = m_pDrive->WhereToTurnVision(0.75, 50);
-        if (result < 0) //Is on the left side
-        {
-          m_pDrive->TurnLeft(0.2); //Turn left so that its on the right side
-        }
-        else //if?
-        {
-          m_pDrive->MoveTank(0.4, 0.2); //Move forward and right
-        }
-      }
-      else
-      {
-        m_loopsUpdate++;
-      }
+      loop2();
       break;
     case 3:
-      if(result >= 0)
-      {
-        result = m_pDrive->WhereToTurnVision(0.75, 50);
-        m_pDrive->Forward(0.3);
-      }
-      else
-      {
-        m_loopsUpdate++;
-      }
+      loop3();
       break;
     case 4: //loop4()
-      */
+      loop4();
     default:
       break;
     }
@@ -117,94 +70,91 @@ bool Autonomous2021_2::IsFinished()
   }
   else
   {
-     Util::Log("Auto2021 Finished", "IsFinished = false");
+    Util::Log("Auto2021 Finished", "IsFinished = false");
   }
-  
+
   return m_IsFinished;
+}
+
+void Autonomous2021_2::loop0()
+{
+  if (m_state != 0)
+  {
+    return;
+  }
+
+  result = m_pDrive->WhereToTurnVision(0.75, 50);
+  if (result < 0)
+  {
+    Util::Log("Auto2021 S1 Direction", "Turning Left");
+    m_pDrive->TurnLeft(0.2);
+  }
+  else if (result > 0)
+  {
+    Util::Log("Auto2021 S1 Direction", "Turning Right");
+    m_pDrive->TurnRight(0.2);
+  }
+  else
+  {
+    Util::Log("Auto2021 S1 Direction", "Stopped");
+    m_state = 1;
+  }
 }
 
 void Autonomous2021_2::loop1()
 {
-  /*
-  	loop:
-      turn left and look for brown
-      if found brown
-        goto loop2
-      else
-        goto loop
-  */
-  double result = -2;
-  while (result != 0.0)
+  if (m_state != 1)
+  {
+    return;
+  }
+
+  if (result >= -2.5)
   {
     result = m_pDrive->WhereToTurnVision(0.75, 50);
-    if (result < 0)
-    {
-      m_pDrive->TurnLeft(0.2);
-    }
-    else if (result > 0)
-    {
-      m_pDrive->TurnRight(0.2);
-    }
-    else
-    {
-      break;
-    }
+    m_pDrive->MoveTank(0.4, 0.6); //Turns left and moves forward
   }
-  m_pDrive->Stop();
+  else
+  {
+    m_pDrive->TurnLeft(0.2);
+  }
 }
 
 void Autonomous2021_2::loop2()
 {
-  /*
-  	loop2:
-      turn left and move forward
-      if see brown
-        goto loop2
-      else
-        goto loop3
-  */
-  double result = 0;
-  while (result > -2.5) //always true if cone is in screen
+  if (m_state != 2)
   {
-    result = m_pDrive->WhereToTurnVision(0.75, 50);
-    m_pDrive->MoveTank(0.2, 0.4); //Turns left and moves forward
+    return;
   }
-  m_pDrive->Stop();
-}
 
-void Autonomous2021_2::loop3()
-{
-  /*
-  	loop3:
-      move forward, right and keep brown on right
-      if see brown
-        goto loop3
-  */
-
-  //Rotate around the brown
-  double result = 0;
-  while (result > -2.5) //While its on screen
+  if (result >= -2.5)
   {
     result = m_pDrive->WhereToTurnVision(0.75, 50);
     if (result < 0) //Is on the left side
     {
       m_pDrive->TurnLeft(0.2); //Turn left so that its on the right side
     }
-    else /*if?*/
+    else //if?
     {
       m_pDrive->MoveTank(0.4, 0.2); //Move forward and right
     }
   }
+  else
+  {
+    m_loopsUpdate++;
+  }
+}
 
-  //Move forward around the brown
-  while (result >= 0) //While it's on the right
+void Autonomous2021_2::loop3()
+{
+  if (result >= 0)
   {
     result = m_pDrive->WhereToTurnVision(0.75, 50);
     m_pDrive->Forward(0.3);
   }
-
-  //End
-  m_pDrive->Stop();
+  else
+  {
+    m_loopsUpdate++;
+  }
 }
 
 void Autonomous2021_2::loop4()

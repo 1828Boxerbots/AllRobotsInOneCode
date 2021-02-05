@@ -26,6 +26,7 @@ class Autonomous2021_2 : public frc2::CommandHelper<frc2::CommandBase, Autonomou
   bool m_IsFinished = false;
 
   double GetCameraState();
+  void loop0();
   void loop1();
   void loop2();
   void loop3();
