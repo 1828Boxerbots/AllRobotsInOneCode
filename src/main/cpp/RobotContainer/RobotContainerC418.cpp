@@ -314,9 +314,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
       {
         if(m_pDrive != nullptr)
         {
-          m_pDrive->MoveArcade(0.5,0.25);
-          Util::DelayInSeconds(10.0);
-          m_pDrive->MoveArcade(0.5,0.25);
+          m_pDrive->MoveArcade(0.5,-0.2);
         }
       }, {m_pDrive}
     }

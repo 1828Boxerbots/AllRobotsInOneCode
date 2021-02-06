@@ -54,7 +54,7 @@ void Autonomous2021_2::Execute()
       loop1();
       break;
     case 2:
-	case 5: //also case 5 because we need to move forward a little bit there as well
+    case 5: //also case 5 because we need to move forward a little bit there as well
       loop2();
       break;
     case 3:
@@ -62,8 +62,8 @@ void Autonomous2021_2::Execute()
       break;
     case 4:
       loop4();
-	case 6:
-	  
+    case 6:
+
     default:
       break;
     }
@@ -183,8 +183,8 @@ void Autonomous2021_2::loop4()
   //Color1 should be on the right
   m_center = 0.75;
   double speed = 0.0;
-  
-  if(m_result >= 0)
+
+  if (m_result >= 0)
   {
     speed = 0.3;
   }
@@ -192,7 +192,7 @@ void Autonomous2021_2::loop4()
   {
     speed = 0.0;
   }
-  m_pDrive->Forward(speed); 
+  m_pDrive->Forward(speed);
 }
 
 void Autonomous2021_2::loop6()

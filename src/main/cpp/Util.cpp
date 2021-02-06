@@ -32,6 +32,8 @@ void Util::DelayInSeconds(double seconds)
     frc::Timer timer;
     //starts timer and gets start time and beginning current time
     timer.Start();
+while (timer.HasPeriodPassed(seconds));
+    /*
     double startTime = timer.Get();
     double currentTime = timer.Get();
     //Keep looping until end time is reached
@@ -40,6 +42,7 @@ void Util::DelayInSeconds(double seconds)
         //Gets current time and sends it to the smartdashboard for checking
         currentTime = timer.Get();
     }
+    */
     //Stops and resets timer used for driving forward
     timer.Stop();
     timer.Reset();

@@ -49,7 +49,7 @@ public:
   void EnableAnticollision(bool enable) override;
   void InitRight() override;
   void InitLeft() override;
-  void MoveArcade(double X, double Y) override;
+  // void MoveArcade(double X, double Y) override;
 #ifdef M_DISTANCE_LEFT
   //bool IsDistanceLeftActive() override {return true;}
 #endif

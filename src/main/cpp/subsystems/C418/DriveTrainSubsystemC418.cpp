@@ -266,10 +266,10 @@ void DriveTrainSubsystemC418::PrecisionMovementLidar(double wantedDistance)
 #endif
 }
 
-void DriveTrainSubsystemC418::MoveArcade(double X, double Y)
-{
-  m_difDrive.ArcadeDrive(X,Y);
-}
+// void DriveTrainSubsystemC418::MoveArcade(double X, double Y)
+// {
+//   m_difDrive.ArcadeDrive(X,Y);
+// }
 
 //Used to disable and enable anticollision
 void DriveTrainSubsystemC418::EnableAnticollision(bool enable)
