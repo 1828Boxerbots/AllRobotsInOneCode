@@ -54,13 +54,16 @@ void Autonomous2021_2::Execute()
       loop1();
       break;
     case 2:
+	case 5: //also case 5 because we need to move forward a little bit there as well
       loop2();
       break;
     case 3:
       loop3();
       break;
-    case 4: //loop4()
+    case 4:
       loop4();
+	case 6:
+	  
     default:
       break;
     }
@@ -132,14 +135,10 @@ void Autonomous2021_2::loop1()
 void Autonomous2021_2::loop2()
 {
   //Move forward a little bit
+  //No state check because this function is shared by other cases
 
   int timer;
   double speed;
-
-  if (m_state != 2)
-  {
-    return;
-  }
 
   if (timer < 30)
   {
@@ -180,74 +179,48 @@ void Autonomous2021_2::loop3()
 
 void Autonomous2021_2::loop4()
 {
-  //
-}
-
-void Autonomous2021_2::loop5()
-{
-  /*
-    loop5:
-      move forward until no blue
-      rotate left until see blue
-      if not gyro == 180
-        goto loop5
-  */
-  int gyro = 0; //TEMPORARY, WILL REPLACE WHEN I KNOW HOW TO USE GYRO LOL
-  double m_result = 0;
-  while (gyro < 180)
+  //Move forward until I can't see Color1
+  //Color1 should be on the right
+  m_center = 0.75;
+  double speed = 0.0;
+  
+  if(m_result >= 0)
   {
-    m_result = m_pDrive->WhereToTurnVision(0.25, 50);
-    if (m_result > -2)
-    {
-      m_pDrive->Forward(0.3);
-    }
-    else //if (m_result < -1)
-    {
-      m_pDrive->TurnLeft(0.2);
-    }
+    speed = 0.3;
   }
-  m_pDrive->Stop();
+  else
+  {
+    speed = 0.0;
+  }
+  m_pDrive->Forward(speed); 
 }
 
 void Autonomous2021_2::loop6()
 {
-  /*
-    if loops == 0
-			move forward until no blue
-			if see blue
-				goto loop6
-			switch color to brown
-			move forward a little bit
-			rotate left until brown on right
-			loops++
-			goto loop
-		else
-			move forward
-			if see blue
-				goto loop6
-			stop
-  */
-  double m_result = 0;
-  while (m_result > -2.5) //While it's on screen
-  {
-    m_result = m_pDrive->WhereToTurnVision(0.25, 50);
-    m_pDrive->Forward(0.3);
-  }
-  SwitchColor(DriveTrainSubsystemBase::BROWN);
-  m_pDrive->ForwardInSeconds(0.5);
+  //Rotate until Color2 on left side
 
-  loop1();
-  loop2();
-  loop3();
-  SwitchColor(DriveTrainSubsystemBase::BLUE);
-  loop4();
-  loop5();
+  m_center = 0.25;
 
-  while (m_result > -2.5) //While it's on screen
+  if (m_state != 0)
   {
-    m_result = m_pDrive->WhereToTurnVision(0.25, 50);
-    m_pDrive->Forward(0.3);
+    return;
   }
+
+  double direction;
+  if (m_result < -2.0 || m_result < 0.0)
+  {
+    direction = -0.2;
+  }
+  else if (m_result > 0.0)
+  {
+    direction = 0.2;
+  }
+  else
+  {
+    direction = 0.0;
+    m_state = 1;
+  }
+  m_pDrive->MoveTank(-direction, direction);
 }
 
 void Autonomous2021_2::SwitchColor(DriveTrainSubsystemBase::Colors color)
