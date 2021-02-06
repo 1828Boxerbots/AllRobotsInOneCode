@@ -14,6 +14,7 @@
 #include <frc/Timer.h>
 #include "../Util.h"
 #include "../Constants.h"
+#include "../Drivers/CameraDrivers/OldCameraVision.h"
 
 class DriveTrainSubsystemBase : public frc2::SubsystemBase
 {
@@ -63,6 +64,10 @@ public:
   virtual void ForwardIninchTurn(double inch, double angle, double speed) {}
 
   virtual double WhereToTurnVision(double deadZone = 0.0, int deadZoneRange = 100){return 0.0;}
+
+  virtual void SetHSVHigh(int HSV, int value) {}
+  virtual void SetHSVLow(int HSV, int value) {}
+  virtual void SetVisionFMSColor(OldCameraVision::VisionColors color) {}
 
 protected:
   bool m_isColliding = false;

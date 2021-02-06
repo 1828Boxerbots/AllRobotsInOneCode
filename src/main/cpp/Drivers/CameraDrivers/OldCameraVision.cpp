@@ -20,10 +20,12 @@ bool OldCameraVision::Init()
     // cv::Mat source;
 
 	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
-	m_camera.SetResolution(320,240);
+	m_camera.SetResolution(160,120);
+	m_camera.SetExposureHoldCurrent();
+	m_camera.SetWhiteBalanceHoldCurrent();
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
-	m_outputStream = frc::CameraServer::GetInstance()->PutVideo(IMAGE_FILTERED, 320, 240);
-	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo(IMAGE_THRESHOLD, 320, 240);
+	m_outputStream = frc::CameraServer::GetInstance()->PutVideo(IMAGE_FILTERED, 160, 120);
+	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo(IMAGE_THRESHOLD, 160, 120);
 	return true;
 }
 
@@ -170,10 +172,10 @@ bool OldCameraVision::GetBlob(int deadZonePixel)
 	//cv::waitKey(1);
 
 	//Checks is there is no blob
-	// if (isnan(m_centroidX) && isnan(m_centroidY))
-	// {
-	// 	return false;
-	// }
+	if (isnan(m_centroidX) && isnan(m_centroidY))
+	{
+	 	return false;
+	}
 
 	return true;
 }
@@ -207,11 +209,26 @@ void OldCameraVision::SetColor()
 			resultL = ORANGE_CONE_LOW;
 			resultH = ORANGE_CONE_LOW;
 			break;
+		case VisionColors::YELLOW_LEMON:
+			resultL = YELLOW_LEMON_LOW;
+			resultH = YELLOW_LEMON_HIGH;
+			break;
+		case VisionColors::FMS_COLOR:
+			resultL = FMS_LOW;
+			resultH = FMS_HIGH;
+			break;
 		default:
 			resultL = GREEN_CONE_LOW;
 			resultH = GREEN_CONE_LOW;
 			break;
 	}
+
+	Util::Log("LowH", resultL.val[0]);
+	Util::Log("HighH", resultH.val[0]);
+	Util::Log("LowS", resultL.val[1]);
+	Util::Log("HighS", resultH.val[1]);
+	Util::Log("LowV", resultL.val[2]);
+	Util::Log("HighV", resultH.val[2]);
 
 	cv::inRange(m_imgHSV, resultL, resultH, m_imgThresholded);
 
@@ -231,5 +248,74 @@ void OldCameraVision::SetColor()
 		Util::Log("OldCameraVision", "centroids were divied by 0");
 		m_centroidX = -1.0;
 		m_centroidY = -1.0;
+	}
+}
+
+void OldCameraVision::SetHigh(int HSV, int value)
+{
+	switch (HSV)
+	{
+	case 1:
+		FMS_HIGH.val[0] = value;
+		break;
+	case 2:
+		FMS_HIGH.val[1] = value;
+		break;
+	case 3:
+		FMS_HIGH.val[2] = value;
+		break;
+	default:
+		FMS_HIGH.val[1] = value;
+		break;
+	}
+}
+
+void OldCameraVision::SetLow(int HSV, int value)
+{
+	switch (HSV)
+	{
+	case 1:
+		FMS_LOW.val[0] = value;
+		break;
+	case 2:
+		FMS_LOW.val[1] = value;
+		break;
+	case 3:
+		FMS_LOW.val[2] = value;
+		break;
+	default:
+		FMS_LOW.val[1] = value;
+		break;
+	}
+}
+
+void OldCameraVision::SetFMSColor(VisionColors color)
+{
+	switch (color)
+	{
+	case OldCameraVision::RED_CONE:
+		FMS_LOW = RED_CONE_LOW;
+		FMS_HIGH = RED_CONE_HIGH;
+		break;
+	case OldCameraVision::GREEN_CONE:
+		FMS_LOW = GREEN_CONE_LOW;
+		FMS_HIGH = GREEN_CONE_HIGH;
+		break;
+	case OldCameraVision::YELLOW_CONE:
+		FMS_LOW = YELLOW_CONE_LOW;
+		FMS_HIGH = YELLOW_CONE_HIGH;
+		break;
+	case OldCameraVision::ORANGE_CONE:
+		FMS_LOW = ORANGE_CONE_LOW;
+		FMS_HIGH = ORANGE_CONE_HIGH;
+		break;
+	case OldCameraVision::YELLOW_LEMON:
+		FMS_LOW = YELLOW_LEMON_LOW;
+		FMS_HIGH = YELLOW_LEMON_HIGH;
+		break;
+	default:
+		FMS_LOW = GREEN_CONE_LOW;
+		FMS_HIGH = GREEN_CONE_HIGH;
+		break;
 	}
 }

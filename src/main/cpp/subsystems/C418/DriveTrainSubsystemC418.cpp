@@ -266,6 +266,27 @@ void DriveTrainSubsystemC418::PrecisionMovementLidar(double wantedDistance)
 #endif
 }
 
+void DriveTrainSubsystemC418::SetHSVHigh(int HSV, int value)
+{
+  #ifndef NO_HW
+    m_camera.SetHigh(HSV, value);
+  #endif
+}
+
+void DriveTrainSubsystemC418::SetHSVLow(int HSV, int value)
+{
+  #ifndef NO_HW
+    m_camera.SetLow(HSV, value);
+  #endif
+}
+
+void DriveTrainSubsystemC418::SetVisionFMSColor(OldCameraVision::VisionColors color)
+{
+  #ifndef NO_HW
+    m_camera.SetFMSColor(color);
+  #endif
+}
+
 //Used to disable and enable anticollision
 void DriveTrainSubsystemC418::EnableAnticollision(bool enable)
 {

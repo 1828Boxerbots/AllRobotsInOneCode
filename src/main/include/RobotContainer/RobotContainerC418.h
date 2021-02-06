@@ -49,6 +49,7 @@ public:
   int ReadDioSwitch();
 
   frc2::Command *GetAutonomousCommand() override;
+  void BreakFMSStr(std::string gameData) override;
 
   static SpinSubsystemC418::FMSColors givenColor;
 
@@ -85,4 +86,5 @@ private:
 
   frc2::SequentialCommandGroup *m_pAutoHouse = nullptr;
   frc2::SequentialCommandGroup *m_pAutoFollowRed = nullptr;
+  frc2::SequentialCommandGroup *m_pAutoPickUpLemon = nullptr;
 };

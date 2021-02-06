@@ -33,9 +33,14 @@ public:
 	/// </returns>
 	double WhereToTurn( double deadZoneLocation = 0.0, int deadZoneRange = 100);
 
-	enum VisionColors{RED_CONE, GREEN_CONE, YELLOW_CONE, ORANGE_CONE};
+	enum VisionColors{RED_CONE, GREEN_CONE, YELLOW_CONE, ORANGE_CONE, YELLOW_LEMON, FMS_COLOR};
 
 	void Tick();
+	
+	void SetHigh(int HSV, int value);
+	void SetLow(int HSV, int value);
+
+	void SetFMSColor(VisionColors color);
 
 private:
  	int m_frameCounter = 0;
@@ -58,15 +63,18 @@ private:
 	const cv::Scalar GREEN_CONE_HIGH{79,255,255};
 	const cv::Scalar RED_CONE_LOW{0,134,120};
 	const cv::Scalar RED_CONE_HIGH{6,255,255};
-
 	const cv::Scalar YELLOW_CONE_LOW{22, 134,139};
 	const cv::Scalar YELLOW_CONE_HIGH{42,255,255};
 	const cv::Scalar ORANGE_CONE_LOW{0,76,255};
 	const cv::Scalar ORANGE_CONE_HIGH{21,255,255};
+	const cv::Scalar YELLOW_LEMON_LOW{22, 165, 199};
+	const cv::Scalar YELLOW_LEMON_HIGH{37, 255, 255};
 
 	const std::string IMAGE_FILTERED = "Filtered";
 	const std::string IMAGE_THRESHOLD = "Threshold";
 
+	cv::Scalar FMS_HIGH{179, 255, 255};
+	cv::Scalar FMS_LOW{0, 0, 0};
 
 	//Values that it is filtering by
 	// int m_iLowH = LOWH_GREEN_CONE;
@@ -86,7 +94,7 @@ private:
 	//How big is the dead zone where WhereToTurn() = 0.0
 	//double m_deadZone = 50.0;
 
-	VisionColors m_visionColor = YELLOW_CONE;
+	VisionColors m_visionColor = FMS_COLOR;
 
 	//Holds the camera and raw image
 	cv::Mat m_frame; 

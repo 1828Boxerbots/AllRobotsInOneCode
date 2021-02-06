@@ -49,6 +49,8 @@ public:
   void EnableAnticollision(bool enable) override;
   void InitRight() override;
   void InitLeft() override;
+  void SetVisionFMSColor(OldCameraVision::VisionColors colors) override;
+
 #ifdef M_DISTANCE_LEFT
   //bool IsDistanceLeftActive() override {return true;}
 #endif
@@ -63,6 +65,10 @@ public:
   double GetPulsesPerRevolution() override { return PULSE_PER_REVOLUTION; }
 
   double WhereToTurnVision( double deadZoneLocation = 0.0, int deadZoneRange = 100) override;
+
+  void SetHSVHigh(int HSV, int value) override;
+  void SetHSVLow(int HSV, int value) override;
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
