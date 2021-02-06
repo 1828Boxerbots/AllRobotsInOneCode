@@ -110,9 +110,10 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
 
 void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
 {
+    double m_scale = 1.28;
     double leftY = X + Y;
     double rightY = X - Y;
-    MoveTank(leftY, rightY*1.28);
+    MoveTank(leftY, rightY * m_scale);
 }
 
 void DriveTrainSubsystemBase::TurnRight(double speed)

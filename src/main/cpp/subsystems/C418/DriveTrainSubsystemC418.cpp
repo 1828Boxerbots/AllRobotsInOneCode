@@ -300,7 +300,7 @@ void DriveTrainSubsystemC418::GoAroundCone(bool turnRight)
   int repeation = 0;
   if (turnRight == false)
   {
-    //goes around in a circle, presumably going around a cone
+    //goes around in a circle, presumably going around a cone square
     while (repeation < 3)
     {
     TurnInDegrees(90, 0.3);
