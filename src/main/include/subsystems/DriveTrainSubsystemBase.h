@@ -65,7 +65,8 @@ public:
   //Temp Function meant to test turning function
   virtual void ForwardIninchTurn(double inch, double angle, double speed) {}
 
-  virtual double WhereToTurnVision(double deadZone = 0.0, int deadZoneRange = 100){return 0.0;}
+  void MoveWithVision(double deadZoneLocation = 0.0, int deadZoneRange = 100);
+  virtual double WhereToTurn(double deadZoneLocation = 0.0, int deadZoneRange = 100){return 0.0;}
 
   enum Colors {
     BROWN, BLUE, GREEN_CONE, RED_CONE, YELLOW_CONE, ORANGE_CONE

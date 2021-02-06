@@ -44,7 +44,7 @@ void Autonomous2021_2::Execute()
     //Color 2 is Red
 
     Util::Log("Auto2021 State", m_state);
-    m_result = m_pDrive->WhereToTurnVision(m_center, 50);
+    m_result = m_pDrive->WhereToTurn(m_center, 50);
     switch (m_state)
     {
     case 0:

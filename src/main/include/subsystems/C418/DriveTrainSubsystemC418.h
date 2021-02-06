@@ -10,7 +10,6 @@
 //Motor inclusions
 #include <frc/Victor.h>
 #include <frc/Encoder.h>
-#include <frc/drive/DifferentialDrive.h>
 
 #include "../DriveTrainSubsystemBase.h"
 //Util and constants
@@ -68,7 +67,7 @@ public:
   void ResetEncoder() override;
   double GetPulsesPerRevolution() override { return PULSE_PER_REVOLUTION; }
 
-  double WhereToTurnVision( double deadZoneLocation = 0.0, int deadZoneRange = 100) override;
+  double WhereToTurn( double deadZoneLocation = 0.0, int deadZoneRange = 100) override;
 
   void SetHSVHigh(int HSV, int value) override;
   void SetHSVLow(int HSV, int value) override;
@@ -81,7 +80,6 @@ private:
 #ifndef NOHW
   frc::Victor m_leftMotor{PWM_LEFTMOTOR_C418};
   frc::Victor m_rightMotor{PWM_RIGHTMOTOR_C418};
-  frc::DifferentialDrive m_difDrive{m_leftMotor, m_rightMotor};
 
   frc::Encoder m_leftEncoder{DIO_LEFTENCODER_A_C418, DIO_LEFTENCODER_B_C418};
   frc::Encoder m_rightEncoder{DIO_RIGHTENCODER_A_C418, DIO_RIGHTENCODER_B_C418};

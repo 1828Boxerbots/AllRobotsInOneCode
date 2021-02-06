@@ -337,3 +337,36 @@ void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime)
     Stop();
 }
 
+void DriveTrainSubsystemBase::MoveWithVision(double deadZoneLocation, int deadZoneRange)
+{
+    double turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
+    while(turn != 0.0)
+    {
+        turn = WhereToTurn(deadZoneLocation, deadZoneRange);
+        if(turn < -1.0)
+        {
+            //Turn right if object is not seen
+            TurnRight(-0.3);
+        }
+        else if (turn < 0.0)
+        {
+            //Turn right if object is on the right
+            TurnRight(0.3);
+        }
+        else if(turn > 0.0)
+        {
+            //Turn left if object is on the left
+            TurnLeft(0.2);
+        }
+        else
+        {
+            //Object is in the center
+            Stop();
+        }
+    }
+    if(turn == 0.0)
+    {
+        //Stop if object is in center
+        Stop();
+    }
+}
