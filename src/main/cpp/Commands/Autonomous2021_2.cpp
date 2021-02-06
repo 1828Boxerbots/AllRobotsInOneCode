@@ -180,24 +180,7 @@ void Autonomous2021_2::loop3()
 
 void Autonomous2021_2::loop4()
 {
-  /*
-  	loop4:
-		  switch color to blue (done in main func)
-		  move forward a little bit
-		  if not blue on left
-		  	rotate right until blue on left
-  */
-  m_pDrive->ForwardInSeconds(0.5); //Worth a shot
-
-  //!!IMPORTANT!! The center is being changed to 0.25 because we are now rotating something around the left side
-  double m_result = m_pDrive->WhereToTurnVision(0.25, 50);
-  while (m_result > 0)
-  {
-    m_result = m_pDrive->WhereToTurnVision(0.25, 50);
-    m_pDrive->TurnRight(0.3);
-  }
-
-  m_pDrive->Stop();
+  //
 }
 
 void Autonomous2021_2::loop5()
