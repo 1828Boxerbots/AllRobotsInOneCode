@@ -31,14 +31,20 @@ void Autonomous2021_2::Execute()
     loop6();
     */
 
+    /*
     if (m_loopsUpdate != 0)
     {
       m_state++;
       m_loopsUpdate = 0;
-      //result = 0;
+      //m_result = 0;
     }
+    */
+
+    //Color 1 is Green
+    //Color 2 is Red
 
     Util::Log("Auto2021 State", m_state);
+    m_result = m_pDrive->WhereToTurnVision(m_center, 50);
     switch (m_state)
     {
     case 0:
@@ -78,58 +84,56 @@ bool Autonomous2021_2::IsFinished()
 
 void Autonomous2021_2::loop0()
 {
+  m_center = 0.75;
+
   if (m_state != 0)
   {
     return;
   }
 
-  result = m_pDrive->WhereToTurnVision(0.75, 50);
-  if (result < 0)
+  double direction;
+  if (m_result < -2.0 || m_result < 0.0)
   {
-    Util::Log("Auto2021 S1 Direction", "Turning Left");
-    m_pDrive->TurnLeft(0.2);
+    Util::Log("Auto2021 S1 State", "Turning Left");
+    direction = 0.2;
   }
-  else if (result > 0)
+  else if (m_result > 0.0)
   {
-    Util::Log("Auto2021 S1 Direction", "Turning Right");
-    m_pDrive->TurnRight(0.2);
+    Util::Log("Auto2021 S1 State", "Turning Right");
+    direction = -0.2;
   }
   else
   {
-    Util::Log("Auto2021 S1 Direction", "Stopped");
+    direction = 0.0;
     m_state = 1;
   }
+  m_pDrive->MoveTank(-direction, direction);
 }
 
 void Autonomous2021_2::loop1()
 {
+  m_center = 0.75;
+
   if (m_state != 1)
   {
     return;
   }
 
-  if (result >= -2.5)
-  {
-    result = m_pDrive->WhereToTurnVision(0.75, 50);
-    m_pDrive->MoveTank(0.4, 0.6); //Turns left and moves forward
-  }
-  else
-  {
-    m_pDrive->TurnLeft(0.2);
-  }
+  if (m_result > 3.0)
 }
 
 void Autonomous2021_2::loop2()
 {
+  m_center = 0.75;
+
   if (m_state != 2)
   {
     return;
   }
 
-  if (result >= -2.5)
+  if (m_result >= -2.5)
   {
-    result = m_pDrive->WhereToTurnVision(0.75, 50);
-    if (result < 0) //Is on the left side
+    if (m_result < 0) //Is on the left side
     {
       m_pDrive->TurnLeft(0.2); //Turn left so that its on the right side
     }
@@ -146,9 +150,9 @@ void Autonomous2021_2::loop2()
 
 void Autonomous2021_2::loop3()
 {
-  if (result >= 0)
+  if (m_result >= 0)
   {
-    result = m_pDrive->WhereToTurnVision(0.75, 50);
+    m_result = m_pDrive->WhereToTurnVision(0.75, 50);
     m_pDrive->Forward(0.3);
   }
   else
@@ -169,10 +173,10 @@ void Autonomous2021_2::loop4()
   m_pDrive->ForwardInSeconds(0.5); //Worth a shot
 
   //!!IMPORTANT!! The center is being changed to 0.25 because we are now rotating something around the left side
-  double result = m_pDrive->WhereToTurnVision(0.25, 50);
-  while (result > 0)
+  double m_result = m_pDrive->WhereToTurnVision(0.25, 50);
+  while (m_result > 0)
   {
-    result = m_pDrive->WhereToTurnVision(0.25, 50);
+    m_result = m_pDrive->WhereToTurnVision(0.25, 50);
     m_pDrive->TurnRight(0.3);
   }
 
@@ -189,15 +193,15 @@ void Autonomous2021_2::loop5()
         goto loop5
   */
   int gyro = 0; //TEMPORARY, WILL REPLACE WHEN I KNOW HOW TO USE GYRO LOL
-  double result = 0;
+  double m_result = 0;
   while (gyro < 180)
   {
-    result = m_pDrive->WhereToTurnVision(0.25, 50);
-    if (result > -2)
+    m_result = m_pDrive->WhereToTurnVision(0.25, 50);
+    if (m_result > -2)
     {
       m_pDrive->Forward(0.3);
     }
-    else //if (result < -1)
+    else //if (m_result < -1)
     {
       m_pDrive->TurnLeft(0.2);
     }
@@ -223,10 +227,10 @@ void Autonomous2021_2::loop6()
 				goto loop6
 			stop
   */
-  double result = 0;
-  while (result > -2.5) //While it's on screen
+  double m_result = 0;
+  while (m_result > -2.5) //While it's on screen
   {
-    result = m_pDrive->WhereToTurnVision(0.25, 50);
+    m_result = m_pDrive->WhereToTurnVision(0.25, 50);
     m_pDrive->Forward(0.3);
   }
   SwitchColor(DriveTrainSubsystemBase::BROWN);
@@ -239,9 +243,9 @@ void Autonomous2021_2::loop6()
   loop4();
   loop5();
 
-  while (result > -2.5) //While it's on screen
+  while (m_result > -2.5) //While it's on screen
   {
-    result = m_pDrive->WhereToTurnVision(0.25, 50);
+    m_result = m_pDrive->WhereToTurnVision(0.25, 50);
     m_pDrive->Forward(0.3);
   }
 }

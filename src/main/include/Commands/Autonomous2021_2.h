@@ -20,8 +20,10 @@ class Autonomous2021_2 : public frc2::CommandHelper<frc2::CommandBase, Autonomou
  private:
 
   int m_state = 0;
-  double result = 0;
+  double m_result = 0;
   int m_loopsUpdate = 0;
+
+  double m_center = 0.75;
 
   bool m_IsFinished = false;
 
