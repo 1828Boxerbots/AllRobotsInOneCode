@@ -141,7 +141,7 @@ void DriveTrainSubsystemBase::Stop()
 //Moves robot forward
 void DriveTrainSubsystemBase::Forward(double speed)
 {
-    MoveTank(speed , speed);
+    MoveTank(speed , speed * 1.28);
 }
 
 bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading, double maxSpeed)
