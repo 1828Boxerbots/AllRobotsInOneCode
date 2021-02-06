@@ -134,7 +134,7 @@ void Autonomous2021_2::loop2()
   //Move forward a little bit
 
   int timer;
-
+  double speed;
   m_center = 0.75;
 
   if (m_state != 2)
@@ -144,16 +144,16 @@ void Autonomous2021_2::loop2()
 
   if (timer < 30)
   {
-    m_pDrive->Forward(0.2);
+    speed = 0.2;
     Util::DelayInSeconds(0.016);
     timer++;
   }
   else
   {
-    m_pDrive->Stop();
+    speed = 0.0;
     m_state = 3;
-  }
-  
+  } 
+  m_pDrive->MoveTank(-speed, speed);
 }
 
 void Autonomous2021_2::loop3()
