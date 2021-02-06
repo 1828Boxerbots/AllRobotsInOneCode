@@ -1,17 +1,19 @@
-#include "Drivers/CameraDrivers/OldCameraVision.h"
+#include "Drivers/CameraDrivers/CameraVision.h"
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#ifndef M_WINDOWS
 #include "Util.h"
+#endif
 #include <math.h>
 
-OldCameraVision::OldCameraVision(int port)
+CameraVision::CameraVision(int port)
 {
 	m_index = port;
 }
 
-bool OldCameraVision::Init()
+bool CameraVision::Init()
 {
 	// cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture();
     // camera.SetResolution(640, 480);
@@ -19,32 +21,56 @@ bool OldCameraVision::Init()
     // cs::CvSource outputStreamStd = frc::CameraServer::GetInstance()->PutVideo("Gray", 640, 480);
     // cv::Mat source;
 
+	#ifndef M_WINDOWS
 	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
-	m_camera.SetResolution(160,120);
-	m_camera.SetExposureHoldCurrent();
-	m_camera.SetWhiteBalanceHoldCurrent();
+	m_camera.SetResolution(320,240);
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
-	m_outputStream = frc::CameraServer::GetInstance()->PutVideo(IMAGE_FILTERED, 160, 120);
-	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo(IMAGE_THRESHOLD, 160, 120);
+	m_outputStream = frc::CameraServer::GetInstance()->PutVideo(IMAGE_FILTERED, 320,240);
+	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo(IMAGE_THRESHOLD, 320,240);
+	#else
+	if (m_camera.open(m_index) == 0)
+	{
+		return false;
+	}
+	#endif
 	return true;
 }
 
-void OldCameraVision::Tick()
+void CameraVision::Tick()
 {
-	// if(m_cvSink.GrabFrame(m_frame) == 0)
-	// {
-	// 	return;
-	// }
-
-	//cv::line(m_frame, cv::Point(0, 0), cv::Point(m_frame.size().width, m_frame.size().height), cv::Scalar(0,0,255), 3);
-
+	#ifndef M_WINDOWS
 	GetBlob(1000000000000000000000000000000);
+	#else
+	#endif
+}
 
-	//m_outputStream.PutFrame(m_frame);
+void CameraVision::Log(std::string title, std::string value)
+{
+	#ifndef M_WINDOWS
+	Util::Log(title, value);
+	#else
+	std::cout << title << ": " << value << "\n";
+	#endif
+}
+void CameraVision::Log(std::string title, int value)
+{
+	#ifndef M_WINDOWS
+	Util::Log(title, value);
+	#else
+	std::cout << title << ": " << value << "\n";
+	#endif
+}
+void CameraVision::Log(std::string title, double value)
+{
+	#ifndef M_WINDOWS
+	Util::Log(title, value);
+	#else
+	std::cout << title << ": " << value << "\n";
+	#endif
 }
 
 //deadZone can be a range of -1 to 1
-double OldCameraVision::WhereToTurn(double deadZoneLocation, int deadZoneRange)
+double CameraVision::WhereToTurn(double deadZoneLocation, int deadZoneRange)
 {
 	Util::Log("Frame Counter", m_frameCounter++);
 
@@ -54,7 +80,7 @@ double OldCameraVision::WhereToTurn(double deadZoneLocation, int deadZoneRange)
 	//Check if there is a blob
 	if (GetBlob(deadZone2) == false /*|| m_centroidX == nan( && m_centroidY == nan(ind)*/)
 	{
-		return OUT_OF_CAMERA_RANGE;
+		return -2.0;
 	}
 
 	//std::cout << m_centroidX << std::endl;
@@ -95,9 +121,9 @@ double OldCameraVision::WhereToTurn(double deadZoneLocation, int deadZoneRange)
 }
 
 
-void OldCameraVision::SendImage(std::string title, cv::Mat frame/*, int width, int height*/)
+void CameraVision::SendImage(std::string title, cv::Mat frame)
 {
-	//cs::CvSource outputVideo = frc::CameraServer::GetInstance()->PutVideo(title, width, height);
+	#ifndef M_WINDOWS
 	if(title == IMAGE_FILTERED)
 	{
 		m_outputStream.PutFrame(frame);
@@ -106,18 +132,30 @@ void OldCameraVision::SendImage(std::string title, cv::Mat frame/*, int width, i
 	{
 		m_outputStreamTwo.PutFrame(frame);
 	}
+	#else
+	cv::imshow(title.c_str(), frame);
+	#endif
 }
 
-bool OldCameraVision::GrabFrame()
+bool CameraVision::GrabFrame()
 {
+	#ifndef M_WINDOWS
 	if(m_cvSink.GrabFrame(m_frame) == 0)
 	{
 		return false;
 	}
+	#else
+	m_camera >> m_frame;
+
+	if (m_frame.empty())
+	{
+		return false;
+	}
+	#endif
 	return true;
 }
 
-bool OldCameraVision::GetBlob(int deadZonePixel)
+bool CameraVision::GetBlob(int deadZonePixel)
 {
 	//Gets one frame from camera
 	if(GrabFrame() == false)
@@ -142,22 +180,11 @@ bool OldCameraVision::GetBlob(int deadZonePixel)
 		case VisionColors::RED_CONE:
 			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
 			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
-			break;
-		case VisionColors::YELLOW_CONE:
-			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,255,125), 3);
-			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 255, 125), 3);
-			break;
-		case VisionColors::ORANGE_CONE:
-			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,255,200), 3);
-			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 255, 200), 3);
-			break;
 		default:
 			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
 			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
 			break;
 		}
-		cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
-		cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
 
 		//Show where deadzone is
 		cv::line(m_frame, cv::Point(deadZonePixel, 0), cv::Point(deadZonePixel, m_frame.size().height), cv::Scalar(255, 0, 0), 3);
@@ -172,15 +199,15 @@ bool OldCameraVision::GetBlob(int deadZonePixel)
 	//cv::waitKey(1);
 
 	//Checks is there is no blob
-	if (isnan(m_centroidX) && isnan(m_centroidY))
-	{
-	 	return false;
-	}
+	// if (isnan(m_centroidX) && isnan(m_centroidY))
+	// {
+	// 	return false;
+	// }
 
 	return true;
 }
 
-void OldCameraVision::SetColor()
+void CameraVision::SetColor()
 {
 	//Change the camera image from BGR to HSV - Blue Green Red to Hue Saturation Value
 	cv::cvtColor(m_frame, m_imgHSV, cv::COLOR_BGR2HSV);
@@ -209,26 +236,11 @@ void OldCameraVision::SetColor()
 			resultL = ORANGE_CONE_LOW;
 			resultH = ORANGE_CONE_LOW;
 			break;
-		case VisionColors::YELLOW_LEMON:
-			resultL = YELLOW_LEMON_LOW;
-			resultH = YELLOW_LEMON_HIGH;
-			break;
-		case VisionColors::FMS_COLOR:
-			resultL = FMS_LOW;
-			resultH = FMS_HIGH;
-			break;
 		default:
 			resultL = GREEN_CONE_LOW;
 			resultH = GREEN_CONE_LOW;
 			break;
 	}
-
-	Util::Log("LowH", resultL.val[0]);
-	Util::Log("HighH", resultH.val[0]);
-	Util::Log("LowS", resultL.val[1]);
-	Util::Log("HighS", resultH.val[1]);
-	Util::Log("LowV", resultL.val[2]);
-	Util::Log("HighV", resultH.val[2]);
 
 	cv::inRange(m_imgHSV, resultL, resultH, m_imgThresholded);
 
@@ -238,84 +250,15 @@ void OldCameraVision::SetColor()
 	cv::Moments m = cv::moments(m_imgThresholded, true);
 	if(m.m00 != 0)
 	{
-		Util::Log("OldCameraVision", "centroids were valid");
+		Util::Log("CameraVision", "centroids were valid");
 		m_centroidX = m.m10 / m.m00;
 		m_centroidY = m.m01 / m.m00;
 		cv::Point p(m_centroidX, m_centroidY);
 	}
 	else
 	{
-		Util::Log("OldCameraVision", "centroids were divied by 0");
+		Util::Log("CameraVision", "centroids were divied by 0");
 		m_centroidX = -1.0;
 		m_centroidY = -1.0;
-	}
-}
-
-void OldCameraVision::SetHigh(int HSV, int value)
-{
-	switch (HSV)
-	{
-	case 1:
-		FMS_HIGH.val[0] = value;
-		break;
-	case 2:
-		FMS_HIGH.val[1] = value;
-		break;
-	case 3:
-		FMS_HIGH.val[2] = value;
-		break;
-	default:
-		FMS_HIGH.val[1] = value;
-		break;
-	}
-}
-
-void OldCameraVision::SetLow(int HSV, int value)
-{
-	switch (HSV)
-	{
-	case 1:
-		FMS_LOW.val[0] = value;
-		break;
-	case 2:
-		FMS_LOW.val[1] = value;
-		break;
-	case 3:
-		FMS_LOW.val[2] = value;
-		break;
-	default:
-		FMS_LOW.val[1] = value;
-		break;
-	}
-}
-
-void OldCameraVision::SetFMSColor(VisionColors color)
-{
-	switch (color)
-	{
-	case OldCameraVision::RED_CONE:
-		FMS_LOW = RED_CONE_LOW;
-		FMS_HIGH = RED_CONE_HIGH;
-		break;
-	case OldCameraVision::GREEN_CONE:
-		FMS_LOW = GREEN_CONE_LOW;
-		FMS_HIGH = GREEN_CONE_HIGH;
-		break;
-	case OldCameraVision::YELLOW_CONE:
-		FMS_LOW = YELLOW_CONE_LOW;
-		FMS_HIGH = YELLOW_CONE_HIGH;
-		break;
-	case OldCameraVision::ORANGE_CONE:
-		FMS_LOW = ORANGE_CONE_LOW;
-		FMS_HIGH = ORANGE_CONE_HIGH;
-		break;
-	case OldCameraVision::YELLOW_LEMON:
-		FMS_LOW = YELLOW_LEMON_LOW;
-		FMS_HIGH = YELLOW_LEMON_HIGH;
-		break;
-	default:
-		FMS_LOW = GREEN_CONE_LOW;
-		FMS_HIGH = GREEN_CONE_HIGH;
-		break;
 	}
 }

@@ -14,6 +14,7 @@
 #include <frc/Timer.h>
 #include "../Util.h"
 #include "../Constants.h"
+#include "../Drivers/CameraDrivers/OldCameraVision.h"
 
 class DriveTrainSubsystemBase : public frc2::SubsystemBase
 {
@@ -69,6 +70,10 @@ public:
   enum Colors {
     BROWN, BLUE, GREEN_CONE, RED_CONE, YELLOW_CONE, ORANGE_CONE
   };
+  
+  virtual void SetHSVHigh(int HSV, int value) {}
+  virtual void SetHSVLow(int HSV, int value) {}
+  virtual void SetVisionFMSColor(OldCameraVision::VisionColors color) {}
 
 protected:
   bool m_isColliding = false;

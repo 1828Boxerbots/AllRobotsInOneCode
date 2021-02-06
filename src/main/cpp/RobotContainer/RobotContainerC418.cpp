@@ -10,6 +10,8 @@
 #include "../include/Drivers/DPDTSwitchDriver.h"
 #include <frc/DriverStation.h>
 #include "Util.h"
+#include <iostream>
+#include "../include/Drivers/CameraDrivers/OldCameraVision.h"
 
 SpinSubsystemC418::FMSColors RobotContainerC418::givenColor = SpinSubsystemC418::FMSColors::INVALID;
 
@@ -91,12 +93,12 @@ void RobotContainerC418::ConfigureAutonomousCommands()
     {
       [this] 
       {
-        Util::Log("Shadow", "is drive good");
+        Util::Log("Shadow 3", "is drive good");
         if(m_pDrive != nullptr)
         {
           while (true)
           {
-            Util::Log("Shadow", "AutonomousS");
+            Util::Log("Shadow 3", "AutonomousS");
             double result = m_pDrive->WhereToTurnVision();
             if(result < -1)
             {
@@ -118,7 +120,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
               //Object is in the center
               m_pDrive->Stop();
             }
-            Util::Log("Shadow", "AutonomousE");
+            Util::Log("Shadow 3", "AutonomousE");
           }
         }
       }, {m_pDrive}
@@ -134,9 +136,9 @@ void RobotContainerC418::ConfigureAutonomousCommands()
       {
         if(m_pDrive != nullptr)
         {
-          double centerScreen = 0.5;
+          double centerScreen = 0.0;
           double result = m_pDrive->WhereToTurnVision(centerScreen, 50);
-          Util::Log("Shadow", result);
+          Util::Log("Shadow 3", result);
           //camera flips the image
           if(result == 0.0)
           {
@@ -146,17 +148,17 @@ void RobotContainerC418::ConfigureAutonomousCommands()
           else if(result < -1.0)
           {
             //Turn right if object is not seen
-            m_pDrive->TurnRight(0.3);
+            m_pDrive->TurnRight(0.4);
           }
           else if (result < 0.0)
           {
             //Turn right if object is on the right
-            m_pDrive->TurnRight(0.3);
+            m_pDrive->TurnRight(0.4);
           }
           else if(result > 0.0)
           {
             //Turn left if object is on the left
-            m_pDrive->TurnLeft(0.2);
+            m_pDrive->TurnLeft(0.3);
           }
           else
           {
@@ -255,7 +257,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
 //     }
 //   };
 
-  m_pAutoCircle = new frc2::SequentialCommandGroup 
+ m_pAutoCircle = new frc2::SequentialCommandGroup 
   {
     frc2::RunCommand 
     {
@@ -270,6 +272,72 @@ void RobotContainerC418::ConfigureAutonomousCommands()
   };
 
   m_pScenario2 = new Autonomous2021_2(m_pDrive);
+
+  m_pAutoPickUpLemon = new frc2::SequentialCommandGroup 
+  {
+    //frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->Init(); }, {m_pDrive}},
+    frc2::RunCommand 
+    {
+      [this] 
+      {
+        if(m_pDrive != nullptr && m_pLoader != nullptr && m_pShooter != nullptr)
+        {
+          double centerScreen = 0.0;
+          double result = m_pDrive->WhereToTurnVision(centerScreen, 50);
+          //camera flips the image
+          if(result == 0.0)
+          {
+            //Stop if object is in center
+            m_pDrive->Stop();
+
+            // if(m_pDrive->WhereToTurnVision(centerScreen, 50) > -2.0)
+            // {
+            //   m_pDrive->MoveTank(0.4, 0.4);
+            // }
+            // else if(m_pDrive->WhereToTurnVision(centerScreen, 50) <= 1.9)
+            // {
+            //   Util::DelayInSeconds(0.3);
+            //   m_pDrive->Stop();
+
+              // while(m_pLoader->GetPhotogate() == false)
+              // {
+              //   m_pLoader->SetLoadMotor(.5);
+              //   Util::Log("Vision Photo", m_pLoader->GetPhotogate());
+              // }
+              // m_pLoader->Stop();
+
+              // m_pShooter->SetShootMotor(1);
+              // Util::DelayInSeconds(0.5);
+              // m_pLoader->SetLoadMotor(.5);
+              // Util::DelayInSeconds(0.1);
+              // m_pLoader->Stop();
+              // m_pShooter->Stop();
+           // }
+          }
+          else if(result < -1.0)
+          {
+            //Turn right if object is not seen
+            m_pDrive->TurnRight(0.4);
+          }
+          else if (result < 0.0)
+          {
+            //Turn right if object is on the right
+            m_pDrive->TurnRight(0.4);
+          }
+          else if(result > 0.0)
+          {
+            //Turn left if object is on the left
+            m_pDrive->TurnLeft(0.3);
+          }
+          else
+          {
+            //Object is in the center
+            m_pDrive->Stop();
+          }
+        }
+      }, {m_pDrive, m_pLoader, m_pShooter}
+    }
+  };
 }
 
 int RobotContainerC418::ReadDioSwitch()
@@ -480,7 +548,94 @@ void RobotContainerC418::SetBackButton()
   backButttonTwo.WhenReleased(&m_armStop);
 }
 
-void RobotContainerC418::AutonomousPeriodic() {}
+void RobotContainerC418::BreakFMSStr(std::string gameData)
+{
+  char copy[gameData.length() +1];
+  strcpy(copy, gameData.c_str());
+  char *output = strtok(copy, "-");
+  for (int num=0; output != nullptr; num++)
+  {
+    int value = atoi(output);
+    switch (num)
+    {
+      case 0:
+        break;
+      case 1:
+        m_pDrive->SetHSVLow(1, value);
+        break;
+      case 2:
+        m_pDrive->SetHSVHigh(1, value);
+        break;
+      case 3:
+        m_pDrive->SetHSVLow(2, value);
+        break;
+      case 4:
+        m_pDrive->SetHSVHigh(2, value);
+        break;
+      case 5:
+        m_pDrive->SetHSVLow(3, value);
+        break;
+      case 6:
+        m_pDrive->SetHSVHigh(3, value);
+        break;
+      default:
+        //IT BROKE or there is more when there isnt suppose to be
+        break;
+    } // end SWITCH
+    output = strtok(nullptr, "-");
+  } // end FOR
+    Util::Log("AutoFMS", "Vision HSV values added");
+}
+
+void RobotContainerC418::AutonomousPeriodic() 
+{
+  std::string gameData;
+  gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+  if (gameData.length() > 0)
+  {
+    switch (gameData[0])
+    {
+    case 'R':
+      //Case for RedCone
+      m_pDrive->SetVisionFMSColor(OldCameraVision::VisionColors::RED_CONE);
+      Util::Log("AutoFMS", "Vision Red");
+      break;
+    case 'G':
+      //Case for GreenCone
+      m_pDrive->SetVisionFMSColor(OldCameraVision::VisionColors::GREEN_CONE);
+      Util::Log("AutoFMS", "Vision Green");
+      break;
+    case 'Y':
+      //Case for YellowCone
+      m_pDrive->SetVisionFMSColor(OldCameraVision::VisionColors::YELLOW_CONE);
+      Util::Log("AutoFMS", "Vision Yellow Cone");
+      break;
+    case 'O':
+      //Case for Orange Cone
+      m_pDrive->SetVisionFMSColor(OldCameraVision::VisionColors::ORANGE_CONE);
+      Util::Log("AutoFMS", "Vision Orange");
+      break;
+    case 'L':
+      //Case Yellow LEMON
+      m_pDrive->SetVisionFMSColor(OldCameraVision::VisionColors::YELLOW_LEMON);
+      Util::Log("AutoFMS", "Vision Yellow Lemon");
+      break;
+    case 'V':
+      //Case for Vision Sliders
+      Util::Log("AutoFMS", "Vision Slider");
+      BreakFMSStr(gameData);
+      break;
+    default:
+      givenColor = SpinSubsystemC418::FMSColors::INVALID;
+      Util::Log("FMSColor", givenColor);
+      //This is corrupt data
+      break;
+    }
+  }
+  else
+  { /*Code for no data received yet*/
+  }
+}
 
 void RobotContainerC418::TeleopPeriodic()
 {
@@ -530,6 +685,54 @@ void RobotContainerC418::TeleopPeriodic()
       Util::Log("FMSColor", givenColor);
       //Yellow case code
       break;
+    case 'V':
+                  {
+                    //char* context = (char*)malloc(255);
+                    char copy[gameData.length() +1];
+                    strcpy(copy, gameData.c_str());
+                    //strcpy_s(copy, gameData.length(), gameData.c_str());
+                    char *output = strtok(copy, "-");
+                    for (int num=0; output != nullptr; num++)
+                    {
+                      int value = atoi(output);
+                      switch (num)
+                      {
+                        case 0:
+                          break;
+                        case 1:
+                          m_pDrive->SetHSVLow(1, value);
+                          Util::Log("FMS HLow", value);
+                          break;
+                        case 2:
+                          m_pDrive->SetHSVHigh(1, value);
+                          Util::Log("FMS HHigh", value);
+                          break;
+                        case 3:
+                          m_pDrive->SetHSVLow(2, value);
+                          Util::Log("FMS SLow", value);
+                          break;
+                        case 4:
+                          m_pDrive->SetHSVHigh(2, value);
+                          Util::Log("FMS SHigh", value);
+                          break;
+                        case 5:
+                          m_pDrive->SetHSVLow(3, value);
+                          Util::Log("FMS VLow", value);
+                          break;
+                        case 6:
+                          m_pDrive->SetHSVHigh(3, value);
+                          Util::Log("FMS VHigh", value);
+                          break;
+                        default:
+                          //IT BROKE or there is more when there isnt suppose to be
+                          break;
+                      } // end SWITCH
+                      output = strtok(nullptr, "-");
+                    } // end FOR
+                    givenColor = SpinSubsystemC418::FMSColors::INVALID;
+                    Util::Log("FMSColor", "Vision HSV values added");
+                  }
+                  break;
     default:
       givenColor = SpinSubsystemC418::FMSColors::INVALID;
       Util::Log("FMSColor", givenColor);

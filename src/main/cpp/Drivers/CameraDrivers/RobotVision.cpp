@@ -2,28 +2,28 @@
 #include <opencv2/imgproc/imgproc.hpp>
 
 
-RobotVision::RobotVision(int port) : WindowsVisionBase(port)
+RobotVision::RobotVision(int port) : WindowsVisionBase(port, false)
 {
 	
 }
 
 bool RobotVision::Init()
 {
-	Util::Log("Shadow", "RobotVision Init-1");
+	Util::Log("Shadow RV", "RobotVision Init-1");
 	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
 	m_camera.SetResolution(640,480);
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
 	m_outputStreamLine = frc::CameraServer::GetInstance()->PutVideo(IMAGE_LINE, 640, 480);
 	m_outputStreamThreshold = frc::CameraServer::GetInstance()->PutVideo(IMAGE_THRESHOLD, 640, 480);
 	m_outputStreamHSV = frc::CameraServer::GetInstance()->PutVideo(IMAGE_HSV, 640, 480);
-	Util::Log("Shadow", "RobotVision Init-2");
+	Util::Log("Shadow RV", "RobotVision Init-2");
 	return true;
 }
 
 void RobotVision::Tick()
 {
-	Util::Log("Shadow", "RobotVision Tick-1");
-	if(GetImage() == false)
+	Util::Log("Shadow RV", "RobotVision Tick-1");
+	if(GrabFrame() == false)
     {
         return;
     }
@@ -33,13 +33,12 @@ void RobotVision::Tick()
 	//m_outputStream.PutFrame(m_frame);
 	SendImage(IMAGE_LINE, m_frame);
 
-	Util::Log("Shadow", "RobotVision Tick-2");
+	Util::Log("Shadow RV", "RobotVision Tick-2");
 }
 
 void RobotVision::SendImage(std::string title, cv::Mat frame)
 {
-	Util::Log("Shadow", "RobotVision SendImage-1");
-	return;
+	Util::Log("Shadow RV", "RobotVision SendImage-1");
 	if(title == IMAGE_LINE)
 	{
 		m_outputStreamLine.PutFrame(frame);
@@ -56,22 +55,36 @@ void RobotVision::SendImage(std::string title, cv::Mat frame)
 	{
 		m_outputStreamLine.PutFrame(frame);
 	}
-	Util::Log("Shadow", "RobotVision SendImage-2");
+	Util::Log("Shadow RV", "RobotVision SendImage-2");
 }
 
-bool RobotVision::GetImage()
+bool RobotVision::GrabFrame()
 {
-	Util::Log("Shadow", "RobotVision GetImage-1");
-    if (m_cvSink.GrabFrame(m_frame) == 0)
+	if(m_cvSink.GrabFrame(m_frame) == 0)
 	{
-		Util::Log("Shadow", "RobotVision GetImage-3");
 		return false;
 	}
-	Util::Log("Shadow", "RobotVision GetImage-2");
-    return true;
+	return true;
+
+	// Util::Log("Shadow RV", "RobotVision GetImage-1");
+    // if (m_cvSink.GrabFrame(m_frame) == 0)
+	// {
+	// 	Util::Log("Shadow RV", "RobotVision GetImage-3");
+	// 	return false;
+	// }
+	// Util::Log("Shadow RV", "RobotVision GetImage-2");
+    // return true;
 }
 
 void RobotVision::Log(std::string title, std::string value)
+{
+	Util::Log(title, value);
+}
+void RobotVision::Log(std::string title, double value)
+{
+	Util::Log(title, value);
+}
+void RobotVision::Log(std::string title, int value)
 {
 	Util::Log(title, value);
 }

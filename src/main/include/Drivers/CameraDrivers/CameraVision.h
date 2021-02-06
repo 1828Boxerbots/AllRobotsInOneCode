@@ -6,14 +6,16 @@
 #include <cameraserver/CameraServer.h>
 
 
-class OldCameraVision
+class CameraVision
 {
+	//#define M_WINDOWS
+
 public:
 	/// <summary>
 	/// Constructor
 	/// </summary>
 	/// <param name="index"> 0 = webcam, 1 = USB camera </param>
-	OldCameraVision(int index);
+	CameraVision(int index);
 
 	/// <summary>
 	/// Initialize Hardware
@@ -33,14 +35,9 @@ public:
 	/// </returns>
 	double WhereToTurn( double deadZoneLocation = 0.0, int deadZoneRange = 100);
 
-	enum VisionColors{RED_CONE, GREEN_CONE, YELLOW_CONE, ORANGE_CONE, YELLOW_LEMON, FMS_COLOR};
+	enum VisionColors{RED_CONE, GREEN_CONE, YELLOW_CONE, ORANGE_CONE};
 
 	void Tick();
-	
-	void SetHigh(int HSV, int value);
-	void SetLow(int HSV, int value);
-
-	void SetFMSColor(VisionColors color);
 
 private:
  	int m_frameCounter = 0;
@@ -63,28 +60,14 @@ private:
 	const cv::Scalar GREEN_CONE_HIGH{79,255,255};
 	const cv::Scalar RED_CONE_LOW{0,134,120};
 	const cv::Scalar RED_CONE_HIGH{6,255,255};
+
 	const cv::Scalar YELLOW_CONE_LOW{22, 134,139};
 	const cv::Scalar YELLOW_CONE_HIGH{42,255,255};
 	const cv::Scalar ORANGE_CONE_LOW{0,76,255};
 	const cv::Scalar ORANGE_CONE_HIGH{21,255,255};
-	const cv::Scalar YELLOW_LEMON_LOW{22, 165, 199};
-	const cv::Scalar YELLOW_LEMON_HIGH{37, 255, 255};
 
 	const std::string IMAGE_FILTERED = "Filtered";
 	const std::string IMAGE_THRESHOLD = "Threshold";
-
-	cv::Scalar FMS_HIGH{179, 255, 255};
-	cv::Scalar FMS_LOW{0, 0, 0};
-
-	const double OUT_OF_CAMERA_RANGE = -2.0;
-
-	//Values that it is filtering by
-	// int m_iLowH = LOWH_GREEN_CONE;
-	// int m_iHighH = HIGHH_GREEN_CONE;
-	// int m_iLowS = LOWS_GREEN_CONE;
-	// int m_iHighS = HIGHS_GREEN_CONE;
-	// int m_iLowV = LOWV_GREEN_CONE;
-	// int m_iHighV = HIGHV_GREEN_CONE;
 
 	//The index/port of the camera - given in the constructor
 	int m_index;
@@ -96,16 +79,20 @@ private:
 	//How big is the dead zone where WhereToTurn() = 0.0
 	//double m_deadZone = 50.0;
 
-	VisionColors m_visionColor = FMS_COLOR;
+	VisionColors m_visionColor = GREEN_CONE;
 
 	//Holds the camera and raw image
-	cv::Mat m_frame; 
+	cv::Mat m_frame;
 	cv::Mat m_imgHSV;
 	cv::Mat m_imgThresholded;
+	#ifndef M_WINDOWS
 	cs::UsbCamera m_camera;
 	cs::CvSink m_cvSink;
 	cs::CvSource m_outputStream;
 	cs::CvSource m_outputStreamTwo;
+	#else
+	cv::VideoCapture m_camera;
+	#endif;
 
 	/// <summary>
 	/// Create a new window to display an image
@@ -126,5 +113,9 @@ private:
 	void SetColor();
 
 	bool GrabFrame();
+
+	void Log(std::string title, std::string value);
+	void Log(std::string title, double value);
+	void Log(std::string title, int value);
 };
 
