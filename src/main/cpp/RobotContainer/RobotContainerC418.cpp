@@ -338,8 +338,20 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-
-  return m_pScenario2;
+  int cases = 0;
+  switch(cases)
+  {
+    case 0:
+      return m_pScenario2;
+      break;
+    
+    case 1:
+      return m_pAutoChallengeOne;
+      break;
+    
+    default:
+      return nullptr;
+  }
 }
 
 void RobotContainerC418::Init()
