@@ -10,6 +10,7 @@
 //Motor inclusions
 #include <frc/Victor.h>
 #include <frc/Encoder.h>
+#include <frc/drive/DifferentialDrive.h>
 
 #include "../DriveTrainSubsystemBase.h"
 //Util and constants
@@ -48,6 +49,7 @@ public:
   void EnableAnticollision(bool enable) override;
   void InitRight() override;
   void InitLeft() override;
+  void MoveArcade(double X, double Y) override;
 #ifdef M_DISTANCE_LEFT
   //bool IsDistanceLeftActive() override {return true;}
 #endif
@@ -70,6 +72,7 @@ private:
 #ifndef NOHW
   frc::Victor m_leftMotor{PWM_LEFTMOTOR_C418};
   frc::Victor m_rightMotor{PWM_RIGHTMOTOR_C418};
+  frc::DifferentialDrive m_difDrive{m_leftMotor, m_rightMotor};
 
   frc::Encoder m_leftEncoder{DIO_LEFTENCODER_A_C418, DIO_LEFTENCODER_B_C418};
   frc::Encoder m_rightEncoder{DIO_RIGHTENCODER_A_C418, DIO_RIGHTENCODER_B_C418};

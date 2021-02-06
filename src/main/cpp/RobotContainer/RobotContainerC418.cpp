@@ -9,6 +9,7 @@
 #include <frc2/command/button/JoystickButton.h>
 #include "../include/Drivers/DPDTSwitchDriver.h"
 #include <frc/DriverStation.h>
+#include "Util.h"
 
 SpinSubsystemC418::FMSColors RobotContainerC418::givenColor = SpinSubsystemC418::FMSColors::INVALID;
 
@@ -305,6 +306,22 @@ void RobotContainerC418::ConfigureAutonomousCommands()
     }
   };
 
+  m_pAutoCircle = new frc2::SequentialCommandGroup 
+  {
+    frc2::RunCommand 
+    {
+      [this] 
+      {
+        if(m_pDrive != nullptr)
+        {
+          m_pDrive->MoveArcade(0.5,0.25);
+          Util::DelayInSeconds(10.0);
+          m_pDrive->MoveArcade(0.5,0.25);
+        }
+      }, {m_pDrive}
+    }
+  };
+
   m_pScenario2 = new Autonomous2021_2(m_pDrive);
 }
 
@@ -364,7 +381,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
   }
   */
 
-  return m_pScenario2;
+  return m_pAutoCircle;
 }
 
 void RobotContainerC418::Init()

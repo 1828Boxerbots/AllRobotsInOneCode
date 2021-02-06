@@ -25,7 +25,7 @@ public:
    */
   virtual void Periodic();
   void MoveTank(double leftY, double rightY);
-  void MoveArcade(double X, double Y);
+  virtual void MoveArcade(double X, double Y);
   void Stop();
   void Forward(double speed = 1.0);
   void ForwardInInch(double inch, double angle, double speed);

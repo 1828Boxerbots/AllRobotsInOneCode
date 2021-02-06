@@ -87,6 +87,7 @@ private:
   frc2::SequentialCommandGroup *m_pAutoHouse = nullptr;
   frc2::SequentialCommandGroup *m_pAutoFollowRed = nullptr;
   frc2::SequentialCommandGroup *m_pAutoChallengeOne = nullptr;
+  frc2::SequentialCommandGroup *m_pAutoCircle = nullptr;
 
   Autonomous2021_2 *m_pScenario2 = nullptr;
 };
