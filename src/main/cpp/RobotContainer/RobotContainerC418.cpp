@@ -175,7 +175,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
   {
   //  frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Init(); }, {m_pDrive}},
     //This is the first part of auto challenge one. Going around first cone
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->WhereToTurnVision(0.75, 50); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->MoveWithVision(0.75, 50); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(50,0.0,0.3); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->GoAroundCone(true); }, {m_pDrive}},
     //This is the second part of auto challenge one. Going around secondth cone
