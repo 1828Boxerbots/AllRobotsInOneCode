@@ -25,6 +25,7 @@ public:
   double GetAccelZ();
   double GetAngleX();
   double GetAngleY();
+  double GetCorrectAngleY();
   double GetAngleZ();
   double GetMagX();
   double GetMagY();
@@ -39,6 +40,8 @@ public:
 private:
   // The IMU sensor object
   frc::ADIS16448_IMU *m_pDevice = nullptr;
+
+  double m_CONVERSION_FACTOR = 360/Util::PI;
 };
 
 // 3/4/2020 Completed, Untested

@@ -33,6 +33,8 @@ public:
   virtual void SetMotorL(double speed);
   virtual void SetMotorR(double speed);
 
+  void GoAroundCone(bool turnRight) override;
+
   double IMUGetAngle() override;
 
   double GetLeftEncoderInch() override;

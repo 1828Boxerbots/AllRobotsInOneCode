@@ -140,7 +140,7 @@ void DriveTrainSubsystemBase::Stop()
 //Moves robot forward
 void DriveTrainSubsystemBase::Forward(double speed)
 {
-    MoveTank(speed, speed);
+    MoveTank(speed , speed);
 }
 
 bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading, double maxSpeed)
@@ -250,13 +250,13 @@ void DriveTrainSubsystemBase::FixRotation(double wantedAngle, double speed)
 void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double speed)
 {
     //This is Regular
-    double startDistance = GetLeftEncoderInch();
-    double currentDistance = GetLeftEncoderInch();
+    double startDistance = GetRightEncoderInch();
+    double currentDistance = GetRightEncoderInch();
     while (currentDistance - startDistance < inch)
     {
-        MoveTank(speed, speed);
-        currentDistance = GetLeftEncoderInch();
-        frc::SmartDashboard::PutNumber("LeftEncoderInches", GetLeftEncoderInch());
+        MoveTank(speed, speed * 1.28);
+        currentDistance = GetRightEncoderInch();
+        frc::SmartDashboard::PutNumber("LeftEncoderInches", GetRightEncoderInch());
         //Util::DelayInSeconds(1.0);
     }
     if (currentDistance > inch)
@@ -291,28 +291,28 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
 }
 
 //Used to turn the robot a certain amount of degrees(RelativeAngle is user's wanted angle)
-void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle)
+void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle, double speed)
 {
     //troubleshooting values, use these for testing what makes the robot go to the relative angle
     frc::SmartDashboard::PutNumber("Current Angle", relativeAngle);
     frc::SmartDashboard::PutBoolean("In Place", true);
-    double startAngle = GyroGetAngle();
-    double currentAngle = GyroGetAngle();
+    double startAngle = IMUGetAngle();
+    double currentAngle = IMUGetAngle();
     //logic used to turn the robot left or right and keeping it turned
     if (relativeAngle > 0)
     {
-        TurnLeft(.75);
+        TurnLeft(speed);
         while (currentAngle - startAngle < relativeAngle)
         {
-            currentAngle = GyroGetAngle();
+            currentAngle = IMUGetAngle();
         }
     }
     if (relativeAngle < 0)
     {
-        TurnRight(.75);
+        TurnRight(speed);
         while (currentAngle - startAngle > relativeAngle)
         {
-            currentAngle = GyroGetAngle();
+            currentAngle = IMUGetAngle();
         }
     }
 }
@@ -323,11 +323,16 @@ void DriveTrainSubsystemBase::Init()
     Init();
 }
 
-//Dead function used to turn the robot in seconds; Use at your own risk
+//function used to turn the robot in seconds; Use at your own risk
 void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime)
 {
-    /*m_time.Reset();
-    m_time.Start();
-    Util::TimeInSeconds(goalTime);
-    Stop();*/
+    m_autoTimer.Stop();
+    m_autoTimer.Reset();
+    m_autoTimer.Start();
+    while(goalTime < m_autoTimer.Get())
+    {
+        Forward();
+    }
+    Stop();
 }
+

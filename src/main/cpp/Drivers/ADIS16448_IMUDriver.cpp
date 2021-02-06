@@ -72,6 +72,13 @@ double ADIS16448_IMUDriver::GetAngleY()
     return m_pDevice->GetGyroAngleY();
 }
 
+double ADIS16448_IMUDriver::GetCorrectAngleY()
+{
+    return ( GetAngleY() * m_CONVERSION_FACTOR );
+}
+
+
+
 /**
  * This returns the angle of the robot in the Z direction.
  */
