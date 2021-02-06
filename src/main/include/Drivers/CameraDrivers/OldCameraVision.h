@@ -67,8 +67,11 @@ private:
 	const cv::Scalar YELLOW_CONE_HIGH{42,255,255};
 	const cv::Scalar ORANGE_CONE_LOW{0,76,255};
 	const cv::Scalar ORANGE_CONE_HIGH{21,255,255};
-	const cv::Scalar YELLOW_LEMON_LOW{22, 165, 199};
-	const cv::Scalar YELLOW_LEMON_HIGH{37, 255, 255};
+	const cv::Scalar YELLOW_LEMON_LOW{17, 153, 120};
+	const cv::Scalar YELLOW_LEMON_HIGH{30, 255, 255};
+
+	const cv::Scalar BLUE_TEAMSHIRT_LOW{50, 50, 100};
+	const cv::Scalar BLUE_TEAMSHIRT_HIGH{100, 255, 255};
 
 	const std::string IMAGE_FILTERED = "Filtered";
 	const std::string IMAGE_THRESHOLD = "Threshold";
@@ -102,6 +105,7 @@ private:
 	cv::Mat m_frame; 
 	cv::Mat m_imgHSV;
 	cv::Mat m_imgThresholded;
+	cv::Mat m_imgThresholdedTwo;
 	cs::UsbCamera m_camera;
 	cs::CvSink m_cvSink;
 	cs::CvSource m_outputStream;

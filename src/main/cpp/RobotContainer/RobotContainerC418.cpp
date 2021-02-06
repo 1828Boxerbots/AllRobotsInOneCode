@@ -99,7 +99,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
           while (true)
           {
             Util::Log("Shadow 3", "AutonomousS");
-            double result = m_pDrive->WhereToTurnVision();
+            double result = m_pDrive->WhereToTurn();
             if(result < -1)
             {
               //Cannot find thing, so rotate right at maximum speed to find the object
@@ -137,7 +137,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
         if(m_pDrive != nullptr)
         {
           double centerScreen = 0.0;
-          double result = m_pDrive->WhereToTurnVision(centerScreen, 50);
+          double result = m_pDrive->WhereToTurn(centerScreen, 50);
           Util::Log("Shadow 3", result);
           //camera flips the image
           if(result == 0.0)
@@ -179,11 +179,11 @@ void RobotContainerC418::ConfigureAutonomousCommands()
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(50,0.0,0.3); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->GoAroundCone(true); }, {m_pDrive}},
     //This is the second part of auto challenge one. Going around secondth cone
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->WhereToTurnVision(-1.0, 50); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->MoveWithVision(-1.0, 50); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(100,0.0,0.3); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->GoAroundCone(true); }, {m_pDrive}},
     //This is the third part of auto challenge one. Going around third cone
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->WhereToTurnVision(-1.0, 50); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->MoveWithVision(-1.0, 50); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(100,0.0,0.3); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->GoAroundCone(true); }, {m_pDrive}},
     //This is the last part of the auto challenge one. This is to be in the same position as the starting position
@@ -282,37 +282,38 @@ void RobotContainerC418::ConfigureAutonomousCommands()
       {
         if(m_pDrive != nullptr && m_pLoader != nullptr && m_pShooter != nullptr)
         {
+          GetVisionFMS();
           double centerScreen = 0.0;
-          double result = m_pDrive->WhereToTurnVision(centerScreen, 50);
+          double result = m_pDrive->WhereToTurn(centerScreen, 50);
           //camera flips the image
           if(result == 0.0)
           {
             //Stop if object is in center
             m_pDrive->Stop();
 
-            // if(m_pDrive->WhereToTurnVision(centerScreen, 50) > -2.0)
+            // if(m_pDrive->WhereToTurn(centerScreen, 50) > -2.0)
             // {
-            //   m_pDrive->MoveTank(0.4, 0.4);
+            //   m_pDrive->MoveTank(0.4, 0.4 * 1.28);
             // }
-            // else if(m_pDrive->WhereToTurnVision(centerScreen, 50) <= 1.9)
+            // else if(m_pDrive->WhereToTurn(centerScreen, 50) <= 1.9)
             // {
             //   Util::DelayInSeconds(0.3);
             //   m_pDrive->Stop();
 
-              // while(m_pLoader->GetPhotogate() == false)
-              // {
-              //   m_pLoader->SetLoadMotor(.5);
-              //   Util::Log("Vision Photo", m_pLoader->GetPhotogate());
-              // }
-              // m_pLoader->Stop();
+            //   while(m_pLoader->GetPhotogate() == false)
+            //   {
+            //     m_pLoader->SetLoadMotor(.5);
+            //     Util::Log("Vision Photo", m_pLoader->GetPhotogate());
+            //   }
+            //   m_pLoader->Stop();
 
-              // m_pShooter->SetShootMotor(1);
-              // Util::DelayInSeconds(0.5);
-              // m_pLoader->SetLoadMotor(.5);
-              // Util::DelayInSeconds(0.1);
-              // m_pLoader->Stop();
-              // m_pShooter->Stop();
-           // }
+            //   m_pShooter->SetShootMotor(1);
+            //   Util::DelayInSeconds(0.5);
+            //   m_pLoader->SetLoadMotor(.5);
+            //   Util::DelayInSeconds(0.1);
+            //   m_pLoader->Stop();
+            //   m_pShooter->Stop();
+            // }
           }
           else if(result < -1.0)
           {
@@ -406,7 +407,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 1;
+  int cases = 2;
   switch(cases)
   {
     case 0:
@@ -417,6 +418,9 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
       return m_pAutoChallengeOne;
       break;
     
+    case 2:
+      return m_pAutoPickUpLemon;
+      break;
     default:
       return nullptr;
   }
@@ -587,7 +591,7 @@ void RobotContainerC418::BreakFMSStr(std::string gameData)
     Util::Log("AutoFMS", "Vision HSV values added");
 }
 
-void RobotContainerC418::AutonomousPeriodic() 
+void RobotContainerC418::GetVisionFMS()
 {
   std::string gameData;
   gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
@@ -626,8 +630,6 @@ void RobotContainerC418::AutonomousPeriodic()
       BreakFMSStr(gameData);
       break;
     default:
-      givenColor = SpinSubsystemC418::FMSColors::INVALID;
-      Util::Log("FMSColor", givenColor);
       //This is corrupt data
       break;
     }
@@ -636,6 +638,8 @@ void RobotContainerC418::AutonomousPeriodic()
   { /*Code for no data received yet*/
   }
 }
+
+void RobotContainerC418::AutonomousPeriodic() { }
 
 void RobotContainerC418::TeleopPeriodic()
 {

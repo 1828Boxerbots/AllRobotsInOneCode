@@ -41,40 +41,11 @@ void DriveTrainSubsystemC418::SetMotorR(double speed)
 
 }
 
-double DriveTrainSubsystemC418::WhereToTurnVision( double deadZoneLocation, int deadZoneRange)
+double DriveTrainSubsystemC418::WhereToTurn( double deadZoneLocation, int deadZoneRange)
 {
- double m_turn =  m_camera.WhereToTurn(deadZoneLocation, deadZoneRange);
- while(m_turn != 0.0)
-{
-m_turn = m_camera.WhereToTurn(deadZoneLocation, deadZoneRange);
-if(m_turn < -1.0)
-{
-  //Turn right if object is not seen
-  TurnRight(-0.3);
-}
-else if (m_turn < 0.0)
-{
-  //Turn right if object is on the right
-  TurnRight(0.3);
-}
-else if(m_turn > 0.0)
-{
-  //Turn left if object is on the left
-  TurnLeft(0.2);
-}
-else
-{
-  //Object is in the center
-  Stop();
-}
-}
-if(m_turn == 0.0)
-{
-  //Stop if object is in center
-  Forward(0.3);
-}
-while(m_turn > -1.0) { m_turn = m_camera.WhereToTurn(deadZoneLocation, deadZoneRange); }
-Stop();
+  #ifndef NO_HW
+    return m_camera.WhereToTurn(deadZoneLocation, deadZoneRange);
+  #endif
 }
 
 void DriveTrainSubsystemC418::Init()

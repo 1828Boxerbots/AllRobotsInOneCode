@@ -232,10 +232,12 @@ void OldCameraVision::SetColor()
 
 	cv::inRange(m_imgHSV, resultL, resultH, m_imgThresholded);
 
+	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(2, 2)));
+
 	//Display Filtered Image
-	SendImage(IMAGE_THRESHOLD, m_imgThresholded);
+	SendImage(IMAGE_THRESHOLD, m_imgThresholdedTwo);
 	// Find moments of the image
-	cv::Moments m = cv::moments(m_imgThresholded, true);
+	cv::Moments m = cv::moments(m_imgThresholdedTwo, true);
 	if(m.m00 != 0)
 	{
 		Util::Log("OldCameraVision", "centroids were valid");

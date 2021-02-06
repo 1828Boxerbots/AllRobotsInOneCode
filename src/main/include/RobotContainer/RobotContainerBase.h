@@ -52,6 +52,7 @@ public:
 
   std::string ReadFMS() { return frc::DriverStation::GetInstance().GetGameSpecificMessage(); }
   virtual void BreakFMSStr(std::string gameData) {}
+  virtual void GetVisionFMS() {}
 
   enum DriveStyles
   {
