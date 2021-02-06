@@ -282,38 +282,36 @@ void RobotContainerC418::ConfigureAutonomousCommands()
       {
         if(m_pDrive != nullptr && m_pLoader != nullptr && m_pShooter != nullptr)
         {
-          GetVisionFMS();
+          //GetVisionFMS();
           double centerScreen = 0.0;
           double result = m_pDrive->WhereToTurn(centerScreen, 50);
           //camera flips the image
-          if(result == 0.0)
+          if(result == 0.0 || m_hasBall == true)
           {
             //Stop if object is in center
-            m_pDrive->Stop();
+            //m_pDrive->Stop();
 
-            // if(m_pDrive->WhereToTurn(centerScreen, 50) > -2.0)
-            // {
-            //   m_pDrive->MoveTank(0.4, 0.4 * 1.28);
-            // }
-            // else if(m_pDrive->WhereToTurn(centerScreen, 50) <= 1.9)
-            // {
-            //   Util::DelayInSeconds(0.3);
-            //   m_pDrive->Stop();
+            if(m_pDrive->WhereToTurn(centerScreen, 50) > -2.0)
+            {
+              m_pDrive->MoveTank(0.4, 0.4 * 1.28);
+            }
+            else if(m_pDrive->WhereToTurn(centerScreen, 50) <= -2)
+            {
+              Util::DelayInSeconds(0.3);
+              m_pDrive->Stop();
 
-            //   while(m_pLoader->GetPhotogate() == false)
-            //   {
-            //     m_pLoader->SetLoadMotor(.5);
-            //     Util::Log("Vision Photo", m_pLoader->GetPhotogate());
-            //   }
-            //   m_pLoader->Stop();
+              m_hasBall = true;
 
-            //   m_pShooter->SetShootMotor(1);
-            //   Util::DelayInSeconds(0.5);
-            //   m_pLoader->SetLoadMotor(.5);
-            //   Util::DelayInSeconds(0.1);
-            //   m_pLoader->Stop();
-            //   m_pShooter->Stop();
-            // }
+              m_pLoader->LoadToPhoto();
+              m_pLoader->Stop();
+
+              // m_pShooter->SetShootMotor(1);
+              // Util::DelayInSeconds(0.5);
+              // m_pLoader->SetLoadMotor(.5);
+              // Util::DelayInSeconds(0.1);
+              // m_pLoader->Stop();
+              // m_pShooter->Stop();
+            }
           }
           else if(result < -1.0)
           {

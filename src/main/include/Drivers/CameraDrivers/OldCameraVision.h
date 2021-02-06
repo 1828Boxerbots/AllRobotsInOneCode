@@ -79,7 +79,7 @@ private:
 	cv::Scalar FMS_HIGH{179, 255, 255};
 	cv::Scalar FMS_LOW{0, 0, 0};
 
-	const double OUT_OF_CAMERA_RANGE = -2.0;
+	const double OUT_OF_CAMERA_RANGE = -3.0;
 
 	//Values that it is filtering by
 	// int m_iLowH = LOWH_GREEN_CONE;
@@ -99,7 +99,7 @@ private:
 	//How big is the dead zone where WhereToTurn() = 0.0
 	//double m_deadZone = 50.0;
 
-	VisionColors m_visionColor = FMS_COLOR;
+	VisionColors m_visionColor = YELLOW_LEMON;
 
 	//Holds the camera and raw image
 	cv::Mat m_frame; 
