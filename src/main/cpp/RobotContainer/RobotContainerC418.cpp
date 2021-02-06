@@ -379,7 +379,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
   }
   */
 
-  return m_pAutoCircle;
+  return m_pScenario2;
 }
 
 void RobotContainerC418::Init()
