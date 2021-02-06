@@ -32,7 +32,7 @@ public:
   virtual void SetMotorL(double speed);
   virtual void SetMotorR(double speed);
 
-  void GoAroundCone() override;
+  void GoAroundCone(bool turnRight) override;
 
   double IMUGetAngle() override;
 

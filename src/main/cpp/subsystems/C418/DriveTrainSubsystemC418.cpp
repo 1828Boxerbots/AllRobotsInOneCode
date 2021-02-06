@@ -50,7 +50,7 @@ m_turn = m_camera.WhereToTurn(deadZoneLocation, deadZoneRange);
 if(m_turn < -1.0)
 {
   //Turn right if object is not seen
-  TurnRight(0.3);
+  TurnRight(-0.3);
 }
 else if (m_turn < 0.0)
 {
@@ -121,7 +121,7 @@ double DriveTrainSubsystemC418::IMUGetAngle()
 {
 // If this isn't giving you the correct angle, try .GetAngleZ() or .GetAngleX()
 #ifdef M_IMU
-  m_imuAngle = m_imu.GetAngleY();
+  m_imuAngle = m_imu.GetCorrectAngleY();
   Util::Log("IMU Angle", m_imuAngle, "DriveTrainSubsystemC418");
   return m_imuAngle;
 #else
@@ -295,25 +295,45 @@ void DriveTrainSubsystemC418::PrecisionMovementLidar(double wantedDistance)
   }
 #endif
 }
+void DriveTrainSubsystemC418::GoAroundCone(bool turnRight)
+{
+  int repeation = 0;
+  if (turnRight == false)
+  {
+    //goes around in a circle, presumably going around a cone
+    while (repeation < 3)
+    {
+    TurnInDegrees(90, 0.3);
+    ForwardInInch(50,0.0,0.3);
+    repeation++;
+    }
+  }
+  else if(turnRight == true)
+  {
+    while (repeation < 3)
+    {
+    TurnInDegrees(-50, 0.3);
+    ForwardInInch(90,0.0,0.3);
+    repeation++;
+    }
+  }
 
-void DriveTrainSubsystemC418::GoAroundCone()
-{
-  IMUInit();
-  while(IMUGetAngle() < -361)
-{
-  Util::Log("Shadow 2","while IMU-1");
-  double rightDistance = GetDistanceSensorDetectionDistanceRight();
-  if (rightDistance < 0.0)
-  {
-    TurnRight(0.3);
-  }
-  else
-  {
-    Forward(0.3);
-  }
-  Util::Log("Shadow 2","while IMU-2");
-}
-Stop();
+//   IMUInit();
+//   while(IMUGetAngle() < -361)
+// {
+//   Util::Log("Shadow 2","while IMU-1");
+//   double rightDistance = GetDistanceSensorDetectionDistanceRight();
+//   if (rightDistance < 0.0)
+//   {
+//     TurnRight(0.3);
+//   }
+//   else
+//   {
+//     Forward(0.3);
+//   }
+//   Util::Log("Shadow 2","while IMU-2");
+// }
+// Stop();
 }
 
 //Used to disable and enable anticollision

@@ -45,9 +45,9 @@
 //#define SEND_VIDEO
 //M_DISTANCE needs to be commented to not have M_DISTANCE code run. Uncommented to run the code.
 
-#define M_DISTANCE_LEFT
-#define M_DISTANCE_RIGHT
-#define M_LIDAR
+//#define M_DISTANCE_LEFT
+//#define M_DISTANCE_RIGHT
+//#define M_LIDAR
 //#define M_COLOR
 #define M_IMU
 

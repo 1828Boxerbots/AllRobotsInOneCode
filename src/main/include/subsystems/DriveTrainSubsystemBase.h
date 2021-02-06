@@ -47,7 +47,7 @@ public:
   virtual double GetRightEncoderInch() { return -1.0; }
   virtual void ResetEncoder() {}
   virtual void ForwardInSeconds(double goalTime);
-  virtual void TurnInDegrees(double relativeAngle);
+  virtual void TurnInDegrees(double relativeAngle, double speed = 0.75);
   //virtual void DetectionSoftware(double detectionDistance) {}
   virtual double GetLidarDetectionDistance() { return 0.0; }
   virtual double GetDistanceSensorDetectionDistanceLeft() { return 0.0; }
@@ -57,7 +57,7 @@ public:
   virtual bool IsDistanceRightActive() { return false; }
   virtual void InitLeft(){};
   virtual void InitRight(){};
-  virtual void GoAroundCone(){};
+  virtual void GoAroundCone(bool turnRight = false){};
 
   virtual void EnableAnticollision(bool enable = true) { m_hasAntiCollision = enable; }
 
