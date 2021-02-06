@@ -84,6 +84,8 @@ bool Autonomous2021_2::IsFinished()
 
 void Autonomous2021_2::loop0()
 {
+  //Rotate until Color1 on right side
+
   m_center = 0.75;
 
   if (m_state != 0)
@@ -112,6 +114,8 @@ void Autonomous2021_2::loop0()
 
 void Autonomous2021_2::loop1()
 {
+  //Move forward until I can't see color1
+
   m_center = 0.75;
 
   if (m_state != 1)
@@ -120,10 +124,17 @@ void Autonomous2021_2::loop1()
   }
 
   if (m_result > 3.0)
+  {
+    m_pDrive->Forward(0.3);
+  }
 }
 
 void Autonomous2021_2::loop2()
 {
+  //Move forward a little bit
+
+  int timer;
+
   m_center = 0.75;
 
   if (m_state != 2)
@@ -131,34 +142,23 @@ void Autonomous2021_2::loop2()
     return;
   }
 
-  if (m_result >= -2.5)
+  if (timer < 30)
   {
-    if (m_result < 0) //Is on the left side
-    {
-      m_pDrive->TurnLeft(0.2); //Turn left so that its on the right side
-    }
-    else //if?
-    {
-      m_pDrive->MoveTank(0.4, 0.2); //Move forward and right
-    }
+    m_pDrive->Forward(0.2);
+    Util::DelayInSeconds(0.016);
+    timer++;
   }
   else
   {
-    m_loopsUpdate++;
+    m_pDrive->Stop();
+    m_state = 3;
   }
+  
 }
 
 void Autonomous2021_2::loop3()
 {
-  if (m_result >= 0)
-  {
-    m_result = m_pDrive->WhereToTurnVision(0.75, 50);
-    m_pDrive->Forward(0.3);
-  }
-  else
-  {
-    m_loopsUpdate++;
-  }
+
 }
 
 void Autonomous2021_2::loop4()
