@@ -71,8 +71,10 @@ else
 if(m_turn == 0.0)
 {
   //Stop if object is in center
-  Stop();
+  Forward(0.3);
 }
+while(m_turn > -1.0) { m_turn = m_camera.WhereToTurn(deadZoneLocation, deadZoneRange); }
+Stop();
 }
 
 void DriveTrainSubsystemC418::Init()
@@ -297,25 +299,39 @@ void DriveTrainSubsystemC418::PrecisionMovementLidar(double wantedDistance)
 }
 void DriveTrainSubsystemC418::GoAroundCone(bool turnRight)
 {
-  int repeation = 0;
+  frc::Timer timer;
+
   if (turnRight == false)
-  {
-    //goes around in a circle, presumably going around a cone square
-    while (repeation < 3)
+  { 
+    double seconds = 3.5;
+    double startTime = timer.Get();
+    double currentTime = timer.Get();
+    //Keep looping until end time is reached
+    timer.Start();
+    while (currentTime - startTime < seconds)
     {
-    TurnInDegrees(90, 0.3);
-    ForwardInInch(50,0.0,0.3);
-    repeation++;
+        //Gets current time and sends it to the smartdashboard for checking
+        currentTime = timer.Get();
+        MoveArcade(0.5,-0.2);
     }
+    timer.Stop();
+    timer.Reset();
   }
   else if(turnRight == true)
   {
-    while (repeation < 3)
+    double seconds = 3.5;
+    double startTime = timer.Get();
+    double currentTime = timer.Get();
+    //Keep looping until end time is reached
+    timer.Start();
+    while (currentTime - startTime < seconds)
     {
-    TurnInDegrees(-50, 0.3);
-    ForwardInInch(90,0.0,0.3);
-    repeation++;
+        //Gets current time 
+        currentTime = timer.Get();
+        MoveArcade(0.5, 0.2);
     }
+    timer.Stop();
+    timer.Reset();
   }
 
 //   IMUInit();

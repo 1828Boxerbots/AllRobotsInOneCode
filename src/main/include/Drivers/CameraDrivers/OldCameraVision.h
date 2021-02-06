@@ -96,8 +96,8 @@ private:
 	//How big is the dead zone where WhereToTurn() = 0.0
 	//double m_deadZone = 50.0;
 
-	VisionColors m_visionColor = FMS_COLOR;
-
+	//VisionColors m_visionColor = FMS_COLOR;
+	VisionColors m_visionColor = GREEN_CONE;
 	//Holds the camera and raw image
 	cv::Mat m_frame; 
 	cv::Mat m_imgHSV;

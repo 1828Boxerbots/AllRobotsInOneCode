@@ -32,7 +32,7 @@ void Util::DelayInSeconds(double seconds)
     frc::Timer timer;
     //starts timer and gets start time and beginning current time
     timer.Start();
-while (timer.HasPeriodPassed(seconds));
+// while (timer.HasPeriodPassed(seconds));
     /*
     double startTime = timer.Get();
     double currentTime = timer.Get();

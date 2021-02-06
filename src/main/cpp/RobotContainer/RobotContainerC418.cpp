@@ -175,9 +175,9 @@ void RobotContainerC418::ConfigureAutonomousCommands()
   {
   //  frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Init(); }, {m_pDrive}},
     //This is the first part of auto challenge one. Going around first cone
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->WhereToTurnVision(1.0, 50); }, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(200,0.0,0.3); }, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->GoAroundCone(false); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->WhereToTurnVision(0.75, 50); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(50,0.0,0.3); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->GoAroundCone(true); }, {m_pDrive}},
     //This is the second part of auto challenge one. Going around secondth cone
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->WhereToTurnVision(-1.0, 50); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(100,0.0,0.3); }, {m_pDrive}},
@@ -406,7 +406,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 0;
+  int cases = 1;
   switch(cases)
   {
     case 0:
