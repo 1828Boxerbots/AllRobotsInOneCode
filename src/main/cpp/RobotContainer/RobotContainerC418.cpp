@@ -273,6 +273,8 @@ void RobotContainerC418::ConfigureAutonomousCommands()
 
   m_pScenario2 = new Autonomous2021_2(m_pDrive);
 
+  m_pBouncePath = new AutonomousBouncePath(m_pDrive);
+
   m_pAutoPickUpLemon = new frc2::SequentialCommandGroup 
   {
     //frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->Init(); }, {m_pDrive}},
@@ -407,7 +409,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 2;
+  int cases = 3;
   switch(cases)
   {
     case 0:
@@ -421,6 +423,8 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     case 2:
       return m_pAutoPickUpLemon;
       break;
+    case 3:
+      return m_pBouncePath;
     default:
       return nullptr;
   }
