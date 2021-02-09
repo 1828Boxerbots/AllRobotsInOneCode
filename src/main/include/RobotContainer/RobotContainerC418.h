@@ -19,7 +19,7 @@
 #include "subsystems/SpinSubsystemBase.h"
 #include "../include/Drivers/RevDistanceSensorDriver.h"
 #include "../Commands/AutoArmCommand.h"
-#include "Commands/Autonomous2021_2.h"
+#include "Commands/AutoSlalom.h"
 #include "Commands/AutonomousBouncePath.h"
 
 /**
@@ -93,7 +93,7 @@ private:
   frc2::SequentialCommandGroup *m_pAutoChallengeOne = nullptr;
   frc2::SequentialCommandGroup *m_pAutoCircle = nullptr;
 
-  Autonomous2021_2 *m_pScenario2 = nullptr;
+  AutoSlalom *m_pAutoSlalom = nullptr;
   frc2::SequentialCommandGroup *m_pAutoPickUpLemon = nullptr;
   AutonomousBouncePath *m_pBouncePath = nullptr;
 };

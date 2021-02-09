@@ -271,7 +271,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
     }
   };
 
-  m_pScenario2 = new Autonomous2021_2(m_pDrive);
+  m_pAutoSlalom = new AutoSlalom(m_pDrive);
 
   m_pBouncePath = new AutonomousBouncePath(m_pDrive);
 
@@ -413,7 +413,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
   switch(cases)
   {
     case 0:
-      return m_pScenario2;
+      return m_pAutoSlalom;
       break;
     
     case 1:

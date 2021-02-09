@@ -47,7 +47,7 @@ public:
   virtual double GetLeftEncoderInch() { return -1.0; }
   virtual double GetRightEncoderInch() { return -1.0; }
   virtual void ResetEncoder() {}
-  virtual void ForwardInSeconds(double goalTime);
+  virtual void ForwardInSeconds(double goalTime, double speed = 1.0);
   virtual void TurnInDegrees(double relativeAngle, double speed = 0.75);
   //virtual void DetectionSoftware(double detectionDistance) {}
   virtual double GetLidarDetectionDistance() { return 0.0; }
@@ -73,10 +73,6 @@ public:
   void TurnWithVision(double deadZoneLocation = 0.0, int deadZoneRange = 100, bool defaultTurnRight = true);
   void MoveWithVision(double deadZoneLocation = 0.0, int deadZoneRange = 100, int moveSpeed = 0.5, bool defaultTurnRight = true);
   virtual double WhereToTurn(double deadZoneLocation = 0.0, int deadZoneRange = 100){return 0.0;}
-
-  enum Colors {
-    BROWN, BLUE, GREEN_CONE, RED_CONE, YELLOW_CONE, ORANGE_CONE
-  };
 
 protected:
   bool m_isColliding = false;

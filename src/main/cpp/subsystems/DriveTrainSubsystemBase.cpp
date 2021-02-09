@@ -333,7 +333,7 @@ void DriveTrainSubsystemBase::Init()
 }
 
 //function used to turn the robot in seconds; Use at your own risk
-void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime)
+void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime, double speed)
 {
     m_autoTimer.Stop();
     m_autoTimer.Reset();
@@ -341,7 +341,7 @@ void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime)
     double startTime = m_autoTimer.Get();
     do
     {
-        Forward(0.5);
+        Forward(speed);
     } while (goalTime > m_autoTimer.Get()-startTime);
     Stop();
 }

@@ -4,20 +4,23 @@
 
 #pragma once
 
+#include <frc2/Timer.h>
 #include <frc/commands/Command.h>
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/DriveTrainSubsystemBase.h"
 
-class Autonomous2021_2 : public frc2::CommandHelper<frc2::CommandBase, Autonomous2021_2> 
+class AutoSlalom : public frc2::CommandHelper<frc2::CommandBase, AutoSlalom> 
 {
  public:
-  Autonomous2021_2(DriveTrainSubsystemBase *pDrive);
+  AutoSlalom(DriveTrainSubsystemBase *pDrive);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
 
  private:
+
+  frc::Timer timer;
 
   int m_state = 0;
   double m_result = 0;
@@ -35,7 +38,9 @@ class Autonomous2021_2 : public frc2::CommandHelper<frc2::CommandBase, Autonomou
   void loop4();
   void loop5();
   void loop6();
-  void SwitchColor(DriveTrainSubsystemBase::Colors color);
+  void loop7();
+  void loop8();
+  void loop9();
 
   DriveTrainSubsystemBase *m_pDrive = nullptr;
 };
