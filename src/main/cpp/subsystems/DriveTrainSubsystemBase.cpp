@@ -118,12 +118,20 @@ void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
 
 void DriveTrainSubsystemBase::TurnRight(double speed)
 {
-    MoveTank(-speed, speed);
+    if(speed < 0)
+    {
+        speed = -speed;
+    }
+    MoveTank(speed, -speed*1.28);
 }
 
 void DriveTrainSubsystemBase::TurnLeft(double speed)
 {
-    MoveTank(speed, -speed);
+    if(speed < 0)
+    {
+        speed = -speed;
+    }
+    MoveTank(-speed, speed*1.28);
 }
 
 void DriveTrainSubsystemBase::LogEncoder()
@@ -302,7 +310,7 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle, double speed)
     //logic used to turn the robot left or right and keeping it turned
     if (relativeAngle > 0)
     {
-        TurnLeft(speed);
+        TurnRight(speed);
         while (currentAngle - startAngle < relativeAngle)
         {
             currentAngle = IMUGetAngle();
@@ -310,7 +318,7 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle, double speed)
     }
     if (relativeAngle < 0)
     {
-        TurnRight(speed);
+        TurnLeft(speed);
         while (currentAngle - startAngle > relativeAngle)
         {
             currentAngle = IMUGetAngle();
@@ -330,14 +338,15 @@ void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime)
     m_autoTimer.Stop();
     m_autoTimer.Reset();
     m_autoTimer.Start();
-    while(goalTime < m_autoTimer.Get())
+    double startTime = m_autoTimer.Get();
+    do
     {
-        Forward();
-    }
+        Forward(0.5);
+    } while (goalTime > m_autoTimer.Get()-startTime);
     Stop();
 }
 
-void DriveTrainSubsystemBase::MoveWithVision(double deadZoneLocation, int deadZoneRange)
+void DriveTrainSubsystemBase::TurnWithVision(double deadZoneLocation, int deadZoneRange, bool defaultTurnRight)
 {
     double turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
     while(turn != 0.0)
@@ -345,18 +354,25 @@ void DriveTrainSubsystemBase::MoveWithVision(double deadZoneLocation, int deadZo
         turn = WhereToTurn(deadZoneLocation, deadZoneRange);
         if(turn < -1.0)
         {
-            //Turn right if object is not seen
-            TurnRight(-0.3);
+            //Turn right/left if object is not seen
+            if(defaultTurnRight == true)
+            {
+                TurnRight(0.3);
+            }
+            else if(defaultTurnRight == false)
+            {
+                TurnLeft(0.3);
+            }
         }
         else if (turn < 0.0)
         {
-            //Turn right if object is on the right
-            TurnRight(0.3);
+            //Turn left if object is on the left
+            TurnLeft(0.2);
         }
         else if(turn > 0.0)
         {
-            //Turn left if object is on the left
-            TurnLeft(0.2);
+            //Turn right if object is on the right
+            TurnRight(0.2);
         }
         else
         {
@@ -368,5 +384,40 @@ void DriveTrainSubsystemBase::MoveWithVision(double deadZoneLocation, int deadZo
     {
         //Stop if object is in center
         Stop();
+    }
+}
+void DriveTrainSubsystemBase::MoveWithVision(double deadZoneLocation, int deadZoneRange, int moveSpeed, bool defaultTurnRight)
+{
+    double turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
+    while(turn != 0.0)
+    {
+        turn = WhereToTurn(deadZoneLocation, deadZoneRange);
+        if(turn < -1.0)
+        {
+            //Turn right/left if object is not seen
+            if(defaultTurnRight == true)
+            {
+                TurnRight(0.3);
+            }
+            else if(defaultTurnRight == false)
+            {
+                TurnLeft(0.3);
+            }
+        }
+        else if (turn < 0.0)
+        {
+            //Move left if object is on the left
+            MoveArcade(moveSpeed, -0.2);
+        }
+        else if(turn > 0.0)
+        {
+            //Turn right if object is on the right
+            MoveArcade(moveSpeed, 0.2);
+        }
+        else
+        {
+            //Object is in the center
+            MoveArcade(moveSpeed, 0.0);
+        }
     }
 }
