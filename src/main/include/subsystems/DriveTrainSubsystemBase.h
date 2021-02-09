@@ -59,6 +59,11 @@ public:
   virtual void InitLeft(){};
   virtual void InitRight(){};
   virtual void GoAroundCone(bool turnRight = false){};
+  virtual void SetHSVHigh(int HSV, int value) {}
+  virtual void SetHSVLow(int HSV, int value) {}
+  virtual void SetVisionFMSColor(OldCameraVision::VisionColors color) {}
+  virtual void SetLookingColorV(OldCameraVision::VisionColors color) {}
+  virtual OldCameraVision::VisionColors GetLookingColorV() {}
 
   virtual void EnableAnticollision(bool enable = true) { m_hasAntiCollision = enable; }
 
@@ -71,10 +76,6 @@ public:
   enum Colors {
     BROWN, BLUE, GREEN_CONE, RED_CONE, YELLOW_CONE, ORANGE_CONE
   };
-  
-  virtual void SetHSVHigh(int HSV, int value) {}
-  virtual void SetHSVLow(int HSV, int value) {}
-  virtual void SetVisionFMSColor(OldCameraVision::VisionColors color) {}
 
 protected:
   bool m_isColliding = false;
