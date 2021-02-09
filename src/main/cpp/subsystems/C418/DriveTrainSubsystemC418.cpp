@@ -349,6 +349,21 @@ void DriveTrainSubsystemC418::SetVisionFMSColor(OldCameraVision::VisionColors co
   #endif
 }
 
+void DriveTrainSubsystemC418::SetLookingColorV(OldCameraVision::VisionColors color)
+{
+  #ifndef NO_HW
+    m_camera.SetLookingColor(color);
+  #endif
+}
+OldCameraVision::VisionColors DriveTrainSubsystemC418::GetLookingColorV()
+{
+  #ifndef NO_HW
+    return m_camera.GetLookingColor();
+  #else
+    return OldCameraVision::VisionColors::INVALID_COLOR;
+  #endif
+}
+
 //Used to disable and enable anticollision
 void DriveTrainSubsystemC418::EnableAnticollision(bool enable)
 {

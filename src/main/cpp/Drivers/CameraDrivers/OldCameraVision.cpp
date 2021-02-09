@@ -232,7 +232,8 @@ void OldCameraVision::SetColor()
 
 	cv::inRange(m_imgHSV, resultL, resultH, m_imgThresholded);
 
-	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(2, 2)));
+	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3)));
+	cv::dilate(m_imgThresholdedTwo, m_imgThresholded, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(6, 6)));
 
 	//Display Filtered Image
 	SendImage(IMAGE_THRESHOLD, m_imgThresholdedTwo);
@@ -320,4 +321,14 @@ void OldCameraVision::SetFMSColor(VisionColors color)
 		FMS_HIGH = GREEN_CONE_HIGH;
 		break;
 	}
+}
+
+void OldCameraVision::SetLookingColor(VisionColors color)
+{
+	m_visionColor = color;
+}
+
+OldCameraVision::VisionColors OldCameraVision::GetLookingColor()
+{
+	return m_visionColor;
 }

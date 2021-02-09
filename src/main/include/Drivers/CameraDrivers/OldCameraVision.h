@@ -33,7 +33,7 @@ public:
 	/// </returns>
 	double WhereToTurn( double deadZoneLocation = 0.0, int deadZoneRange = 100);
 
-	enum VisionColors{RED_CONE, GREEN_CONE, YELLOW_CONE, ORANGE_CONE, YELLOW_LEMON, FMS_COLOR};
+	enum VisionColors{INVALID_COLOR, RED_CONE, GREEN_CONE, YELLOW_CONE, ORANGE_CONE, YELLOW_LEMON, FMS_COLOR};
 
 	void Tick();
 	
@@ -41,6 +41,9 @@ public:
 	void SetLow(int HSV, int value);
 
 	void SetFMSColor(VisionColors color);
+
+	void SetLookingColor(VisionColors color);
+	VisionColors GetLookingColor();
 
 private:
  	int m_frameCounter = 0;
@@ -67,8 +70,8 @@ private:
 	const cv::Scalar YELLOW_CONE_HIGH{42,255,255};
 	const cv::Scalar ORANGE_CONE_LOW{0,76,255};
 	const cv::Scalar ORANGE_CONE_HIGH{21,255,255};
-	const cv::Scalar YELLOW_LEMON_LOW{17, 153, 120};
-	const cv::Scalar YELLOW_LEMON_HIGH{30, 255, 255};
+	const cv::Scalar YELLOW_LEMON_LOW{18, 200, 200};
+	const cv::Scalar YELLOW_LEMON_HIGH{32, 255, 255};
 
 	const cv::Scalar BLUE_TEAMSHIRT_LOW{50, 50, 100};
 	const cv::Scalar BLUE_TEAMSHIRT_HIGH{100, 255, 255};

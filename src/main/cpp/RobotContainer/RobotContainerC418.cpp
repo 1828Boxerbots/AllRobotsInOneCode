@@ -282,9 +282,11 @@ void RobotContainerC418::ConfigureAutonomousCommands()
       {
         if(m_pDrive != nullptr && m_pLoader != nullptr && m_pShooter != nullptr)
         {
-          //GetVisionFMS();
+          m_pDrive->SetLookingColorV(OldCameraVision::FMS_COLOR);
+          GetVisionFMS();
           double centerScreen = 0.0;
           double result = m_pDrive->WhereToTurn(centerScreen, 50);
+          Util::Log("Lemon result", result);
           //camera flips the image
           if(result == 0.0 || m_hasBall == true)
           {

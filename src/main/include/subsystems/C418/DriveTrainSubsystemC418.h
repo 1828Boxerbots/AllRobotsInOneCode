@@ -72,6 +72,9 @@ public:
   void SetHSVHigh(int HSV, int value) override;
   void SetHSVLow(int HSV, int value) override;
 
+  void SetLookingColorV(OldCameraVision::VisionColors) override;
+  OldCameraVision::VisionColors GetLookingColorV() override;
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
