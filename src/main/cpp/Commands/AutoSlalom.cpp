@@ -173,7 +173,8 @@ void AutoSlalom::loop4()
     return;
   }
 
-  double direction if (m_result < -2.0 || m_result < 0.0)
+  double direction;
+  if (m_result < -2.0 || m_result < 0.0)
   {
     direction = -0.2;
   }
