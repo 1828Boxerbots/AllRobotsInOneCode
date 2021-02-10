@@ -188,5 +188,34 @@ void AutoSlalom::loop4()
 
 void AutoSlalom::loop5()
 {
+  //Rotate until Color2 on left side
+  m_center = -0.5; //left side
 
+  if (m_state != 5)
+  {
+    return;
+  }
+
+  double direction;
+  if(m_result < -2.0 || m_result < 0.0)
+  {
+    direction = -0.2;
+  }
+  else if (m_result > 0.0)
+  {
+    direction = 0.2;
+  }
+  else
+  {
+    direction = 0.0;
+    m_state = 6;
+  }
+  m_pDrive->MoveArcade(0, direction);
+}
+
+void AutoSlalom::loop6()
+{
+  //Rotate around the Color2 cone
+
+  //TEMPORARY
 }

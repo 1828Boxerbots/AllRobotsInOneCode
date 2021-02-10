@@ -51,8 +51,6 @@ public:
   int ReadDioSwitch();
 
   frc2::Command *GetAutonomousCommand() override;
-  void BreakFMSStr(std::string gameData) override;
-  void GetVisionFMS() override;
 
   static SpinSubsystemC418::FMSColors givenColor;
 

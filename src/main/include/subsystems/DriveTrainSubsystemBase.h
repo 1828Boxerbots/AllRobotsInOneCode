@@ -66,8 +66,8 @@ public:
   virtual void SetLookingColorV(OldCameraVision::VisionColors color) {}
   virtual OldCameraVision::VisionColors GetLookingColorV() {}
 
-  virtual void DriveTrainSubsystemBase::GetVisionFMS();
-  virtual void DriveTrainSubsystemBase::BreakFMSStr(std::string gameData);
+  virtual void GetVisionFMS();
+  virtual void BreakFMSStr(std::string gameData);
 
   virtual void EnableAnticollision(bool enable = true) { m_hasAntiCollision = enable; }
 
