@@ -163,7 +163,6 @@ void AutoSlalom::loop3()
   m_state = 4;
 }
 
-
 void AutoSlalom::loop4()
 {
   //Rotate Right until color1 is on the right side
@@ -174,14 +173,13 @@ void AutoSlalom::loop4()
     return;
   }
 
-  double direction
-  if (m_result < -2.0 || m_result < 0.0)
+  double direction if (m_result < -2.0 || m_result < 0.0)
   {
     direction = -0.2;
   }
   else
   {
-    direction = 0.0
+    direction = 0.0;
     m_state = 5;
   }
   m_pDrive->MoveArcade(0, direction);
