@@ -89,46 +89,6 @@ void RobotContainerC418::ConfigureAutonomousCommands()
 
   m_pAutoFollowRed = new frc2::SequentialCommandGroup 
   {
-    frc2::InstantCommand 
-    {
-      [this] 
-      {
-        Util::Log("Shadow 3", "is drive good");
-        if(m_pDrive != nullptr)
-        {
-          while (true)
-          {
-            Util::Log("Shadow 3", "AutonomousS");
-            double result = m_pDrive->WhereToTurn();
-            if(result < -1)
-            {
-              //Cannot find thing, so rotate right at maximum speed to find the object
-              m_pDrive->TurnRight(1.0);
-            }
-            else if (result < 0)
-            {
-              //Turn left if object is on the left
-              m_pDrive->TurnLeft(-result);
-            }
-            else if(result > 0)
-            {
-              //Turn right if object is on the right
-              m_pDrive->TurnRight(result);
-            }
-            else
-            {
-              //Object is in the center
-              m_pDrive->Stop();
-            }
-            Util::Log("Shadow 3", "AutonomousE");
-          }
-        }
-      }, {m_pDrive}
-    }
-  };
-
-  m_pAutoFollowRed = new frc2::SequentialCommandGroup 
-  {
     //frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->Init(); }, {m_pDrive}},
     frc2::RunCommand 
     {
@@ -136,6 +96,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
       {
         if(m_pDrive != nullptr)
         {
+          m_pDrive->SetLookingColorV(OldCameraVision::FMS_COLOR);
           double centerScreen = 0.0;
           double result = m_pDrive->WhereToTurn(centerScreen, 50);
           Util::Log("Shadow 3", result);
@@ -148,17 +109,17 @@ void RobotContainerC418::ConfigureAutonomousCommands()
           else if(result < -1.0)
           {
             //Turn right if object is not seen
-            m_pDrive->TurnRight(0.4);
+            m_pDrive->TurnRight(0.2);
           }
           else if (result < 0.0)
           {
             //Turn right if object is on the right
-            m_pDrive->TurnRight(0.4);
+            m_pDrive->TurnRight(0.2);
           }
           else if(result > 0.0)
           {
             //Turn left if object is on the left
-            m_pDrive->TurnLeft(0.3);
+            m_pDrive->TurnLeft(0.2);
           }
           else
           {
@@ -168,6 +129,20 @@ void RobotContainerC418::ConfigureAutonomousCommands()
           //Util::DelayInSeconds(0.2);
         }
       }, {m_pDrive}
+    }
+  };
+
+  m_pAutoDoLiterallyNothing = new frc2::SequentialCommandGroup 
+  {
+    //frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->Init(); }, {m_pDrive}},
+    frc2::RunCommand 
+    {
+      [this] 
+      {
+        m_pDrive->SetLookingColorV(OldCameraVision::FMS_COLOR);
+        GetVisionFMS();
+        m_pDrive->WhereToTurn(0.0, 50);
+      }
     }
   };
 
@@ -409,7 +384,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 3;
+  int cases = 5;
   switch(cases)
   {
     case 0:
@@ -425,6 +400,10 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
       break;
     case 3:
       return m_pBouncePath;
+    case 4:
+      return m_pAutoFollowRed;
+    case 5:
+      return m_pAutoDoLiterallyNothing;
     default:
       return nullptr;
   }
@@ -554,93 +533,6 @@ void RobotContainerC418::SetBackButton()
   frc2::Button backButttonTwo{[this] { return m_controller2.GetBackButton(); }};
   backButttonTwo.WhenPressed(&m_armLower_Motor);
   backButttonTwo.WhenReleased(&m_armStop);
-}
-
-void RobotContainerC418::BreakFMSStr(std::string gameData)
-{
-  char copy[gameData.length() +1];
-  strcpy(copy, gameData.c_str());
-  char *output = strtok(copy, "-");
-  for (int num=0; output != nullptr; num++)
-  {
-    int value = atoi(output);
-    switch (num)
-    {
-      case 0:
-        break;
-      case 1:
-        m_pDrive->SetHSVLow(1, value);
-        break;
-      case 2:
-        m_pDrive->SetHSVHigh(1, value);
-        break;
-      case 3:
-        m_pDrive->SetHSVLow(2, value);
-        break;
-      case 4:
-        m_pDrive->SetHSVHigh(2, value);
-        break;
-      case 5:
-        m_pDrive->SetHSVLow(3, value);
-        break;
-      case 6:
-        m_pDrive->SetHSVHigh(3, value);
-        break;
-      default:
-        //IT BROKE or there is more when there isnt suppose to be
-        break;
-    } // end SWITCH
-    output = strtok(nullptr, "-");
-  } // end FOR
-    Util::Log("AutoFMS", "Vision HSV values added");
-}
-
-void RobotContainerC418::GetVisionFMS()
-{
-  std::string gameData;
-  gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
-  if (gameData.length() > 0)
-  {
-    switch (gameData[0])
-    {
-    case 'R':
-      //Case for RedCone
-      m_pDrive->SetVisionFMSColor(OldCameraVision::VisionColors::RED_CONE);
-      Util::Log("AutoFMS", "Vision Red");
-      break;
-    case 'G':
-      //Case for GreenCone
-      m_pDrive->SetVisionFMSColor(OldCameraVision::VisionColors::GREEN_CONE);
-      Util::Log("AutoFMS", "Vision Green");
-      break;
-    case 'Y':
-      //Case for YellowCone
-      m_pDrive->SetVisionFMSColor(OldCameraVision::VisionColors::YELLOW_CONE);
-      Util::Log("AutoFMS", "Vision Yellow Cone");
-      break;
-    case 'O':
-      //Case for Orange Cone
-      m_pDrive->SetVisionFMSColor(OldCameraVision::VisionColors::ORANGE_CONE);
-      Util::Log("AutoFMS", "Vision Orange");
-      break;
-    case 'L':
-      //Case Yellow LEMON
-      m_pDrive->SetVisionFMSColor(OldCameraVision::VisionColors::YELLOW_LEMON);
-      Util::Log("AutoFMS", "Vision Yellow Lemon");
-      break;
-    case 'V':
-      //Case for Vision Sliders
-      Util::Log("AutoFMS", "Vision Slider");
-      BreakFMSStr(gameData);
-      break;
-    default:
-      //This is corrupt data
-      break;
-    }
-  }
-  else
-  { /*Code for no data received yet*/
-  }
 }
 
 void RobotContainerC418::AutonomousPeriodic() { }

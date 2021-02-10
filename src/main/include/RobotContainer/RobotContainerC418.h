@@ -92,6 +92,7 @@ private:
   frc2::SequentialCommandGroup *m_pAutoFollowRed = nullptr;
   frc2::SequentialCommandGroup *m_pAutoChallengeOne = nullptr;
   frc2::SequentialCommandGroup *m_pAutoCircle = nullptr;
+  frc2::SequentialCommandGroup *m_pAutoDoLiterallyNothing = nullptr;
 
   AutoSlalom *m_pAutoSlalom = nullptr;
   frc2::SequentialCommandGroup *m_pAutoPickUpLemon = nullptr;
