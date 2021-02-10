@@ -10,6 +10,7 @@
 #include <frc2/command/SubsystemBase.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/Spark.h>
+#include <frc/DriverStation.h>
 #include <math.h>
 #include <frc/Timer.h>
 #include "../Util.h"
@@ -64,6 +65,9 @@ public:
   virtual void SetVisionFMSColor(OldCameraVision::VisionColors color) {}
   virtual void SetLookingColorV(OldCameraVision::VisionColors color) {}
   virtual OldCameraVision::VisionColors GetLookingColorV() {}
+
+  virtual void DriveTrainSubsystemBase::GetVisionFMS();
+  virtual void DriveTrainSubsystemBase::BreakFMSStr(std::string gameData);
 
   virtual void EnableAnticollision(bool enable = true) { m_hasAntiCollision = enable; }
 

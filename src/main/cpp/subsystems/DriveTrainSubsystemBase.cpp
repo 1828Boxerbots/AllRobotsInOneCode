@@ -421,3 +421,90 @@ void DriveTrainSubsystemBase::MoveWithVision(double deadZoneLocation, int deadZo
         }
     }
 }
+
+void DriveTrainSubsystemBase::GetVisionFMS()
+{
+  std::string gameData;
+  gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+  if (gameData.length() > 0)
+  {
+    switch (gameData[0])
+    {
+    case 'R':
+      //Case for RedCone
+      SetVisionFMSColor(OldCameraVision::VisionColors::RED_CONE);
+      Util::Log("AutoFMS", "Vision Red");
+      break;
+    case 'G':
+      //Case for GreenCone
+      SetVisionFMSColor(OldCameraVision::VisionColors::GREEN_CONE);
+      Util::Log("AutoFMS", "Vision Green");
+      break;
+    case 'Y':
+      //Case for YellowCone
+      SetVisionFMSColor(OldCameraVision::VisionColors::YELLOW_CONE);
+      Util::Log("AutoFMS", "Vision Yellow Cone");
+      break;
+    case 'O':
+      //Case for Orange Cone
+      SetVisionFMSColor(OldCameraVision::VisionColors::ORANGE_CONE);
+      Util::Log("AutoFMS", "Vision Orange");
+      break;
+    case 'L':
+      //Case Yellow LEMON
+      SetVisionFMSColor(OldCameraVision::VisionColors::YELLOW_LEMON);
+      Util::Log("AutoFMS", "Vision Yellow Lemon");
+      break;
+    case 'V':
+      //Case for Vision Sliders
+      Util::Log("AutoFMS", "Vision Slider");
+      BreakFMSStr(gameData);
+      break;
+    default:
+      //This is corrupt data
+      break;
+    }
+  }
+  else
+  { /*Code for no data received yet*/
+  }
+}
+
+void DriveTrainSubsystemBase::BreakFMSStr(std::string gameData)
+{
+  char copy[gameData.length() +1];
+  strcpy(copy, gameData.c_str());
+  char *output = strtok(copy, "-");
+  for (int num=0; output != nullptr; num++)
+  {
+    int value = atoi(output);
+    switch (num)
+    {
+      case 0:
+        break;
+      case 1:
+        SetHSVLow(1, value);
+        break;
+      case 2:
+        SetHSVHigh(1, value);
+        break;
+      case 3:
+        SetHSVLow(2, value);
+        break;
+      case 4:
+        SetHSVHigh(2, value);
+        break;
+      case 5:
+        SetHSVLow(3, value);
+        break;
+      case 6:
+        SetHSVHigh(3, value);
+        break;
+      default:
+        //IT BROKE or there is more when there isnt suppose to be
+        break;
+    } // end SWITCH
+    output = strtok(nullptr, "-");
+  } // end FOR
+    Util::Log("AutoFMS", "Vision HSV values added");
+}
