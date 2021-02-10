@@ -16,6 +16,7 @@ AutoSlalom::AutoSlalom(DriveTrainSubsystemBase *pDrive)
 void AutoSlalom::Initialize()
 {
   timer.Start();
+  m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -51,8 +52,6 @@ void AutoSlalom::Execute()
     switch (m_state)
     {
     case 0:
-    case 3:
-    case 6: //also case 6 because we need to move forward a little bit there as well
       loop0();
       break;
     case 1:
@@ -61,6 +60,9 @@ void AutoSlalom::Execute()
       break;
     case 2:
       loop2();
+      break;
+    case 3:
+      loop3();
       break;
     default:
       break;
@@ -88,6 +90,7 @@ void AutoSlalom::loop0()
   //Move forward a little bit
   //No state check because this function is shared by other cases
   m_pDrive->ForwardInSeconds(0.25, 0.5);
+  m_state = 1;
 }
 
 void AutoSlalom::loop1()
@@ -96,7 +99,7 @@ void AutoSlalom::loop1()
 
   m_center = 0.85;
 
-  if (m_state != 0) //Return if state is not 0
+  if (m_state != 1) //Return if state is not 0
   {
     return;
   }
@@ -105,32 +108,30 @@ void AutoSlalom::loop1()
   if (m_result < -2.0 || m_result < 0.0) //If I can't see the cone or it is on the left side of the center
   {
     Util::Log("Auto2021 S1 State", "Turning Left");
-    //direction = -0.2;
-    m_pDrive->TurnRight(0.3);
+    direction = -0.2;
   }
   else if (m_result > 0.0) //If the cone is on the right side of the center
   {
     Util::Log("Auto2021 S1 State", "Turning Right");
-    //direction = 0.2;
-    m_pDrive->TurnLeft(0.3); 
+    direction = 0.2;
   }
   else //If cone is in the center
   {
-    //direction = 0.0;
-    m_state = 1; //Increment state
-    m_pDrive->Stop(); //Stop motors
+    direction = 0.0;
+    m_state = 2; //Increment state
   }
   //m_pDrive->MoveTank(direction, -direction);
+  m_pDrive->MoveArcade(0, direction); //Move
 }
 
 void AutoSlalom::loop2()
 {
   //Move forward until I can't see color1
 
-  m_center = 0.50; //Center is in the center
+  m_center = 0.0; //Center is in the center
   double speed = 0.0;
 
-  if (m_state != 1) //Return if state is not one
+  if (m_state != 2) //Return if state is not one
   {
     return;
   }
@@ -148,31 +149,45 @@ void AutoSlalom::loop2()
   }
   else //If I don't see the cone
   {
-    m_state = 2; //Increment state
+    m_state = 3; //Increment state
   }
 
   m_pDrive->MoveArcade(0.2, speed); //Move
 }
 
+void AutoSlalom::loop3()
+{
+  //Move forward a little bit
+  //No state check because this function is shared by other cases
+  m_pDrive->ForwardInSeconds(0.25, 0.5);
+  m_state = 4;
+}
+
+
 void AutoSlalom::loop4()
 {
-  //Rotate right until color1 is on the right side
-  m_center = 0.75;
+  //Rotate Right until color1 is on the right side
+  m_center = 0.25;
 
-  if (m_state != 0)
+  if (m_state != 4)
   {
     return;
   }
 
-  double direction;
+  double direction
   if (m_result < -2.0 || m_result < 0.0)
   {
     direction = -0.2;
   }
   else
   {
-    direction = 0.0;
-    m_state = 1;
+    direction = 0.0
+    m_state = 5;
   }
-  m_pDrive->MoveTank(-direction, direction);
+  m_pDrive->MoveArcade(0, direction);
+}
+
+void AutoSlalom::loop5()
+{
+
 }
