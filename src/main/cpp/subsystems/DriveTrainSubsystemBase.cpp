@@ -127,11 +127,14 @@ void DriveTrainSubsystemBase::ArcadeVision(double x, double y, OldCameraVision::
 
     SetLookingColorV(color);
 
+    SetLookingColorV(OldCameraVision::VisionColors::GREEN_CONE);
+
     double turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
 
-    MoveTank(leftY, rightY * m_scale);
+    
     while(turn > -2.9)
     {
+        MoveTank(leftY, rightY * m_scale);
         turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
     }
     Stop();
@@ -384,7 +387,7 @@ void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZ
             }
             else if(defaultTurnRight == false)
             {
-                TurnLeft(0.3);
+                TurnLeft(0.25);
             }
         }
         else if (turn < 0.0)
@@ -401,7 +404,7 @@ void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZ
         }
     }
     Util::Log("Direction", "Center");
-    Forward(0.4);
+    Forward(0.3);
     while(turn > -2.9)
     {
         //Continue Forwards until object is not see-able
