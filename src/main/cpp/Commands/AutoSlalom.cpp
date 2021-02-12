@@ -97,9 +97,9 @@ void AutoSlalom::loop1()
 {
   //Rotate until Color1 on right side
 
-  m_center = 0.85;
+  m_center = 0.75;
 
-  if (m_state != 1) //Return if state is not 0
+  if (m_state != 1) //Return if state is not 1
   {
     return;
   }
@@ -131,7 +131,7 @@ void AutoSlalom::loop2()
   m_center = 0.0; //Center is in the center
   double speed = 0.0;
 
-  if (m_state != 2) //Return if state is not one
+  if (m_state != 2) //Return if state is not 2
   {
     return;
   }
@@ -166,7 +166,7 @@ void AutoSlalom::loop3()
 void AutoSlalom::loop4()
 {
   //Rotate Right until color1 is on the right side
-  m_center = 0.25;
+  m_center = 0.50;
 
   if (m_state != 4)
   {
@@ -215,7 +215,6 @@ void AutoSlalom::loop5()
 
 void AutoSlalom::loop6()
 {
-  //Rotate around the Color2 cone
+  //Move forward until I can't see Color2
 
-  //TEMPORARY
 }

@@ -111,7 +111,8 @@ private:
 #endif
 
   double speedLimit = 0.5;
-  const double PULSE_PER_REVOLUTION = 240;
+  //3.18309886184 is the number of rotations to get to 5 feet
+  const double PULSE_PER_REVOLUTION = 360;
   const double WHEELDIAMETER = 6.0;
 
   int m_beat = 0;
