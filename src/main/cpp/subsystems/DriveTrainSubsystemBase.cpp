@@ -116,6 +116,27 @@ void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
     MoveTank(leftY, rightY * m_scale);
 }
 
+void DriveTrainSubsystemBase::ArcadeVision(double x, double y, OldCameraVision::VisionColors color)
+{
+    double m_scale = 1.28;
+    double leftY = x + y;
+    double rightY = x - y;
+
+    double deadZoneLocation = 0.75;
+    double deadZoneRange = 30;
+    
+    SetLookingColorV(color);
+
+    double turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
+
+    MoveTank(leftY, rightY * m_scale);
+    while(turn != 0.0)
+    {
+        turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
+    }
+    Stop();
+}
+
 void DriveTrainSubsystemBase::TurnRight(double speed)
 {
     if(speed < 0)
