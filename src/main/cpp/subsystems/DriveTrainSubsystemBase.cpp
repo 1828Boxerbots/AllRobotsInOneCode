@@ -149,7 +149,7 @@ void DriveTrainSubsystemBase::Stop()
 //Moves robot forward
 void DriveTrainSubsystemBase::Forward(double speed)
 {
-    MoveTank(speed , speed * 1.28);
+    MoveTank(speed , speed * 1.289);
 }
 
 bool DriveTrainSubsystemBase::MoveAlignPID(double targetDistance, double heading, double maxSpeed)
@@ -263,7 +263,7 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
     double currentDistance = GetRightEncoderInch();
     while (currentDistance - startDistance < inch)
     {
-        MoveTank(speed, speed * 1.28);
+        Forward(speed);
         currentDistance = GetRightEncoderInch();
         frc::SmartDashboard::PutNumber("LeftEncoderInches", GetRightEncoderInch());
         //Util::DelayInSeconds(1.0);
@@ -348,16 +348,18 @@ void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime, double speed)
 
 void DriveTrainSubsystemBase::TurnWithVision(double deadZoneLocation, int deadZoneRange, bool defaultTurnRight)
 {
+    Util::Log("Direction", "Null");
     double turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
     while(turn != 0.0)
     {
         turn = WhereToTurn(deadZoneLocation, deadZoneRange);
         if(turn < -1.0)
         {
+                Util::Log("Direction", "No See");
             //Turn right/left if object is not seen
             if(defaultTurnRight == true)
             {
-                TurnRight(0.3);
+                TurnRight(0.25);
             }
             else if(defaultTurnRight == false)
             {
@@ -366,25 +368,27 @@ void DriveTrainSubsystemBase::TurnWithVision(double deadZoneLocation, int deadZo
         }
         else if (turn < 0.0)
         {
+            Util::Log("Direction", "TurnLeft");
             //Turn left if object is on the left
             TurnLeft(0.2);
         }
         else if(turn > 0.0)
         {
+            Util::Log("Direction", "TurnRight");
             //Turn right if object is on the right
             TurnRight(0.2);
         }
-        else
-        {
-            //Object is in the center
-            Stop();
-        }
     }
-    if(turn == 0.0)
+    Util::Log("Direction", "Center");
+    Forward(0.4);
+    while(turn > -2.9)
     {
-        //Stop if object is in center
-        Stop();
+        //Continue Forwards until object is not see-able
+        turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
+        Util::Log("TurnCam", turn);
     }
+     Util::Log("Direction", "Stop");
+     Stop();
 }
 void DriveTrainSubsystemBase::MoveWithVision(double deadZoneLocation, int deadZoneRange, int moveSpeed, bool defaultTurnRight)
 {
