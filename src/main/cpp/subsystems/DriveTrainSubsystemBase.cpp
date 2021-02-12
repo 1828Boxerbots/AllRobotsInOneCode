@@ -124,13 +124,13 @@ void DriveTrainSubsystemBase::ArcadeVision(double x, double y, OldCameraVision::
 
     double deadZoneLocation = 0.75;
     double deadZoneRange = 30;
-    
+
     SetLookingColorV(color);
 
     double turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
 
     MoveTank(leftY, rightY * m_scale);
-    while(turn != 0.0)
+    while(turn > -2.9)
     {
         turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
     }
@@ -367,7 +367,7 @@ void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime, double speed)
     Stop();
 }
 
-void DriveTrainSubsystemBase::TurnWithVision(double deadZoneLocation, int deadZoneRange, bool defaultTurnRight)
+void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZoneRange, bool defaultTurnRight)
 {
     Util::Log("Direction", "Null");
     double turn =  WhereToTurn(deadZoneLocation, deadZoneRange);

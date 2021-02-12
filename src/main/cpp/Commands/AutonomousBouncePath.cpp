@@ -56,7 +56,7 @@ void AutonomousBouncePath::ProcessState1()
 {
   if(m_state == 1)
   {
-    m_pDrive->TurnWithVision(-0.75, 100, false);
+    m_pDrive->AlignWithVision(-0.75, 100, false);
     m_state = 2;
   }
 }

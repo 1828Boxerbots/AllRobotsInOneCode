@@ -75,7 +75,7 @@ public:
   //Temp Function meant to test turning function
   virtual void ForwardIninchTurn(double inch, double angle, double speed) {}
 
-  void TurnWithVision(double deadZoneLocation = 0.0, int deadZoneRange = 100, bool defaultTurnRight = true);
+  void AlignWithVision(double deadZoneLocation = 0.0, int deadZoneRange = 100, bool defaultTurnRight = true);
   void MoveWithVision(double deadZoneLocation = 0.0, int deadZoneRange = 100, int moveSpeed = 0.5, bool defaultTurnRight = true);
   virtual double WhereToTurn(double deadZoneLocation = 0.0, int deadZoneRange = 100){return 0.0;}
 
