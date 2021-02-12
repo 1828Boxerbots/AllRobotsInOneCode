@@ -28,6 +28,7 @@ public:
   virtual void Periodic();
   void MoveTank(double leftY, double rightY);
   virtual void MoveArcade(double X, double Y);
+  void ArcadeVision(double x, double y, OldCameraVision::VisionColors color = OldCameraVision::VisionColors::GREEN_CONE);
   void Stop();
   void Forward(double speed = 1.0);
   void ForwardInInch(double inch, double angle, double speed);
@@ -74,7 +75,7 @@ public:
   //Temp Function meant to test turning function
   virtual void ForwardIninchTurn(double inch, double angle, double speed) {}
 
-  void TurnWithVision(double deadZoneLocation = 0.0, int deadZoneRange = 100, bool defaultTurnRight = true);
+  void AlignWithVision(double deadZoneLocation = 0.0, int deadZoneRange = 100, bool defaultTurnRight = true);
   void MoveWithVision(double deadZoneLocation = 0.0, int deadZoneRange = 100, int moveSpeed = 0.5, bool defaultTurnRight = true);
   virtual double WhereToTurn(double deadZoneLocation = 0.0, int deadZoneRange = 100){return 0.0;}
 

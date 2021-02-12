@@ -283,7 +283,7 @@ void DriveTrainSubsystemC418::GoAroundCone(bool turnRight)
     {
         //Gets current time and sends it to the smartdashboard for checking
         currentTime = timer.Get();
-        MoveArcade(0.5,-0.4);
+        MoveArcade(0.6,-0.2);
     }
     timer.Stop();
     timer.Reset();
