@@ -391,7 +391,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 5;
+  int cases = 3;
   switch(cases)
   {
     case 0:
@@ -663,42 +663,4 @@ void RobotContainerC418::TeleopPeriodic()
   //Util::DelayInSeconds(1);
 #endif
 #endif
-
-  //Gives color from FMS
-  std::string gameData;
-  gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
-  if (gameData.length() > 0)
-  {
-    switch (gameData[0])
-    {
-    case 'B':
-      givenColor = SpinSubsystemC418::FMSColors::BLUE;
-      Util::Log("FMSColor", givenColor);
-      //Blue case code
-      break;
-    case 'G':
-      givenColor = SpinSubsystemC418::FMSColors::GREEN;
-      Util::Log("FMSColor", givenColor);
-      //Green case code
-      break;
-    case 'R':
-      givenColor = SpinSubsystemC418::FMSColors::RED;
-      Util::Log("FMSColor", givenColor);
-      //Red case code
-      break;
-    case 'Y':
-      givenColor = SpinSubsystemC418::FMSColors::YELLOW;
-      Util::Log("FMSColor", givenColor);
-      //Yellow case code
-      break;
-    default:
-      givenColor = SpinSubsystemC418::FMSColors::INVALID;
-      Util::Log("FMSColor", givenColor);
-      //This is corrupt data
-      break;
-    }
-  }
-  else
-  { /*Code for no data received yet*/
-  }
 }

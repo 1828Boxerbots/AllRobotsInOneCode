@@ -25,9 +25,6 @@ void AutonomousBouncePath::Execute()
     case 0:
     ProcessState0();
     break;
-    case 1:
-    ProcessState1();
-    break;
   }
 }
 
@@ -47,7 +44,10 @@ void AutonomousBouncePath::ProcessState0()
 {
   if(m_state == 0)
   {
-    m_pDrive->ForwardInSeconds(2);
+    m_pDrive->ForwardInInch(49,0,0.4);
+    m_pDrive->Stop();
+    m_pDrive->TurnInDegrees(-90, 0.4);
+    m_pDrive->ForwardInInch(60,0,0.4);
     m_state = 1;
   }
 }
@@ -56,7 +56,42 @@ void AutonomousBouncePath::ProcessState1()
 {
   if(m_state == 1)
   {
-    m_pDrive->AlignWithVision(-0.75, 100, false);
+    m_pDrive->TurnInDegrees(180);
+    m_pDrive->ForwardInInch(60,0,0.4);
+    m_pDrive->TurnInDegrees(-90);
+    m_pDrive->ForwardInInch(30,0,0.4);
+    m_pDrive->TurnInDegrees(90);
+    m_pDrive->ForwardInInch(60,0,0.4);
+    m_pDrive->TurnInDegrees(-90);
+    m_pDrive->ForwardInInch(60,0,0.4);
+    m_pDrive->TurnInDegrees(-90);
+    m_pDrive->ForwardInInch(120,0,0.4);
     m_state = 2;
+  }
+}
+
+void AutonomousBouncePath::ProcessState2()
+{
+  if(m_state == 2)
+  {
+    m_pDrive->TurnInDegrees(180);
+    m_pDrive->ForwardInInch(120,0,0.4);
+    m_pDrive->TurnInDegrees(-90);
+    m_pDrive->ForwardInInch(90,0,0.4);
+    m_pDrive->TurnInDegrees(-90);
+    m_pDrive->ForwardInInch(120,0,0.4);
+    m_state = 3;
+  }
+}
+
+void AutonomousBouncePath::ProcessState3()
+{
+  if(m_state == 3)
+  {
+    m_pDrive->TurnInDegrees(180);
+    m_pDrive->ForwardInInch(60,0,0.4);
+    m_pDrive->TurnInDegrees(-90);
+    m_pDrive->ForwardInInch(60,0,0.4);
+    m_state = 4;
   }
 }
