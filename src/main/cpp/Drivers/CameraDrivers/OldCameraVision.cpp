@@ -20,12 +20,12 @@ bool OldCameraVision::Init()
     // cv::Mat source;
 
 	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
-	m_camera.SetResolution(160,120);
+	m_camera.SetResolution(480,320);
 	m_camera.SetExposureHoldCurrent();
 	m_camera.SetWhiteBalanceHoldCurrent();
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
-	m_outputStream = frc::CameraServer::GetInstance()->PutVideo(IMAGE_FILTERED, 160, 120);
-	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo(IMAGE_THRESHOLD, 160, 120);
+	m_outputStream = frc::CameraServer::GetInstance()->PutVideo(IMAGE_FILTERED, 480, 320);
+	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo(IMAGE_THRESHOLD, 480, 320);
 	return true;
 }
 
@@ -199,15 +199,15 @@ void OldCameraVision::SetColor()
 			break;
 		case VisionColors::RED_CONE:
 			resultL = RED_CONE_LOW;
-			resultH = RED_CONE_LOW;
+			resultH = RED_CONE_HIGH;
 			break;
 		case VisionColors::YELLOW_CONE:
 			resultL = YELLOW_CONE_LOW;
-			resultH = YELLOW_CONE_LOW;
+			resultH = YELLOW_CONE_HIGH;
 			break;
 		case VisionColors::ORANGE_CONE:
 			resultL = ORANGE_CONE_LOW;
-			resultH = ORANGE_CONE_LOW;
+			resultH = ORANGE_CONE_HIGH;
 			break;
 		case VisionColors::YELLOW_LEMON:
 			resultL = YELLOW_LEMON_LOW;
@@ -223,7 +223,7 @@ void OldCameraVision::SetColor()
 			break;
 		default:
 			resultL = GREEN_CONE_LOW;
-			resultH = GREEN_CONE_LOW;
+			resultH = GREEN_CONE_HIGH;
 			break;
 	}
 

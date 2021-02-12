@@ -153,18 +153,18 @@ void RobotContainerC418::ConfigureAutonomousCommands()
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->AlignWithVision(0.75, 30); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(55,0.0,0.4); }, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.6, -0.2, OldCameraVision::RED_CONE); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.3, 0.5, OldCameraVision::PURPLE_BOTTLE); }, {m_pDrive}},
     //frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->GoAroundCone(true); }, {m_pDrive}},
     //This is the second part of auto challenge one. Going around secondth cone
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->AlignWithVision(-1.0, 50); }, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(100,0.0,0.3); }, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.6, -0.2, OldCameraVision::GREEN_CONE); }, {m_pDrive}},
-    //This is the third part of auto challenge one. Going around third cone
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->AlignWithVision(-1.0, 50); }, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(100,0.0,0.3); }, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.6, -0.2, OldCameraVision::RED_CONE); }, {m_pDrive}},
-    //This is the last part of the auto challenge one. This is to be in the same position as the starting position
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(200,0.0,0.3); }, {m_pDrive}}
+    // frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->AlignWithVision(-1.0, 50); }, {m_pDrive}},
+    // frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(100,0.0,0.3); }, {m_pDrive}},
+    // frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.6, -0.2, OldCameraVision::GREEN_CONE); }, {m_pDrive}},
+    // //This is the third part of auto challenge one. Going around third cone
+    // frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->AlignWithVision(-1.0, 50); }, {m_pDrive}},
+    // frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(100,0.0,0.3); }, {m_pDrive}},
+    // frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.6, -0.2, OldCameraVision::RED_CONE); }, {m_pDrive}},
+    // //This is the last part of the auto challenge one. This is to be in the same position as the starting position
+    // frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(200,0.0,0.3); }, {m_pDrive}}
   };
   // test 
 //   m_pAutoChallengeOne = new frc2::SequentialCommandGroup 
@@ -391,7 +391,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 5;
+  int cases = 2;
   switch(cases)
   {
     case 0:

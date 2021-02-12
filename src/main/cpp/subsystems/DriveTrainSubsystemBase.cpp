@@ -125,14 +125,15 @@ void DriveTrainSubsystemBase::ArcadeVision(double x, double y, OldCameraVision::
     double deadZoneLocation = 0.75;
     double deadZoneRange = 30;
 
+    Util::Log("What Color?", color);
     SetLookingColorV(color);
 
-    SetLookingColorV(OldCameraVision::VisionColors::GREEN_CONE);
+    Util::Log("What Color?", GetLookingColorV());
 
     double turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
 
     
-    while(turn > -2.9)
+    while(turn < -2.9)
     {
         MoveTank(leftY, rightY * m_scale);
         turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
