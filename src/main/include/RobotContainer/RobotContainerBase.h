@@ -51,8 +51,8 @@ public:
   virtual frc2::Command *GetAutonomousCommand() { return nullptr; }
 
   std::string ReadFMS() { return frc::DriverStation::GetInstance().GetGameSpecificMessage(); }
-  virtual void BreakFMSStr(std::string gameData) {}
   virtual void GetVisionFMS() {}
+  virtual void BreakFMSStr(std::string gameData) {}
 
   enum DriveStyles
   {

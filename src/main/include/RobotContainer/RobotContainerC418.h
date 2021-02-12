@@ -52,6 +52,9 @@ public:
 
   frc2::Command *GetAutonomousCommand() override;
 
+  void GetVisionFMS() override;
+  void BreakFMSStr(std::string gameData) override;
+
   static SpinSubsystemC418::FMSColors givenColor;
 
 private:

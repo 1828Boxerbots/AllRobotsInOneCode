@@ -103,7 +103,7 @@ private:
 	//double m_deadZone = 50.0;
 
 	//VisionColors m_visionColor = FMS_COLOR;
-	VisionColors m_visionColor = GREEN_CONE;
+	VisionColors m_visionColor = FMS_COLOR;
 	//Holds the camera and raw image
 	cv::Mat m_frame; 
 	cv::Mat m_imgHSV;

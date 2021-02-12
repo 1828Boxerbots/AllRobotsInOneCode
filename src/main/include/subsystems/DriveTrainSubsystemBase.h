@@ -64,10 +64,10 @@ public:
   virtual void SetHSVLow(int HSV, int value) {}
   virtual void SetVisionFMSColor(OldCameraVision::VisionColors color) {}
   virtual void SetLookingColorV(OldCameraVision::VisionColors color) {}
-  virtual OldCameraVision::VisionColors GetLookingColorV() {}
+  virtual OldCameraVision::VisionColors GetLookingColorV() { return OldCameraVision::INVALID_COLOR;}
 
-  virtual void GetVisionFMS();
-  virtual void BreakFMSStr(std::string gameData);
+  // virtual void GetVisionFMS();
+  // virtual void BreakFMSStr(std::string gameData);
 
   virtual void EnableAnticollision(bool enable = true) { m_hasAntiCollision = enable; }
 
