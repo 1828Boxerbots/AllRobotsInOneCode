@@ -262,7 +262,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
         if(m_pDrive != nullptr && m_pLoader != nullptr && m_pShooter != nullptr)
         {
           m_pDrive->SetLookingColorV(OldCameraVision::FMS_COLOR);
-          GetVisionFMS();
+          //GetVisionFMS();
           double centerScreen = 0.0;
           double result = m_pDrive->WhereToTurn(centerScreen, 50);
           Util::Log("Lemon result", result);
@@ -276,15 +276,20 @@ void RobotContainerC418::ConfigureAutonomousCommands()
             {
               m_pDrive->MoveTank(0.4, 0.4 * 1.28);
             }
-            else if(m_pDrive->WhereToTurn(centerScreen, 50) <= -2)
+            else if(m_pDrive->WhereToTurn(centerScreen, 50) <= -2.0)
             {
+              m_hasBall = true;
+
               Util::DelayInSeconds(0.3);
               m_pDrive->Stop();
 
-              m_hasBall = true;
-
-              m_pLoader->LoadToPhoto();
-              m_pLoader->Stop();
+              m_pLoader->SetLoadMotor();
+              if(m_pLoader->GetPhotogate())
+              {
+                m_pLoader->Stop();
+              }
+              // m_pLoader->LoadToPhoto();
+              // m_pLoader->Stop();
 
               // m_pShooter->SetShootMotor(1);
               // Util::DelayInSeconds(0.5);
@@ -548,28 +553,33 @@ void RobotContainerC418::SetBackButton()
     {
     case 'R':
       //Case for RedCone
-      m_pDrive->SetVisionFMSColor(OldCameraVision::VisionColors::RED_CONE);
+      m_pDrive->SetVisionFMSColor(OldCameraVision::RED_CONE);
       Util::Log("AutoFMS", "Vision Red");
       break;
     case 'G':
       //Case for GreenCone
-      m_pDrive->SetVisionFMSColor(OldCameraVision::VisionColors::GREEN_CONE);
+      m_pDrive->SetVisionFMSColor(OldCameraVision::GREEN_CONE);
       Util::Log("AutoFMS", "Vision Green");
       break;
     case 'Y':
       //Case for YellowCone
-      m_pDrive->SetVisionFMSColor(OldCameraVision::VisionColors::YELLOW_CONE);
+      m_pDrive->SetVisionFMSColor(OldCameraVision::YELLOW_CONE);
       Util::Log("AutoFMS", "Vision Yellow Cone");
       break;
     case 'O':
       //Case for Orange Cone
-      m_pDrive->SetVisionFMSColor(OldCameraVision::VisionColors::ORANGE_CONE);
+      m_pDrive->SetVisionFMSColor(OldCameraVision::ORANGE_CONE);
       Util::Log("AutoFMS", "Vision Orange");
       break;
     case 'L':
       //Case Yellow LEMON
-      m_pDrive->SetVisionFMSColor(OldCameraVision::VisionColors::YELLOW_LEMON);
+      m_pDrive->SetVisionFMSColor(OldCameraVision::YELLOW_LEMON);
       Util::Log("AutoFMS", "Vision Yellow Lemon");
+      break;
+    case 'P':
+      //Case Purple Bottle
+      m_pDrive->SetVisionFMSColor(OldCameraVision::PURPLE_BOTTLE);
+      Util::Log("AutoFMS", "Vision Purple Bottle");
       break;
     case 'V':
       //Case for Vision Sliders
@@ -681,54 +691,6 @@ void RobotContainerC418::TeleopPeriodic()
       Util::Log("FMSColor", givenColor);
       //Yellow case code
       break;
-    // case 'V':
-    //               {
-    //                 //char* context = (char*)malloc(255);
-    //                 char copy[gameData.length() +1];
-    //                 strcpy(copy, gameData.c_str());
-    //                 //strcpy_s(copy, gameData.length(), gameData.c_str());
-    //                 char *output = strtok(copy, "-");
-    //                 for (int num=0; output != nullptr; num++)
-    //                 {
-    //                   int value = atoi(output);
-    //                   switch (num)
-    //                   {
-    //                     case 0:
-    //                       break;
-    //                     case 1:
-    //                       m_pDrive->SetHSVLow(1, value);
-    //                       Util::Log("FMS HLow", value);
-    //                       break;
-    //                     case 2:
-    //                       m_pDrive->SetHSVHigh(1, value);
-    //                       Util::Log("FMS HHigh", value);
-    //                       break;
-    //                     case 3:
-    //                       m_pDrive->SetHSVLow(2, value);
-    //                       Util::Log("FMS SLow", value);
-    //                       break;
-    //                     case 4:
-    //                       m_pDrive->SetHSVHigh(2, value);
-    //                       Util::Log("FMS SHigh", value);
-    //                       break;
-    //                     case 5:
-    //                       m_pDrive->SetHSVLow(3, value);
-    //                       Util::Log("FMS VLow", value);
-    //                       break;
-    //                     case 6:
-    //                       m_pDrive->SetHSVHigh(3, value);
-    //                       Util::Log("FMS VHigh", value);
-    //                       break;
-    //                     default:
-    //                       //IT BROKE or there is more when there isnt suppose to be
-    //                       break;
-    //                   } // end SWITCH
-    //                   output = strtok(nullptr, "-");
-    //                 } // end FOR
-    //                 givenColor = SpinSubsystemC418::FMSColors::INVALID;
-    //                 Util::Log("FMSColor", "Vision HSV values added");
-    //               }
-    //               break;
     default:
       givenColor = SpinSubsystemC418::FMSColors::INVALID;
       Util::Log("FMSColor", givenColor);

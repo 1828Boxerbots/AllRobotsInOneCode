@@ -213,6 +213,10 @@ void OldCameraVision::SetColor()
 			resultL = YELLOW_LEMON_LOW;
 			resultH = YELLOW_LEMON_HIGH;
 			break;
+		case VisionColors::PURPLE_BOTTLE:
+			resultL = PURPLE_BOTTLE_LOW;
+			resultH = PURPLE_BOTTLE_HIGH;
+			break;
 		case VisionColors::FMS_COLOR:
 			resultL = FMS_LOW;
 			resultH = FMS_HIGH;
@@ -232,7 +236,7 @@ void OldCameraVision::SetColor()
 
 	cv::inRange(m_imgHSV, resultL, resultH, m_imgThresholded);
 
-	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3)));
+	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(4, 4)));
 	cv::dilate(m_imgThresholdedTwo, m_imgThresholded, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(6, 6)));
 
 	//Display Filtered Image
@@ -315,6 +319,10 @@ void OldCameraVision::SetFMSColor(VisionColors color)
 	case OldCameraVision::YELLOW_LEMON:
 		FMS_LOW = YELLOW_LEMON_LOW;
 		FMS_HIGH = YELLOW_LEMON_HIGH;
+		break;
+	case OldCameraVision::PURPLE_BOTTLE:
+		FMS_LOW = PURPLE_BOTTLE_LOW;
+		FMS_LOW = PURPLE_BOTTLE_HIGH;
 		break;
 	default:
 		FMS_LOW = GREEN_CONE_LOW;
