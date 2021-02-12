@@ -33,7 +33,7 @@ public:
 	/// </returns>
 	double WhereToTurn( double deadZoneLocation = 0.0, int deadZoneRange = 100);
 
-	enum VisionColors{INVALID_COLOR, RED_CONE, GREEN_CONE, YELLOW_CONE, ORANGE_CONE, YELLOW_LEMON, FMS_COLOR};
+	enum VisionColors{INVALID_COLOR, RED_CONE, GREEN_CONE, YELLOW_CONE, ORANGE_CONE, YELLOW_LEMON, PURPLE_BOTTLE, FMS_COLOR};
 
 	void Tick();
 	
@@ -62,16 +62,18 @@ private:
 	// const int LOWV_RED  = 120;
 	// const int HIGHV_RED  = 255;
 
-	const cv::Scalar GREEN_CONE_LOW{38, 127, 123};
+	const cv::Scalar GREEN_CONE_LOW{30, 107, 103}; // 2/12/2021 Time 2:37PM
 	const cv::Scalar GREEN_CONE_HIGH{79,255,255};
-	const cv::Scalar RED_CONE_LOW{0,134,120};
-	const cv::Scalar RED_CONE_HIGH{6,255,255};
-	const cv::Scalar YELLOW_CONE_LOW{22, 134,139};
-	const cv::Scalar YELLOW_CONE_HIGH{42,255,255};
+	const cv::Scalar RED_CONE_LOW{3,180,100};
+	const cv::Scalar RED_CONE_HIGH{10,255,255};
+	const cv::Scalar YELLOW_CONE_LOW{24, 50,150};
+	const cv::Scalar YELLOW_CONE_HIGH{32,130,255};
 	const cv::Scalar ORANGE_CONE_LOW{0,76,255};
 	const cv::Scalar ORANGE_CONE_HIGH{21,255,255};
 	const cv::Scalar YELLOW_LEMON_LOW{18, 200, 200};
 	const cv::Scalar YELLOW_LEMON_HIGH{32, 255, 255};
+	const cv::Scalar PURPLE_BOTTLE_LOW{145, 0, 0};
+	const cv::Scalar PURPLE_BOTTLE_HIGH{179, 255, 255};
 
 	const cv::Scalar BLUE_TEAMSHIRT_LOW{50, 50, 100};
 	const cv::Scalar BLUE_TEAMSHIRT_HIGH{100, 255, 255};
