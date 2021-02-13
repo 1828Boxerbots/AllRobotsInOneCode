@@ -117,6 +117,22 @@ void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
     MoveTank(leftY, rightY * m_scale);
 }
 
+void DriveTrainSubsystemBase::IMUArcade(double x, double y, double angle)
+{
+    double m_scale = 1.28;
+    double leftY = x + y;
+    double rightY = x - y;
+    double currentAngle = IMUGetAngle();
+    double startAngle = IMUGetAngle();
+
+    while (currentAngle - startAngle < angle)
+    {
+        MoveTank(leftY, rightY * m_scale);
+        currentAngle = IMUGetAngle();
+    }
+    Stop();
+}
+
 void DriveTrainSubsystemBase::ArcadeVision(double x, double y, OldCameraVision::VisionColors color)
 {
     double m_scale = 1.28;
