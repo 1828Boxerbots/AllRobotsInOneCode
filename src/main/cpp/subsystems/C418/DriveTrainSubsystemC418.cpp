@@ -138,10 +138,8 @@ double DriveTrainSubsystemC418::GetRightEncoderInch()
 
 void DriveTrainSubsystemC418::ResetEncoder()
 {
-#ifdef M_IMU
   m_leftEncoder.Reset();
   m_rightEncoder.Reset();
-#endif
 
   m_rightEncoderSim = 0.0;
   m_leftEncoderSim = 0.0;
