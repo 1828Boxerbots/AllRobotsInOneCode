@@ -250,6 +250,21 @@ void RobotContainerC418::ConfigureAutonomousCommands()
     }
   };
 
+ m_pAutoFetchGyro = new frc2::SequentialCommandGroup 
+  {
+    frc2::RunCommand 
+    {
+      [this] 
+      {
+        if(m_pDrive != nullptr)
+        {
+          Util::Log("IMU Test", m_pDrive->ReadIMU());
+        }
+      }, {m_pDrive}
+    }
+  };
+
+
   m_pAutoSlalom = new AutoSlalom(m_pDrive);
 
   m_pBouncePath = new AutonomousBouncePath(m_pDrive, AutonomousBouncePath::TURN_RADIUS);
@@ -423,6 +438,8 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
       return m_pAutoDoLiterallyNothing;
     case 6:
       return m_pBackupChallengeOne;
+    case 7:
+      return m_pAutoFetchGyro;
     default:
       return nullptr;
   }
