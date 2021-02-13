@@ -140,6 +140,19 @@ void DriveTrainSubsystemBase::ArcadeVision(double x, double y, OldCameraVision::
     }
     Stop();
 }
+void DriveTrainSubsystemBase::TimedArcade(double x, double y, double time)
+{
+     m_autoTimer.Stop();
+    m_autoTimer.Reset();
+    m_autoTimer.Start();
+    double startTime = m_autoTimer.Get();
+    do
+    {
+        MoveArcade(x, y);
+    } while (time > m_autoTimer.Get()-startTime);
+    Stop();
+}
+}
 
 void DriveTrainSubsystemBase::TurnRight(double speed)
 {

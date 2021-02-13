@@ -21,6 +21,8 @@
 #include "../Commands/AutoArmCommand.h"
 #include "Commands/AutoSlalom.h"
 #include "Commands/AutonomousBouncePath.h"
+#include "Commands/BackupChallengeOne.h"
+
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -98,4 +100,5 @@ private:
   AutoSlalom *m_pAutoSlalom = nullptr;
   frc2::SequentialCommandGroup *m_pAutoPickUpLemon = nullptr;
   AutonomousBouncePath *m_pBouncePath = nullptr;
+  BackupChallengeOne *m_pBackupChallengeOne = nullptr;
 };
