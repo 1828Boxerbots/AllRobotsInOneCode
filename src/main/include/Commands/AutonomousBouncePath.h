@@ -29,7 +29,7 @@ class AutonomousBouncePath
 
   bool IsFinished() override;
 
-  const static double TURN_RADIUS = 11;
+  constexpr static double TURN_RADIUS = 11;
 
  private:
   DriveTrainSubsystemBase* m_pDrive = nullptr;

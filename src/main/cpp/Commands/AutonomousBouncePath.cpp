@@ -78,7 +78,7 @@ void AutonomousBouncePath::ProcessState2()
 {
   if(m_state == 2)
   {
-    m_pDrive->TurnInDegrees(180, DriveTrainSubsystemC418::TURNRADIUS);
+    m_pDrive->TurnInDegrees(180, m_turnRadius);
     m_pDrive->ForwardInInch(100,0,0.5);
     m_pDrive->TimedArcade(0.5,-0.15, 2.5);
     m_pDrive->ForwardInInch(10,0,0.5);
