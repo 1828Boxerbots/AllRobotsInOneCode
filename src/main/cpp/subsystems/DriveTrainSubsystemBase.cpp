@@ -371,7 +371,7 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle, double speed)
     double startDistance = GetRightEncoderInch();
     double currentDistanceRight = GetLeftEncoderInch();
     double currentDistanceLeft = GetRightEncoderInch();
-    double inch = Util::Abs(relativeAngle)*(Util::PI/180)*23;
+    double inch = Util::Abs(relativeAngle)*(Util::PI/180)*10.5;
     while (currentDistanceRight - startDistance < inch || currentDistanceLeft - startDistance < inch )
     {
         if(relativeAngle < 0)
