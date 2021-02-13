@@ -22,6 +22,7 @@ DriveTrainSubsystemC418::DriveTrainSubsystemC418(I2CMultiplexerDriver *pMultiple
 #ifdef M_DISTANCE_RIGHT
   m_pMuxRightDistance = new MuxDistanceSensorDriver(DISTANCESENSOR_PORT_C418, I2C_ADDR_RIGHTDISTANCESENSOR_C418, *m_pMultiplexerDriver, U8T_LINE_RIGHTDISTANCESENSOR_C418);
 #endif
+
 }
 
 void DriveTrainSubsystemC418::SetMotorL(double speed)
@@ -72,6 +73,7 @@ void DriveTrainSubsystemC418::Init()
     m_pMuxLeftDistance->Init(true);
   #endif
 
+  m_imu.IMUGyroInit(1);
 #endif
 }
 

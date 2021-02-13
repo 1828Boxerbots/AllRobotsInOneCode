@@ -6,6 +6,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+
 #include "../subsystems/DriveTrainSubsystemBase.h"
 
 /**
@@ -18,7 +19,7 @@
 class AutonomousBouncePath
     : public frc2::CommandHelper<frc2::CommandBase, AutonomousBouncePath> {
  public:
-  AutonomousBouncePath(DriveTrainSubsystemBase* pDrive);
+  AutonomousBouncePath(DriveTrainSubsystemBase* pDrive, double radius);
 
   void Initialize() override;
 
@@ -28,10 +29,12 @@ class AutonomousBouncePath
 
   bool IsFinished() override;
 
+  constexpr static double TURN_RADIUS = 11;
+
  private:
   DriveTrainSubsystemBase* m_pDrive = nullptr;
   int m_state = 0;
-
+  double m_turnRadius = 11;
   void ProcessState0();
   void ProcessState1();
   void ProcessState2();
