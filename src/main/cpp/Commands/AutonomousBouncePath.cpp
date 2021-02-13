@@ -47,10 +47,9 @@ void AutonomousBouncePath::ProcessState0()
 {
   if(m_state == 0)
   {
-    m_pDrive->ForwardInInch(49,0,0.4);
-    m_pDrive->Stop();
-    m_pDrive->TurnInDegrees(-90, 0.4);
-    m_pDrive->ForwardInInch(60,0,0.4);
+    m_pDrive->ForwardInInch(10,0,0.5);
+    m_pDrive->TimedArcade(0.6,-0.2,1.3);
+    m_pDrive->ForwardInInch(6,0,0.5);
     m_state = 1;
   }
 }
@@ -59,16 +58,15 @@ void AutonomousBouncePath::ProcessState1()
 {
   if(m_state == 1)
   {
-    m_pDrive->TurnInDegrees(180);
-    m_pDrive->ForwardInInch(60,0,0.4);
-    m_pDrive->TurnInDegrees(-90);
-    m_pDrive->ForwardInInch(30,0,0.4);
-    m_pDrive->TurnInDegrees(90);
-    m_pDrive->ForwardInInch(60,0,0.4);
-    m_pDrive->TurnInDegrees(-90);
-    m_pDrive->ForwardInInch(60,0,0.4);
-    m_pDrive->TurnInDegrees(-90);
-    m_pDrive->ForwardInInch(120,0,0.4);
+    m_pDrive->TurnInDegrees(163,0.6);
+    m_pDrive->ForwardInInch(95,0,0.5);
+    m_pDrive->TimedArcade(0.5,-0.2,5.27);
+    // m_pDrive->TurnInDegrees(90);
+    // m_pDrive->ForwardInInch(60,0,0.4);
+    // m_pDrive->TurnInDegrees(-90);
+    // m_pDrive->ForwardInInch(60,0,0.4);
+    // m_pDrive->TurnInDegrees(-90);
+    // m_pDrive->ForwardInInch(120,0,0.4);
     m_state = 2;
   }
 }
