@@ -369,6 +369,16 @@ OldCameraVision::VisionColors DriveTrainSubsystemC418::GetLookingColorV()
   #endif
 }
 
+double DriveTrainSubsystemC418::GetCentroidY()
+{
+  return m_camera.GetCentroidY();
+}
+
+double DriveTrainSubsystemC418::GetCentroidX()
+{
+  return m_camera.GetCentroidX();
+}
+
 //Used to disable and enable anticollision
 void DriveTrainSubsystemC418::EnableAnticollision(bool enable)
 {

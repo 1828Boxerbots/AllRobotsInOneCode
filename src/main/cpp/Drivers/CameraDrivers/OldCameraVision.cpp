@@ -256,6 +256,9 @@ void OldCameraVision::SetColor()
 		m_centroidX = -1.0;
 		m_centroidY = -1.0;
 	}
+
+	GetCentroidX();
+	GetCentroidY();
 }
 
 void OldCameraVision::SetHigh(int HSV, int value)
@@ -339,4 +342,16 @@ void OldCameraVision::SetLookingColor(VisionColors color)
 OldCameraVision::VisionColors OldCameraVision::GetLookingColor()
 {
 	return m_visionColor;
+}
+
+double OldCameraVision::GetCentroidX()
+{
+	Util::Log("Centroid X", m_centroidX);
+	return m_centroidX;
+}
+
+double OldCameraVision::GetCentroidY()
+{
+	Util::Log("Centroid Y", m_centroidY);
+	return m_centroidY;
 }

@@ -71,8 +71,9 @@ public:
 
   void SetHSVHigh(int HSV, int value) override;
   void SetHSVLow(int HSV, int value) override;
-
   void SetLookingColorV(OldCameraVision::VisionColors) override;
+  double GetCentroidY() override;
+  double GetCentroidX() override;
   OldCameraVision::VisionColors GetLookingColorV() override;
 
   /**

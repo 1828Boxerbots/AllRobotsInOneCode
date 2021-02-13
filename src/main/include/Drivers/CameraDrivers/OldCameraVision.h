@@ -45,6 +45,9 @@ public:
 	void SetLookingColor(VisionColors color);
 	VisionColors GetLookingColor();
 
+	double GetCentroidX();
+	double GetCentroidY();
+
 private:
  	int m_frameCounter = 0;
 
@@ -70,8 +73,8 @@ private:
 	const cv::Scalar YELLOW_CONE_HIGH{32,130,255};
 	const cv::Scalar ORANGE_CONE_LOW{0,76,255};
 	const cv::Scalar ORANGE_CONE_HIGH{21,255,255};
-	const cv::Scalar YELLOW_LEMON_LOW{18, 190, 200};
-	const cv::Scalar YELLOW_LEMON_HIGH{42, 255, 255};
+	const cv::Scalar YELLOW_LEMON_LOW{0, 60, 200};
+	const cv::Scalar YELLOW_LEMON_HIGH{179, 255, 255};
 	const cv::Scalar PURPLE_BOTTLE_LOW{145, 0, 0};
 	const cv::Scalar PURPLE_BOTTLE_HIGH{179, 255, 255};
 
