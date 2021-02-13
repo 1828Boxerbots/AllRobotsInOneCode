@@ -153,18 +153,18 @@ void RobotContainerC418::ConfigureAutonomousCommands()
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->AlignWithVision(0.75, 30); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(55,0.0,0.4); }, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.3, 0.5, OldCameraVision::PURPLE_BOTTLE); }, {m_pDrive}},
-    //frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->GoAroundCone(true); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.3, 0.2, OldCameraVision::RED_CONE); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->GoAroundCone(true); }, {m_pDrive}},
     //This is the second part of auto challenge one. Going around secondth cone
-    // frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->AlignWithVision(-1.0, 50); }, {m_pDrive}},
-    // frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(100,0.0,0.3); }, {m_pDrive}},
-    // frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.6, -0.2, OldCameraVision::GREEN_CONE); }, {m_pDrive}},
-    // //This is the third part of auto challenge one. Going around third cone
-    // frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->AlignWithVision(-1.0, 50); }, {m_pDrive}},
-    // frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(100,0.0,0.3); }, {m_pDrive}},
-    // frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.6, -0.2, OldCameraVision::RED_CONE); }, {m_pDrive}},
-    // //This is the last part of the auto challenge one. This is to be in the same position as the starting position
-    // frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(200,0.0,0.3); }, {m_pDrive}}
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->AlignWithVision(-1.0, 50); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(100,0.0,0.3); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.6, -0.2, OldCameraVision::PURPLE_BOTTLE); }, {m_pDrive}},
+    //This is the third part of auto challenge one. Going around third cone
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->AlignWithVision(-1.0, 50); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(100,0.0,0.3); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.6, -0.2, OldCameraVision::RED_CONE); }, {m_pDrive}},
+    //This is the last part of the auto challenge one. This is to be in the same position as the starting position
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(200,0.0,0.3); }, {m_pDrive}}
   };
   // test 
 //   m_pAutoChallengeOne = new frc2::SequentialCommandGroup 
@@ -251,6 +251,8 @@ void RobotContainerC418::ConfigureAutonomousCommands()
   m_pAutoSlalom = new AutoSlalom(m_pDrive);
 
   m_pBouncePath = new AutonomousBouncePath(m_pDrive);
+
+  m_pBackupChallengeOne = new BackupChallengeOne(m_pDrive);
 
   m_pAutoPickUpLemon = new frc2::SequentialCommandGroup 
   {
@@ -391,30 +393,23 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-<<<<<<< HEAD
-  int cases = 2;
-=======
   int cases = 3;
->>>>>>> f2a291d8d16532f1cf16c029a55733352a646230
   switch(cases)
   {
     case 0:
       return m_pAutoSlalom;
-      break;
-    
     case 1:
       return m_pAutoChallengeOne;
-      break;
-    
     case 2:
       return m_pAutoPickUpLemon;
-      break;
     case 3:
       return m_pBouncePath;
     case 4:
       return m_pAutoFollowRed;
     case 5:
       return m_pAutoDoLiterallyNothing;
+    case 6:
+      return m_pBackupChallengeOne;
     default:
       return nullptr;
   }

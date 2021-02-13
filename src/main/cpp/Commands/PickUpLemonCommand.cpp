@@ -14,7 +14,10 @@ PickUpLemonCommand::PickUpLemonCommand(LoaderSubsystemBase *pLoader, ShooterSubs
 void PickUpLemonCommand::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void PickUpLemonCommand::Execute() {}
+void PickUpLemonCommand::Execute()
+ {
+   m_pDrive->WhereToTurn()
+ }
 
 // Called once the command ends or is interrupted.
 void PickUpLemonCommand::End(bool interrupted) {}

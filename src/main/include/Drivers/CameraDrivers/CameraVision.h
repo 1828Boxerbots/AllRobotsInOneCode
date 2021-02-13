@@ -92,7 +92,7 @@ private:
 	cs::CvSource m_outputStreamTwo;
 	#else
 	cv::VideoCapture m_camera;
-	#endif;
+	#endif
 
 	/// <summary>
 	/// Create a new window to display an image
