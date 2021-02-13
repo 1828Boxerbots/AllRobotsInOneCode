@@ -38,11 +38,13 @@ RobotContainerC418::RobotContainerC418()
   m_pSpinStop = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseSpinStop, m_speed, 0, ArmSubsystemBase::ArmPositions::INVALID_POS);
   m_pArmDown = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseArm, .6, 0, ArmSubsystemBase::ArmPositions::LOWEST_POS);
   m_pArmUp = new SpinWithArm(m_pArm, m_pSpin, SpinWithArm::SpinSelector::UseArm, .6, 0, ArmSubsystemBase::ArmPositions::HIGHEST_POS);
-
+  
   //AutoArm Commands
   m_pAutoArmUp = new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 1 /*1=HIGHEST*/);
   m_pAutoArmDown = new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 2 /*2=LOWEST*/);
   m_pAutoArmSetup = new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 3 /*3=Auto Mode*/);
+
+  m_pAutoLemonPick = new PickUpLemonCommand(m_pLoader, m_pShooter, m_pDrive, 0.4, 0.5);
 
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -268,6 +270,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
           double centerScreen = 0.0;
           double result = m_pDrive->WhereToTurn(centerScreen, 50);
           Util::Log("Lemon result", result);
+          Util::Log("Lemon hasBall", m_hasBall);
           //camera flips the image
           if(result == 0.0 || m_hasBall == true)
           {
@@ -277,18 +280,23 @@ void RobotContainerC418::ConfigureAutonomousCommands()
             if(m_pDrive->WhereToTurn(centerScreen, 50) > -2.0)
             {
               m_pDrive->MoveTank(0.4, 0.4 * 1.28);
+              Util::Log("Lemon State", "MoveTank");
             }
             else if(m_pDrive->WhereToTurn(centerScreen, 50) <= -2.0)
             {
               m_hasBall = true;
 
+              Util::Log("Lemon State", "Before Delay");
               Util::DelayInSeconds(0.3);
+              Util::Log("Lemon State", "After Delay");
               m_pDrive->Stop();
 
               m_pLoader->SetLoadMotor();
+              Util::Log("Lemon State", "Loading");
               if(m_pLoader->GetPhotogate())
               {
                 m_pLoader->Stop();
+                Util::Log("Lemon State", "Stopped Loading");
               }
               // m_pLoader->LoadToPhoto();
               // m_pLoader->Stop();
@@ -301,25 +309,29 @@ void RobotContainerC418::ConfigureAutonomousCommands()
               // m_pShooter->Stop();
             }
           }
-          else if(result < -1.0)
+          else if(result < -2.0)
           {
             //Turn right if object is not seen
-            m_pDrive->TurnRight(0.4);
+            m_pDrive->TurnRight(0.3);
+            Util::Log("Lemon State", "Turn Right 1");
           }
           else if (result < 0.0)
           {
             //Turn right if object is on the right
-            m_pDrive->TurnRight(0.4);
+            m_pDrive->TurnRight(0.3);
+            Util::Log("Lemon State", "Turn Right 2");
           }
           else if(result > 0.0)
           {
             //Turn left if object is on the left
-            m_pDrive->TurnLeft(0.3);
+            m_pDrive->TurnLeft(0.2);
+            Util::Log("Lemon State", "Turn Left");
           }
           else
           {
             //Object is in the center
             m_pDrive->Stop();
+            Util::Log("Lemon State", "Else Stop");
           }
         }
       }, {m_pDrive, m_pLoader, m_pShooter}
@@ -393,7 +405,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 3;
+  int cases = 5;
   switch(cases)
   {
     case 0:
@@ -401,7 +413,8 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     case 1:
       return m_pAutoChallengeOne;
     case 2:
-      return m_pAutoPickUpLemon;
+      return m_pAutoLemonPick;
+      break;
     case 3:
       return m_pBouncePath;
     case 4:

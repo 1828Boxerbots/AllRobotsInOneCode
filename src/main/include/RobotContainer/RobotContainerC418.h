@@ -21,8 +21,8 @@
 #include "../Commands/AutoArmCommand.h"
 #include "Commands/AutoSlalom.h"
 #include "Commands/AutonomousBouncePath.h"
+#include "Commands/PickUpLemonCommand.h"
 #include "Commands/BackupChallengeOne.h"
-
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -80,6 +80,8 @@ private:
   AutoArmCommand *m_pAutoArmSetup = nullptr;
   AutoArmCommand *m_pAutoArmDown = nullptr;
   AutoArmCommand *m_pAutoArmUp = nullptr;
+
+  PickUpLemonCommand *m_pAutoLemonPick = nullptr;
 
   // Pulling a pointer variable to access distance sensor driver
   I2CMultiplexerDriver *m_pMultiplexerDriver = nullptr;

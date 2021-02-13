@@ -21,8 +21,8 @@ bool OldCameraVision::Init()
 
 	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
 	m_camera.SetResolution(480,320);
-	m_camera.SetExposureHoldCurrent();
-	m_camera.SetWhiteBalanceHoldCurrent();
+	//m_camera.SetExposureHoldCurrent();
+	//m_camera.SetWhiteBalanceHoldCurrent();
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
 	m_outputStream = frc::CameraServer::GetInstance()->PutVideo(IMAGE_FILTERED, 480, 320);
 	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo(IMAGE_THRESHOLD, 480, 320);
@@ -236,7 +236,7 @@ void OldCameraVision::SetColor()
 
 	cv::inRange(m_imgHSV, resultL, resultH, m_imgThresholded);
 
-	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(7, 7)));
+	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(6, 6)));
 	cv::dilate(m_imgThresholdedTwo, m_imgThresholded, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(9, 9)));
 
 	//Display Filtered Image

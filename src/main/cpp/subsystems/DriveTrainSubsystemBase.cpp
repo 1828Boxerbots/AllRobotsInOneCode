@@ -152,7 +152,6 @@ void DriveTrainSubsystemBase::TimedArcade(double x, double y, double time)
     } while (time > m_autoTimer.Get()-startTime);
     Stop();
 }
-}
 
 void DriveTrainSubsystemBase::TurnRight(double speed)
 {
