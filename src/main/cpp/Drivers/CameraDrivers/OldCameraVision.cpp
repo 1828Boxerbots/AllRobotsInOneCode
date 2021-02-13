@@ -38,7 +38,7 @@ void OldCameraVision::Tick()
 
 	//cv::line(m_frame, cv::Point(0, 0), cv::Point(m_frame.size().width, m_frame.size().height), cv::Scalar(0,0,255), 3);
 
-	GetBlob(1000000000000000000000000000000);
+	GetBlob(1000);
 
 	//m_outputStream.PutFrame(m_frame);
 }

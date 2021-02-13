@@ -63,6 +63,7 @@ void AutoSlalom::Execute()
       break;
     case 3:
       loop3();
+      break;
     case 4:
       loop4();
       break;

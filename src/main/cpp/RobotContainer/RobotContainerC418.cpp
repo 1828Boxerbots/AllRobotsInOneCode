@@ -613,7 +613,8 @@ void RobotContainerC418::SetBackButton()
 
 void RobotContainerC418::BreakFMSStr(std::string gameData)
 {
-  char copy[gameData.length() +1];
+  //int charLength = gameData.length()+1;
+  char copy[60]; // Variable length arrays are bad! Must be a preset value. 60 is plenty big enough for our purposes.
   strcpy(copy, gameData.c_str());
   char *output = strtok(copy, "-");
   for (int num=0; output != nullptr; num++)

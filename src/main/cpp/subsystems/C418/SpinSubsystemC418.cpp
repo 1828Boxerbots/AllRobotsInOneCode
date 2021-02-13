@@ -170,12 +170,13 @@ int SpinSubsystemC418::CalcDir()
     0 = dont move
     1 = Clock-wise TBD
     -1 = Counter Clock-wise TBD
+    -2 = Invalid conditions
     */
 
     FMSColors wantedColor = GetFMSColor();
     FMSColors currentColor = ReadColorSensor();
 
-    int direction;
+    int direction = -2;
 
     switch (wantedColor)
     {
