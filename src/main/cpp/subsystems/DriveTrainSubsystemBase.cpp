@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/DriveTrainSubsystemBase.h"
+#include <math.h>
 
 DriveTrainSubsystemBase::DriveTrainSubsystemBase() {}
 
@@ -125,15 +126,14 @@ void DriveTrainSubsystemBase::ArcadeVision(double x, double y, OldCameraVision::
     double deadZoneLocation = 0.75;
     double deadZoneRange = 30;
 
-    Util::Log("What Color?", color);
     SetLookingColorV(color);
 
-    Util::Log("What Color?", GetLookingColorV());
+    SetLookingColorV(OldCameraVision::VisionColors::GREEN_CONE);
 
     double turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
 
     
-    while(turn < -2.9)
+    while(turn > -2.9)
     {
         MoveTank(leftY, rightY * m_scale);
         turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
@@ -325,30 +325,66 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
 }
 
 //Used to turn the robot a certain amount of degrees(RelativeAngle is user's wanted angle)
+// void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle, double speed)
+// {
+//     //troubleshooting values, use these for testing what makes the robot go to the relative angle
+//     frc::SmartDashboard::PutNumber("Current Angle", relativeAngle);
+//     frc::SmartDashboard::PutBoolean("In Place", true);
+//     double startAngle = IMUGetAngle();
+//     double currentAngle = IMUGetAngle();
+//     //logic used to turn the robot left or right and keeping it turned
+//     if (relativeAngle > 0)
+//     {
+//         TurnRight(speed);
+//         while (currentAngle - startAngle < relativeAngle)
+//         {
+//             currentAngle = IMUGetAngle();
+//         }
+//     }
+//     if (relativeAngle < 0)
+//     {
+//         TurnLeft(speed);
+//         while (currentAngle - startAngle > relativeAngle)
+//         {
+//             currentAngle = IMUGetAngle();
+//         }
+//     }
+//     Stop();
+// }
+
+//Used to turn the robot a certain amount of degrees(RelativeAngle is user's wanted angle)
 void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle, double speed)
 {
-    //troubleshooting values, use these for testing what makes the robot go to the relative angle
-    frc::SmartDashboard::PutNumber("Current Angle", relativeAngle);
-    frc::SmartDashboard::PutBoolean("In Place", true);
-    double startAngle = IMUGetAngle();
-    double currentAngle = IMUGetAngle();
-    //logic used to turn the robot left or right and keeping it turned
-    if (relativeAngle > 0)
+    //This is Regular
+    double startDistance = GetRightEncoderInch();
+    double currentDistanceRight = GetLeftEncoderInch();
+    double currentDistanceLeft = GetRightEncoderInch();
+    double inch = Util::Abs(relativeAngle)*(Util::PI/180)*23;
+    while (currentDistanceRight - startDistance < inch || currentDistanceLeft - startDistance < inch )
     {
-        TurnRight(speed);
-        while (currentAngle - startAngle < relativeAngle)
+        if(relativeAngle < 0)
         {
-            currentAngle = IMUGetAngle();
+            TurnLeft(speed);
         }
+        else
+        {
+            TurnRight(speed);
+        }
+        
+        currentDistanceLeft = GetRightEncoderInch();
+        currentDistanceRight = GetLeftEncoderInch();
+        frc::SmartDashboard::PutNumber("LeftEncoderInches", GetRightEncoderInch());
+        //Util::DelayInSeconds(1.0);
     }
-    if (relativeAngle < 0)
+    if (currentDistanceLeft > inch)
     {
-        TurnLeft(speed);
-        while (currentAngle - startAngle > relativeAngle)
-        {
-            currentAngle = IMUGetAngle();
-        }
+        ResetEncoder();
     }
+    if (currentDistanceRight > inch)
+    {
+        ResetEncoder();
+    }
+    Stop();
 }
 
 void DriveTrainSubsystemBase::Init()

@@ -17,6 +17,7 @@ namespace Util
 double Limit(double value, double lowerLimit = -1.0, double higherLimit = 1.0);
 double AbsMin(double input, double minValue);
 double AbsMax(double input, double maxValue);
+double Abs(double input);
 
 void DelayInSeconds(double seconds);
 

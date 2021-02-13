@@ -91,6 +91,15 @@ double Util::AbsMin(double input, double minValue)
     }
 }
 
+double Util::Abs(double input)
+{
+    if(input < 0.0)
+    {
+        input = -input;
+    }
+    return input;
+}
+
 void Util::Log(std::string title, double value, std::string subsystemName)
 {
     frc::SmartDashboard::PutNumber(subsystemName + " " + title, value);
