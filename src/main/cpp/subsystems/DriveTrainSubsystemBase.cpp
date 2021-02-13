@@ -353,32 +353,32 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
 }
 
 //Used to turn the robot a certain amount of degrees(RelativeAngle is user's wanted angle)
-// void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle, double speed)
-// {
-//     //troubleshooting values, use these for testing what makes the robot go to the relative angle
-//     frc::SmartDashboard::PutNumber("Current Angle", relativeAngle);
-//     frc::SmartDashboard::PutBoolean("In Place", true);
-//     double startAngle = IMUGetAngle();
-//     double currentAngle = IMUGetAngle();
-//     //logic used to turn the robot left or right and keeping it turned
-//     if (relativeAngle > 0)
-//     {
-//         TurnRight(speed);
-//         while (currentAngle - startAngle < relativeAngle)
-//         {
-//             currentAngle = IMUGetAngle();
-//         }
-//     }
-//     if (relativeAngle < 0)
-//     {
-//         TurnLeft(speed);
-//         while (currentAngle - startAngle > relativeAngle)
-//         {
-//             currentAngle = IMUGetAngle();
-//         }
-//     }
-//     Stop();
-// }
+ void DriveTrainSubsystemBase::TurnInDegreesGyro(double relativeAngle, double speed)
+ {
+     //troubleshooting values, use these for testing what makes the robot go to the relative angle
+     frc::SmartDashboard::PutNumber("Current Angle", relativeAngle);
+     frc::SmartDashboard::PutBoolean("In Place", true);
+     double startAngle = IMUGetAngle();
+     double currentAngle = IMUGetAngle();
+     //logic used to turn the robot left or right and keeping it turned
+     if (relativeAngle > 0)
+     {
+         TurnRight(speed);
+         while (currentAngle - startAngle < relativeAngle)
+         {
+             currentAngle = IMUGetAngle();
+         }
+     }
+     if (relativeAngle < 0)
+     {
+         TurnLeft(speed);
+         while (currentAngle - startAngle > relativeAngle)
+         {
+             currentAngle = IMUGetAngle();
+         }
+     }
+     Stop();
+ }
 
 //Used to turn the robot a certain amount of degrees(RelativeAngle is user's wanted angle)
 void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle, double speed)
@@ -479,6 +479,7 @@ void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZ
      Util::Log("Direction", "Stop");
      Stop();
 }
+
 void DriveTrainSubsystemBase::MoveWithVision(double deadZoneLocation, int deadZoneRange, int moveSpeed, bool defaultTurnRight)
 {
     double turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
@@ -513,4 +514,9 @@ void DriveTrainSubsystemBase::MoveWithVision(double deadZoneLocation, int deadZo
             MoveArcade(moveSpeed, 0.0);
         }
     }
+}
+
+double DriveTrainSubsystemBase::ReadIMU()
+{
+    return IMUGetAngle();
 }

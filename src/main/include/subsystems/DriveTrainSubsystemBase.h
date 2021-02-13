@@ -53,6 +53,7 @@ public:
   virtual void ResetEncoder() {}
   virtual void ForwardInSeconds(double goalTime, double speed = 1.0);
   virtual void TurnInDegrees(double relativeAngle, double speed = 0.75);
+  virtual void TurnInDegreesGyro(double relativeAngle, double speed = 0.75);
   //virtual void DetectionSoftware(double detectionDistance) {}
   virtual double GetLidarDetectionDistance() { return 0.0; }
   virtual double GetDistanceSensorDetectionDistanceLeft() { return 0.0; }
@@ -68,6 +69,7 @@ public:
   virtual void SetVisionFMSColor(OldCameraVision::VisionColors color) {}
   virtual void SetLookingColorV(OldCameraVision::VisionColors color) {}
   virtual OldCameraVision::VisionColors GetLookingColorV() { return OldCameraVision::INVALID_COLOR;}
+  virtual double ReadIMU();
 
   // virtual void GetVisionFMS();
   // virtual void BreakFMSStr(std::string gameData);
