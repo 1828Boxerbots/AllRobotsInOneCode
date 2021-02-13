@@ -131,6 +131,8 @@ void AutoSlalom::loop0()
   //No state check because this function is shared by other cases
   //m_pDrive->ForwardInSeconds(0.25, 0.5);
   //m_state = 1;
+
+
 }
 
 void AutoSlalom::loop1()

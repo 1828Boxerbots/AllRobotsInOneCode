@@ -22,6 +22,7 @@ DriveTrainSubsystemC418::DriveTrainSubsystemC418(I2CMultiplexerDriver *pMultiple
 #ifdef M_DISTANCE_RIGHT
   m_pMuxRightDistance = new MuxDistanceSensorDriver(DISTANCESENSOR_PORT_C418, I2C_ADDR_RIGHTDISTANCESENSOR_C418, *m_pMultiplexerDriver, U8T_LINE_RIGHTDISTANCESENSOR_C418);
 #endif
+
 }
 
 void DriveTrainSubsystemC418::SetMotorL(double speed)
@@ -72,6 +73,7 @@ void DriveTrainSubsystemC418::Init()
     m_pMuxLeftDistance->Init(true);
   #endif
 
+  m_imu.IMUGyroInit(1);
 #endif
 }
 
@@ -94,8 +96,10 @@ double DriveTrainSubsystemC418::IMUGetAngle()
 {
 // If this isn't giving you the correct angle, try .GetAngleZ() or .GetAngleX()
 #ifdef M_IMU
-  m_imuAngle = m_imu.GetCorrectAngleY();
-  Util::Log("IMU Angle", m_imuAngle, "DriveTrainSubsystemC418");
+  Util::Log("IMU Angle X", m_imu.GetAngleX(), "DriveTrainSubsystemC418");
+  Util::Log("IMU Angle Z", m_imu.GetAngleZ(), "DriveTrainSubsystemC418");
+  m_imuAngle = m_imu.GetAngleY();
+  Util::Log("IMU Angle Y", m_imuAngle, "DriveTrainSubsystemC418");
   return m_imuAngle;
 #else
   return 0;
