@@ -63,6 +63,15 @@ void AutoSlalom::Execute()
       break;
     case 3:
       loop3();
+    case 4:
+      loop4();
+      break;
+    case 5:
+      m_pDrive->SetLookingColorV(OldCameraVision::PURPLE_BOTTLE);
+      loop5();
+      break;
+    case 6:
+      loop6();
       break;
     default:
       break;
@@ -87,17 +96,48 @@ bool AutoSlalom::IsFinished()
 
 void AutoSlalom::loop0()
 {
+  //Forward, left, forward, right
+  m_pDrive->ForwardInInch(45, 0, 0.3);
+  m_pDrive->TurnInDegrees(-90, 0.4);
+  m_pDrive->ForwardInInch(45, 0, 0.3);
+  m_pDrive->TurnInDegrees(90, 0.4);
+
+  //Move the 10 feet or so
+  m_pDrive->ForwardInInch(120, 0, 0.3);
+
+  //Loop around the cone
+  m_pDrive->TurnInDegrees(90, 0.4);
+  m_pDrive->ForwardInInch(45, 0, 0.3);
+  m_pDrive->TurnInDegrees(-90, 0.4);
+  m_pDrive->ForwardInInch(45, 0, 0.3);
+  m_pDrive->TurnInDegrees(-90, 0.4);
+  m_pDrive->ForwardInInch(45, 0 ,0.3);
+  m_pDrive->TurnInDegrees(-90, 0.4);
+  m_pDrive->ForwardInInch(45, 0, 0.3);
+  m_pDrive->TurnInDegrees(-90, 0.4);
+  m_pDrive->ForwardInInch(45, 0, 0.3);
+
+  //Go back the 10 feet
+  m_pDrive->TurnInDegrees(90, 0);
+  m_pDrive->ForwardInInch(120, 0, 0.4);
+
+  //Go back around the initial cone
+  m_pDrive->ForwardInInch(45, 0, 0.3);
+  m_pDrive->TurnInDegrees(-90, 0.4);
+  m_pDrive->ForwardInInch(45, 0, 0.3);
+  m_pDrive->TurnInDegrees(90, 0.4);
+
   //Move forward a little bit
   //No state check because this function is shared by other cases
-  m_pDrive->ForwardInSeconds(0.25, 0.5);
-  m_state = 1;
+  //m_pDrive->ForwardInSeconds(0.25, 0.5);
+  //m_state = 1;
 }
 
 void AutoSlalom::loop1()
 {
   //Rotate until Color1 on right side
 
-  m_center = 0.75;
+  m_center = 0.50;
 
   if (m_state != 1) //Return if state is not 1
   {
@@ -159,7 +199,7 @@ void AutoSlalom::loop3()
 {
   //Move forward a little bit
   //No state check because this function is shared by other cases
-  m_pDrive->ForwardInSeconds(0.25, 0.5);
+  m_pDrive->ForwardInInch(49, 0, 0.2);
   m_state = 4;
 }
 
@@ -189,7 +229,7 @@ void AutoSlalom::loop4()
 void AutoSlalom::loop5()
 {
   //Rotate until Color2 on left side
-  m_center = -0.5; //left side
+  m_center = -0.75; //left side
 
   if (m_state != 5)
   {
@@ -215,6 +255,31 @@ void AutoSlalom::loop5()
 
 void AutoSlalom::loop6()
 {
-  //Move forward until I can't see Color2
+  //Move forward until I can't see color2
 
+  m_center = 0.0; //Center is in the center
+  double speed = 0.0;
+
+  if (m_state != 6) //Return if state is not 2
+  {
+    return;
+  }
+
+  if (m_result > -3) //If I see the cone
+  {
+    if (m_result > 0) //If cone is on the right
+    {
+      speed = -0.2;
+    }
+    else if (m_result < 0) //If cone is on the left
+    {
+      speed = 0.2;
+    }
+  }
+  else //If I don't see the cone
+  {
+    m_state = 3; //Increment state
+  }
+
+  m_pDrive->MoveArcade(0.2, speed); //Move
 }
