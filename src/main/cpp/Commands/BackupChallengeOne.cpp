@@ -22,13 +22,22 @@ void BackupChallengeOne::Execute()
 {
   if(m_isFinished == false)
   {
-    m_pDrive->ForwardInInch(90, 0.0, 0.4);
-    m_pDrive->TimedArcade(0.5, 0.2, 5.3);
-   m_pDrive->ForwardInInch(90,0.0,0.4);
-   m_pDrive->TimedArcade(0.5, -0.2, 5.3);
-   m_pDrive->ForwardInInch(90, 0.0, 0.4);
-   m_pDrive->TimedArcade(0.5, -0.2, 5.3);
-   m_pDrive->ForwardInInch(240, 0.0, 0.4);
+    m_pDrive->ForwardInInch(95, 0.0, 0.6);
+    m_pDrive->IMUArcade(0.5, 0.2, -360);
+    m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE);
+    m_pDrive->AlignWithVision(-0.75, 30, false);
+    m_pDrive->ForwardInInch(50,0.0,0.6);
+    //m_pDrive->ForwardInInch(90,0.0,0.4);
+    m_pDrive->IMUArcade(0.5, -0.2, 360);
+    m_pDrive->SetLookingColorV(OldCameraVision::RED_CONE);
+    m_pDrive->AlignWithVision(1.0, 30, true);
+    m_pDrive->ForwardInInch(50,0.0,0.4);
+    //m_pDrive->ForwardInInch(90, 0.0, 0.4);
+    m_pDrive->IMUArcade(0.5, -0.2, 360);
+    m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE);
+    m_pDrive->AlignWithVision(0.75, 30, true);
+    m_pDrive->ForwardInInch(50,0.0,0.4);
+    m_pDrive->ForwardInInch(240, 0.0, 0.4);
   }
 
   m_isFinished = true;

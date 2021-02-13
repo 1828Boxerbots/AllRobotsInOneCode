@@ -122,14 +122,31 @@ void DriveTrainSubsystemBase::IMUArcade(double x, double y, double angle)
     double m_scale = 1.28;
     double leftY = x + y;
     double rightY = x - y;
+    frc::SmartDashboard::PutNumber("Shadow", 1);
     double currentAngle = IMUGetAngle();
     double startAngle = IMUGetAngle();
-
-    while (currentAngle - startAngle < angle)
+    frc::SmartDashboard::PutNumber("Shadow", 2);
+    if(angle < 0)
     {
-        MoveTank(leftY, rightY * m_scale);
-        currentAngle = IMUGetAngle();
+        while (currentAngle - startAngle > angle)
+        {
+            frc::SmartDashboard::PutNumber("Shadow", 3);
+            MoveTank(leftY, rightY * m_scale);
+            currentAngle = IMUGetAngle();
+        }    
     }
+
+    else if ( angle > 0)
+    {
+        while (currentAngle - startAngle < angle)
+        {
+            frc::SmartDashboard::PutNumber("Shadow", 3);
+            MoveTank(leftY, rightY * m_scale);
+            currentAngle = IMUGetAngle();
+        }
+    }
+    
+    frc::SmartDashboard::PutNumber("Shadow", 4);
     Stop();
 }
 
@@ -441,11 +458,11 @@ void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZ
             //Turn right/left if object is not seen
             if(defaultTurnRight == true)
             {
-                TurnRight(0.25);
+                TurnRight(0.2);
             }
             else if(defaultTurnRight == false)
             {
-                TurnLeft(0.25);
+                TurnLeft(0.2);
             }
         }
         else if (turn < 0.0)
@@ -462,7 +479,7 @@ void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZ
         }
     }
     Util::Log("Direction", "Center");
-    Forward(0.3);
+    Forward(0.5);
     while(turn > -2.9)
     {
         //Continue Forwards until object is not see-able

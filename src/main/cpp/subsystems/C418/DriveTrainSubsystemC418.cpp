@@ -73,10 +73,7 @@ void DriveTrainSubsystemC418::Init()
     m_pMuxLeftDistance->Init(true);
   #endif
 
-  #ifdef M_IMU
-    m_imu.IMUGyroInit(1);
-  #endif
-
+  m_imu.IMUGyroInit(1);
 #endif
 }
 
@@ -97,12 +94,12 @@ void DriveTrainSubsystemC418::InitLeft()
 // Function for getting the current angle of the robot relative to its starting position
 double DriveTrainSubsystemC418::IMUGetAngle()
 {
+  Util::Log("IsIMU", false);
 // If this isn't giving you the correct angle, try .GetAngleZ() or .GetAngleX()
 #ifdef M_IMU
-  Util::Log("IMU Angle Y", m_imu.GetAngleY(), "DriveTrainSubsystemC418");
-  Util::Log("IMU Angle Z", m_imu.GetAngleZ(), "DriveTrainSubsystemC418");
   m_imuAngle = m_imu.GetAngleX();
-  Util::Log("IMU Angle X", m_imuAngle, "DriveTrainSubsystemC418");
+  Util::Log("IMU Angle", m_imuAngle, "DriveTrainSubsystemC418");
+  Util::Log("IsIMU", true);
   return m_imuAngle;
 #else
   return 0;

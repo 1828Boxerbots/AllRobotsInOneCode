@@ -20,12 +20,12 @@ bool OldCameraVision::Init()
     // cv::Mat source;
 
 	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
-	m_camera.SetResolution(480,320);
+	m_camera.SetResolution( m_cameraWidth, m_cameraHeight );
 	//m_camera.SetExposureHoldCurrent();
 	//m_camera.SetWhiteBalanceHoldCurrent();
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
-	m_outputStream = frc::CameraServer::GetInstance()->PutVideo(IMAGE_FILTERED, 480, 320);
-	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo(IMAGE_THRESHOLD, 480, 320);
+	m_outputStream = frc::CameraServer::GetInstance()->PutVideo( IMAGE_FILTERED, m_cameraWidth, m_cameraHeight );
+	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo (IMAGE_THRESHOLD, m_cameraWidth, m_cameraHeight );
 	return true;
 }
 
@@ -48,7 +48,7 @@ double OldCameraVision::WhereToTurn(double deadZoneLocation, int deadZoneRange)
 {
 	Util::Log("Frame Counter", m_frameCounter++);
 
-	double screenCenter = m_frame.size().width / 2;
+	double screenCenter = ( m_cameraWidth / 2 );
 	int deadZone2 = (deadZoneLocation*screenCenter)+screenCenter;
 
 	//Check if there is a blob
@@ -130,37 +130,39 @@ bool OldCameraVision::GetBlob(int deadZonePixel)
 	//Filter the image
 	SetColor();
 
-	if(m_centroidY > 0.0 && m_centroidX > 0.0)
+	if( ( m_centroidY > 0.0 ) && ( m_centroidX > 0.0 ) )
 	{
+		cv::Point yPoint = cv::Point(0, m_centroidY); // Uppermost Y point
+		cv::Point xPoint = cv::Point(m_centroidX, 0); // Leftmost X point
+		cv::Point yHPoint = cv::Point(m_cameraWidth, m_centroidY); // Lowest Y point
+		cv::Point xHPoint = cv::Point(m_centroidX, m_cameraHeight); // Rightmost X point
+		cv::Scalar lineColor; // Color of the line
+
+
 		//Place a 2 line where the blob is
 		switch (m_visionColor)
 		{
 		case VisionColors::GREEN_CONE:
-			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,255,0), 3);
-			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 255, 0), 3);
+			lineColor = cv::Scalar(0,255,0); // Green
 			break;
 		case VisionColors::RED_CONE:
-			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
-			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
+			lineColor = cv::Scalar(0,0,255); // Red
 			break;
 		case VisionColors::YELLOW_CONE:
-			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,255,125), 3);
-			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 255, 125), 3);
+			lineColor = cv::Scalar(0,255,125); // Yellow
 			break;
 		case VisionColors::ORANGE_CONE:
-			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,255,200), 3);
-			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 255, 200), 3);
+			lineColor = cv::Scalar(0,255,200); // Orange
 			break;
 		default:
-			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
-			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
+			lineColor = cv::Scalar(0,0,255); // Red as Default
 			break;
 		}
-		cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
-		cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
+		cv::line(m_frame, yPoint, yHPoint, lineColor, m_lineThicknessInPixels);
+		cv::line(m_frame, xPoint, xHPoint, lineColor, m_lineThicknessInPixels);
 
 		//Show where deadzone is
-		cv::line(m_frame, cv::Point(deadZonePixel, 0), cv::Point(deadZonePixel, m_frame.size().height), cv::Scalar(255, 0, 0), 3);
+		cv::line(m_frame, cv::Point(deadZonePixel, 0), cv::Point(deadZonePixel, m_cameraHeight), m_deadzoneColor, m_lineThicknessInPixels);
 	}
 	else
 	{
