@@ -311,6 +311,7 @@ void DriveTrainSubsystemBase::FixRotation(double wantedAngle, double speed)
 //Pretty buggy, two versions of it: PIDS control and regular control. PIDS makes sure the robot is straight, regular just moves forward
 void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double speed)
 {
+    ResetEncoder();
     //This is Regular
     double startDistance = GetRightEncoderInch();
     double currentDistance = GetRightEncoderInch();
@@ -384,11 +385,11 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
 void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle, double speed)
 {
     //This is Regular
+    ResetEncoder();
     double startDistance = GetRightEncoderInch();
-    double currentDistanceRight = GetLeftEncoderInch();
-    double currentDistanceLeft = GetRightEncoderInch();
+    double currentDistanceRight = GetRightEncoderInch();
     double inch = Util::Abs(relativeAngle)*(Util::PI/180)*10.5;
-    while (currentDistanceRight - startDistance < inch || currentDistanceLeft - startDistance < inch )
+    while (Util::Abs(currentDistanceRight - startDistance) < inch )
     {
         if(relativeAngle < 0)
         {
@@ -398,19 +399,11 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle, double speed)
         {
             TurnRight(speed);
         }
-        
-        currentDistanceLeft = GetRightEncoderInch();
-        currentDistanceRight = GetLeftEncoderInch();
-        frc::SmartDashboard::PutNumber("LeftEncoderInches", GetRightEncoderInch());
-        //Util::DelayInSeconds(1.0);
-    }
-    if (currentDistanceLeft > inch)
-    {
-        ResetEncoder();
-    }
-    if (currentDistanceRight > inch)
-    {
-        ResetEncoder();
+        currentDistanceRight = GetRightEncoderInch();
+        frc::SmartDashboard::PutNumber("RightEncoderInches", GetRightEncoderInch());
+        Util::Log("DriveTrainSubsystemBase: TurnInDegrees: current", currentDistanceRight);
+        Util::Log("DriveTrainSubsystemBase: TurnInDegrees: start", startDistance);
+        Util::Log("DriveTrainSubsystemBase: TurnInDegrees: inch", inch);
     }
     Stop();
 }
