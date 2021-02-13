@@ -101,10 +101,19 @@ private:
 	double m_centroidX;
 	double m_centroidY;
 
+	//The thickness of the filter lines in pixels
+	int m_lineThicknessInPixels = 3;
+
+	//The color of the deadzone line
+	cv::Scalar m_deadzoneColor = cv::Scalar(255, 0, 0); // Currently Blue
+
+	//CAMERA RESOLUTION
+	int m_cameraHeight = 320;
+	int m_cameraWidth = 480;
+
 	//How big is the dead zone where WhereToTurn() = 0.0
 	//double m_deadZone = 50.0;
 
-	//VisionColors m_visionColor = FMS_COLOR;
 	VisionColors m_visionColor = FMS_COLOR;
 	//Holds the camera and raw image
 	cv::Mat m_frame; 
