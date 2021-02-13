@@ -252,7 +252,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
 
   m_pAutoSlalom = new AutoSlalom(m_pDrive);
 
-  m_pBouncePath = new AutonomousBouncePath(m_pDrive);
+  m_pBouncePath = new AutonomousBouncePath(m_pDrive, AutonomousBouncePath::TURN_RADIUS);
 
   m_pBackupChallengeOne = new BackupChallengeOne(m_pDrive);
 

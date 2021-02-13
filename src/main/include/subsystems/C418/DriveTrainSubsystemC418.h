@@ -75,8 +75,6 @@ public:
   void SetLookingColorV(OldCameraVision::VisionColors) override;
   OldCameraVision::VisionColors GetLookingColorV() override;
 
-  const double TURNRADIUS = 11;
-
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */

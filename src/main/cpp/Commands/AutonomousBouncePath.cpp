@@ -5,9 +5,11 @@
 #include "../../include/Commands/AutonomousBouncePath.h"
 
 
-AutonomousBouncePath::AutonomousBouncePath(DriveTrainSubsystemBase* pDrive) {
+AutonomousBouncePath::AutonomousBouncePath(DriveTrainSubsystemBase* pDrive, double radius) 
+{
   // Use addRequirements() here to declare subsystem dependencies.
   m_pDrive = pDrive;
+  m_turnRadius = radius;
   this->AddRequirements(pDrive);
 }
 
@@ -64,7 +66,7 @@ void AutonomousBouncePath::ProcessState1()
 {
   if(m_state == 1)
   {
-    m_pDrive->TurnInDegrees(160,0.6);
+    m_pDrive->TurnInDegrees(160,0.6, m_turnRadius);
     m_pDrive->ForwardInInch(90,0,0.5);
     m_pDrive->TimedArcade(0.5,-0.2,1.7);
     m_pDrive->ForwardInInch(80,0,0.5);
@@ -76,7 +78,7 @@ void AutonomousBouncePath::ProcessState2()
 {
   if(m_state == 2)
   {
-    m_pDrive->TurnInDegrees(180);
+    m_pDrive->TurnInDegrees(180, DriveTrainSubsystemC418::TURNRADIUS);
     m_pDrive->ForwardInInch(100,0,0.5);
     m_pDrive->TimedArcade(0.5,-0.15, 2.5);
     m_pDrive->ForwardInInch(10,0,0.5);
