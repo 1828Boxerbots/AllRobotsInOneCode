@@ -52,7 +52,7 @@ public:
   virtual double GetRightEncoderInch() { return -1.0; }
   virtual void ResetEncoder() {}
   virtual void ForwardInSeconds(double goalTime, double speed = 1.0);
-  virtual void TurnInDegrees(double relativeAngle, double speed = 0.75);
+  virtual void TurnInDegrees(double relativeAngle, double speed = 0.75, double turnRadius = 11);
   virtual void TurnInDegreesGyro(double relativeAngle, double speed = 0.75);
   //virtual void DetectionSoftware(double detectionDistance) {}
   virtual double GetLidarDetectionDistance() { return 0.0; }

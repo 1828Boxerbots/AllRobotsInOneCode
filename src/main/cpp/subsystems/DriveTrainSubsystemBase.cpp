@@ -382,13 +382,13 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
  }
 
 //Used to turn the robot a certain amount of degrees(RelativeAngle is user's wanted angle)
-void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle, double speed)
+void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle, double speed, double turnRadius)
 {
     //This is Regular
     ResetEncoder();
     double startDistance = GetRightEncoderInch();
     double currentDistanceRight = GetRightEncoderInch();
-    double inch = Util::Abs(relativeAngle)*(Util::PI/180)*10.5;
+    double inch = Util::Abs(relativeAngle)*(Util::PI/180)*turnRadius;
     while (Util::Abs(currentDistanceRight - startDistance) < inch )
     {
         if(relativeAngle < 0)

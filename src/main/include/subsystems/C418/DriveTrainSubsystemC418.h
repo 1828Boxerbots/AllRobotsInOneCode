@@ -75,6 +75,8 @@ public:
   void SetLookingColorV(OldCameraVision::VisionColors) override;
   OldCameraVision::VisionColors GetLookingColorV() override;
 
+  const double TURNRADIUS = 11;
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -111,7 +113,6 @@ private:
 #endif
 
   double speedLimit = 0.5;
-  //3.18309886184 is the number of rotations to get to 5 feet
   const double PULSE_PER_REVOLUTION = 360;
   const double WHEELDIAMETER = 6.0;
 
