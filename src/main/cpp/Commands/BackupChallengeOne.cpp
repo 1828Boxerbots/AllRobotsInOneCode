@@ -23,12 +23,12 @@ void BackupChallengeOne::Execute()
   if(m_isFinished == false)
   {
     m_pDrive->ForwardInInch(90, 0.0, 0.4);
-    m_pDrive->TimedArcade(0.5, 0.2, 3.0);
-    m_pDrive->ForwardInInch(90,0.0,0.4);
-    m_pDrive->TimedArcade(0.5, 0.2, 3.0);
-    m_pDrive->ForwardInInch(90, 0.0, 0.4);
-    m_pDrive->TimedArcade(0.5, 0.2, 3.0);
-    m_pDrive->ForwardInInch(240, 0.0, 0.4);
+    m_pDrive->TimedArcade(0.5, 0.2, 5.3);
+   m_pDrive->ForwardInInch(90,0.0,0.4);
+   m_pDrive->TimedArcade(0.5, -0.2, 5.3);
+   m_pDrive->ForwardInInch(90, 0.0, 0.4);
+   m_pDrive->TimedArcade(0.5, -0.2, 5.3);
+   m_pDrive->ForwardInInch(240, 0.0, 0.4);
   }
 
   m_isFinished = true;

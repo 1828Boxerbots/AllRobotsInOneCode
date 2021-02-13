@@ -49,7 +49,7 @@
 //#define M_DISTANCE_RIGHT
 //#define M_LIDAR
 //#define M_COLOR
-//#define M_IMU
+#define M_IMU
 
 //Controllers
 constexpr int USB_CONTROLLER_ONE = 0;
