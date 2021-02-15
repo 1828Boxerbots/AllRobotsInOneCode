@@ -48,8 +48,7 @@ double OldCameraVision::WhereToTurn(double deadZoneLocation, int deadZoneRange)
 {
 	Util::Log("Frame Counter", m_frameCounter++);
 
-	double screenCenter = ( m_cameraWidth / 2 );
-	int deadZone2 = (deadZoneLocation*screenCenter)+screenCenter;
+	int deadZone2 = ( deadZoneLocation * m_screenCenterX ) + m_screenCenterX;
 
 	//Check if there is a blob
 	if (GetBlob(deadZone2) == false /*|| m_centroidX == nan( && m_centroidY == nan(ind)*/)
@@ -75,12 +74,12 @@ double OldCameraVision::WhereToTurn(double deadZoneLocation, int deadZoneRange)
 	}
 
 	//Use some MATH to turn our position into a percentage and return
-	double powerPercentage = ((m_centroidX - screenCenter) / screenCenter) - deadZoneLocation;
-	if(powerPercentage>1.0)
+	double powerPercentage = ( ( m_centroidX - m_screenCenterX ) / m_screenCenterX ) - deadZoneLocation;
+	if( powerPercentage > 1.0 )
 	{
 		powerPercentage = 1.0;
 	}
-	if(powerPercentage<-1.0)
+	if( powerPercentage < -1.0 )
 	{
 		powerPercentage = -1.0;
 	}
@@ -170,8 +169,6 @@ bool OldCameraVision::GetBlob(int deadZonePixel)
 	}
 	// //Display the new image
 	SendImage(IMAGE_FILTERED, m_frame);
-
-	//cv::waitKey(1);
 
 	//Checks is there is no blob
 	if (isnan(m_centroidX) && isnan(m_centroidY))

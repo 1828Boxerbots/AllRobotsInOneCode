@@ -114,6 +114,10 @@ private:
 	int m_cameraHeight = 320;
 	int m_cameraWidth = 480;
 
+	//CAMERA MIDPOINTS
+	double m_screenCenterX = ( m_cameraWidth / 2 );
+	double m_screenCenterY = ( m_cameraHeight / 2 );
+
 	//How big is the dead zone where WhereToTurn() = 0.0
 	//double m_deadZone = 50.0;
 
