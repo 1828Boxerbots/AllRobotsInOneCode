@@ -73,7 +73,7 @@ void DriveTrainSubsystemC418::Init()
     m_pMuxLeftDistance->Init(true);
   #endif
 
-  m_imu.IMUGyroInit(1);
+  m_imu.IMUGyroInit(true);
 #endif
 }
 
@@ -103,14 +103,6 @@ double DriveTrainSubsystemC418::IMUGetAngle()
   return m_imuAngle;
 #else
   return 0;
-#endif
-}
-
-void DriveTrainSubsystemC418::IMUInit()
-{
-#ifdef M_IMU
-  Util::Log("GyroInit", true, "DriveTrainSubsystemC418");
-  m_imu.IMUGyroInit(true);
 #endif
 }
 
@@ -159,14 +151,6 @@ double DriveTrainSubsystemC418::GyroGetAngle()
   return m_gyroAngle;
 #else
   return 0;
-#endif
-}
-
-// Currently using IMU
-void DriveTrainSubsystemC418::GyroInit()
-{
-#ifdef M_IMU
-  m_imu.IMUGyroInit(true);
 #endif
 }
 
