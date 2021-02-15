@@ -20,12 +20,12 @@ bool OldCameraVision::Init()
     // cv::Mat source;
 
 	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
-	m_camera.SetResolution( m_cameraWidth, m_cameraHeight );
+	m_camera.SetResolution( M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
 	//m_camera.SetExposureHoldCurrent();
 	//m_camera.SetWhiteBalanceHoldCurrent();
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
-	m_outputStream = frc::CameraServer::GetInstance()->PutVideo( IMAGE_FILTERED, m_cameraWidth, m_cameraHeight );
-	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo (IMAGE_THRESHOLD, m_cameraWidth, m_cameraHeight );
+	m_outputStream = frc::CameraServer::GetInstance()->PutVideo( IMAGE_FILTERED, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
+	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo ( IMAGE_THRESHOLD, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
 	return true;
 }
 
@@ -133,8 +133,8 @@ bool OldCameraVision::GetBlob(int deadZonePixel)
 	{
 		cv::Point yPoint = cv::Point(0, m_centroidY); // Uppermost Y point
 		cv::Point xPoint = cv::Point(m_centroidX, 0); // Leftmost X point
-		cv::Point yHPoint = cv::Point(m_cameraWidth, m_centroidY); // Lowest Y point
-		cv::Point xHPoint = cv::Point(m_centroidX, m_cameraHeight); // Rightmost X point
+		cv::Point yHPoint = cv::Point(M_CAMERA_WIDTH, m_centroidY); // Lowest Y point
+		cv::Point xHPoint = cv::Point(m_centroidX, M_CAMERA_HEIGHT); // Rightmost X point
 		cv::Scalar lineColor; // Color of the line
 
 
@@ -157,11 +157,11 @@ bool OldCameraVision::GetBlob(int deadZonePixel)
 			lineColor = cv::Scalar(0,0,255); // Red as Default
 			break;
 		}
-		cv::line(m_frame, yPoint, yHPoint, lineColor, m_lineThicknessInPixels);
-		cv::line(m_frame, xPoint, xHPoint, lineColor, m_lineThicknessInPixels);
+		cv::line(m_frame, yPoint, yHPoint, lineColor, M_LINE_THICKNESS);
+		cv::line(m_frame, xPoint, xHPoint, lineColor, M_LINE_THICKNESS);
 
 		//Show where deadzone is
-		cv::line(m_frame, cv::Point(deadZonePixel, 0), cv::Point(deadZonePixel, m_cameraHeight), m_deadzoneColor, m_lineThicknessInPixels);
+		cv::line(m_frame, cv::Point(deadZonePixel, 0), cv::Point(deadZonePixel, M_CAMERA_HEIGHT), M_DEADZONE_COLOR, M_LINE_THICKNESS);
 	}
 	else
 	{

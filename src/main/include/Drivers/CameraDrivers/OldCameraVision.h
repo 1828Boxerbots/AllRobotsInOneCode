@@ -105,18 +105,18 @@ private:
 	double m_centroidY;
 
 	//The thickness of the filter lines in pixels
-	int m_lineThicknessInPixels = 3;
+	const int M_LINE_THICKNESS = 3;
 
 	//The color of the deadzone line
-	cv::Scalar m_deadzoneColor = cv::Scalar(255, 0, 0); // Currently Blue
+	const cv::Scalar M_DEADZONE_COLOR = cv::Scalar(255, 0, 0); // Currently Blue
 
 	//CAMERA RESOLUTION
-	int m_cameraHeight = 320;
-	int m_cameraWidth = 480;
+	const int M_CAMERA_HEIGHT = 240;
+	const int M_CAMERA_WIDTH = 320;
 
 	//CAMERA MIDPOINTS
-	double m_screenCenterX = ( m_cameraWidth / 2 );
-	double m_screenCenterY = ( m_cameraHeight / 2 );
+	double m_screenCenterX = ( M_CAMERA_WIDTH / 2 );
+	double m_screenCenterY = ( M_CAMERA_HEIGHT / 2 );
 
 	//How big is the dead zone where WhereToTurn() = 0.0
 	//double m_deadZone = 50.0;
