@@ -95,7 +95,7 @@ void PickUpLemonCommand::stateZero()
 {
   Util::Log("LemonShadow", "ZeroB");
   m_pLoader->SetLoadMotor(m_loaderSpeed);
-  m_pDrive->ForwardInInch(60, 0.0, m_motorSpeed);
+  m_pDrive->ForwardInInch(90, 0.0, m_motorSpeed);
   m_pLoader->Stop();
   m_state = 1;
   Util::Log("LemonShadow", "ZeroE");
@@ -189,8 +189,7 @@ void PickUpLemonCommand::stateFour()
   Util::Log("LemonShadow", "FourE");
 
   Util::Log("LemonShadow", "FourB");
-  m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE);
-  m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_BOTTOM);
+  m_pLoader->SetLoadMotor(m_loaderSpeed);
   Util::Log("LemonShadow", "4Forward Start");
   m_pDrive->ForwardInInch(12, 0.0, m_motorSpeed);
   Util::Log("LemonShadow", "Forward End");
