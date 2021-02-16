@@ -112,9 +112,10 @@ double DriveTrainSubsystemC418::GetLeftEncoderInch()
   m_leftEncoderSim++;
 #ifndef NOHW
   m_leftEncoderSim = m_leftEncoder.GetDistance();
-  frc::SmartDashboard::PutNumber("LeftEncoder Raw", m_leftEncoder.Get());
-  frc::SmartDashboard::PutBoolean("LeftEncoder Direction", m_leftEncoder.GetDirection());
-  frc::SmartDashboard::PutBoolean("LeftEncoder Running", m_leftEncoder.GetStopped());
+  Util::Log("LeftEncoder Distance", m_leftEncoderSim, "DriveTrainSubsystemC418");
+  Util::Log("LeftEncoder Raw", m_leftEncoder.Get(), "DriveTrainSubsystemC418");
+  Util::Log("LeftEncoder Direction", m_leftEncoder.GetDirection(), "DriveTrainSubsystemC418");
+  Util::Log("LeftEncoder Running", m_leftEncoder.GetStopped(), "DriveTrainSubsystemC418");
 #endif
   LogEncoder();
   return m_leftEncoderSim;
@@ -125,6 +126,7 @@ double DriveTrainSubsystemC418::GetRightEncoderInch()
   m_rightEncoderSim++;
 #ifndef NOHW
   m_rightEncoderSim = m_rightEncoder.GetDistance();
+  Util::Log("RightEncoder Distance", m_rightEncoderSim, "DriveTrainSubsystemC418");
   Util::Log("RightEncoder Raw", m_rightEncoder.Get(), "DriveTrainSubsystemC418");
   Util::Log("RightEncoder Direction", m_rightEncoder.GetDirection(), "DriveTrainSubsystemC418");
   Util::Log("RightEncoder Running", m_rightEncoder.GetStopped(), "DriveTrainSubsystemC418");

@@ -144,6 +144,9 @@ void RobotContainerC418::ConfigureAutonomousCommands()
         //m_pDrive->SetLookingColorV(OldCameraVision::FMS_COLOR);
         //GetVisionFMS();
         m_pDrive->WhereToTurn(0.0, 50);
+        m_pDrive->IMUGetAngle();
+        m_pDrive->GetLeftEncoderInch();
+        m_pDrive->GetRightEncoderInch();
       }
     }
   };
@@ -421,7 +424,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
   }
   */
  
-  int cases = 2;
+  int cases = 3;
   switch(cases)
   {
     case 0:

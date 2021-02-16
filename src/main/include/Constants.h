@@ -49,7 +49,7 @@
 //#define M_DISTANCE_RIGHT
 //#define M_LIDAR
 //#define M_COLOR
-//#define M_IMU
+#define M_IMU
 
 //Controllers
 constexpr int USB_CONTROLLER_ONE = 0;
@@ -128,10 +128,10 @@ constexpr int PWM_HOOKMOTOR_C418 = 9;
 constexpr int DIO_SHOOTER_ENCODER_ONE_C418 = 4;
 constexpr int DIO_SHOOTER_ENCODER_TWO_C418 = 5;
 constexpr int DIO_PHOTOGATE_C418 = 8;
-constexpr int DIO_LEFTENCODER_A_C418 = 0;
-constexpr int DIO_LEFTENCODER_B_C418 = 1;
-constexpr int DIO_RIGHTENCODER_A_C418 = 2;
-constexpr int DIO_RIGHTENCODER_B_C418 = 3;
+constexpr int DIO_LEFTENCODER_A_C418 = 2;
+constexpr int DIO_LEFTENCODER_B_C418 = 3;
+constexpr int DIO_RIGHTENCODER_A_C418 = 0;
+constexpr int DIO_RIGHTENCODER_B_C418 = 1;
 constexpr int DIO_HALLEFFECT_UPPER_C418 = 7;
 constexpr int DIO_HALLEFFECT_LOWER_C418 = 6;
 constexpr int RLY_SPIKE_C418 = 1;

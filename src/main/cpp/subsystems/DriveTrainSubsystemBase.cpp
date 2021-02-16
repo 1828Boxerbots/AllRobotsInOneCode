@@ -111,10 +111,17 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
 
 void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
 {
-    double m_scale = 1.28;
+    double m_scale = 1.289;
     double leftY = X + Y;
     double rightY = X - Y;
-    MoveTank(leftY, rightY * m_scale);
+    if(X>0)
+    {
+        MoveTank(leftY, rightY * m_scale);
+    }
+    if(X<0)
+    {
+        MoveTank(leftY * m_scale, rightY);
+    }
 }
 
 void DriveTrainSubsystemBase::IMUArcade(double x, double y, double angle)
@@ -330,16 +337,18 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
 {
     ResetEncoder();
     //This is Regular
-    double startDistance = GetRightEncoderInch();
-    double currentDistance = GetRightEncoderInch();
-    while (currentDistance - startDistance < inch)
+    double startDistanceRight = GetRightEncoderInch();
+    double currentDistanceRight = GetRightEncoderInch();
+    double startDistanceLeft = GetLeftEncoderInch();
+    double currentDistanceLeft = GetLeftEncoderInch();
+    while (Util::Abs(currentDistanceRight - startDistanceRight) < inch)
     {
         Forward(speed);
-        currentDistance = GetRightEncoderInch();
+        currentDistanceRight = GetRightEncoderInch();
         frc::SmartDashboard::PutNumber("LeftEncoderInches", GetRightEncoderInch());
         //Util::DelayInSeconds(1.0);
     }
-    if (currentDistance > inch)
+    if (currentDistanceRight > inch)
     {
         ResetEncoder();
     }
@@ -403,10 +412,10 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle, double speed, 
 {
     //This is Regular
     ResetEncoder();
-    double startDistance = GetRightEncoderInch();
-    double currentDistanceRight = GetRightEncoderInch();
+    double startDistance = GetLeftEncoderInch();
+    double currentDistanceLeft = GetLeftEncoderInch();
     double inch = Util::Abs(relativeAngle)*(Util::PI/180)*turnRadius;
-    while (Util::Abs(currentDistanceRight - startDistance) < inch )
+    while (Util::Abs(currentDistanceLeft - startDistance) < inch )
     {
         if(relativeAngle < 0)
         {
@@ -416,9 +425,9 @@ void DriveTrainSubsystemBase::TurnInDegrees(double relativeAngle, double speed, 
         {
             TurnRight(speed);
         }
-        currentDistanceRight = GetRightEncoderInch();
-        frc::SmartDashboard::PutNumber("RightEncoderInches", GetRightEncoderInch());
-        Util::Log("DriveTrainSubsystemBase: TurnInDegrees: current", currentDistanceRight);
+        currentDistanceLeft = GetLeftEncoderInch();
+        frc::SmartDashboard::PutNumber("LeftEncoderInches", GetLeftEncoderInch());
+        Util::Log("DriveTrainSubsystemBase: TurnInDegrees: current", currentDistanceLeft);
         Util::Log("DriveTrainSubsystemBase: TurnInDegrees: start", startDistance);
         Util::Log("DriveTrainSubsystemBase: TurnInDegrees: inch", inch);
     }
