@@ -8,6 +8,11 @@
 
 class OldCameraVision
 {
+private:
+	//CAMERA RESOLUTION
+	const static int M_CAMERA_HEIGHT = 240;
+	const static int M_CAMERA_WIDTH = 320;
+
 public:
 	/// <summary>
 	/// Constructor
@@ -22,7 +27,7 @@ public:
 	///		true = initialization successful
 	///		false = error occured
 	/// </returns>
-	bool Init();
+	bool Init(int cropX = 0, int cropY = 0, int cropW = M_CAMERA_WIDTH, int cropH = M_CAMERA_HEIGHT);
 
 	/// <summary>
 	/// Which direction should the robot turn and how fast
@@ -90,12 +95,6 @@ private:
 	const double OUT_OF_CAMERA_RANGE = -3.0;
 
 	//Values that it is filtering by
-	// int m_iLowH = LOWH_GREEN_CONE;
-	// int m_iHighH = HIGHH_GREEN_CONE;
-	// int m_iLowS = LOWS_GREEN_CONE;
-	// int m_iHighS = HIGHS_GREEN_CONE;
-	// int m_iLowV = LOWV_GREEN_CONE;
-	// int m_iHighV = HIGHV_GREEN_CONE;
 
 	//The index/port of the camera - given in the constructor
 	int m_index;
@@ -109,10 +108,6 @@ private:
 
 	//The color of the deadzone line
 	const cv::Scalar M_DEADZONE_COLOR = cv::Scalar(255, 0, 0); // Currently Blue
-
-	//CAMERA RESOLUTION
-	const int M_CAMERA_HEIGHT = 240;
-	const int M_CAMERA_WIDTH = 320;
 
 	//CAMERA MIDPOINTS
 	double m_screenCenterX = ( M_CAMERA_WIDTH / 2 );
@@ -131,6 +126,11 @@ private:
 	cs::CvSink m_cvSink;
 	cs::CvSource m_outputStream;
 	cs::CvSource m_outputStreamTwo;
+	cv::Rect2d m_rect;
+	int m_cropX = 0; 
+	int m_cropY = 0; 
+	int m_cropW = M_CAMERA_WIDTH; 
+	int m_cropH = M_CAMERA_HEIGHT;
 
 	/// <summary>
 	/// Create a new window to display an image

@@ -11,7 +11,7 @@ OldCameraVision::OldCameraVision(int port)
 	m_index = port;
 }
 
-bool OldCameraVision::Init()
+bool OldCameraVision::Init(int cropX, int cropY, int cropW, int cropH)
 {
 	// cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture();
     // camera.SetResolution(640, 480);
@@ -26,6 +26,12 @@ bool OldCameraVision::Init()
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
 	m_outputStream = frc::CameraServer::GetInstance()->PutVideo( IMAGE_FILTERED, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
 	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo ( IMAGE_THRESHOLD, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
+
+	m_cropX = cropX;
+	m_cropY = cropY;
+	m_cropW = cropW;
+	m_cropH = cropH;
+
 	return true;
 }
 
@@ -233,6 +239,9 @@ void OldCameraVision::SetColor()
 	Util::Log("LowV", resultL.val[2]);
 	Util::Log("HighV", resultH.val[2]);
 
+	m_rect = cv::Rect2d(m_cropX, m_cropY, m_cropW, m_cropH);
+	m_imgHSV = m_imgHSV(m_rect);
+
 	cv::inRange(m_imgHSV, resultL, resultH, m_imgThresholded);
 
 	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(6, 6)));
@@ -246,7 +255,7 @@ void OldCameraVision::SetColor()
 	{
 		Util::Log("OldCameraVision", "centroids were valid");
 		m_centroidX = m.m10 / m.m00;
-		m_centroidY = m.m01 / m.m00;
+		m_centroidY = (m.m01 / m.m00) + m_cropY;
 		cv::Point p(m_centroidX, m_centroidY);
 	}
 	else
