@@ -355,12 +355,30 @@ OldCameraVision::VisionColors DriveTrainSubsystemC418::GetLookingColorV()
 
 double DriveTrainSubsystemC418::GetCentroidY()
 {
+  #ifndef NO_HW
   return m_camera.GetCentroidY();
+  #endif
 }
 
 double DriveTrainSubsystemC418::GetCentroidX()
 {
+  #ifndef NO_HW
   return m_camera.GetCentroidX();
+  #endif
+}
+
+void DriveTrainSubsystemC418::SetVisionCrop(int cropX, int cropY, int cropW, int cropH)
+{
+  #ifndef NO_HW
+  m_camera.SetCrop(cropX, cropY, cropW, cropH);
+  #endif
+}
+
+void DriveTrainSubsystemC418::GetVisionSize(int *pHeight, int *pWidth)
+{
+  #ifndef NO_HW
+  m_camera.GetSize(pHeight, pWidth);
+  #endif
 }
 
 //Used to disable and enable anticollision

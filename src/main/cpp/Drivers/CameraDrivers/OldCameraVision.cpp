@@ -11,7 +11,7 @@ OldCameraVision::OldCameraVision(int port)
 	m_index = port;
 }
 
-bool OldCameraVision::Init(int cropX, int cropY, int cropW, int cropH)
+bool OldCameraVision::Init()
 {
 	// cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture();
     // camera.SetResolution(640, 480);
@@ -27,10 +27,7 @@ bool OldCameraVision::Init(int cropX, int cropY, int cropW, int cropH)
 	m_outputStream = frc::CameraServer::GetInstance()->PutVideo( IMAGE_FILTERED, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
 	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo ( IMAGE_THRESHOLD, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
 
-	m_cropX = cropX;
-	m_cropY = cropY;
-	m_cropW = cropW;
-	m_cropH = cropH;
+	SetCrop();
 
 	return true;
 }
@@ -47,6 +44,20 @@ void OldCameraVision::Tick()
 	GetBlob(1000);
 
 	//m_outputStream.PutFrame(m_frame);
+}
+
+void OldCameraVision::SetCrop(int cropX, int cropY, int cropW, int cropH)
+{
+	m_cropX = cropX;
+	m_cropY = cropY;
+	m_cropW = cropW;
+	m_cropH = cropH;
+}
+
+void OldCameraVision::GetSize(int *pHeight, int *pWidth)
+{
+	*pHeight = M_CAMERA_HEIGHT;
+	*pWidth = M_CAMERA_WIDTH;
 }
 
 //deadZone can be a range of -1 to 1

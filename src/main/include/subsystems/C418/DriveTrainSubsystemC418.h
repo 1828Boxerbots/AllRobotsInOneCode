@@ -53,6 +53,9 @@ public:
   // void MoveArcade(double X, double Y) override;
   void SetVisionFMSColor(OldCameraVision::VisionColors colors) override;
 
+  void SetVisionCrop(int cropX = 0, int cropY = 0, int cropW = 240, int cropH = 320) override;
+  void GetVisionSize(int *pHeight, int *pWidth) override;
+
 #ifdef M_DISTANCE_LEFT
   //bool IsDistanceLeftActive() override {return true;}
 #endif

@@ -72,6 +72,8 @@ public:
   virtual double ReadIMU();
   virtual double GetCentroidY() {return -3;}
   virtual double GetCentroidX() {return -3;}
+  virtual void SetVisionCrop(int cropX, int cropY, int cropW, int cropH) {}
+  virtual void GetVisionSize(int *pHeight, int *pWidth) {}
 
   // virtual void GetVisionFMS();
   // virtual void BreakFMSStr(std::string gameData);

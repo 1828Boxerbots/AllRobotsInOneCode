@@ -34,6 +34,12 @@ void PickUpLemonCommand::Initialize()
 {
   Util::Log("LemonShadow", "Init");
   m_pDrive->SetLookingColorV(m_color);
+
+  //Setting Crop
+  int *pheight;
+  int *pwidth;
+  m_pDrive->GetVisionSize(pheight, pwidth); 
+  m_pDrive->SetVisionCrop(0, 50, *pwidth, *pheight - 50);
 }
 
 // Called repeatedly when this Command is scheduled to run

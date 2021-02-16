@@ -27,7 +27,7 @@ public:
 	///		true = initialization successful
 	///		false = error occured
 	/// </returns>
-	bool Init(int cropX = 0, int cropY = 0, int cropW = M_CAMERA_WIDTH, int cropH = M_CAMERA_HEIGHT);
+	bool Init();
 
 	/// <summary>
 	/// Which direction should the robot turn and how fast
@@ -37,6 +37,9 @@ public:
 	///		range is -1.0 to +1.0, negative value is turn left
 	/// </returns>
 	double WhereToTurn( double deadZoneLocation = 0.0, int deadZoneRange = 100);
+
+	void SetCrop(int cropX = 0, int cropY = 0, int cropW = M_CAMERA_WIDTH, int cropH = M_CAMERA_HEIGHT);
+	void GetSize(int *pHeight, int *pWidth);
 
 	enum VisionColors{INVALID_COLOR, RED_CONE, GREEN_CONE, YELLOW_CONE, ORANGE_CONE, YELLOW_LEMON, PURPLE_BOTTLE, FMS_COLOR};
 
