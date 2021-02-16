@@ -23,6 +23,10 @@
 #include "Commands/AutonomousBouncePath.h"
 #include "Commands/PickUpLemonCommand.h"
 #include "Commands/BackupChallengeOne.h"
+#include "Commands/GalacticSearch/GalacticPathRedA.h"
+#include "Commands/GalacticSearch/GalacticPathRedB.h"
+#include "Commands/GalacticSearch/GalacticPathBlueA.h"
+#include "Commands/GalacticSearch/GalacticPathBlueB.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -99,9 +103,13 @@ private:
   frc2::SequentialCommandGroup *m_pAutoCircle = nullptr;
   frc2::SequentialCommandGroup *m_pAutoDoLiterallyNothing = nullptr;
   frc2::SequentialCommandGroup *m_pAutoFetchGyro = nullptr;
+  frc2::SequentialCommandGroup *m_pAutoPickUpLemon = nullptr;
 
   AutoSlalom *m_pAutoSlalom = nullptr;
-  frc2::SequentialCommandGroup *m_pAutoPickUpLemon = nullptr;
   AutonomousBouncePath *m_pBouncePath = nullptr;
   BackupChallengeOne *m_pBackupChallengeOne = nullptr;
+  GalacticPathBlueA *m_pGalacticSearchBlueA = nullptr;
+  GalacticPathBlueB *m_pGalacticSearchBlueB = nullptr;
+  GalacticPathRedA *m_pGalacticSearchRedA = nullptr;
+  GalacticPathRedB *m_pGalacticSearchRedB = nullptr;
 };

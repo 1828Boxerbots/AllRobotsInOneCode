@@ -7,7 +7,8 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-#include "../subsystems/DriveTrainSubsystemBase.h"
+#include "../../subsystems/DriveTrainSubsystemBase.h"
+#include "../../subsystems/LoaderSubsystemBase.h"
 
 /**
  * An example command.
@@ -16,11 +17,11 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class AutonomousBouncePath
-    : public frc2::CommandHelper<frc2::CommandBase, AutonomousBouncePath> 
+class GalacticPathRedA
+    : public frc2::CommandHelper<frc2::CommandBase, GalacticPathRedA> 
 {
  public:
-  AutonomousBouncePath(DriveTrainSubsystemBase* pDrive, double radius);
+  GalacticPathRedA(DriveTrainSubsystemBase *pDrive, LoaderSubsystemBase *pLoader, double radius);
 
   void Initialize() override;
 
@@ -30,14 +31,14 @@ class AutonomousBouncePath
 
   bool IsFinished() override;
 
-  constexpr static double TURN_RADIUS = 11;
+  void GetBallOne();
+  void GetBallTwo();
+  void GetBallThree();
+  void ToEndZone();
 
- private:
+private:
   DriveTrainSubsystemBase* m_pDrive = nullptr;
+  LoaderSubsystemBase* m_pLoader;
   int m_state = 0;
   double m_turnRadius = 11;
-  void ProcessState0();
-  void ProcessState1();
-  void ProcessState2();
-  void ProcessState3();
 };

@@ -428,21 +428,40 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
   {
     case 0:
       return m_pAutoSlalom;
+      break;
     case 1:
       return m_pAutoChallengeOne;
+      break;
     case 2:
       return m_pAutoLemonPick;
       break;
     case 3:
       return m_pBouncePath;
+      break;
     case 4:
       return m_pAutoFollowRed;
+      break;
     case 5:
       return m_pAutoDoLiterallyNothing;
+      break;
     case 6:
       return m_pBackupChallengeOne;
+      break;
     case 7:
       return m_pAutoFetchGyro;
+      break;
+    case 8:
+      return m_pGalacticSearchRedA;
+      break;
+    case 9:
+      return m_pGalacticSearchRedB;
+      break;
+    case 10:
+      return m_pGalacticSearchBlueA;
+      break;
+    case 11:
+      return m_pGalacticSearchBlueB;
+      break;
     default:
       return nullptr;
   }
