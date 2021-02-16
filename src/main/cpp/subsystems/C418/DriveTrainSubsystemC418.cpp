@@ -72,8 +72,9 @@ void DriveTrainSubsystemC418::Init()
   #ifdef M_DISTANCE_LEFT
     m_pMuxLeftDistance->Init(true);
   #endif
-
-  m_imu.IMUGyroInit(true);
+  #ifdef M_IMU
+    m_imu.IMUGyroInit(true);
+  #endif
 #endif
 }
 
