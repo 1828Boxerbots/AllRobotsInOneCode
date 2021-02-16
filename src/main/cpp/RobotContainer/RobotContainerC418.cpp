@@ -420,7 +420,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 6;
+  int cases = 0;
   switch(cases)
   {
     case 0:
@@ -456,6 +456,7 @@ void RobotContainerC418::Init()
   m_pLoader->Init();
   frc::SmartDashboard::PutBoolean("Is Enabled", true);
   m_pShooter->Init();
+  
 }
 
 void RobotContainerC418::DisableInit()
