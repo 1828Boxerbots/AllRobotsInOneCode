@@ -37,7 +37,7 @@ private:
   void CommandInit();
 
   // Conversion Factor
-  const double CMtoIN = 0.393701;
+  const double CM_TO_IN = 0.393701;
 
   // Default I2C Address
 public:
