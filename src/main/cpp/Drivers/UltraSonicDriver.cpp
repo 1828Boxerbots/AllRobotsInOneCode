@@ -21,7 +21,7 @@ double UltrasonicDriver::GetDistanceInCM()
 // Returns distance in inches by converting from centimeters.
 double UltrasonicDriver::GetDistanceInInch()
 {
-    return (GetDistanceInCM() * CMtoIN);
+    return ( GetDistanceInCM() * CM_TO_IN );
 }
 
-// 3/4/2020
+// 2/15/2021

@@ -41,7 +41,6 @@ public:
   double GetRightEncoderInch() override;
 
   double GyroGetAngle() override;
-  void GyroInit() override;
 
   double GetLidarDetectionDistance() override;
   double GetDistanceSensorDetectionDistanceLeft() override;
@@ -62,7 +61,6 @@ public:
 #endif
 
   void Init() override;
-  void IMUInit() override;
 
   void ResetEncoder() override;
   double GetPulsesPerRevolution() override { return PULSE_PER_REVOLUTION; }
@@ -71,8 +69,9 @@ public:
 
   void SetHSVHigh(int HSV, int value) override;
   void SetHSVLow(int HSV, int value) override;
-
   void SetLookingColorV(OldCameraVision::VisionColors) override;
+  double GetCentroidY() override;
+  double GetCentroidX() override;
   OldCameraVision::VisionColors GetLookingColorV() override;
 
   /**

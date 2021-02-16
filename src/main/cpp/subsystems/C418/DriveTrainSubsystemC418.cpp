@@ -73,10 +73,7 @@ void DriveTrainSubsystemC418::Init()
     m_pMuxLeftDistance->Init(true);
   #endif
 
-  #ifdef M_IMU
-    m_imu.IMUGyroInit(1);
-  #endif
-
+  m_imu.IMUGyroInit(true);
 #endif
 }
 
@@ -97,23 +94,15 @@ void DriveTrainSubsystemC418::InitLeft()
 // Function for getting the current angle of the robot relative to its starting position
 double DriveTrainSubsystemC418::IMUGetAngle()
 {
+  Util::Log("IsIMU", false);
 // If this isn't giving you the correct angle, try .GetAngleZ() or .GetAngleX()
 #ifdef M_IMU
-  Util::Log("IMU Angle Y", m_imu.GetAngleY(), "DriveTrainSubsystemC418");
-  Util::Log("IMU Angle Z", m_imu.GetAngleZ(), "DriveTrainSubsystemC418");
   m_imuAngle = m_imu.GetAngleX();
-  Util::Log("IMU Angle X", m_imuAngle, "DriveTrainSubsystemC418");
+  Util::Log("IMU Angle", m_imuAngle, "DriveTrainSubsystemC418");
+  Util::Log("IsIMU", true);
   return m_imuAngle;
 #else
   return 0;
-#endif
-}
-
-void DriveTrainSubsystemC418::IMUInit()
-{
-#ifdef M_IMU
-  Util::Log("GyroInit", true, "DriveTrainSubsystemC418");
-  m_imu.IMUGyroInit(true);
 #endif
 }
 
@@ -162,14 +151,6 @@ double DriveTrainSubsystemC418::GyroGetAngle()
   return m_gyroAngle;
 #else
   return 0;
-#endif
-}
-
-// Currently using IMU
-void DriveTrainSubsystemC418::GyroInit()
-{
-#ifdef M_IMU
-  m_imu.IMUGyroInit(true);
 #endif
 }
 
@@ -367,6 +348,16 @@ OldCameraVision::VisionColors DriveTrainSubsystemC418::GetLookingColorV()
   #else
     return OldCameraVision::VisionColors::INVALID_COLOR;
   #endif
+}
+
+double DriveTrainSubsystemC418::GetCentroidY()
+{
+  return m_camera.GetCentroidY();
+}
+
+double DriveTrainSubsystemC418::GetCentroidX()
+{
+  return m_camera.GetCentroidX();
 }
 
 //Used to disable and enable anticollision

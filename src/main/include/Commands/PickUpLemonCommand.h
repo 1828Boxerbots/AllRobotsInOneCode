@@ -20,8 +20,14 @@
 class PickUpLemonCommand
     : public frc2::CommandHelper<frc2::CommandBase, PickUpLemonCommand> {
  public:
-  PickUpLemonCommand(LoaderSubsystemBase *pLoader, ShooterSubsystemBase *pShooter, DriveTrainSubsystemBase *pDrive, double moveSpeed = 1.0,
-  double loadSpeed = 1.0, double centerScreen = 0.0, double deadzoneRange = 50.0, OldCameraVision::VisionColors color = OldCameraVision::YELLOW_LEMON);
+  PickUpLemonCommand(LoaderSubsystemBase *pLoader
+  , ShooterSubsystemBase *pShooter
+  , DriveTrainSubsystemBase *pDrive
+  , double moveSpeed = 1.0
+  , double loadSpeed = 1.0
+  , OldCameraVision::VisionColors colorEnd = OldCameraVision::RED_CONE
+  , double deadzoneRange = 50.0
+  , OldCameraVision::VisionColors color = OldCameraVision::YELLOW_LEMON);
 
   void Initialize() override;
 
@@ -32,6 +38,10 @@ class PickUpLemonCommand
   void stateTwo();
   void stateThree();
   void stateFour();
+  void stateFive();
+  void stateSix();
+  void stateSeven();
+  void SetIsFinished(bool value);
 
   void End(bool interrupted) override;
 
@@ -42,13 +52,15 @@ class PickUpLemonCommand
     ShooterSubsystemBase *m_pShooter = nullptr;
     DriveTrainSubsystemBase *m_pDrive = nullptr;
 
-    double m_centerScreen = 0.0;
-    double m_deadzoneRange = 50;
+    double m_centerScreen = -0.7;
+    double m_deadzoneRange = 40;
     double m_motorSpeed = 0.4;
     double m_loaderSpeed = 1.0;
     double m_result;
     int m_state = 0;
+    int m_iteration = 0;
     OldCameraVision::VisionColors m_color;
+    OldCameraVision::VisionColors m_colorEnd;
 
     bool m_isFinished = false;
 };

@@ -420,7 +420,11 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
+<<<<<<< HEAD
   int cases = 0;
+=======
+  int cases = 2;
+>>>>>>> cfa8e1f1a50bc017583257bbfcfe9e091f7f9275
   switch(cases)
   {
     case 0:

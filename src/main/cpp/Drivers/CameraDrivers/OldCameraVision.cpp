@@ -20,12 +20,12 @@ bool OldCameraVision::Init()
     // cv::Mat source;
 
 	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
-	m_camera.SetResolution(480,320);
+	m_camera.SetResolution( M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
 	//m_camera.SetExposureHoldCurrent();
 	//m_camera.SetWhiteBalanceHoldCurrent();
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
-	m_outputStream = frc::CameraServer::GetInstance()->PutVideo(IMAGE_FILTERED, 480, 320);
-	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo(IMAGE_THRESHOLD, 480, 320);
+	m_outputStream = frc::CameraServer::GetInstance()->PutVideo( IMAGE_FILTERED, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
+	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo ( IMAGE_THRESHOLD, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
 	return true;
 }
 
@@ -48,8 +48,7 @@ double OldCameraVision::WhereToTurn(double deadZoneLocation, int deadZoneRange)
 {
 	Util::Log("Frame Counter", m_frameCounter++);
 
-	double screenCenter = m_frame.size().width / 2;
-	int deadZone2 = (deadZoneLocation*screenCenter)+screenCenter;
+	int deadZone2 = ( deadZoneLocation * m_screenCenterX ) + m_screenCenterX;
 
 	//Check if there is a blob
 	if (GetBlob(deadZone2) == false /*|| m_centroidX == nan( && m_centroidY == nan(ind)*/)
@@ -75,12 +74,12 @@ double OldCameraVision::WhereToTurn(double deadZoneLocation, int deadZoneRange)
 	}
 
 	//Use some MATH to turn our position into a percentage and return
-	double powerPercentage = ((m_centroidX - screenCenter) / screenCenter) - deadZoneLocation;
-	if(powerPercentage>1.0)
+	double powerPercentage = ( ( m_centroidX - m_screenCenterX ) / m_screenCenterX ) - deadZoneLocation;
+	if( powerPercentage > 1.0 )
 	{
 		powerPercentage = 1.0;
 	}
-	if(powerPercentage<-1.0)
+	if( powerPercentage < -1.0 )
 	{
 		powerPercentage = -1.0;
 	}
@@ -130,37 +129,39 @@ bool OldCameraVision::GetBlob(int deadZonePixel)
 	//Filter the image
 	SetColor();
 
-	if(m_centroidY > 0.0 && m_centroidX > 0.0)
+	if( ( m_centroidY > 0.0 ) && ( m_centroidX > 0.0 ) )
 	{
+		cv::Point yPoint = cv::Point(0, m_centroidY); // Uppermost Y point
+		cv::Point xPoint = cv::Point(m_centroidX, 0); // Leftmost X point
+		cv::Point yHPoint = cv::Point(M_CAMERA_WIDTH, m_centroidY); // Lowest Y point
+		cv::Point xHPoint = cv::Point(m_centroidX, M_CAMERA_HEIGHT); // Rightmost X point
+		cv::Scalar lineColor; // Color of the line
+
+
 		//Place a 2 line where the blob is
 		switch (m_visionColor)
 		{
 		case VisionColors::GREEN_CONE:
-			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,255,0), 3);
-			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 255, 0), 3);
+			lineColor = cv::Scalar(0,255,0); // Green
 			break;
 		case VisionColors::RED_CONE:
-			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
-			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
+			lineColor = cv::Scalar(0,0,255); // Red
 			break;
 		case VisionColors::YELLOW_CONE:
-			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,255,125), 3);
-			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 255, 125), 3);
+			lineColor = cv::Scalar(0,255,125); // Yellow
 			break;
 		case VisionColors::ORANGE_CONE:
-			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,255,200), 3);
-			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 255, 200), 3);
+			lineColor = cv::Scalar(0,255,200); // Orange
 			break;
 		default:
-			cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
-			cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
+			lineColor = cv::Scalar(0,0,255); // Red as Default
 			break;
 		}
-		cv::line(m_frame, cv::Point(0, m_centroidY), cv::Point(m_frame.size().width, m_centroidY), cv::Scalar(0,0,255), 3);
-		cv::line(m_frame, cv::Point(m_centroidX, 0), cv::Point(m_centroidX, m_frame.size().height), cv::Scalar(0, 0, 255), 3);
+		cv::line(m_frame, yPoint, yHPoint, lineColor, M_LINE_THICKNESS);
+		cv::line(m_frame, xPoint, xHPoint, lineColor, M_LINE_THICKNESS);
 
 		//Show where deadzone is
-		cv::line(m_frame, cv::Point(deadZonePixel, 0), cv::Point(deadZonePixel, m_frame.size().height), cv::Scalar(255, 0, 0), 3);
+		cv::line(m_frame, cv::Point(deadZonePixel, 0), cv::Point(deadZonePixel, M_CAMERA_HEIGHT), M_DEADZONE_COLOR, M_LINE_THICKNESS);
 	}
 	else
 	{
@@ -168,8 +169,6 @@ bool OldCameraVision::GetBlob(int deadZonePixel)
 	}
 	// //Display the new image
 	SendImage(IMAGE_FILTERED, m_frame);
-
-	//cv::waitKey(1);
 
 	//Checks is there is no blob
 	if (isnan(m_centroidX) && isnan(m_centroidY))
@@ -256,6 +255,9 @@ void OldCameraVision::SetColor()
 		m_centroidX = -1.0;
 		m_centroidY = -1.0;
 	}
+
+	GetCentroidX();
+	GetCentroidY();
 }
 
 void OldCameraVision::SetHigh(int HSV, int value)
@@ -339,4 +341,16 @@ void OldCameraVision::SetLookingColor(VisionColors color)
 OldCameraVision::VisionColors OldCameraVision::GetLookingColor()
 {
 	return m_visionColor;
+}
+
+double OldCameraVision::GetCentroidX()
+{
+	Util::Log("Centroid X", m_centroidX);
+	return m_centroidX;
+}
+
+double OldCameraVision::GetCentroidY()
+{
+	Util::Log("Centroid Y", m_centroidY);
+	return m_centroidY;
 }

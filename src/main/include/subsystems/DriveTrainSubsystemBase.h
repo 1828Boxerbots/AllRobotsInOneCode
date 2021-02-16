@@ -70,6 +70,8 @@ public:
   virtual void SetLookingColorV(OldCameraVision::VisionColors color) {}
   virtual OldCameraVision::VisionColors GetLookingColorV() { return OldCameraVision::INVALID_COLOR;}
   virtual double ReadIMU();
+  virtual double GetCentroidY() {return -3;}
+  virtual double GetCentroidX() {return -3;}
 
   // virtual void GetVisionFMS();
   // virtual void BreakFMSStr(std::string gameData);

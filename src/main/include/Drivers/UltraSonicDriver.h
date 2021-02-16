@@ -24,8 +24,8 @@ public:
 
 private:
   frc::AnalogInput *m_pDevice = nullptr;
-  const double CMtoIN = 0.393701;
+  const double CM_TO_IN = 0.393701;
   double m_calibration = 1.0;
 };
 
-// Renamed: 2/14/20
+// 2/15/2021

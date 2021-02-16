@@ -74,17 +74,17 @@ double ADIS16448_IMUDriver::GetAngleY()
 
 double ADIS16448_IMUDriver::GetCorrectAngleY()
 {
-    return ( GetAngleY() * m_CONVERSION_FACTOR );
+    return ( GetAngleY() * M_CONVERSION_FACTOR );
 }
 
 double ADIS16448_IMUDriver::GetCorrectAngleX()
 {
-    return ( GetAngleX() * m_CONVERSION_FACTOR );
+    return ( GetAngleX() * M_CONVERSION_FACTOR );
 }
 
 double ADIS16448_IMUDriver::GetCorrectAngleZ()
 {
-    return ( GetAngleZ() * m_CONVERSION_FACTOR );
+    return ( GetAngleZ() * M_CONVERSION_FACTOR );
 }
 
 /**

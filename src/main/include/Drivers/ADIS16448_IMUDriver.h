@@ -43,7 +43,7 @@ private:
   // The IMU sensor object
   frc::ADIS16448_IMU *m_pDevice = nullptr;
 
-  double m_CONVERSION_FACTOR = 180/Util::PI;
+  double M_CONVERSION_FACTOR = ( 180 / Util::PI );
 };
 
 // 3/4/2020 Completed, Untested

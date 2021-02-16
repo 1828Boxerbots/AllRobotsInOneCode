@@ -45,6 +45,9 @@ public:
 	void SetLookingColor(VisionColors color);
 	VisionColors GetLookingColor();
 
+	double GetCentroidX();
+	double GetCentroidY();
+
 private:
  	int m_frameCounter = 0;
 
@@ -70,8 +73,8 @@ private:
 	const cv::Scalar YELLOW_CONE_HIGH{32,130,255};
 	const cv::Scalar ORANGE_CONE_LOW{0,76,255};
 	const cv::Scalar ORANGE_CONE_HIGH{21,255,255};
-	const cv::Scalar YELLOW_LEMON_LOW{18, 190, 200};
-	const cv::Scalar YELLOW_LEMON_HIGH{42, 255, 255};
+	const cv::Scalar YELLOW_LEMON_LOW{0, 60, 200};
+	const cv::Scalar YELLOW_LEMON_HIGH{179, 255, 255};
 	const cv::Scalar PURPLE_BOTTLE_LOW{145, 0, 0};
 	const cv::Scalar PURPLE_BOTTLE_HIGH{179, 255, 255};
 
@@ -101,10 +104,23 @@ private:
 	double m_centroidX;
 	double m_centroidY;
 
+	//The thickness of the filter lines in pixels
+	const int M_LINE_THICKNESS = 3;
+
+	//The color of the deadzone line
+	const cv::Scalar M_DEADZONE_COLOR = cv::Scalar(255, 0, 0); // Currently Blue
+
+	//CAMERA RESOLUTION
+	const int M_CAMERA_HEIGHT = 240;
+	const int M_CAMERA_WIDTH = 320;
+
+	//CAMERA MIDPOINTS
+	double m_screenCenterX = ( M_CAMERA_WIDTH / 2 );
+	double m_screenCenterY = ( M_CAMERA_HEIGHT / 2 );
+
 	//How big is the dead zone where WhereToTurn() = 0.0
 	//double m_deadZone = 50.0;
 
-	//VisionColors m_visionColor = FMS_COLOR;
 	VisionColors m_visionColor = FMS_COLOR;
 	//Holds the camera and raw image
 	cv::Mat m_frame; 

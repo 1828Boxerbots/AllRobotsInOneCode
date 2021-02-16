@@ -43,7 +43,7 @@ double LidarDriver::GetDistanceInCM()
 
 double LidarDriver::GetDistanceInInches()
 {
-    return GetDistanceInCM() * CMtoIN;
+    return GetDistanceInCM() * CM_TO_IN;
 }
 
 /*double LidarDriver::LidarDetectionSoftware(double detectionDistance)
