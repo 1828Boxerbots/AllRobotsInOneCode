@@ -341,12 +341,23 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
     double currentDistanceRight = GetRightEncoderInch();
     double startDistanceLeft = GetLeftEncoderInch();
     double currentDistanceLeft = GetLeftEncoderInch();
-    while (Util::Abs(currentDistanceRight - startDistanceRight) < inch)
+
+    double multiplierR = 1.0;
+    double SPEED_INCREMENT = 0.01;
+    double ENCODER_DEADZONE = 3.5;
+    while ((Util::Abs(currentDistanceRight - startDistanceRight) < inch)
+        || (Util::Abs(currentDistanceLeft - startDistanceLeft) < inch))
     {
-        Forward(speed);
+        MoveTank(speed,speed*multiplierR);
         currentDistanceRight = GetRightEncoderInch();
-        frc::SmartDashboard::PutNumber("LeftEncoderInches", GetRightEncoderInch());
-        //Util::DelayInSeconds(1.0);
+        if(currentDistanceRight<currentDistanceLeft-ENCODER_DEADZONE)
+        {
+            multiplierR += SPEED_INCREMENT;
+        }
+        else if(currentDistanceRight>currentDistanceLeft+ENCODER_DEADZONE)
+        {
+            multiplierR -= SPEED_INCREMENT;
+        }
     }
     if (currentDistanceRight > inch)
     {
