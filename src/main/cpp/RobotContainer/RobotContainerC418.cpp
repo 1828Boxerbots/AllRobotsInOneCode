@@ -423,7 +423,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 2;
+  int cases = 5;
   switch(cases)
   {
     case 0:
@@ -469,6 +469,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
 
 void RobotContainerC418::Init()
 {
+
   if (m_pSpin != nullptr)
     m_pSpin->InterpretFMS(ReadFMS());
   m_pDrive->Init();

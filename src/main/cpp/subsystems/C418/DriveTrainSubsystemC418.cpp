@@ -53,6 +53,7 @@ void DriveTrainSubsystemC418::Init()
 {
   Util::Log("Camera Init", false);
 #ifndef NOHW
+
   m_leftMotor.SetInverted(false);
   m_rightMotor.SetInverted(true);
 

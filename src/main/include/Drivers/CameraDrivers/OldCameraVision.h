@@ -81,16 +81,17 @@ private:
 	const cv::Scalar YELLOW_CONE_HIGH{32,130,255};
 	const cv::Scalar ORANGE_CONE_LOW{0,76,255};
 	const cv::Scalar ORANGE_CONE_HIGH{21,255,255};
-	const cv::Scalar YELLOW_LEMON_LOW{0, 60, 200};
+	const cv::Scalar YELLOW_LEMON_LOW{20, 60, 200};
 	const cv::Scalar YELLOW_LEMON_HIGH{179, 255, 255};
-	const cv::Scalar PURPLE_BOTTLE_LOW{145, 0, 0};
-	const cv::Scalar PURPLE_BOTTLE_HIGH{179, 255, 255};
+	const cv::Scalar PURPLE_BOTTLE_LOW{10, 0, 0};
+	const cv::Scalar PURPLE_BOTTLE_HIGH{20, 155, 255};
 
 	const cv::Scalar BLUE_TEAMSHIRT_LOW{50, 50, 100};
 	const cv::Scalar BLUE_TEAMSHIRT_HIGH{100, 255, 255};
 
 	const std::string IMAGE_FILTERED = "Filtered";
 	const std::string IMAGE_THRESHOLD = "Threshold";
+	const std::string IMAGE_HSV = "HSV";
 
 	cv::Scalar FMS_HIGH{179, 255, 255};
 	cv::Scalar FMS_LOW{0, 0, 0};
@@ -129,6 +130,7 @@ private:
 	cs::CvSink m_cvSink;
 	cs::CvSource m_outputStream;
 	cs::CvSource m_outputStreamTwo;
+	cs::CvSource m_outputStreamHSV;
 	cv::Rect2d m_rect;
 	int m_cropX = 0; 
 	int m_cropY = 0; 

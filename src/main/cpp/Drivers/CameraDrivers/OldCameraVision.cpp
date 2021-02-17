@@ -26,8 +26,10 @@ bool OldCameraVision::Init()
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
 	m_outputStream = frc::CameraServer::GetInstance()->PutVideo( IMAGE_FILTERED, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
 	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo ( IMAGE_THRESHOLD, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
+	m_outputStreamHSV = frc::CameraServer::GetInstance()->PutVideo ( IMAGE_HSV, M_CAMERA_WIDTH, M_CAMERA_HEIGHT);
 
-	SetCrop();
+	//Setting Crop
+	SetCrop(0, (M_CAMERA_HEIGHT*0.75), M_CAMERA_WIDTH, M_CAMERA_HEIGHT*0.25);
 
 	return true;
 }
@@ -41,7 +43,7 @@ void OldCameraVision::Tick()
 
 	//cv::line(m_frame, cv::Point(0, 0), cv::Point(m_frame.size().width, m_frame.size().height), cv::Scalar(0,0,255), 3);
 
-	GetBlob(1000);
+	WhereToTurn();
 
 	//m_outputStream.PutFrame(m_frame);
 }
@@ -122,6 +124,10 @@ void OldCameraVision::SendImage(std::string title, cv::Mat frame/*, int width, i
 	{
 		m_outputStreamTwo.PutFrame(frame);
 	}
+	else if(title == IMAGE_HSV)
+	{
+		m_outputStreamHSV.PutFrame(frame);
+	}
 }
 
 bool OldCameraVision::GrabFrame()
@@ -176,6 +182,8 @@ bool OldCameraVision::GetBlob(int deadZonePixel)
 		}
 		cv::line(m_frame, yPoint, yHPoint, lineColor, M_LINE_THICKNESS);
 		cv::line(m_frame, xPoint, xHPoint, lineColor, M_LINE_THICKNESS);
+
+		cv::line(m_frame, cv::Point(m_cropX, m_cropY), cv::Point(m_cropW, m_cropY), cv::Scalar(0, 255, 200));
 
 		//Show where deadzone is
 		cv::line(m_frame, cv::Point(deadZonePixel, 0), cv::Point(deadZonePixel, M_CAMERA_HEIGHT), M_DEADZONE_COLOR, M_LINE_THICKNESS);
@@ -256,12 +264,12 @@ void OldCameraVision::SetColor()
 	cv::inRange(m_imgHSV, resultL, resultH, m_imgThresholded);
 
 	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(6, 6)));
-	cv::dilate(m_imgThresholdedTwo, m_imgThresholded, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(9, 9)));
+	cv::dilate(m_imgThresholdedTwo, m_imgThresholded, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(6, 6)));
 
 	//Display Filtered Image
-	SendImage(IMAGE_THRESHOLD, m_imgThresholdedTwo);
+	SendImage(IMAGE_THRESHOLD, m_imgThresholded);
 	// Find moments of the image
-	cv::Moments m = cv::moments(m_imgThresholdedTwo, true);
+	cv::Moments m = cv::moments(m_imgThresholded, true);
 	if(m.m00 != 0)
 	{
 		Util::Log("OldCameraVision", "centroids were valid");
