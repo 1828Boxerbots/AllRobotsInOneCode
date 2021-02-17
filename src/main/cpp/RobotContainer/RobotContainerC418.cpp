@@ -423,14 +423,14 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 5;
+  int cases = 6;
   switch(cases)
   {
     case 0:
       return m_pAutoSlalom;
       break;
     case 1:
-      return m_pAutoChallengeOne;
+    //  return m_pAutoChallengeOne;
       break;
     case 2:
       return m_pAutoLemonPick;

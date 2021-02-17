@@ -345,19 +345,20 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
     double multiplierR = 1.0;
     double SPEED_INCREMENT = 0.01;
     double ENCODER_DEADZONE = 3.5;
-    while ((Util::Abs(currentDistanceRight - startDistanceRight) < inch)
-        || (Util::Abs(currentDistanceLeft - startDistanceLeft) < inch))
+    while ((Util::Abs(currentDistanceRight - startDistanceRight) < inch))
+        // || (Util::Abs(currentDistanceLeft - startDistanceLeft) < inch))
     {
-        MoveTank(speed,speed*multiplierR);
+        Forward(speed);
+        //MoveTank(speed,speed*multiplierR);
         currentDistanceRight = GetRightEncoderInch();
-        if(currentDistanceRight<currentDistanceLeft-ENCODER_DEADZONE)
-        {
-            multiplierR += SPEED_INCREMENT;
-        }
-        else if(currentDistanceRight>currentDistanceLeft+ENCODER_DEADZONE)
-        {
-            multiplierR -= SPEED_INCREMENT;
-        }
+        // if(currentDistanceRight<currentDistanceLeft-ENCODER_DEADZONE)
+        // {
+        //     multiplierR += SPEED_INCREMENT;
+        // }
+        // else if(currentDistanceRight>currentDistanceLeft+ENCODER_DEADZONE)
+        // {
+        //     multiplierR -= SPEED_INCREMENT;
+        // }
     }
     if (currentDistanceRight > inch)
     {
