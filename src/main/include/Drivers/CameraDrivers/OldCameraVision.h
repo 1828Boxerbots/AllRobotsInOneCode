@@ -111,8 +111,8 @@ private:
 
 	const cv::Scalar YELLOW_CONE_LOW{24, 50,150};  
 	const cv::Scalar YELLOW_CONE_HIGH{32,130,255};
-	const cv::Scalar ORANGE_CONE_LOW{0,76,255};
-	const cv::Scalar ORANGE_CONE_HIGH{21,255,255};
+	const cv::Scalar ORANGE_CONE_LOW{0,20,220};			
+	const cv::Scalar ORANGE_CONE_HIGH{40,255,255};		//V-0-40-20-255-220-255
 	const cv::Scalar BLUE_TEAMSHIRT_LOW{50, 50, 100};
 	const cv::Scalar BLUE_TEAMSHIRT_HIGH{100, 255, 255};
 
