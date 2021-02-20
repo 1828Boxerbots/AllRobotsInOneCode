@@ -15,6 +15,11 @@ BackupChallengeOne::BackupChallengeOne(DriveTrainSubsystemBase* pDrive)
 void BackupChallengeOne::Initialize() 
 {
   m_isFinished = false;
+
+  // int *pHeight;
+  // int *pWidth;
+  // m_pDrive->GetVisionSize(pHeight, pWidth);
+  // m_pDrive->SetVisionCrop(0, *pHeight*0.75, *pWidth, *pHeight*0.25);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -22,20 +27,21 @@ void BackupChallengeOne::Execute()
 {
   if(m_isFinished == false)
   {
+
     m_pDrive->ForwardInInch(95, 0.0, 0.6);
     m_pDrive->IMUArcade(0.5, 0.2, -300);
     m_pDrive->SetLookingColorV(OldCameraVision::RED_CONE_N);
-    m_pDrive->AlignWithVision(-0.5, 30, false);
+    m_pDrive->AlignWithVision(-0.1, 30, true);
     m_pDrive->ForwardInInch(50,0.0,0.6);
     //m_pDrive->ForwardInInch(90,0.0,0.4);
     m_pDrive->IMUArcade(0.6, -0.2, 330);
     m_pDrive->SetLookingColorV(OldCameraVision::PURPLE_BOTTLE_N);
-    m_pDrive->AlignWithVision(-1.0, 30, true);
+    m_pDrive->AlignWithVision(-1.0, 30, false);
     m_pDrive->ForwardInInch(48,0.0,0.4);
     //m_pDrive->ForwardInInch(90, 0.0, 0.4);
     m_pDrive->IMUArcade(0.5, -0.17, 300);
-    m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE_N);
-    m_pDrive->AlignWithVision(0.0, 30, true);
+    m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE_A);
+    m_pDrive->AlignWithVision(0.0, 30, false);
     m_pDrive->ForwardInInch(10,0.0,0.4);
     //m_pDrive->ForwardInInch(240, 0.0, 0.4);
   }
