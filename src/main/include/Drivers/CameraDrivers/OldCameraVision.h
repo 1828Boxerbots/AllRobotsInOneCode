@@ -78,23 +78,23 @@ private:
 	// const int HIGHV_RED  = 255;
 
 	//Green Cone Values
-	const cv::Scalar GREEN_CONE_LOW_M{0, 0, 0};			//Morning	//V-0-179-0-255-0-255
-	const cv::Scalar GREEN_CONE_HIGH_M{179, 255, 255};	//Morning
+	const cv::Scalar GREEN_CONE_LOW_M{30, 107, 103};	//Morning	//V-30-79-107-255-103-255
+	const cv::Scalar GREEN_CONE_HIGH_M{79,255,255};		//Morning
 	const cv::Scalar GREEN_CONE_LOW_A{30, 107, 103};	//Afternoon	//V-30-79-107-255-103-255	 // 2/12/2021 Time 2:37PM
 	const cv::Scalar GREEN_CONE_HIGH_A{79,255,255};		//Afternoon
-	const cv::Scalar GREEN_CONE_LOW_N{0, 0, 0};			//Night		//V-0-179-0-255-0-255
-	const cv::Scalar GREEN_CONE_HIGH_N{179, 255, 255};	//Night
+	const cv::Scalar GREEN_CONE_LOW_N{30, 107, 103};	//Night		//V-30-79-107-255-103-255
+	const cv::Scalar GREEN_CONE_HIGH_N{79,255,255};		//Night
 
 	//Red Cone Values
-	const cv::Scalar RED_CONE_LOW_M{0,0,0};				//Morning
-	const cv::Scalar RED_CONE_HIGH_M{179,255,255};		//Morning
-	const cv::Scalar RED_CONE_LOW_A{0,0,0};				//Afternoon
-	const cv::Scalar RED_CONE_HIGH_A{179,255,255};		//Afternoon
+	const cv::Scalar RED_CONE_LOW_M{3,180,100};			//Morning
+	const cv::Scalar RED_CONE_HIGH_M{10,255,255};		//Morning
+	const cv::Scalar RED_CONE_LOW_A{3,180,100};			//Afternoon
+	const cv::Scalar RED_CONE_HIGH_A{10,255,255};		//Afternoon
 	const cv::Scalar RED_CONE_LOW_N{3,180,100};			//Night		//V-3-10-180-255-100-255
 	const cv::Scalar RED_CONE_HIGH_N{10,255,255};		//Night
 
 	//Yellow Lemon Values
-	const cv::Scalar YELLOW_LEMON_LOW_M{0, 0, 0};		  //Moring		//V-0-179-0-255-0-255
+	const cv::Scalar YELLOW_LEMON_LOW_M{15, 80, 170};	  //Moring		//V-15-179-80-255-170-255
 	const cv::Scalar YELLOW_LEMON_HIGH_M{179, 255, 255};  //Moring
 	const cv::Scalar YELLOW_LEMON_LOW_A{17, 25, 204};	  //Afternoon	//V-17-179-25-255-204-255 //6:06 2/19/2021
 	const cv::Scalar YELLOW_LEMON_HIGH_A{179, 255, 255};  //Afternoon
@@ -102,8 +102,8 @@ private:
 	const cv::Scalar YELLOW_LEMON_HIGH_N{179, 255, 255};  //Night
 
 	//Purple Bottle Values
-	const cv::Scalar PURPLE_BOTTLE_LOW_M{0, 0, 0};
-	const cv::Scalar PURPLE_BOTTLE_HIGH_M{179, 255, 255};
+	const cv::Scalar PURPLE_BOTTLE_LOW_M{100, 0, 0};			//V-100-150-0-155-0-255
+	const cv::Scalar PURPLE_BOTTLE_HIGH_M{150, 155, 255};
 	const cv::Scalar PURPLE_BOTTLE_LOW_A{0, 0, 0};
 	const cv::Scalar PURPLE_BOTTLE_HIGH_A{179, 255, 255};
 	const cv::Scalar PURPLE_BOTTLE_LOW_N{10, 0, 0};			//V-10-20-0-155-0-255
