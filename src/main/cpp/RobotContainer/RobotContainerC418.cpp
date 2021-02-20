@@ -46,6 +46,8 @@ RobotContainerC418::RobotContainerC418()
 
   m_pAutoLemonPick = new PickUpLemonCommand(m_pLoader, m_pShooter, m_pDrive, 0.2, 0.5);
 
+  m_pGalacticSearchVision = new GalaticPathVision(m_pDrive, m_pLoader);
+
   // Configure the button bindings
   ConfigureButtonBindings();
   ConfigureAutonomousCommands();
@@ -136,7 +138,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
 
   m_pAutoDoLiterallyNothing = new frc2::SequentialCommandGroup 
   {
-    //frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->Init(); }, {m_pDrive}},
+    //frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->TurnInDegrees(-7, 0.5); }, {m_pDrive}},
     frc2::RunCommand 
     {
       [this] 
@@ -462,6 +464,9 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
       break;
     case 11:
       return m_pGalacticSearchBlueB;
+      break;
+    case 12:
+      return m_pGalacticSearchVision;
       break;
     default:
       return nullptr;

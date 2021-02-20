@@ -30,7 +30,8 @@ bool OldCameraVision::Init()
 
 	//Setting Crop
 	double rioW = 100;
-	SetCrop((M_CAMERA_WIDTH/2) - (rioW/2), (M_CAMERA_HEIGHT*0.75), rioW, M_CAMERA_HEIGHT*0.25);
+	//SetCrop((M_CAMERA_WIDTH/2) - (rioW/2), (M_CAMERA_HEIGHT*0.75), rioW, M_CAMERA_HEIGHT*0.25);
+	SetCrop(0, M_CAMERA_HEIGHT*0.75, M_CAMERA_WIDTH, M_CAMERA_HEIGHT*0.25);
 
 	return true;
 }

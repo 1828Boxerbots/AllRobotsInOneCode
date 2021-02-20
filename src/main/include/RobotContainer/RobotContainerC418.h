@@ -27,6 +27,7 @@
 #include "Commands/GalacticSearch/GalacticPathRedB.h"
 #include "Commands/GalacticSearch/GalacticPathBlueA.h"
 #include "Commands/GalacticSearch/GalacticPathBlueB.h"
+#include "Commands/GalacticSearch/GalaticPathVision.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -112,4 +113,5 @@ private:
   GalacticPathBlueB *m_pGalacticSearchBlueB = nullptr;
   GalacticPathRedA *m_pGalacticSearchRedA = nullptr;
   GalacticPathRedB *m_pGalacticSearchRedB = nullptr;
+  GalaticPathVision *m_pGalacticSearchVision = nullptr;
 };
