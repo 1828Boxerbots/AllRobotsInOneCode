@@ -168,7 +168,7 @@ void DriveTrainSubsystemBase::ArcadeVision(double x, double y, OldCameraVision::
 
     SetLookingColorV(color);
 
-    SetLookingColorV(OldCameraVision::VisionColors::GREEN_CONE);
+    SetLookingColorV(OldCameraVision::VisionColors::GREEN_CONE_N);
 
     double turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
 
@@ -335,6 +335,8 @@ void DriveTrainSubsystemBase::FixRotation(double wantedAngle, double speed)
 //Pretty buggy, two versions of it: PIDS control and regular control. PIDS makes sure the robot is straight, regular just moves forward
 void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double speed)
 {
+    WhereToTurn(-0.7, 40);
+
     ResetEncoder();
     //This is Regular
     double startDistanceRight = GetRightEncoderInch();

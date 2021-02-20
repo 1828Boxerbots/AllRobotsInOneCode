@@ -29,7 +29,8 @@ bool OldCameraVision::Init()
 	m_outputStreamHSV = frc::CameraServer::GetInstance()->PutVideo ( IMAGE_HSV, M_CAMERA_WIDTH, M_CAMERA_HEIGHT);
 
 	//Setting Crop
-	SetCrop(0, (M_CAMERA_HEIGHT*0.75), M_CAMERA_WIDTH, M_CAMERA_HEIGHT*0.25);
+	double rioW = 100;
+	SetCrop((M_CAMERA_WIDTH/2) - (rioW/2), (M_CAMERA_HEIGHT*0.75), rioW, M_CAMERA_HEIGHT*0.25);
 
 	return true;
 }
@@ -164,10 +165,10 @@ bool OldCameraVision::GetBlob(int deadZonePixel)
 		//Place a 2 line where the blob is
 		switch (m_visionColor)
 		{
-		case VisionColors::GREEN_CONE:
+		case VisionColors::GREEN_CONE_N:
 			lineColor = cv::Scalar(0,255,0); // Green
 			break;
-		case VisionColors::RED_CONE:
+		case VisionColors::RED_CONE_N:
 			lineColor = cv::Scalar(0,0,255); // Red
 			break;
 		case VisionColors::YELLOW_CONE:
@@ -217,14 +218,59 @@ void OldCameraVision::SetColor()
 
 	switch(m_visionColor)
 	{
-		case VisionColors::GREEN_CONE:
-			resultL = GREEN_CONE_LOW;
-			resultH = GREEN_CONE_HIGH;
+		//Green
+		case VisionColors::GREEN_CONE_M:
+			resultL = GREEN_CONE_LOW_M;
+			resultH = GREEN_CONE_HIGH_M;
 			break;
-		case VisionColors::RED_CONE:
-			resultL = RED_CONE_LOW;
-			resultH = RED_CONE_HIGH;
+		case VisionColors::GREEN_CONE_A:
+			resultL = GREEN_CONE_LOW_A;
+			resultH = GREEN_CONE_HIGH_A;
 			break;
+		case VisionColors::GREEN_CONE_N:
+			resultL = GREEN_CONE_LOW_N;
+			resultH = GREEN_CONE_HIGH_N;
+			break;
+		//Red
+		case VisionColors::RED_CONE_M:
+			resultL = RED_CONE_LOW_M;
+			resultH = RED_CONE_HIGH_M;
+			break;
+		case VisionColors::RED_CONE_A:
+			resultL = RED_CONE_LOW_A;
+			resultH = RED_CONE_HIGH_A;
+			break;
+		case VisionColors::RED_CONE_N:
+			resultL = RED_CONE_LOW_N;
+			resultH = RED_CONE_HIGH_N;
+			break;
+		//Yellow Lemon
+		case VisionColors::YELLOW_LEMON_M:
+			resultL = YELLOW_LEMON_LOW_M;
+			resultH = YELLOW_LEMON_HIGH_M;
+			break;
+		case VisionColors::YELLOW_LEMON_A:
+			resultL = YELLOW_LEMON_LOW_A;
+			resultH = YELLOW_LEMON_HIGH_A;
+			break;
+		case VisionColors::YELLOW_LEMON_N:
+			resultL = YELLOW_LEMON_LOW_N;
+			resultH = YELLOW_LEMON_HIGH_N;
+			break;
+		//Purple
+		case VisionColors::PURPLE_BOTTLE_M:
+			resultL = PURPLE_BOTTLE_LOW_M;
+			resultH = PURPLE_BOTTLE_HIGH_M;
+			break;
+		case VisionColors::PURPLE_BOTTLE_A:
+			resultL = PURPLE_BOTTLE_LOW_A;
+			resultH = PURPLE_BOTTLE_HIGH_A;
+			break;
+		case VisionColors::PURPLE_BOTTLE_N:
+			resultL = PURPLE_BOTTLE_LOW_N;
+			resultH = PURPLE_BOTTLE_HIGH_N;
+			break;
+		//Others
 		case VisionColors::YELLOW_CONE:
 			resultL = YELLOW_CONE_LOW;
 			resultH = YELLOW_CONE_HIGH;
@@ -233,21 +279,14 @@ void OldCameraVision::SetColor()
 			resultL = ORANGE_CONE_LOW;
 			resultH = ORANGE_CONE_HIGH;
 			break;
-		case VisionColors::YELLOW_LEMON:
-			resultL = YELLOW_LEMON_LOW;
-			resultH = YELLOW_LEMON_HIGH;
-			break;
-		case VisionColors::PURPLE_BOTTLE:
-			resultL = PURPLE_BOTTLE_LOW;
-			resultH = PURPLE_BOTTLE_HIGH;
-			break;
+		//FMS Color
 		case VisionColors::FMS_COLOR:
 			resultL = FMS_LOW;
 			resultH = FMS_HIGH;
 			break;
 		default:
-			resultL = GREEN_CONE_LOW;
-			resultH = GREEN_CONE_HIGH;
+			resultL = YELLOW_LEMON_LOW_A;
+			resultH = YELLOW_LEMON_HIGH_A;
 			break;
 	}
 
@@ -260,6 +299,8 @@ void OldCameraVision::SetColor()
 
 	m_rect = cv::Rect2d(m_cropX, m_cropY, m_cropW, m_cropH);
 	m_imgHSV = m_imgHSV(m_rect);
+
+	SendImage(IMAGE_HSV, m_imgHSV);
 
 	cv::inRange(m_imgHSV, resultL, resultH, m_imgThresholded);
 
@@ -330,14 +371,59 @@ void OldCameraVision::SetFMSColor(VisionColors color)
 {
 	switch (color)
 	{
-	case OldCameraVision::RED_CONE:
-		FMS_LOW = RED_CONE_LOW;
-		FMS_HIGH = RED_CONE_HIGH;
+		//Red
+	case OldCameraVision::RED_CONE_M:
+		FMS_LOW = RED_CONE_LOW_M;
+		FMS_HIGH = RED_CONE_HIGH_M;
 		break;
-	case OldCameraVision::GREEN_CONE:
-		FMS_LOW = GREEN_CONE_LOW;
-		FMS_HIGH = GREEN_CONE_HIGH;
+	case OldCameraVision::RED_CONE_A:
+		FMS_LOW = RED_CONE_LOW_A;
+		FMS_HIGH = RED_CONE_HIGH_A;
 		break;
+	case OldCameraVision::RED_CONE_N:
+		FMS_LOW = RED_CONE_LOW_N;
+		FMS_HIGH = RED_CONE_HIGH_N;
+		break;
+		//Green
+	case OldCameraVision::GREEN_CONE_M:
+		FMS_LOW = GREEN_CONE_LOW_M;
+		FMS_HIGH = GREEN_CONE_HIGH_M;
+		break;
+	case OldCameraVision::GREEN_CONE_A:
+		FMS_LOW = GREEN_CONE_LOW_A;
+		FMS_HIGH = GREEN_CONE_HIGH_A;
+		break;
+	case OldCameraVision::GREEN_CONE_N:
+		FMS_LOW = GREEN_CONE_LOW_N;
+		FMS_HIGH = GREEN_CONE_HIGH_N;
+		break;
+		//Yellow Lemon
+	case OldCameraVision::YELLOW_LEMON_M:
+		FMS_LOW = YELLOW_LEMON_LOW_M;
+		FMS_HIGH = YELLOW_LEMON_HIGH_M;
+		break;
+	case OldCameraVision::YELLOW_LEMON_A:
+		FMS_LOW = YELLOW_LEMON_LOW_A;
+		FMS_HIGH = YELLOW_LEMON_HIGH_A;
+		break;
+	case OldCameraVision::YELLOW_LEMON_N:
+		FMS_LOW = YELLOW_LEMON_LOW_N;
+		FMS_HIGH = YELLOW_LEMON_HIGH_N;
+		break;
+		//Purple
+	case OldCameraVision::PURPLE_BOTTLE_M:
+		FMS_LOW = PURPLE_BOTTLE_LOW_M;
+		FMS_LOW = PURPLE_BOTTLE_HIGH_M;
+		break;
+	case OldCameraVision::PURPLE_BOTTLE_A:
+		FMS_LOW = PURPLE_BOTTLE_LOW_A;
+		FMS_LOW = PURPLE_BOTTLE_HIGH_A;
+		break;
+	case OldCameraVision::PURPLE_BOTTLE_N:
+		FMS_LOW = PURPLE_BOTTLE_LOW_N;
+		FMS_LOW = PURPLE_BOTTLE_HIGH_N;
+		break;
+		//Other
 	case OldCameraVision::YELLOW_CONE:
 		FMS_LOW = YELLOW_CONE_LOW;
 		FMS_HIGH = YELLOW_CONE_HIGH;
@@ -346,17 +432,9 @@ void OldCameraVision::SetFMSColor(VisionColors color)
 		FMS_LOW = ORANGE_CONE_LOW;
 		FMS_HIGH = ORANGE_CONE_HIGH;
 		break;
-	case OldCameraVision::YELLOW_LEMON:
-		FMS_LOW = YELLOW_LEMON_LOW;
-		FMS_HIGH = YELLOW_LEMON_HIGH;
-		break;
-	case OldCameraVision::PURPLE_BOTTLE:
-		FMS_LOW = PURPLE_BOTTLE_LOW;
-		FMS_LOW = PURPLE_BOTTLE_HIGH;
-		break;
 	default:
-		FMS_LOW = GREEN_CONE_LOW;
-		FMS_HIGH = GREEN_CONE_HIGH;
+		FMS_LOW = YELLOW_LEMON_LOW_M;
+		FMS_HIGH = YELLOW_LEMON_HIGH_M;
 		break;
 	}
 }

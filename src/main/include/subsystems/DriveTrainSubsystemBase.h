@@ -28,7 +28,7 @@ public:
   virtual void Periodic();
   void MoveTank(double leftY, double rightY);
   virtual void MoveArcade(double X, double Y);
-  void ArcadeVision(double x, double y,  OldCameraVision::VisionColors color = OldCameraVision::VisionColors::GREEN_CONE);
+  void ArcadeVision(double x, double y,  OldCameraVision::VisionColors color = OldCameraVision::VisionColors::GREEN_CONE_N);
   void TimedArcade(double x, double y, double time);
   void IMUArcade(double x, double y, double angle);
   void Stop();

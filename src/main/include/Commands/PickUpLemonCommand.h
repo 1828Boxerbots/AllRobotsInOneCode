@@ -25,9 +25,9 @@ class PickUpLemonCommand
   , DriveTrainSubsystemBase *pDrive
   , double moveSpeed = 1.0
   , double loadSpeed = 1.0
-  , OldCameraVision::VisionColors colorEnd = OldCameraVision::RED_CONE
+  , OldCameraVision::VisionColors colorEnd = OldCameraVision::RED_CONE_N
   , double deadzoneRange = 50.0
-  , OldCameraVision::VisionColors color = OldCameraVision::YELLOW_LEMON);
+  , OldCameraVision::VisionColors color = OldCameraVision::YELLOW_LEMON_A);
 
   void Initialize() override;
 

@@ -16,7 +16,7 @@ AutoSlalom::AutoSlalom(DriveTrainSubsystemBase *pDrive)
 void AutoSlalom::Initialize()
 {
   timer.Start();
-  m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE);
+  m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE_A);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -55,7 +55,7 @@ void AutoSlalom::Execute()
       loop0();
       break;
     case 1:
-      m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE);
+      m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE_N);
       loop1();
       break;
     case 2:
@@ -68,7 +68,7 @@ void AutoSlalom::Execute()
       loop4();
       break;
     case 5:
-      m_pDrive->SetLookingColorV(OldCameraVision::PURPLE_BOTTLE);
+      m_pDrive->SetLookingColorV(OldCameraVision::PURPLE_BOTTLE_N);
       loop5();
       break;
     case 6:
