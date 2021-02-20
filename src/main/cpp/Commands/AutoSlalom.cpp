@@ -53,8 +53,9 @@ void AutoSlalom::Execute()
     {
     case 0:
       loop0();
+
       break;
-    case 1:
+    /*case 1:
       m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE);
       loop1();
       break;
@@ -74,7 +75,9 @@ void AutoSlalom::Execute()
     case 6:
       loop6();
       break;
+      */
     default:
+      m_pDrive->Stop();
       break;
     }
   }
@@ -100,30 +103,41 @@ void AutoSlalom::loop0()
 
   //Forward, left, forward, right
   m_pDrive->TimedArcade(0.6, -0.2, 1.15);
-  m_pDrive->TimedArcade(0.6, 0.2, 1.075);
+  m_pDrive->TimedArcade(0.6, 0.2, 1.17);
 
   //Move the 10 feet or so
-  m_pDrive->ForwardInInch(144, 0, 0.3);
+  m_pDrive->ForwardInInch(107, 0, 0.8);
 
   //Loop around the cone
   //m_pDrive->TimedArcade(0.3)
-
+  m_pDrive->TimedArcade(0.6, 0.2, 1.20);
+  m_pDrive->TimedArcade(0.6, -0.24, 3.8);
 
   //Go back the 10 feet
-  m_pDrive->TurnInDegreesGyro(90, 0);
-  m_pDrive->ForwardInInch(120, 0, 0.4);
+  ///m_pDrive->TurnInDegreesGyro(90, 0);
+  m_pDrive->TimedArcade(0.6, 0.2, 1.3);
+
+
+  m_pDrive->ForwardInInch(95, 0, 0.8);
 
   //Go back around the initial cone
-  m_pDrive->ForwardInInch(45, 0, 0.3);
-  m_pDrive->TurnInDegreesGyro(-90, 0.4);
-  m_pDrive->ForwardInInch(45, 0, 0.3);
-  m_pDrive->TurnInDegreesGyro(90, 0.4);
-
+  ///m_pDrive->ForwardInInch(45, 0, 0.3);
+  ///m_pDrive->TurnInDegreesGyro(-90, 0.4);
+  ///m_pDrive->ForwardInInch(45, 0, 0.3);
+  ///m_pDrive->TurnInDegreesGyro(90, 0.4);
+  
+  m_pDrive->TimedArcade(0.6, 0.2, 1.3);
+  m_pDrive->TimedArcade(0.6, -0.24, 1.0);
+  
+  m_pDrive->ForwardInInch(10,0,0.5);
 
   //Move forward a little bit
   //No state check because this function is shared by other cases
   //m_pDrive->ForwardInSeconds(0.25, 0.5);
   //m_state = 1;
+
+  m_IsFinished = true;
+
 }
 
 void AutoSlalom::loop1()
