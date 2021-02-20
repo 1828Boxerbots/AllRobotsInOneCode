@@ -57,7 +57,7 @@ void AutonomousBouncePath::ProcessState0()
   {
     m_pDrive->ForwardInInch(10,0,0.5);
     m_pDrive->TimedArcade(0.6,-0.2,1.3);
-    m_pDrive->ForwardInInch(15,0,0.5);
+    m_pDrive->ForwardInInch(20,0,0.5);
     m_state = 1;
   }
 }
@@ -66,10 +66,11 @@ void AutonomousBouncePath::ProcessState1()
 {
   if(m_state == 1)
   {
-    m_pDrive->TurnInDegrees(165,0.5, m_turnRadius);
-    m_pDrive->ForwardInInch(85,0,0.6);
-    m_pDrive->TimedArcade(0.6,-0.3,1.55);
-    m_pDrive->ForwardInInch(80,0,0.6);
+    ///m_pDrive->TurnInDegrees(165,0.5, m_turnRadius); /original
+    m_pDrive->TimedArcade(-0.9,-0.08,1.85); // Back waay out of the first bottle, and to the right
+    m_pDrive->TimedArcade(-0.6,-0.3,1.42); // Reverse semicircle around cone
+    m_pDrive->TimedArcade(-0.7,0.05,1.67); // Straight back into the second cone
+    m_pDrive->ForwardInInch(70,0.0,0.7); // Straight forward
     m_state = 2;
   }
 }
@@ -78,10 +79,10 @@ void AutonomousBouncePath::ProcessState2()
 {
   if(m_state == 2)
   {
-    m_pDrive->TurnInDegrees(190, 0.6, m_turnRadius);
-    m_pDrive->ForwardInInch(90,0,0.5);
-    m_pDrive->TimedArcade(0.5,-0.15, 2.5);
-    m_pDrive->ForwardInInch(90,0,0.5);
+    m_pDrive->TimedArcade(0.6, -0.15, 2.55); // Wide turn around cones
+    m_pDrive->ForwardInInch(85,0,0.7); // Forward to third cone
+    m_pDrive->TimedArcade(-0.5,-0.17, 1.2); // Reverse into end
+    ///m_pDrive->ForwardInInch(90,0,0.5);
     m_state = 3;
   }
 }
@@ -90,10 +91,10 @@ void AutonomousBouncePath::ProcessState3()
 {
   if(m_state == 3)
   {
-    m_pDrive->TurnInDegrees(180,0.6,m_turnRadius);
-    m_pDrive->ForwardInInch(6,0,0.5);
-    m_pDrive->TimedArcade(0.6,-0.2,1.3);
-    m_pDrive->ForwardInInch(10,0,0.5);
+    ///m_pDrive->TurnInDegrees(180,0.6,m_turnRadius);
+    ///m_pDrive->ForwardInInch(6,0,0.5);
+    ///m_pDrive->TimedArcade(0.6,-0.2,1.3);
+    ///m_pDrive->ForwardInInch(10,0,0.5);
     m_state = 4;
   }
 }
