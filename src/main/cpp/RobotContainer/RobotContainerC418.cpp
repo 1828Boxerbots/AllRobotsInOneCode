@@ -267,6 +267,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
     }
   };
 
+  m_pGalacticSearchRedA = new GalacticPathRedA(m_pDrive, m_pLoader, 11);
 
   m_pAutoSlalom = new AutoSlalom(m_pDrive);
 
@@ -423,7 +424,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 6;
+  int cases = 8;
   switch(cases)
   {
     case 0:

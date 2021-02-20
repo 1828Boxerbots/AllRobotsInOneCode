@@ -22,7 +22,9 @@ public:
     INVALID_MOTOR = -1,
     MOTOR_TOP,
     MOTOR_BOTTOM,
-    MOTOR_INTAKE
+    MOTOR_INTAKE,
+    MOTOR_INTAKE_AND_BOTTOM,
+    MOTOR_BOTTOM_AND_TOP
   };
 
   void SetLoadMotor(double speed = 1.0, int motorNumber = INVALID_MOTOR) override;

@@ -45,6 +45,16 @@ void LoaderSubsystemC418::SetLoadMotor(double speed, int motorNumber)
         m_loaderMotorIntake.Set(speed);
         break;
 
+    case MOTOR_INTAKE_AND_BOTTOM:
+        m_loaderMotorIntake.Set(speed);
+        m_loaderMotorBottom.Set(speed);
+        break;
+    
+    case MOTOR_BOTTOM_AND_TOP:
+        m_loaderMotorTop.Set(speed);
+        m_loaderMotorBottom.Set(speed);
+        break;
+        
     default:
         m_loaderMotorTop.Set(speed);
         m_loaderMotorIntake.Set(speed);
