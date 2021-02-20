@@ -44,7 +44,7 @@ RobotContainerC418::RobotContainerC418()
   m_pAutoArmDown = new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 2 /*2=LOWEST*/);
   m_pAutoArmSetup = new AutoArmCommand(m_pArm, m_pSpin, m_pDrive, 0.4, 3 /*3=Auto Mode*/);
 
-  m_pAutoLemonPick = new PickUpLemonCommand(m_pLoader, m_pShooter, m_pDrive, 0.4, 0.5);
+  m_pAutoLemonPick = new PickUpLemonCommand(m_pLoader, m_pShooter, m_pDrive, 0.2, 0.5);
 
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -155,19 +155,19 @@ void RobotContainerC418::ConfigureAutonomousCommands()
   {
   //  frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->Init(); }, {m_pDrive}},
     //This is the first part of auto challenge one. Going around first cone
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE_N); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->AlignWithVision(0.75, 30); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(55,0.0,0.4); }, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.3, 0.2, OldCameraVision::RED_CONE); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.3, 0.2, OldCameraVision::RED_CONE_N); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->GoAroundCone(true); }, {m_pDrive}},
     //This is the second part of auto challenge one. Going around secondth cone
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->AlignWithVision(-1.0, 50); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(100,0.0,0.3); }, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.6, -0.2, OldCameraVision::PURPLE_BOTTLE); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.6, -0.2, OldCameraVision::PURPLE_BOTTLE_N); }, {m_pDrive}},
     //This is the third part of auto challenge one. Going around third cone
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->AlignWithVision(-1.0, 50); }, {m_pDrive}},
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(100,0.0,0.3); }, {m_pDrive}},
-    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.6, -0.2, OldCameraVision::RED_CONE); }, {m_pDrive}},
+    frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ArcadeVision(0.6, -0.2, OldCameraVision::RED_CONE_N); }, {m_pDrive}},
     //This is the last part of the auto challenge one. This is to be in the same position as the starting position
     frc2::InstantCommand{[this] {if(m_pDrive != nullptr) m_pDrive->ForwardInInch(200,0.0,0.3); }, {m_pDrive}}
   };
@@ -605,16 +605,120 @@ void RobotContainerC418::SetBackButton()
   {
     switch (gameData[0])
     {
+      //Red
     case 'R':
-      //Case for RedCone
-      m_pDrive->SetVisionFMSColor(OldCameraVision::RED_CONE);
-      Util::Log("AutoFMS", "Vision Red");
+      //case for red cone
+      if(gameData.length() > 1)
+      {
+        switch(gameData[1])
+        {
+          case 'M':
+            m_pDrive->SetVisionFMSColor(OldCameraVision::RED_CONE_M);
+            Util::Log("AutoFMS", "Vision Red Morning");
+            break;
+          case 'A':
+            m_pDrive->SetVisionFMSColor(OldCameraVision::RED_CONE_A);
+            Util::Log("AutoFMS", "Vision Red Afternoon");
+            break;
+          case 'N':
+            m_pDrive->SetVisionFMSColor(OldCameraVision::RED_CONE_N);
+            Util::Log("AutoFMS", "Vision Red Night");
+            break;
+        }
+      }
+      else
+      {
+        m_pDrive->SetVisionFMSColor(OldCameraVision::RED_CONE_N);
+        Util::Log("AutoFMS", "Vision Red Night");
+      }
       break;
+
+      //Green
     case 'G':
       //Case for GreenCone
-      m_pDrive->SetVisionFMSColor(OldCameraVision::GREEN_CONE);
-      Util::Log("AutoFMS", "Vision Green");
+      if(gameData.length() > 1)
+      {
+         switch(gameData[1])
+        {
+          case 'M':
+            m_pDrive->SetVisionFMSColor(OldCameraVision::GREEN_CONE_M);
+            Util::Log("AutoFMS", "Vision Green Morning");
+            break;
+          case 'A':
+            m_pDrive->SetVisionFMSColor(OldCameraVision::GREEN_CONE_A);
+            Util::Log("AutoFMS", "Vision Green Afternoon");
+            break;
+          case 'N':
+            m_pDrive->SetVisionFMSColor(OldCameraVision::GREEN_CONE_N);
+            Util::Log("AutoFMS", "Vision Green Night");
+            break;
+        }
+      }
+      else
+      {
+        m_pDrive->SetVisionFMSColor(OldCameraVision::GREEN_CONE_N);
+        Util::Log("AutoFMS", "Vision Green Night");
+      }
       break;
+
+      //Lemon
+    case 'L':
+      //Case Yellow LEMON
+      if(gameData.length() > 1)
+      {
+         switch(gameData[1])
+        {
+          case 'M':
+            m_pDrive->SetVisionFMSColor(OldCameraVision::YELLOW_LEMON_M);
+            Util::Log("AutoFMS", "Vision Lemon Morning");
+            break;
+          case 'A':
+            m_pDrive->SetVisionFMSColor(OldCameraVision::YELLOW_LEMON_A);
+            Util::Log("AutoFMS", "Vision Lemon Afternoon");
+            break;
+          case 'N':
+            m_pDrive->SetVisionFMSColor(OldCameraVision::YELLOW_LEMON_N);
+            Util::Log("AutoFMS", "Vision Lemon Night");
+            break;
+        }
+      }
+      else
+      {
+        m_pDrive->SetVisionFMSColor(OldCameraVision::YELLOW_LEMON_N);
+        Util::Log("AutoFMS", "Vision Lemon Night");
+      }
+      break;
+
+      //Purple
+    case 'P':
+      //Case Purple Bottle
+      if(gameData.length() > 1)
+      {
+         switch(gameData[1])
+        {
+          case 'M':
+            m_pDrive->SetVisionFMSColor(OldCameraVision::PURPLE_BOTTLE_M);
+            Util::Log("AutoFMS", "Vision Purple Bottle Morning");
+            break;
+          case 'A':
+            m_pDrive->SetVisionFMSColor(OldCameraVision::PURPLE_BOTTLE_A);
+            Util::Log("AutoFMS", "Vision Purple Bottle Afternoon");
+            break;
+          case 'N':
+            m_pDrive->SetVisionFMSColor(OldCameraVision::PURPLE_BOTTLE_N);
+            Util::Log("AutoFMS", "Vision Purple Bottle Night");
+            break;
+        }
+      }
+      else
+      {
+        m_pDrive->SetVisionFMSColor(OldCameraVision::PURPLE_BOTTLE_N);
+        Util::Log("AutoFMS", "Vision Purple Bottle Night");
+      }
+
+      break;
+
+      //Other
     case 'Y':
       //Case for YellowCone
       m_pDrive->SetVisionFMSColor(OldCameraVision::YELLOW_CONE);
@@ -624,16 +728,6 @@ void RobotContainerC418::SetBackButton()
       //Case for Orange Cone
       m_pDrive->SetVisionFMSColor(OldCameraVision::ORANGE_CONE);
       Util::Log("AutoFMS", "Vision Orange");
-      break;
-    case 'L':
-      //Case Yellow LEMON
-      m_pDrive->SetVisionFMSColor(OldCameraVision::YELLOW_LEMON);
-      Util::Log("AutoFMS", "Vision Yellow Lemon");
-      break;
-    case 'P':
-      //Case Purple Bottle
-      m_pDrive->SetVisionFMSColor(OldCameraVision::PURPLE_BOTTLE);
-      Util::Log("AutoFMS", "Vision Purple Bottle");
       break;
     case 'V':
       //Case for Vision Sliders

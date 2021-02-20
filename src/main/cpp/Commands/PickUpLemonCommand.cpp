@@ -38,20 +38,15 @@ void PickUpLemonCommand::Initialize()
   //Setting Crop
   int height;
   int width;
-  m_pDrive->GetVisionSize(&height, &width); 
-  m_pDrive->SetVisionCrop(0, 50, width, height - 50);
+  // m_pDrive->GetVisionSize(&height, &width); 
+  // m_pDrive->SetVisionCrop(0, 50, width, height - 50);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void PickUpLemonCommand::Execute() 
 {
   m_result = m_pDrive->WhereToTurn(m_centerScreen, m_deadzoneRange);
-  Util::Log("PURELemonWhereToTurn", m_result);
-  if(m_pDrive->GetCentroidY() <= 100)
-  {
-    m_result = -3;
-  }
-  Util::Log("NEWLemonWhereToTurn", m_result);
+  Util::Log("LemonWhereToTurn", m_result);
   switch (m_state)
   {
   case -1:
@@ -185,7 +180,7 @@ void PickUpLemonCommand::stateThree()
   m_iteration = 1;
 
   Util::Log("LemonShadow", "ThreeE");
-  m_state = -1;
+  m_state = 4;
 }
 
 void PickUpLemonCommand::stateFour()

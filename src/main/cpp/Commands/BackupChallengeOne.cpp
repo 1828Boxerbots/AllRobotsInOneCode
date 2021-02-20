@@ -24,17 +24,17 @@ void BackupChallengeOne::Execute()
   {
     m_pDrive->ForwardInInch(95, 0.0, 0.6);
     m_pDrive->IMUArcade(0.5, 0.2, -300);
-    m_pDrive->SetLookingColorV(OldCameraVision::RED_CONE);
+    m_pDrive->SetLookingColorV(OldCameraVision::RED_CONE_N);
     m_pDrive->AlignWithVision(-0.5, 30, false);
     m_pDrive->ForwardInInch(50,0.0,0.6);
     //m_pDrive->ForwardInInch(90,0.0,0.4);
     m_pDrive->IMUArcade(0.6, -0.2, 330);
-    m_pDrive->SetLookingColorV(OldCameraVision::PURPLE_BOTTLE);
+    m_pDrive->SetLookingColorV(OldCameraVision::PURPLE_BOTTLE_N);
     m_pDrive->AlignWithVision(-1.0, 30, true);
     m_pDrive->ForwardInInch(48,0.0,0.4);
     //m_pDrive->ForwardInInch(90, 0.0, 0.4);
     m_pDrive->IMUArcade(0.5, -0.17, 300);
-    m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE);
+    m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE_N);
     m_pDrive->AlignWithVision(0.0, 30, true);
     m_pDrive->ForwardInInch(10,0.0,0.4);
     //m_pDrive->ForwardInInch(240, 0.0, 0.4);
