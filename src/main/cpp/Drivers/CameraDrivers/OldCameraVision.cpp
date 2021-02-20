@@ -304,8 +304,8 @@ void OldCameraVision::SetColor()
 
 	cv::inRange(m_imgHSV, resultL, resultH, m_imgThresholded);
 
-	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(6, 6)));
-	cv::dilate(m_imgThresholdedTwo, m_imgThresholded, cv::getStructuringElement(cv::MORPH_RECT, cv::Size(6, 6)));
+	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MorphShapes::MORPH_ELLIPSE, cv::Size(6, 6)));
+	cv::dilate(m_imgThresholdedTwo, m_imgThresholded, cv::getStructuringElement(cv::MorphShapes::MORPH_ELLIPSE, cv::Size(6, 6)));
 
 	//Display Filtered Image
 	SendImage(IMAGE_THRESHOLD, m_imgThresholded);
