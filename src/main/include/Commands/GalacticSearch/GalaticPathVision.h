@@ -32,6 +32,8 @@ class GalaticPathVision
   void RunBlueOne();
   void RunBlueTwo();
 
+  void FindBall(bool defLeftTurn);
+
   void End(bool interrupted) override;
 
   bool IsFinished() override;
@@ -41,11 +43,12 @@ private:
   LoaderSubsystemBase *m_pLoader;
   bool m_isFinished = false;
 
-  OldCameraVision::VisionColors m_color = OldCameraVision::YELLOW_LEMON_M;
+  OldCameraVision::VisionColors m_color = OldCameraVision::YELLOW_LEMON_N;
 
-  double m_moveSpeed = 0.3;
-  double m_loaderSpeed = 0.4;
+  double m_moveSpeed = 0.2;
+  double m_loaderSpeed = 1;
   double rioW = 100;
+  int m_deadZone = 50;
 
   enum RunIteration{RED_ONE, RED_TWO, BLUE_ONE, BLUE_TWO};
 
