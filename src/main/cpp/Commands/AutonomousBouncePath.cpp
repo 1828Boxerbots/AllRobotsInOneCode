@@ -22,17 +22,18 @@ void AutonomousBouncePath::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void AutonomousBouncePath::Execute() 
 {
+  m_state = 3;
   switch(m_state)
   {
-    case 0:
-    ProcessState0();
-    break;
-    case 1:
-    ProcessState1();
-    break;
-    case 2:
-    ProcessState2();
-    break;
+    // case 0:
+    // ProcessState0();
+    // break;
+    // case 1:
+    // ProcessState1();
+    // break;
+    // case 2:
+    // ProcessState2();
+    // break;
     case 3:
     ProcessState3();
     break;
@@ -91,10 +92,6 @@ void AutonomousBouncePath::ProcessState3()
 {
   if(m_state == 3)
   {
-    ///m_pDrive->TurnInDegrees(180,0.6,m_turnRadius);
-    ///m_pDrive->ForwardInInch(6,0,0.5);
-    ///m_pDrive->TimedArcade(0.6,-0.2,1.3);
-    ///m_pDrive->ForwardInInch(10,0,0.5);
-    m_state = 4;
+    m_pDrive->ForwardInInch(120,0,0.5);
   }
 }

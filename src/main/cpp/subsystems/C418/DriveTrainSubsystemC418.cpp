@@ -28,7 +28,7 @@ DriveTrainSubsystemC418::DriveTrainSubsystemC418(I2CMultiplexerDriver *pMultiple
 void DriveTrainSubsystemC418::SetMotorL(double speed)
 {
 #ifndef NOHW
-  m_leftMotor.Set(speed * speedLimit);
+  m_leftMotor.Set(speed);
 #endif
 
   //m_camera.Tick();
@@ -37,7 +37,7 @@ void DriveTrainSubsystemC418::SetMotorL(double speed)
 void DriveTrainSubsystemC418::SetMotorR(double speed)
 {
 #ifndef NOHW
-  m_rightMotor.Set(speed * speedLimit);
+  m_rightMotor.Set(speed);
 #endif
 
 }

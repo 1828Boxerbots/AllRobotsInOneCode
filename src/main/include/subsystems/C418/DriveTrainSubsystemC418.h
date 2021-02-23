@@ -112,7 +112,6 @@ private:
 
 #endif
 
-  double speedLimit = 0.5;
   const double PULSE_PER_REVOLUTION = 360;
   const double WHEELDIAMETER = 6.0;
 
