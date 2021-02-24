@@ -136,6 +136,22 @@ double DriveTrainSubsystemC418::GetRightEncoderInch()
   return m_rightEncoderSim;
 }
 
+double DriveTrainSubsystemC418::GetLeftEncoderRaw()
+{
+#ifndef NOHW
+  Util::Log("LeftEncoder Raw", m_leftEncoder.Get(), "DriveTrainSubsystemC418");
+#endif
+  return m_leftEncoder.Get();
+}
+
+double DriveTrainSubsystemC418::GetRightEncoderRaw()
+{
+#ifndef NOHW
+  Util::Log("RightEncoder Raw", m_rightEncoder.Get(), "DriveTrainSubsystemC418");
+#endif
+  return m_rightEncoder.Get();
+}
+
 void DriveTrainSubsystemC418::ResetEncoder()
 {
   m_leftEncoder.Reset();

@@ -152,6 +152,19 @@ void RobotContainerC418::ConfigureAutonomousCommands()
       }
     }
   };
+  m_pGoFullSpeed = new frc2::SequentialCommandGroup 
+  {
+    //frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->TurnInDegrees(-7, 0.5); }, {m_pDrive}},
+    frc2::RunCommand 
+    {
+      [this] 
+      {
+        //m_pDrive->SetLookingColorV(OldCameraVision::FMS_COLOR);
+        //GetVisionFMS();
+        m_pDrive->MoveTank(1.0,1.0);
+      }
+    }
+  };
 
   m_pAutoChallengeOne = new frc2::SequentialCommandGroup
   {
@@ -426,7 +439,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 5;
+  int cases = 3;
   switch(cases)
   {
     case 0:
@@ -467,6 +480,9 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
       break;
     case 12:
       return m_pGalacticSearchVision;
+      break;
+    case 13:
+      return m_pGoFullSpeed;
       break;
     default:
       return nullptr;

@@ -50,6 +50,8 @@ public:
   virtual void TurnRight(double speed = 1.0);
   virtual double GetLeftEncoderInch() { return -1.0; }
   virtual double GetRightEncoderInch() { return -1.0; }
+  virtual double GetLeftEncoderRaw() { return -1.0; }
+  virtual double GetRightEncoderRaw() { return -1.0; }
   virtual void ResetEncoder() {}
   virtual void ForwardInSeconds(double goalTime, double speed = 1.0);
   virtual void TurnInDegrees(double relativeAngle, double speed = 0.75, double turnRadius = 11);

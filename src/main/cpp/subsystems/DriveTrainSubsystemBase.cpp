@@ -344,25 +344,47 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
     double startDistanceLeft = GetLeftEncoderInch();
     double currentDistanceLeft = GetLeftEncoderInch();
 
-    double multiplierR = 1.289;
-    double SPEED_INCREMENT = 0.0001;
+    double startDistanceRightRaw = GetLeftEncoderRaw();
+    double currentDistanceRightRaw = GetRightEncoderRaw();
+    double startDistanceLeftRaw = GetLeftEncoderRaw();
+    double currentDistanceLeftRaw = GetLeftEncoderRaw();
+
+    double multiplierR = 1.24;
+    double SPEED_INCREMENT = 0.005;
     double ENCODER_DEADZONE = 0;
     while ((Util::Abs(currentDistanceRight - startDistanceRight) < inch))
         // || (Util::Abs(currentDistanceLeft - startDistanceLeft) < inch))
     {
         //Forward(speed);
+        Util::Log("Right Multiplier", multiplierR, "DriveTrainSubsystemBase");
         MoveTank(speed,speed*multiplierR);
+        Util::DelayInSeconds(0.02);
+        Util::Log("Start Distance Right", startDistanceRightRaw, "DriveTrainSubsystemBase");
+        Util::Log("Start Distance Left", startDistanceLeftRaw, "DriveTrainSubsystemBase");
+        Util::Log("Delta Right", (-currentDistanceRightRaw)-(-startDistanceRightRaw), "DriveTrainSubsystemBase");
+        Util::Log("Delta Left", currentDistanceLeftRaw-startDistanceLeftRaw, "DriveTrainSubsystemBase");
         currentDistanceRight = GetRightEncoderInch();
-        if(currentDistanceRight<currentDistanceLeft-ENCODER_DEADZONE)
+        currentDistanceLeft = GetLeftEncoderInch();
+        currentDistanceRightRaw = GetRightEncoderRaw();
+        currentDistanceLeftRaw = GetLeftEncoderRaw();
+        if(Util::Abs(currentDistanceRightRaw-startDistanceRightRaw)<Util::Abs(currentDistanceLeftRaw-startDistanceLeftRaw)-ENCODER_DEADZONE)
         {
             multiplierR += SPEED_INCREMENT;
         }
-        else if(currentDistanceRight>currentDistanceLeft+ENCODER_DEADZONE)
+        else if(Util::Abs(currentDistanceRightRaw-startDistanceRightRaw)>Util::Abs(currentDistanceLeftRaw-startDistanceLeftRaw)+ENCODER_DEADZONE)
         {
             multiplierR -= SPEED_INCREMENT;
         }
+        if(speed*multiplierR>1.0)
+        {
+            multiplierR -= SPEED_INCREMENT;
+        }
+        else if(speed*multiplierR<-1.0)
+        {
+            multiplierR += SPEED_INCREMENT;
+        }
     }
-    if (currentDistanceRight > inch)
+    if (currentDistanceRightRaw > inch)
     {
         ResetEncoder();
     }

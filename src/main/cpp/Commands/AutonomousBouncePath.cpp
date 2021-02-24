@@ -92,6 +92,6 @@ void AutonomousBouncePath::ProcessState3()
 {
   if(m_state == 3)
   {
-    m_pDrive->ForwardInInch(120,0,0.5);
+    m_pDrive->ForwardInInch(60,0,0.4);
   }
 }

@@ -16,11 +16,11 @@ double Util::Limit(double value, double lowerLimit, double higherLimit)
     {
         return value;
     }
-    if (value > higherLimit)
+    else if (value > higherLimit)
     {
         value = higherLimit;
     }
-    if (value < lowerLimit)
+    else if (value < lowerLimit)
     {
         value = lowerLimit;
     }

@@ -39,6 +39,8 @@ public:
 
   double GetLeftEncoderInch() override;
   double GetRightEncoderInch() override;
+  double GetLeftEncoderRaw() override;
+  double GetRightEncoderRaw() override;
 
   double GyroGetAngle() override;
 
