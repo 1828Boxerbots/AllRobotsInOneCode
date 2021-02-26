@@ -30,8 +30,8 @@ bool OldCameraVision::Init()
 
 	//Setting Crop
 	double rioW = 100;
-	//SetCrop((M_CAMERA_WIDTH/2) - (rioW/2), (M_CAMERA_HEIGHT*0.75), rioW, M_CAMERA_HEIGHT*0.25);
-	SetCrop(0, M_CAMERA_HEIGHT*0.75, M_CAMERA_WIDTH, M_CAMERA_HEIGHT*0.25);
+	SetCrop((M_CAMERA_WIDTH/2) - (rioW/2), (M_CAMERA_HEIGHT*0.75), rioW, M_CAMERA_HEIGHT*0.25);
+	//SetCrop(0, M_CAMERA_HEIGHT*0.75, M_CAMERA_WIDTH, M_CAMERA_HEIGHT*0.25);
 
 	return true;
 }
@@ -74,6 +74,7 @@ double OldCameraVision::WhereToTurn(double deadZoneLocation, int deadZoneRange)
 	//Check if there is a blob
 	if (GetBlob(deadZone2) == false /*|| m_centroidX == nan( && m_centroidY == nan(ind)*/)
 	{
+		Util::Log("WhereToTurn Result", OUT_OF_CAMERA_RANGE);
 		return OUT_OF_CAMERA_RANGE;
 	}
 
@@ -91,6 +92,7 @@ double OldCameraVision::WhereToTurn(double deadZoneLocation, int deadZoneRange)
 	//Check if we are in the dead zone
 	if (m_centroidX > lowDedZone && m_centroidX < highDedZone)
 	{
+		Util::Log("WhereToTurn Result", 0.0);
 		return 0.0;
 	}
 
@@ -111,6 +113,7 @@ double OldCameraVision::WhereToTurn(double deadZoneLocation, int deadZoneRange)
 	// cv::putText(textImg, powerPercentageStr, cv::Point(m_centroidX, m_centroidY), cv::FONT_HERSHEY_SIMPLEX, 2.0, cv::Scalar(255, 0, 0), 2);
 	// SendImage("TextImage", textImg);
 
+	Util::Log("WhereToTurn Result", powerPercentage);
 	return powerPercentage;
 }
 
@@ -182,13 +185,16 @@ bool OldCameraVision::GetBlob(int deadZonePixel)
 			lineColor = cv::Scalar(0,0,255); // Red as Default
 			break;
 		}
+		//Point Lines
 		cv::line(m_frame, yPoint, yHPoint, lineColor, M_LINE_THICKNESS);
 		cv::line(m_frame, xPoint, xHPoint, lineColor, M_LINE_THICKNESS);
-
-		cv::line(m_frame, cv::Point(m_cropX, m_cropY), cv::Point(m_cropW, m_cropY), cv::Scalar(0, 255, 200));
+		//ROI Lines
+		cv::line(m_frame, cv::Point(m_cropX, m_cropY), cv::Point(m_cropX + m_cropW, m_cropY), cv::Scalar(0, 255, 200)); // Top Line
+		cv::line(m_frame, cv::Point(m_cropX, m_cropY), cv::Point(m_cropX, m_cropY + m_cropH - 5), cv::Scalar(0, 255, 200));// Left Line
+		cv::line(m_frame, cv::Point(m_cropX + m_cropW, m_cropY), cv::Point(m_cropX+m_cropW, m_cropY + m_cropH - 5), cv::Scalar(0, 255, 200));// Right Line
 
 		//Show where deadzone is
-		cv::line(m_frame, cv::Point(deadZonePixel, 0), cv::Point(deadZonePixel, M_CAMERA_HEIGHT), M_DEADZONE_COLOR, M_LINE_THICKNESS);
+		cv::line(m_frame, cv::Point(deadZonePixel, 0), cv::Point(deadZonePixel, M_CAMERA_HEIGHT - 5), M_DEADZONE_COLOR, M_LINE_THICKNESS);
 	}
 	else
 	{
@@ -305,7 +311,7 @@ void OldCameraVision::SetColor()
 
 	cv::inRange(m_imgHSV, resultL, resultH, m_imgThresholded);
 
-	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MorphShapes::MORPH_ELLIPSE, cv::Size(6, 6)));
+	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MorphShapes::MORPH_ELLIPSE, cv::Size(5, 5)));
 	cv::dilate(m_imgThresholdedTwo, m_imgThresholded, cv::getStructuringElement(cv::MorphShapes::MORPH_ELLIPSE, cv::Size(6, 6)));
 
 	//Display Filtered Image
@@ -315,7 +321,7 @@ void OldCameraVision::SetColor()
 	if(m.m00 != 0)
 	{
 		Util::Log("OldCameraVision", "centroids were valid");
-		m_centroidX = m.m10 / m.m00;
+		m_centroidX = (m.m10 / m.m00) + m_cropX;
 		m_centroidY = (m.m01 / m.m00) + m_cropY;
 		cv::Point p(m_centroidX, m_centroidY);
 	}
@@ -328,6 +334,8 @@ void OldCameraVision::SetColor()
 
 	GetCentroidX();
 	GetCentroidY();
+
+	Util::DelayInSeconds(0.2);
 }
 
 void OldCameraVision::SetHigh(int HSV, int value)

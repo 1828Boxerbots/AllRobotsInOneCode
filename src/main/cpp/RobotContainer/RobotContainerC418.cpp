@@ -143,25 +143,11 @@ void RobotContainerC418::ConfigureAutonomousCommands()
     {
       [this] 
       {
-        //m_pDrive->SetLookingColorV(OldCameraVision::FMS_COLOR);
-        //GetVisionFMS();
+        //m_pDrive->SetVisionCrop((320/2) - (100/2), (320*0.75), 100, 240*0.25);
         m_pDrive->WhereToTurn(0.0, 50);
-        m_pDrive->IMUGetAngle();
+        //m_pDrive->IMUGetAngle();
         m_pDrive->GetLeftEncoderInch();
         m_pDrive->GetRightEncoderInch();
-      }
-    }
-  };
-  m_pGoFullSpeed = new frc2::SequentialCommandGroup 
-  {
-    //frc2::InstantCommand{[this] {if(m_pDrive != nullptr)    m_pDrive->TurnInDegrees(-7, 0.5); }, {m_pDrive}},
-    frc2::RunCommand 
-    {
-      [this] 
-      {
-        //m_pDrive->SetLookingColorV(OldCameraVision::FMS_COLOR);
-        //GetVisionFMS();
-        m_pDrive->MoveTank(1.0,1.0);
       }
     }
   };
@@ -439,7 +425,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 3;
+  int cases = 5;
   switch(cases)
   {
     case 0:
@@ -480,9 +466,6 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
       break;
     case 12:
       return m_pGalacticSearchVision;
-      break;
-    case 13:
-      return m_pGoFullSpeed;
       break;
     default:
       return nullptr;
