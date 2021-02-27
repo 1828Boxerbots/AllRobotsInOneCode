@@ -33,7 +33,7 @@ class GalaticPathVision
   void RunBlueTwo();
 
   void RotateToEnd();
-  void FaceBall();
+  void FaceBall(bool turnLeft = false);
 
   void End(bool interrupted) override;
 

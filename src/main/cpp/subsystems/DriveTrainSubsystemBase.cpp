@@ -585,11 +585,11 @@ void DriveTrainSubsystemBase::ForwardInInchesButBetterBecauseBenWantedItAndTitoM
         leftInch = GetLeftEncoderInch();
         rightInch = GetRightEncoderInch();
 
-        if ( (Util::Abs(leftInch - leftInchStart) > Util::Abs(rightInch - rightInchStart) + deadZone) && (targetReached < 10) )
+        if ( (Util::Abs(leftInch - leftInchStart) > Util::Abs(rightInch - rightInchStart) + deadZone) && (targetReached < 200) )
         {
             rightSpeed += 0.00002;
         }
-        else if( (Util::Abs(leftInch - leftInchStart) < Util::Abs(rightInch - rightInchStart) - deadZone) && (targetReached < 10) )
+        else if( (Util::Abs(leftInch - leftInchStart) < Util::Abs(rightInch - rightInchStart) - deadZone) && (targetReached < 200) )
         {
             rightSpeed -= 0.00002;
         }

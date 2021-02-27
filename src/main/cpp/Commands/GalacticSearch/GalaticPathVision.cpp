@@ -184,9 +184,10 @@ void GalaticPathVision::RunRedTwo()
 
 void GalaticPathVision::RunBlueOne()
 {
+  m_pDrive->SetLookingColorV(OldCameraVision::YELLOW_LEMON_N);
   //Get ball one
   Util::Log("GV Shadow", "B1 Ball1");
-  m_pDrive->TurnInDegrees(90, m_moveSpeed); //Turn toward ball
+  m_pDrive->TurnInDegrees(80, m_moveSpeed/2); //Turn toward ball
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
   m_pDrive->ForwardInInch(60, 0, m_moveSpeed);
@@ -194,24 +195,24 @@ void GalaticPathVision::RunBlueOne()
   m_pLoader->Stop();
   //Get Ball two
   Util::Log("GV Shadow", "B1 Ball2");
-  m_pDrive->TurnInDegrees(-161.6, m_moveSpeed);  //Turn toward ball
+  m_pDrive->TurnInDegrees(-171.56, m_moveSpeed);  //Turn toward ball
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
-  m_pDrive->ForwardInInch(100, 0,m_moveSpeed);
+  m_pDrive->ForwardInInch(94.87, 0,m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
   //GetBall 3
   Util::Log("GV Shadow", "B1 Ball3");
-  m_pDrive->TurnInDegrees(88.2, m_moveSpeed); //Turn toward ball and end
+  m_pDrive->TurnInDegrees(88.13, m_moveSpeed); //Turn toward ball and end
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, 2);
-  m_pDrive->ForwardInInch(50, 0, m_moveSpeed);
+  m_pDrive->ForwardInInch(67.08, 0, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 
   //Go to End
   Util::Log("GV Shadow", "B1 End");
-  m_pDrive->TurnInDegrees(-20, m_moveSpeed);
+  m_pDrive->TurnInDegrees(-26.57, m_moveSpeed);
   m_pDrive->ForwardInInch(60, 0, m_moveSpeed);
 
   Util::Log("GV Shadow", "B1 Finished");
@@ -253,7 +254,7 @@ void GalaticPathVision::RunBlueTwo()
   m_isFinished = true;
 }
 
-void GalaticPathVision::FaceBall()
+void GalaticPathVision::FaceBall(bool turnLeft)
 {
   double result = m_pDrive->WhereToTurn(0, m_deadZone);
 
@@ -267,9 +268,18 @@ void GalaticPathVision::FaceBall()
     }
     else if(result < -2)
     {
-      m_pDrive->TurnRight(m_moveSpeed/2);
-      Util::DelayInSeconds(0.045);
-      m_pDrive->Stop();
+      if(turnLeft)
+      {
+        m_pDrive->TurnLeft(m_moveSpeed/2);
+        Util::DelayInSeconds(0.045);
+        m_pDrive->Stop();
+      }
+      else
+      {
+        m_pDrive->TurnRight(m_moveSpeed/2);
+        Util::DelayInSeconds(0.045);
+        m_pDrive->Stop();
+      }
     }
     else if(result < 0)
     {
