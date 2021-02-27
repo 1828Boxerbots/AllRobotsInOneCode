@@ -35,6 +35,7 @@ class GalaticPathVision
   void FindBall(bool defLeftTurn);
   void MoveBall();
   void MoveToEnd();
+  void FaceBall();
 
   void End(bool interrupted) override;
 
@@ -50,7 +51,7 @@ private:
   double m_moveSpeed = 0.4;
   double m_loaderSpeed = 0.6;
   double m_turnSpeed = 0.1;
-  double rioW = 100;
+  double rioW = 70;
   int m_deadZone = 10;
   double m_gyroAngle;
 
