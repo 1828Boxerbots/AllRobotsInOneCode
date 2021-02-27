@@ -78,7 +78,8 @@ int GalaticPathVision::CheckRun()
 
   //Turn Left
   Util::Log("GV Shadow", "CheckRun Turn");
-	m_pDrive->TurnInDegrees(-5.5, m_moveSpeed);
+	//m_pDrive->TurnInDegrees(-10, m_moveSpeed/2);
+  RotateToDegree(19.5);
   //Can Find Image Return Red2
   Util::Log("GV Shadow", "CheckRun Where");
   double result = m_pDrive->WhereToTurn(-1, m_deadZone);
@@ -89,10 +90,10 @@ int GalaticPathVision::CheckRun()
     return RED_TWO;
   }
 
-  m_pDrive->TurnInDegrees(7, m_moveSpeed);
+  m_pDrive->TurnInDegrees(21, m_moveSpeed/2);
   //Move 15 feet
   Util::Log("GV Shadow", "CheckRun Forward");
-  m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(180, m_moveSpeed);
+  m_pDrive->ForwardInInch(180, 0.0, m_moveSpeed);
   //Can find Image return Blue1 and if cant find image return Blue2
   Util::Log("GV Shadow", "CheckRun Where");
   if(m_pDrive->WhereToTurn(0, 50) > -2)
@@ -113,15 +114,17 @@ void GalaticPathVision::RunRedOne()
 
   //GetBallOne
   Util::Log("GV Shadow", "R1 Ball1");
+  FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
-  m_pDrive->ForwardInInch(60, 0, m_moveSpeed);
+  m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(60, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
   //GetBallTwo
   Util::Log("GV Shadow", "R1 Ball2");
   m_pDrive->TurnInDegrees(47,m_moveSpeed); // 42.5 at dying battery
+  FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
-  m_pDrive->ForwardInInch(53, 0, m_moveSpeed);
+  m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(53, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
   //GetBallThree
@@ -132,16 +135,16 @@ void GalaticPathVision::RunRedOne()
   FaceBall();
 
   m_pLoader->SetLoadMotor(m_loaderSpeed);
-  m_pDrive->ForwardInInch(20, 0, m_moveSpeed);
+  m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(20, m_moveSpeed);
   m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
-  m_pDrive->ForwardInInch(39, 0, m_moveSpeed);
+  m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(39, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 
   //ToEndZone
   Util::Log("GV Shadow", "R1 Endzone");
   m_pDrive->TurnInDegrees(110, m_moveSpeed);
-  m_pDrive->ForwardInInch(102, 0, m_moveSpeed);
+  m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(102, m_moveSpeed);
 
   Util::Log("GV Shadow", "R1 Finished");
   m_isFinished = true;
@@ -158,7 +161,7 @@ void GalaticPathVision::RunRedTwo()
   m_pLoader->Stop();
   //Get Second Ball
   Util::Log("GV Shadow", "R2 Ball2");
-  m_pDrive->TurnInDegrees(50, m_moveSpeed); //Turn towards Ball
+  RotateToDegree(45); //Turn towards Ball
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
   m_pDrive->ForwardInInch(80, 0, m_moveSpeed);
@@ -166,7 +169,7 @@ void GalaticPathVision::RunRedTwo()
   m_pLoader->Stop();
   //Get Third Ball
   Util::Log("GV Shadow", "R2 Ball3");
-  m_pDrive->TurnInDegrees(-50, m_moveSpeed); //Turn Towards ball
+  RotateToDegree(-45); //Turn Towards ball
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, 2);
   m_pDrive->ForwardInInch(90, 0, m_moveSpeed);
@@ -184,10 +187,9 @@ void GalaticPathVision::RunRedTwo()
 
 void GalaticPathVision::RunBlueOne()
 {
-  m_pDrive->SetLookingColorV(OldCameraVision::YELLOW_LEMON_N);
   //Get ball one
   Util::Log("GV Shadow", "B1 Ball1");
-  m_pDrive->TurnInDegrees(80, m_moveSpeed/2); //Turn toward ball
+  m_pDrive->TurnInDegrees(90, m_moveSpeed); //Turn toward ball
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
   m_pDrive->ForwardInInch(60, 0, m_moveSpeed);
@@ -195,24 +197,24 @@ void GalaticPathVision::RunBlueOne()
   m_pLoader->Stop();
   //Get Ball two
   Util::Log("GV Shadow", "B1 Ball2");
-  m_pDrive->TurnInDegrees(-171.56, m_moveSpeed);  //Turn toward ball
+  m_pDrive->TurnInDegrees(-161.6, m_moveSpeed);  //Turn toward ball
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
-  m_pDrive->ForwardInInch(94.87, 0,m_moveSpeed);
+  m_pDrive->ForwardInInch(100, 0,m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
   //GetBall 3
   Util::Log("GV Shadow", "B1 Ball3");
-  m_pDrive->TurnInDegrees(88.13, m_moveSpeed); //Turn toward ball and end
+  m_pDrive->TurnInDegrees(88.2, m_moveSpeed); //Turn toward ball and end
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, 2);
-  m_pDrive->ForwardInInch(67.08, 0, m_moveSpeed);
+  m_pDrive->ForwardInInch(50, 0, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 
   //Go to End
   Util::Log("GV Shadow", "B1 End");
-  m_pDrive->TurnInDegrees(-26.57, m_moveSpeed);
+  m_pDrive->TurnInDegrees(-20, m_moveSpeed);
   m_pDrive->ForwardInInch(60, 0, m_moveSpeed);
 
   Util::Log("GV Shadow", "B1 Finished");
@@ -226,7 +228,7 @@ void GalaticPathVision::RunBlueTwo()
   m_pDrive->TurnInDegrees(90, m_moveSpeed); //Turn toward ball
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
-  m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(18, m_moveSpeed);
+  m_pDrive->ForwardInInch(90, 0, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 
@@ -235,7 +237,7 @@ void GalaticPathVision::RunBlueTwo()
   m_pDrive->TurnInDegrees(-135, m_moveSpeed);  //Turn toward ball
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
-  m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(90, m_moveSpeed);
+  m_pDrive->ForwardInInch(90, 0, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 
@@ -244,11 +246,11 @@ void GalaticPathVision::RunBlueTwo()
   m_pDrive->TurnInDegrees(90, m_moveSpeed); //Turn toward ball and end
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, 2);
-  m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(90, m_moveSpeed);
+  m_pDrive->ForwardInInch(90, 0, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 
-  m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(90, m_moveSpeed); //Move toward ball and past end
+  m_pDrive->ForwardInInch(90, 0, m_moveSpeed); //Move toward ball and past end
 
   Util::Log("GV Shadow", "B2 Finished");
   m_isFinished = true;
@@ -310,6 +312,29 @@ void GalaticPathVision::RotateToEnd()
       m_pDrive->TurnRight(m_turnSpeed);
     }
     else if(currentAngle < lowerStart)
+    {
+      m_pDrive->TurnLeft(m_turnSpeed);
+    }
+    currentAngle = m_pDrive->IMUGetAngle();
+  }
+
+  m_pDrive->Stop();
+}
+
+void GalaticPathVision::RotateToDegree(double degree)
+{
+  double currentAngle = m_pDrive->IMUGetAngle();
+  
+  double lowerDegree = degree - 2;
+  double upperDegree = degree + 2;
+
+  while(currentAngle > upperDegree || currentAngle < lowerDegree)
+  {
+    if(currentAngle > upperDegree)
+    {
+      m_pDrive->TurnRight(m_turnSpeed);
+    }
+    else if(currentAngle < lowerDegree)
     {
       m_pDrive->TurnLeft(m_turnSpeed);
     }

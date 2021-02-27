@@ -34,6 +34,7 @@ class GalaticPathVision
 
   void RotateToEnd();
   void FaceBall(bool turnLeft = false);
+  void RotateToDegree(double degree);
 
   void End(bool interrupted) override;
 
