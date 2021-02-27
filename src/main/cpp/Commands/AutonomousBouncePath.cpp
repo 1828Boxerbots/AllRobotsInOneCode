@@ -16,13 +16,12 @@ AutonomousBouncePath::AutonomousBouncePath(DriveTrainSubsystemBase* pDrive, doub
 // Called when the command is initially scheduled.
 void AutonomousBouncePath::Initialize() 
 {
-
+  m_state = 3;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutonomousBouncePath::Execute() 
 {
-  m_state = 3;
   switch(m_state)
   {
     // case 0:
@@ -92,6 +91,10 @@ void AutonomousBouncePath::ProcessState3()
 {
   if(m_state == 3)
   {
-    m_pDrive->ForwardInInch(60,0,0.4);
+    //m_pDrive->TurnInDegrees(90, 0.10);
+    //m_pDrive->TurnInDegrees(-90, 0.10);
+    m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(240, 0.3);
+    m_pDrive->TurnInDegrees(40, 0.15);
+    m_state = 4;
   }
 }

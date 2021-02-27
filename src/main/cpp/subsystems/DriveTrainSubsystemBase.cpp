@@ -351,9 +351,9 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
 
     double multiplierR = 1.24;
     double SPEED_INCREMENT = 0.005;
-    double ENCODER_DEADZONE = 0;
-    while ((Util::Abs(currentDistanceRight - startDistanceRight) < inch))
-        // || (Util::Abs(currentDistanceLeft - startDistanceLeft) < inch))
+    double ENCODER_DEADZONE = 40;
+    while ((Util::Abs(currentDistanceLeft - startDistanceLeft) < inch))
+        // || (Util::Abs(currentDistanceRight - startDistanceRight) < inch))
     {
         //Forward(speed);
         Util::Log("Right Multiplier", multiplierR, "DriveTrainSubsystemBase");
@@ -384,35 +384,11 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
             multiplierR += SPEED_INCREMENT;
         }
     }
-    if (currentDistanceRightRaw > inch)
+    if (currentDistanceLeft > inch)
     {
         ResetEncoder();
     }
     Stop();
-
-    //This is PIDS
-    /*
-    //Creates and Starts Timer
-    frc::Timer timer;
-    timer.Reset();
-    timer.Start();
-
-    //Checks to see if Robot has made it to destination
-    while(MoveAlignPID(inch, angle, speed) != true)
-    {
-        //Checks what time it is
-        frc::SmartDashboard::PutNumber("MoveAlignPID Timer", timer.Get());
-
-        if(m_isColliding == true)
-        {
-            break;
-        }
-    }
-
-    //Stops Timer and Motors
-    timer.Stop();
-    Stop();
-    */
 }
 
 //Used to turn the robot a certain amount of degrees(RelativeAngle is user's wanted angle)
@@ -575,3 +551,56 @@ double DriveTrainSubsystemBase::ReadIMU()
 {
     return IMUGetAngle();
 }
+
+
+void DriveTrainSubsystemBase::ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(double inches, double speed)
+{
+    ResetEncoder();
+
+    double rightInch = 0.0;
+    double leftInch = 0.0;
+    double rightInchStart = GetRightEncoderInch();
+    double leftInchStart = GetLeftEncoderInch();
+    double realSpeed = 0.0;
+    double rightSpeed = realSpeed + 0.08;
+    double deadZone = 0.001;
+
+    int targetReached = 0;
+    
+    while(Util::Abs(leftInch - leftInchStart) < inches)
+    {
+        if(realSpeed<speed)
+        {
+            rightSpeed -= realSpeed;
+            realSpeed += speed/10;
+            rightSpeed += realSpeed;
+        }
+
+        Util::Log("Right Speed", rightSpeed, "DriveTrainSubsystemBase");
+        Util::Log("Real Speed", realSpeed, "DriveTrainSubsystemBase");
+
+        SetMotorL(realSpeed);
+        SetMotorR(rightSpeed);
+
+        leftInch = GetLeftEncoderInch();
+        rightInch = GetRightEncoderInch();
+
+        if ( (Util::Abs(leftInch - leftInchStart) > Util::Abs(rightInch - rightInchStart) + deadZone) && (targetReached < 10) )
+        {
+            rightSpeed += 0.00002;
+        }
+        else if( (Util::Abs(leftInch - leftInchStart) < Util::Abs(rightInch - rightInchStart) - deadZone) && (targetReached < 10) )
+        {
+            rightSpeed -= 0.00002;
+        }
+        else
+        {
+            Util::Log("Temp Working Speed Ratio", (rightSpeed/speed));
+            targetReached++;
+        }
+    }
+    Stop();
+}
+
+
+

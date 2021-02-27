@@ -78,6 +78,7 @@
     "thread": "cpp",
     "cinttypes": "cpp",
     "typeinfo": "cpp",
-    "math": "cpp"
+    "math": "cpp",
+    "*.inc": "cpp"
   }
 }

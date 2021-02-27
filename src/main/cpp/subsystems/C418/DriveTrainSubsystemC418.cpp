@@ -137,7 +137,7 @@ double DriveTrainSubsystemC418::GetLeftEncoderInch()
 
 double DriveTrainSubsystemC418::GetRightEncoderInch()
 {
-  m_rightEncoderSim++;
+  m_rightEncoderSim+=1.0;
 #ifndef NOHW
   m_rightEncoderSim = m_rightEncoder.GetDistance();
   Util::Log("RightEncoder Distance", m_rightEncoderSim, "DriveTrainSubsystemC418");

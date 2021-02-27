@@ -38,6 +38,7 @@ public:
   bool MoveAlignPID(double targetDistance, double heading, double speed = 1.0);
   void SetCollision(bool colliding = true) { m_isColliding = colliding; }
   void FixRotation(double wantedAngle, double speed = 1.0);
+  void ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(double inches, double speed);
   virtual double GetPulsesPerRevolution() { return 0.0001; } //Random Small Number
   virtual double GyroGetAngle() { return m_gyroAngle; }
   virtual void GyroInit() {}
@@ -94,8 +95,8 @@ protected:
 
   frc::Timer m_autoTimer;
 
-  int m_leftEncoderSim = 0;
-  int m_rightEncoderSim = 0;
+  double m_leftEncoderSim = 0;
+  double m_rightEncoderSim = 0;
   double m_gyroAngle = 0.0;
   double m_imuAngle = 0.0;
 
