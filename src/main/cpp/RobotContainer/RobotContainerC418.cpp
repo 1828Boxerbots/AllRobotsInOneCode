@@ -425,7 +425,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 5;
+  int cases = 12;
   switch(cases)
   {
     case 0:

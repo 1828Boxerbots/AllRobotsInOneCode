@@ -120,7 +120,7 @@ void GalaticPathVision::RunRedOne()
   m_pLoader->Stop();
   //GetBallTwo
   Util::Log("GV Shadow", "R1 Ball2");
-  m_pDrive->TurnInDegrees(42.565,m_moveSpeed); // Turn 26.565 degrees toward the second ball
+  m_pDrive->TurnInDegrees(47,m_moveSpeed); // 42.5 at dying battery
   m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
   m_pDrive->ForwardInInch(53, 0, m_moveSpeed);
   Util::DelayInSeconds(0.5);
@@ -128,32 +128,36 @@ void GalaticPathVision::RunRedOne()
   //GetBallThree
   Util::Log("GV Shadow", "R1 Ball3");
   m_pDrive->SetLookingColorV(OldCameraVision::YELLOW_LEMON_N);
-  m_pDrive->TurnInDegrees(-20,m_moveSpeed); // Turn -97.130 degrees toward the third ball
+  m_pDrive->TurnInDegrees(-50,m_moveSpeed); // Turn -97.130 degrees toward the third ball
 
-  while(m_pDrive->WhereToTurn(0, m_deadZone) != 0)
+  double result = m_pDrive->WhereToTurn(0, m_deadZone);
+
+  while(result != 0)
   {
-    if(m_pDrive->WhereToTurn(0, m_deadZone) > 0)
+    if(result > 0)
     {
       m_pDrive->TurnRight(m_moveSpeed/2);
-      Util::DelayInSeconds(0.05);
+      Util::DelayInSeconds(0.045);
       m_pDrive->Stop();
     }
-    if(m_pDrive->WhereToTurn(0, m_deadZone) < -2)
+    else if(result < -2)
     {
       m_pDrive->TurnRight(m_moveSpeed/2);
-      Util::DelayInSeconds(0.05);
+      Util::DelayInSeconds(0.045);
       m_pDrive->Stop();
     }
-    else if(m_pDrive->WhereToTurn(0, m_deadZone) < 0)
+    else if(result < 0)
     {
       m_pDrive->TurnLeft(m_moveSpeed/2);
-      Util::DelayInSeconds(0.05);
+      Util::DelayInSeconds(0.045);
       m_pDrive->Stop();
     }
-    if(m_pDrive->WhereToTurn(0, m_deadZone) == 0)
+    else if(result == 0)
     {
       break;
     }
+
+    result = m_pDrive->WhereToTurn(0, m_deadZone);
   }
 
   m_pLoader->SetLoadMotor(m_loaderSpeed);
@@ -165,8 +169,8 @@ void GalaticPathVision::RunRedOne()
 
   //ToEndZone
   Util::Log("GV Shadow", "R1 Endzone");
-  m_pDrive->TurnInDegrees(90, m_moveSpeed);
-  m_pDrive->ForwardInInch(90, 0, m_moveSpeed);
+  m_pDrive->TurnInDegrees(110, m_moveSpeed);
+  m_pDrive->ForwardInInch(102, 0, m_moveSpeed);
 
   Util::Log("GV Shadow", "R1 Finished");
   m_isFinished = true;
