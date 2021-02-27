@@ -29,6 +29,7 @@ public:
   double GetCorrectAngleX();
   double GetCorrectAngleZ();
   double GetAngleZ();
+  double GetAngle();
   double GetMagX();
   double GetMagY();
   double GetMagZ();

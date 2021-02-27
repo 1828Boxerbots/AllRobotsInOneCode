@@ -72,6 +72,11 @@ double ADIS16448_IMUDriver::GetAngleY()
     return m_pDevice->GetGyroAngleY();
 }
 
+double ADIS16448_IMUDriver::GetAngle()
+{
+    return m_pDevice->GetAngle();
+}
+
 double ADIS16448_IMUDriver::GetCorrectAngleY()
 {
     return ( GetAngleY() * M_CONVERSION_FACTOR );

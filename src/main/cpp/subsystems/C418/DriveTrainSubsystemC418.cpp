@@ -97,10 +97,23 @@ void DriveTrainSubsystemC418::InitLeft()
 double DriveTrainSubsystemC418::IMUGetAngle()
 {
   Util::Log("IsIMU", false);
+  double imuY = -1;
+  double imuZ = -1;
 // If this isn't giving you the correct angle, try .GetAngleZ() or .GetAngleX()
 #ifdef M_IMU
   m_imuAngle = m_imu.GetAngleX();
-  Util::Log("IMU Angle", m_imuAngle, "DriveTrainSubsystemC418");
+  imuY = m_imu.GetAngleY();
+  imuZ = m_imu.GetAngleZ();
+  Util::Log("IMU X", m_imuAngle, "DriveTrainSubsystemC418");
+  Util::Log("IMU Z", imuZ, "DriveTrainSubsystemC418");
+  Util::Log("IMU Y", imuY, "DriveTrainSubsystemC418");
+
+  Util::Log("IMU correct X", m_imu.GetCorrectAngleX(), "DriveTrainSubsystemC418");
+  Util::Log("IMU correct Y", m_imu.GetCorrectAngleY(), "DriveTrainSubsystemC418");
+  Util::Log("IMU correct Z", m_imu.GetCorrectAngleZ(), "DriveTrainSubsystemC418");
+
+  Util::Log("IMU GetAngle", m_imu.GetAngle(), "DriveTrainSubsystemC418");
+  
   Util::Log("IsIMU", true);
   return m_imuAngle;
 #else

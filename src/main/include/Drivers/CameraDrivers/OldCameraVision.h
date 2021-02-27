@@ -94,8 +94,8 @@ private:
 	const cv::Scalar RED_CONE_HIGH_N{10,255,255};		//Night
 
 	//Yellow Lemon Values
-	const cv::Scalar YELLOW_LEMON_LOW_M{14, 40, 150};	  //Moring		//V-14-32-40-255-150-255
-	const cv::Scalar YELLOW_LEMON_HIGH_M{32, 255, 255};  //Moring
+	const cv::Scalar YELLOW_LEMON_LOW_M{14, 100, 150};	  //Moring		//V-14-30-100-255-150-255
+	const cv::Scalar YELLOW_LEMON_HIGH_M{30, 255, 255};  //Moring
 	const cv::Scalar YELLOW_LEMON_LOW_A{17, 25, 204};	  //Afternoon	//V-17-179-25-255-204-255 //6:06 2/19/2021
 	const cv::Scalar YELLOW_LEMON_HIGH_A{179, 255, 255};  //Afternoon
 	const cv::Scalar YELLOW_LEMON_LOW_N{20, 60, 200};     //Night		// V-20-179-60-255-200-255
