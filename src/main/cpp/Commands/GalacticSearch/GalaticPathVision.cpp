@@ -116,7 +116,7 @@ void GalaticPathVision::RunRedOne()
   Util::Log("GV Shadow", "R1 Ball1");
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
-  m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(60, m_moveSpeed);
+  m_pDrive->ForwardInInches2(60, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
   //GetBallTwo
@@ -124,7 +124,7 @@ void GalaticPathVision::RunRedOne()
   m_pDrive->TurnInDegrees(47,m_moveSpeed); // 42.5 at dying battery
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
-  m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(53, m_moveSpeed);
+  m_pDrive->ForwardInInches2(53, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
   //GetBallThree
@@ -135,16 +135,16 @@ void GalaticPathVision::RunRedOne()
   FaceBall();
 
   m_pLoader->SetLoadMotor(m_loaderSpeed);
-  m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(20, m_moveSpeed);
+  m_pDrive->ForwardInInches2(20, m_moveSpeed);
   m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
-  m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(39, m_moveSpeed);
+  m_pDrive->ForwardInInches2(39, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 
   //ToEndZone
   Util::Log("GV Shadow", "R1 Endzone");
   m_pDrive->TurnInDegrees(110, m_moveSpeed);
-  m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(102, m_moveSpeed);
+  m_pDrive->ForwardInInches2(102, m_moveSpeed);
 
   Util::Log("GV Shadow", "R1 Finished");
   m_isFinished = true;

@@ -109,11 +109,11 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
     }
 }
 
-void DriveTrainSubsystemBase::MoveArcade(double X, double Y)
+void DriveTrainSubsystemBase::MoveArcade(double Y, double X)
 {
     double m_scale = 1.289;
-    double leftY = X + Y;
-    double rightY = X - Y;
+    double leftY = Y + X;
+    double rightY = Y - X;
     if(X>0)
     {
         MoveTank(leftY, rightY * m_scale);
@@ -157,11 +157,11 @@ void DriveTrainSubsystemBase::IMUArcade(double x, double y, double angle)
     Stop();
 }
 
-void DriveTrainSubsystemBase::ArcadeVision(double x, double y, OldCameraVision::VisionColors color)
+void DriveTrainSubsystemBase::ArcadeVision(double y, double x, OldCameraVision::VisionColors color)
 {
     double m_scale = 1.28;
-    double leftY = x + y;
-    double rightY = x - y;
+    double leftY = y + x;
+    double rightY = y - x;
 
     double deadZoneLocation = 0.75;
     double deadZoneRange = 30;
@@ -180,7 +180,8 @@ void DriveTrainSubsystemBase::ArcadeVision(double x, double y, OldCameraVision::
     }
     Stop();
 }
-void DriveTrainSubsystemBase::TimedArcade(double x, double y, double time)
+
+void DriveTrainSubsystemBase::TimedArcade(double y, double x, double time)
 {
      m_autoTimer.Stop();
     m_autoTimer.Reset();
@@ -188,7 +189,7 @@ void DriveTrainSubsystemBase::TimedArcade(double x, double y, double time)
     double startTime = m_autoTimer.Get();
     do
     {
-        MoveArcade(x, y);
+        MoveArcade(y, x);
     } while (time > m_autoTimer.Get()-startTime);
     Stop();
 }
@@ -332,6 +333,7 @@ void DriveTrainSubsystemBase::FixRotation(double wantedAngle, double speed)
     }
     Stop();
 }
+
 //Pretty buggy, two versions of it: PIDS control and regular control. PIDS makes sure the robot is straight, regular just moves forward
 void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double speed)
 {
@@ -552,8 +554,7 @@ double DriveTrainSubsystemBase::ReadIMU()
     return IMUGetAngle();
 }
 
-
-void DriveTrainSubsystemBase::ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(double inches, double speed)
+void DriveTrainSubsystemBase::ForwardInInches2(double inches, double speed)
 {
     ResetEncoder();
 

@@ -287,6 +287,7 @@ void DriveTrainSubsystemC418::PrecisionMovementLidar(double wantedDistance)
   }
 #endif
 }
+
 void DriveTrainSubsystemC418::GoAroundCone(bool turnRight)
 {
   frc::Timer timer;
@@ -374,6 +375,7 @@ void DriveTrainSubsystemC418::SetLookingColorV(OldCameraVision::VisionColors col
     m_camera.SetLookingColor(color);
   #endif
 }
+
 OldCameraVision::VisionColors DriveTrainSubsystemC418::GetLookingColorV()
 {
   #ifndef NO_HW
@@ -433,6 +435,7 @@ void DriveTrainSubsystemC418::EnableAnticollision(bool enable)
     #endif
   }*/
 }
+
 /*
 Detection code ripped from Rocky code for Robot 2020
 //Gets Detection distance; used for debugging

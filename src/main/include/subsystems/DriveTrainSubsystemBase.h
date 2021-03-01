@@ -27,9 +27,9 @@ public:
    */
   virtual void Periodic();
   void MoveTank(double leftY, double rightY);
-  virtual void MoveArcade(double X, double Y);
-  void ArcadeVision(double x, double y,  OldCameraVision::VisionColors color = OldCameraVision::VisionColors::GREEN_CONE_N);
-  void TimedArcade(double x, double y, double time);
+  virtual void MoveArcade(double Y, double X);
+  void ArcadeVision(double y, double x,  OldCameraVision::VisionColors color = OldCameraVision::VisionColors::GREEN_CONE_N);
+  void TimedArcade(double y, double x, double time);
   void IMUArcade(double x, double y, double angle);
   void Stop();
   void Forward(double speed = 1.0);
@@ -38,7 +38,7 @@ public:
   bool MoveAlignPID(double targetDistance, double heading, double speed = 1.0);
   void SetCollision(bool colliding = true) { m_isColliding = colliding; }
   void FixRotation(double wantedAngle, double speed = 1.0);
-  void ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(double inches, double speed);
+  void ForwardInInches2(double inches, double speed);
   virtual double GetPulsesPerRevolution() { return 0.0001; } //Random Small Number
   virtual double GyroGetAngle() { return m_gyroAngle; }
   virtual void GyroInit() {}

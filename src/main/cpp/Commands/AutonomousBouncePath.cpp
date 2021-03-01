@@ -93,7 +93,7 @@ void AutonomousBouncePath::ProcessState3()
   {
     m_pDrive->TurnInDegrees(-20, 0.10);
     m_pDrive->TurnInDegrees(20, 0.10);
-    m_pDrive->ForwardInInchesButBetterBecauseBenWantedItAndTitoMadeUsComply(150, 0.3);
+    m_pDrive->ForwardInInches2(150, 0.3);
     m_pDrive->TurnInDegrees(40, 0.15);
     m_state = 4;
   }
