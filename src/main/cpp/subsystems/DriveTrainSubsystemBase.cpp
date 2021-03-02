@@ -407,7 +407,7 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
          TurnRight(speed);
          while (currentAngle - startAngle < relativeAngle)
          {
-             currentAngle = IMUGetAngle();
+            currentAngle = IMUGetAngle();
          }
      }
      if (relativeAngle < 0)
@@ -415,7 +415,7 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
          TurnLeft(speed);
          while (currentAngle - startAngle > relativeAngle)
          {
-             currentAngle = IMUGetAngle();
+            currentAngle = IMUGetAngle();
          }
      }
      Stop();
@@ -603,5 +603,51 @@ void DriveTrainSubsystemBase::ForwardInInches2(double inches, double speed)
     Stop();
 }
 
+void DriveTrainSubsystemBase::ForwardInInchGyro(double inch, double speed)
+{
+    ResetEncoder();
 
+    double startAngle = IMUGetAngle();
+    double currentAngle = IMUGetAngle();
 
+    double rightInch = 0.0;
+    double leftInch = 0.0;
+    double rightInchStart = GetRightEncoderInch();
+    double leftInchStart = GetLeftEncoderInch();
+
+    double deadZone = 1;
+    double deadZoneInch = 0.1;
+
+    double startAngleLow = startAngle - deadZone;
+    double startAngleHigh = startAngle + deadZone;
+
+    double turnSpeed = 0;
+
+    while(Util::Abs(leftInch - leftInchStart) < inch || Util::Abs(rightInch - rightInchStart) < inch)
+    {
+        if(currentAngle > startAngleHigh || Util::Abs(leftInch - leftInchStart) > Util::Abs(rightInch - rightInchStart) + deadZoneInch)
+        {
+            //Turn Right
+            turnSpeed = 0.05;
+        }
+        else if(currentAngle < startAngleLow || Util::Abs(leftInch - leftInchStart) < Util::Abs(rightInch - rightInchStart) - deadZoneInch)
+        {
+            //Turn Left
+            turnSpeed = -0.05;
+        }
+        else
+        {
+            //DONT TURN FOOL
+            turnSpeed = 0;
+        }
+
+        leftInch = GetLeftEncoderInch();
+        rightInch = GetLeftEncoderInch();
+
+        currentAngle = IMUGetAngle();
+
+        MoveArcade(speed, turnSpeed);
+    }
+
+    Stop();
+}

@@ -91,10 +91,7 @@ void AutonomousBouncePath::ProcessState3()
 {
   if(m_state == 3)
   {
-    m_pDrive->TurnInDegrees(-20, 0.10);
-    m_pDrive->TurnInDegrees(20, 0.10);
-    m_pDrive->ForwardInInches2(150, 0.3);
-    m_pDrive->TurnInDegrees(40, 0.15);
+    m_pDrive->ForwardInInchGyro(132, 0.4);
     m_state = 4;
   }
 }
