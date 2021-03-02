@@ -90,10 +90,10 @@ int GalaticPathVision::CheckRun()
     return RED_TWO;
   }
 
-  m_pDrive->TurnInDegrees(21, m_moveSpeed/2);
+  RotateToDegree(0);
   //Move 15 feet
   Util::Log("GV Shadow", "CheckRun Forward");
-  m_pDrive->ForwardInInch(180, 0.0, m_moveSpeed);
+  m_pDrive->ForwardInInchGyro(180, m_moveSpeed);
   //Can find Image return Blue1 and if cant find image return Blue2
   Util::Log("GV Shadow", "CheckRun Where");
   if(m_pDrive->WhereToTurn(0, 50) > -2)
@@ -246,11 +246,11 @@ void GalaticPathVision::RunBlueTwo()
   m_pDrive->TurnInDegrees(80, m_moveSpeed); //Turn toward ball and end
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE);
-  m_pDrive->ForwardInInch(84, 0, m_moveSpeed);
+  m_pDrive->ForwardInInch(120, 0, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 
-  RotateToEnd();
+  //RotateToEnd();
 
   Util::Log("GV Shadow", "B2 Finished");
   m_isFinished = true;
@@ -325,7 +325,7 @@ void GalaticPathVision::RotateToDegree(double degree)
 {
   double currentAngle = m_pDrive->IMUGetAngle();
   
-  double lowerDegree = degree - 2;
+  double lowerDegree = degree - 1;
   double upperDegree = degree + 2;
 
   while(currentAngle > upperDegree || currentAngle < lowerDegree)
