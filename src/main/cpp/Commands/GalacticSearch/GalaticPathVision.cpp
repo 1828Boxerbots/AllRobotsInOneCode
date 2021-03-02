@@ -1,7 +1,7 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-
+#include "subsystems/C418/LoaderSubsystemC418.h"
 #include "Commands/GalacticSearch/GalaticPathVision.h"
 
 
@@ -115,7 +115,7 @@ void GalaticPathVision::RunRedOne()
   //GetBallOne
   Util::Log("GV Shadow", "R1 Ball1");
   FaceBall();
-  m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
+  m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
   m_pDrive->ForwardInInches2(60, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
@@ -123,7 +123,7 @@ void GalaticPathVision::RunRedOne()
   Util::Log("GV Shadow", "R1 Ball2");
   m_pDrive->TurnInDegrees(47,m_moveSpeed); // 42.5 at dying battery
   FaceBall();
-  m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
+  m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
   m_pDrive->ForwardInInches2(53, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
@@ -136,7 +136,7 @@ void GalaticPathVision::RunRedOne()
 
   m_pLoader->SetLoadMotor(m_loaderSpeed);
   m_pDrive->ForwardInInches2(20, m_moveSpeed);
-  m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
+  m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
   m_pDrive->ForwardInInches2(39, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
@@ -155,7 +155,7 @@ void GalaticPathVision::RunRedTwo()
   //Get First Ball
   Util::Log("GV Shadow", "R2 Ball1");
   FaceBall();
-  m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
+  m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
   m_pDrive->ForwardInInch(70, 0, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
@@ -163,7 +163,7 @@ void GalaticPathVision::RunRedTwo()
   Util::Log("GV Shadow", "R2 Ball2");
   RotateToDegree(45); //Turn towards Ball
   FaceBall();
-  m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
+  m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
   m_pDrive->ForwardInInch(80, 0, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
@@ -171,7 +171,7 @@ void GalaticPathVision::RunRedTwo()
   Util::Log("GV Shadow", "R2 Ball3");
   RotateToDegree(-45); //Turn Towards ball
   FaceBall();
-  m_pLoader->SetLoadMotor(m_loaderSpeed, 2);
+  m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE);
   m_pDrive->ForwardInInch(90, 0, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
@@ -191,7 +191,7 @@ void GalaticPathVision::RunBlueOne()
   Util::Log("GV Shadow", "B1 Ball1");
   m_pDrive->TurnInDegrees(90, m_moveSpeed); //Turn toward ball
   FaceBall();
-  m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
+  m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
   m_pDrive->ForwardInInch(60, 0, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
@@ -199,7 +199,7 @@ void GalaticPathVision::RunBlueOne()
   Util::Log("GV Shadow", "B1 Ball2");
   m_pDrive->TurnInDegrees(-161.6, m_moveSpeed);  //Turn toward ball
   FaceBall();
-  m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
+  m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
   m_pDrive->ForwardInInch(100, 0,m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
@@ -207,7 +207,7 @@ void GalaticPathVision::RunBlueOne()
   Util::Log("GV Shadow", "B1 Ball3");
   m_pDrive->TurnInDegrees(88.2, m_moveSpeed); //Turn toward ball and end
   FaceBall();
-  m_pLoader->SetLoadMotor(m_loaderSpeed, 2);
+  m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE);
   m_pDrive->ForwardInInch(50, 0, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
@@ -225,32 +225,32 @@ void GalaticPathVision::RunBlueTwo()
 {
   //Get first ball
   Util::Log("GV Shadow", "B2 Ball1");
-  m_pDrive->TurnInDegrees(90, m_moveSpeed); //Turn toward ball
+  m_pDrive->TurnInDegrees(-80, m_moveSpeed); //Turn toward ball
   FaceBall();
-  m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
-  m_pDrive->ForwardInInch(90, 0, m_moveSpeed);
+  m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
+  m_pDrive->ForwardInInch(30, 0, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 
   //Get Second ball
   Util::Log("GV Shadow", "B2 Ball2");
-  m_pDrive->TurnInDegrees(-135, m_moveSpeed);  //Turn toward ball
-  FaceBall();
-  m_pLoader->SetLoadMotor(m_loaderSpeed, 3);
-  m_pDrive->ForwardInInch(90, 0, m_moveSpeed);
+  m_pDrive->TurnInDegrees(-125, m_moveSpeed);  //Turn toward ball
+  FaceBall(true);
+  m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
+  m_pDrive->ForwardInInch(84, 0, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 
   //Get third ball and go to end zone
   Util::Log("GV Shadow", "B2 Ball1 3 & end");
-  m_pDrive->TurnInDegrees(90, m_moveSpeed); //Turn toward ball and end
+  m_pDrive->TurnInDegrees(80, m_moveSpeed); //Turn toward ball and end
   FaceBall();
-  m_pLoader->SetLoadMotor(m_loaderSpeed, 2);
-  m_pDrive->ForwardInInch(90, 0, m_moveSpeed);
+  m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE);
+  m_pDrive->ForwardInInch(84, 0, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 
-  m_pDrive->ForwardInInch(90, 0, m_moveSpeed); //Move toward ball and past end
+  RotateToEnd();
 
   Util::Log("GV Shadow", "B2 Finished");
   m_isFinished = true;
