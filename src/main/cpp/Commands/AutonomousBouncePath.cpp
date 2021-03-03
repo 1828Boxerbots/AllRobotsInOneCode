@@ -91,7 +91,7 @@ void AutonomousBouncePath::ProcessState3()
 {
   if(m_state == 3)
   {
-    m_pDrive->ForwardInInchGyro(132, 0.4);
+    m_pDrive->ForwardInInchGyro(134, 0.4);
     m_state = 4;
   }
 }

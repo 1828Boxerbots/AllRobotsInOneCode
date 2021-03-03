@@ -114,19 +114,13 @@ void DriveTrainSubsystemBase::MoveArcade(double Y, double X)
     double m_scale = 1.289;
     double leftY = Y + X;
     double rightY = Y - X;
-    if(X>0)
-    {
-        MoveTank(leftY, rightY * m_scale);
-    }
-    if(X<0)
-    {
-        MoveTank(leftY * m_scale, rightY);
-    }
+    MoveTank(leftY, rightY * m_scale);
+
 }
 
 void DriveTrainSubsystemBase::IMUArcade(double x, double y, double angle)
 {
-    double m_scale = 1.28;
+    double m_scale = 0.0;
     double leftY = x + y;
     double rightY = x - y;
     frc::SmartDashboard::PutNumber("Shadow", 1);
@@ -159,7 +153,7 @@ void DriveTrainSubsystemBase::IMUArcade(double x, double y, double angle)
 
 void DriveTrainSubsystemBase::ArcadeVision(double y, double x, OldCameraVision::VisionColors color)
 {
-    double m_scale = 1.28;
+    double m_scale = 0.0;
     double leftY = y + x;
     double rightY = y - x;
 
@@ -351,7 +345,7 @@ void DriveTrainSubsystemBase::ForwardInInch(double inch, double angle, double sp
     double startDistanceLeftRaw = GetLeftEncoderRaw();
     double currentDistanceLeftRaw = GetLeftEncoderRaw();
 
-    double multiplierR = 1.24;
+    double multiplierR = 0.0;
     double SPEED_INCREMENT = 0.005;
     double ENCODER_DEADZONE = 40;
     while ((Util::Abs(currentDistanceLeft - startDistanceLeft) < inch))
@@ -482,27 +476,35 @@ void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZ
             if(defaultTurnRight == true)
             {
                 TurnRight(0.2);
+                Util::DelayInSeconds(0.1);
+                Stop();
             }
             else if(defaultTurnRight == false)
             {
                 TurnLeft(0.2);
+                Util::DelayInSeconds(0.1);
+                Stop();
             }
         }
         else if (turn < 0.0)
         {
             Util::Log("Direction", "TurnLeft");
             //Turn left if object is on the left
-            TurnLeft(0.2);
+            TurnLeft(0.3);
+            Util::DelayInSeconds(0.05);
+            Stop();
         }
         else if(turn > 0.0)
         {
             Util::Log("Direction", "TurnRight");
             //Turn right if object is on the right
-            TurnRight(0.2);
+            TurnRight(0.3);
+            Util::DelayInSeconds(0.05);
+            Stop();
         }
     }
     Util::Log("Direction", "Center");
-    Forward(0.5);
+    Forward(0.25);
     while(turn > -2.9)
     {
         //Continue Forwards until object is not see-able
@@ -616,21 +618,20 @@ void DriveTrainSubsystemBase::ForwardInInchGyro(double inch, double speed)
     double leftInchStart = GetLeftEncoderInch();
 
     double deadZone = 1;
-    double deadZoneInch = 0.1;
+    //double deadZoneInch = 0.1;
 
     double startAngleLow = startAngle - deadZone;
     double startAngleHigh = startAngle + deadZone;
-
     double turnSpeed = 0;
 
     while(Util::Abs(leftInch - leftInchStart) < inch || Util::Abs(rightInch - rightInchStart) < inch)
     {
-        if(currentAngle > startAngleHigh || Util::Abs(leftInch - leftInchStart) > Util::Abs(rightInch - rightInchStart) + deadZoneInch)
+        if(currentAngle > startAngleHigh)
         {
             //Turn Right
             turnSpeed = 0.05;
         }
-        else if(currentAngle < startAngleLow || Util::Abs(leftInch - leftInchStart) < Util::Abs(rightInch - rightInchStart) - deadZoneInch)
+        else if(currentAngle < startAngleLow)
         {
             //Turn Left
             turnSpeed = -0.05;
