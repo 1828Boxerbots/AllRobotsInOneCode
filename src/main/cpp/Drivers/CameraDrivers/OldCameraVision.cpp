@@ -335,7 +335,7 @@ void OldCameraVision::SetColor()
 	GetCentroidX();
 	GetCentroidY();
 
-	Util::DelayInSeconds(0.5);
+	Util::DelayInSeconds(1);
 }
 
 void OldCameraVision::SetHigh(int HSV, int value)
