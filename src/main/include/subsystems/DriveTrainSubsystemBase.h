@@ -26,7 +26,7 @@ public:
    * Will be called periodically whenever the CommandScheduler runs.
    */
   virtual void Periodic();
-  void MoveTank(double leftY, double rightY);
+  virtual void MoveTank(double leftY, double rightY);
   virtual void MoveArcade(double Y, double X);
   void ArcadeVision(double y, double x,  OldCameraVision::VisionColors color = OldCameraVision::VisionColors::GREEN_CONE_N);
   void TimedArcade(double y, double x, double time);
@@ -47,6 +47,8 @@ public:
   virtual void Init();
   virtual void SetMotorL(double speed) {}
   virtual void SetMotorR(double speed) {}
+  virtual double GetMotorL() { return 0; }
+  virtual double GetMotorR() { return 0; }
   virtual void TurnLeft(double speed = 1.0);
   virtual void TurnRight(double speed = 1.0);
   virtual double GetLeftEncoderInch() { return -1.0; }

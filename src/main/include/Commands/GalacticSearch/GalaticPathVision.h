@@ -45,7 +45,7 @@ private:
   LoaderSubsystemBase *m_pLoader;
   bool m_isFinished = false;
 
-  OldCameraVision::VisionColors m_color = OldCameraVision::YELLOW_LEMON_M;
+  OldCameraVision::VisionColors m_color = OldCameraVision::YELLOW_LEMON_N;
 
   double m_moveSpeed = 0.4;
   double m_loaderSpeed = 0.6;

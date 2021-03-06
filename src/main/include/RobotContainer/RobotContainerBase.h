@@ -56,9 +56,9 @@ public:
 
   enum DriveStyles
   {
-    TANK_STYLE,
-    ARCADE_STYLE
-    //,WESTCOAST_STYLE
+    TANK_STYLE
+    ,ARCADE_STYLE
+    ,RC_STYLE
   };
 
   double LOAD = 1.0;

@@ -32,6 +32,8 @@ public:
 
   virtual void SetMotorL(double speed);
   virtual void SetMotorR(double speed);
+  double GetMotorL() override;
+  double GetMotorR() override;
 
   void GoAroundCone(bool turnRight) override;
 

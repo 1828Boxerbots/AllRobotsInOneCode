@@ -42,6 +42,27 @@ void DriveTrainSubsystemC418::SetMotorR(double speed)
 
 }
 
+double DriveTrainSubsystemC418::GetMotorL()
+{
+#ifndef NOHW
+  return m_leftMotor.Get();
+#else
+  return 0;
+#endif
+
+  //m_camera.Tick();
+}
+
+double DriveTrainSubsystemC418::GetMotorR()
+{
+#ifndef NOHW
+  return m_rightMotor.Get();
+#else
+  reutnr 0;
+#endif
+
+}
+
 double DriveTrainSubsystemC418::WhereToTurn( double deadZoneLocation, int deadZoneRange)
 {
   #ifndef NO_HW

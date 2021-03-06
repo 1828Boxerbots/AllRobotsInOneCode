@@ -28,7 +28,18 @@ void RobotContainerBase::SetDrive(DriveStyles driveStyle)
     case TANK_STYLE:
         m_pDrive->SetDefaultCommand(frc2::RunCommand(
             [this] {
-                m_pDrive->MoveTank(-m_controller.GetY(frc::GenericHID::kLeftHand), -m_controller.GetY(frc::GenericHID::kRightHand));
+                double leftHand = -m_controller.GetY(frc::GenericHID::kLeftHand);
+                //leftHand = (leftHand/(abs(leftHand)))*(pow(leftHand, 2)); //Square it but maintain the sign
+                leftHand = pow(leftHand, 3);
+                double rightHand = -m_controller.GetY(frc::GenericHID::kRightHand);
+                //rightHand = (rightHand/(abs(rightHand)))*(pow(rightHand, 2)); //Square it but maintain the sign
+                rightHand = pow(rightHand, 3);
+                m_pDrive->MoveTank(leftHand, rightHand);
+
+                Util::Log("SetDrive Left Stick", leftHand);
+                Util::Log("SetDrive Right Stick", rightHand);
+                Util::Log("SetDrive Left Motor", m_pDrive->GetMotorL());
+                Util::Log("SetDrive Right Motor", m_pDrive->GetMotorR());
             },
             {m_pDrive}));
         break;
@@ -36,7 +47,15 @@ void RobotContainerBase::SetDrive(DriveStyles driveStyle)
     case ARCADE_STYLE:
         m_pDrive->SetDefaultCommand(frc2::RunCommand(
             [this] {
-                m_pDrive->MoveArcade(m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetX(frc::GenericHID::kLeftHand));
+                m_pDrive->MoveArcade(-m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetX(frc::GenericHID::kLeftHand));
+            },
+            {m_pDrive}));
+        break;
+    
+    case RC_STYLE:
+        m_pDrive->SetDefaultCommand(frc2::RunCommand(
+            [this] {
+                m_pDrive->MoveArcade(-m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetX(frc::GenericHID::kRightHand));
             },
             {m_pDrive}));
         break;

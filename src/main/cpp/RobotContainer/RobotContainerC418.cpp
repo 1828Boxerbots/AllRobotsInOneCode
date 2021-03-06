@@ -426,7 +426,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 6;
+  int cases = 11;
   switch(cases)
   {
     case 0:
@@ -479,7 +479,7 @@ void RobotContainerC418::Init()
   if (m_pSpin != nullptr)
     m_pSpin->InterpretFMS(ReadFMS());
   m_pDrive->Init();
-  SetDrive();
+  SetDrive(ARCADE_STYLE);
   if (m_pLoader != nullptr)
     m_pLoader->SetLoadMotor(0.0);
   m_pLoader->Init();

@@ -99,7 +99,7 @@ void AutoArmCommand::Execute()
       if (m_pSpin->ReadColorSensor() != -1)
       {
         //Stops the robot if the color sensor is in range of the wheel
-        m_pDrive->MoveTank(ZERO, ZERO);
+        //m_pDrive->MoveTank(ZERO, ZERO);  //TeleOp Test
         //In the rules, in order to get points, you need to spin the wheel a certain amount of time before
         m_pSpin->SpinNumRotations(/*Speed*/ ROUGHWHEELSPIN, /*Rotations*/ 2);
         //Spins wheel to be on correct color
