@@ -55,7 +55,10 @@ void RobotContainerBase::SetDrive(DriveStyles driveStyle)
     case RC_STYLE:
         m_pDrive->SetDefaultCommand(frc2::RunCommand(
             [this] {
-                m_pDrive->MoveArcade(-m_controller.GetY(frc::GenericHID::kLeftHand), m_controller.GetX(frc::GenericHID::kRightHand));
+                double leftHand = -m_controller.GetY(frc::GenericHID::kLeftHand);
+                double rightHand = m_controller.GetX(frc::GenericHID::kRightHand);
+                rightHand = rightHand * 0.75;
+                m_pDrive->MoveArcade(leftHand, rightHand);
             },
             {m_pDrive}));
         break;
