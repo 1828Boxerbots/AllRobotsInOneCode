@@ -614,6 +614,8 @@ void DriveTrainSubsystemBase::ForwardInInchGyro(double inch, double speed)
     double startAngle = IMUGetAngle();
     double currentAngle = IMUGetAngle();
 
+    Util::Log("ForwardGyro SA", startAngle);
+
     double rightInch = 0.0;
     double leftInch = 0.0;
     double rightInchStart = GetRightEncoderInch();
@@ -648,6 +650,8 @@ void DriveTrainSubsystemBase::ForwardInInchGyro(double inch, double speed)
         rightInch = GetLeftEncoderInch();
 
         currentAngle = IMUGetAngle();
+
+        Util::Log("ForwardGyro CA", currentAngle);
 
         MoveArcade(speed, turnSpeed);
     }
