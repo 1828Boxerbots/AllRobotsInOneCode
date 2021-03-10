@@ -45,6 +45,7 @@ public:
 	, GREEN_CONE_M, GREEN_CONE_A, GREEN_CONE_N
 	, YELLOW_LEMON_M, YELLOW_LEMON_A, YELLOW_LEMON_N
 	, PURPLE_BOTTLE_M, PURPLE_BOTTLE_A, PURPLE_BOTTLE_N
+	, LEMON_ROCKY_M, LEMON_ROCKY_A, LEMON_ROCKY_N
 	, YELLOW_CONE, ORANGE_CONE, FMS_COLOR};
 
 	void Tick();
@@ -115,6 +116,14 @@ private:
 	const cv::Scalar ORANGE_CONE_HIGH{40,255,255};		//V-0-40-20-255-220-255
 	const cv::Scalar BLUE_TEAMSHIRT_LOW{50, 50, 100};
 	const cv::Scalar BLUE_TEAMSHIRT_HIGH{100, 255, 255};
+
+	//Lemon Rocky
+	const cv::Scalar YELLOW_LEMON_LOW_ROCKY_M{14, 100, 150};	//Moring		//V-14-30-100-255-150-255
+	const cv::Scalar YELLOW_LEMON_HIGH_ROCKY_M{30, 255, 255};  	//Moring
+	const cv::Scalar YELLOW_LEMON_LOW_ROCKY_A{17, 25, 204};	  	//Afternoon	//V-17-179-25-255-204-255 //6:06 2/19/2021
+	const cv::Scalar YELLOW_LEMON_HIGH_ROCKY_A{179, 255, 255};  //Afternoon
+	const cv::Scalar YELLOW_LEMON_LOW_ROCKY_N{20, 60, 200};     //Night		// V-20-179-60-255-200-255
+	const cv::Scalar YELLOW_LEMON_HIGH_ROCKY_N{179, 255, 255};  //Night
 
 	const std::string IMAGE_FILTERED = "Filtered";
 	const std::string IMAGE_THRESHOLD = "Threshold";

@@ -13,6 +13,7 @@
 #include "../../Drivers/AM3313HallEffectDriver.h"
 #include "../../Drivers/LidarDriver.h"
 #include "../../Drivers/ADXRS_450GyroDriver.h"
+#include "../../Drivers/CameraDrivers/OldCameraVision.h"
 
 class DriveTrainSubsystemRocky : public DriveTrainSubsystemBase
 {
@@ -34,6 +35,17 @@ public:
   double GetPulsesPerRevolution() override { return PULSE_PER_REVOLUTION; }
   void EnableAnticollision(bool enable) override;
 
+  double WhereToTurn( double deadZoneLocation = 0.0, int deadZoneRange = 100) override;
+  void SetHSVHigh(int HSV, int value) override;
+  void SetHSVLow(int HSV, int value) override;
+  void SetLookingColorV(OldCameraVision::VisionColors) override;
+  double GetCentroidY() override;
+  double GetCentroidX() override;
+  OldCameraVision::VisionColors GetLookingColorV() override;
+  void SetVisionCrop(int cropX = 0, int cropY = 0, int cropW = 240, int cropH = 320) override;
+  void GetVisionSize(int *pHeight, int *pWidth) override;
+  void SetVisionFMSColor(OldCameraVision::VisionColors color);
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -46,6 +58,8 @@ private:
   frc::Encoder m_rightEncoder{DIO_RIGHTENCODER_ROCKY_ONE, DIO_RIGHTENCODER_ROCKY_TWO};
   frc::ADXRS450_Gyro m_gyro;
   LidarDriver m_lidar{frc::I2C::Port::kOnboard, LidarDriver::LIDAR_ADDRESS};
+
+  OldCameraVision m_camera{0};
 #endif
 
   const double PULSE_PER_REVOLUTION = 240;

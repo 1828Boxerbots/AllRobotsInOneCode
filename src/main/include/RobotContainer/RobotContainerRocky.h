@@ -17,6 +17,7 @@
 #include <frc2/command/RunCommand.h>
 #include <frc2/command/WaitUntilCommand.h>
 #include <frc2/command/InstantCommand.h>
+#include "Commands/GalacticSearch/GalaticPathVision.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -36,8 +37,16 @@ public:
   virtual void DisableInit();
   int ReadDioSwitch();
 
+  void AutonomousPeriodic() override;
+  void TeleopPeriodic() override;
+
+  void GetVisionFMS() override;
+  void BreakFMSStr(std::string gameData) override;
+
 private:
   // The robot's subsystems and commands are defined here...
-
   void ConfigureButtonBindings();
+
+  GalaticPathVision *m_pGalacticSearchVision = nullptr;
+
 };

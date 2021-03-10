@@ -604,7 +604,7 @@ void RobotContainerC418::SetBackButton()
   backButttonTwo.WhenReleased(&m_armStop);
 }
 
- void RobotContainerC418::GetVisionFMS()
+void RobotContainerC418::GetVisionFMS()
 {
   std::string gameData;
   gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();

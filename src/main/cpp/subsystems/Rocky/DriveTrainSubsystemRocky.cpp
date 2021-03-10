@@ -93,6 +93,8 @@ void DriveTrainSubsystemRocky::Init()
   //m_rightEncoder.SetDistancePerPulse((WHEELDIAMETER*Util::PI)/PULSE_PER_REVOLUTION);
   m_leftEncoder.SetDistancePerPulse((1.0 / GetPulsesPerRevolution()) * Util::PI * WHEELDIAMETER);
   m_rightEncoder.SetDistancePerPulse((1.0 / GetPulsesPerRevolution()) * Util::PI * WHEELDIAMETER);
+
+  m_camera.Init();
 #endif
 }
 
@@ -166,4 +168,77 @@ void DriveTrainSubsystemRocky::EnableAnticollision(bool enable)
 {
   enable = false;
   m_hasAntiCollision = enable;
+}
+
+
+double DriveTrainSubsystemRocky::WhereToTurn( double deadZoneLocation, int deadZoneRange)
+{
+  #ifndef NO_HW
+    return m_camera.WhereToTurn(deadZoneLocation, deadZoneRange);
+  #endif
+}
+
+void DriveTrainSubsystemRocky::SetHSVHigh(int HSV, int value)
+{
+  #ifndef NO_HW
+    m_camera.SetHigh(HSV, value);
+  #endif
+}
+
+void DriveTrainSubsystemRocky::SetHSVLow(int HSV, int value)
+{
+  #ifndef NO_HW
+    m_camera.SetLow(HSV, value);
+  #endif
+}
+
+void DriveTrainSubsystemRocky::SetVisionFMSColor(OldCameraVision::VisionColors color)
+{
+  #ifndef NO_HW
+    m_camera.SetFMSColor(color);
+  #endif
+}
+
+void DriveTrainSubsystemRocky::SetLookingColorV(OldCameraVision::VisionColors color)
+{
+  #ifndef NO_HW
+    m_camera.SetLookingColor(color);
+  #endif
+}
+
+OldCameraVision::VisionColors DriveTrainSubsystemRocky::GetLookingColorV()
+{
+  #ifndef NO_HW
+    return m_camera.GetLookingColor();
+  #else
+    return OldCameraVision::VisionColors::INVALID_COLOR;
+  #endif
+}
+
+double DriveTrainSubsystemRocky::GetCentroidY()
+{
+  #ifndef NO_HW
+  return m_camera.GetCentroidY();
+  #endif
+}
+
+double DriveTrainSubsystemRocky::GetCentroidX()
+{
+  #ifndef NO_HW
+  return m_camera.GetCentroidX();
+  #endif
+}
+
+void DriveTrainSubsystemRocky::SetVisionCrop(int cropX, int cropY, int cropW, int cropH)
+{
+  #ifndef NO_HW
+  m_camera.SetCrop(cropX, cropY, cropW, cropH);
+  #endif
+}
+
+void DriveTrainSubsystemRocky::GetVisionSize(int *pHeight, int *pWidth)
+{
+  #ifndef NO_HW
+  m_camera.GetSize(pHeight, pWidth);
+  #endif
 }
