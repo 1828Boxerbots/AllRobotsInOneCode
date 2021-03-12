@@ -111,7 +111,7 @@ void DriveTrainSubsystemBase::MoveTank(double leftY, double rightY)
 
 void DriveTrainSubsystemBase::MoveArcade(double Y, double X)
 {
-    double m_scale = 1.289;
+    double m_scale = 1/*.289*/;
     double leftY = Y + X;
     double rightY = Y - X;
     //MoveTank(leftY, rightY * m_scale); //TeleOp Test

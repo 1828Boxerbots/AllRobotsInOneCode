@@ -94,7 +94,7 @@ int GalaticPathVision::CheckRun()
   RotateToDegree(0);
   //Move 15 feet
   Util::Log("GV Shadow", "CheckRun Forward");
-  m_pDrive->ForwardInInchGyro(150, m_moveSpeed);
+  m_pDrive->ForwardInInchGyro(120, m_moveSpeed);
   //Can find Image return Blue1 and if cant find image return Blue2
   Util::Log("GV Shadow", "CheckRun Where");
   if(m_pDrive->WhereToTurn(0, 50) > -2)
@@ -117,33 +117,37 @@ void GalaticPathVision::RunRedOne()
   Util::Log("GV Shadow", "R1 Ball1");
   //FaceBall(false, 0.05);
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
-  m_pDrive->ForwardInInchGyro(75, m_moveSpeed);
+  m_pDrive->ForwardInInchGyro(75, m_moveSpeed*2);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
   //GetBallTwo
   Util::Log("GV Shadow", "R1 Ball2");
   RotateToDegree(-40);
   FaceBall(true, 0.05);
-  m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
-  m_pDrive->ForwardInInchGyro(55, m_moveSpeed);
-  Util::DelayInSeconds(0.5);
+  m_pLoader->SetLoadMotor(m_loaderSpeed);
+  m_pDrive->ForwardInInchGyro(55, m_moveSpeed*2);
+  Util::DelayInSeconds(0.7);
   m_pLoader->Stop();
   //GetBallThree
   Util::Log("GV Shadow", "R1 Ball3");
-  //m_pDrive->SetLookingColorV(OldCameraVision::YELLOW_LEMON_N);
-  RotateToDegree(65);
-
-  FaceBall(true, 0.08);
+  RotateToDegree(50, 0.2);
+  m_pDrive->ForwardInInchGyro(3, m_moveSpeed);
+  // bool turn = true;
+  // if(m_pDrive->GyroGetAngle() > 50)
+  // {
+  //   turn = false;
+  // }
+  FaceBall(true, 0.04, 0.2);
 
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE);
-  m_pDrive->ForwardInInchGyro(73, m_moveSpeed);
+  m_pDrive->ForwardInInchGyro(73, m_moveSpeed*2);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 
   //ToEndZone
   Util::Log("GV Shadow", "R1 Endzone");
   RotateToEnd();
-  m_pDrive->ForwardInInchGyro(130, m_moveSpeed);
+  m_pDrive->ForwardInInchGyro(130, m_moveSpeed*2);
 
   Util::Log("GV Shadow", "R1 Finished");
   m_isFinished = true;
@@ -190,7 +194,7 @@ void GalaticPathVision::RunBlueOne()
 {
   //Get ball one
   Util::Log("GV Shadow", "B1 Ball1");
-  RotateToDegree(-26.6); //Turn toward ball
+  RotateToDegree(-30); //Turn toward ball
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
   m_pDrive->ForwardInInchGyro(67.2, m_moveSpeed);
@@ -198,7 +202,7 @@ void GalaticPathVision::RunBlueOne()
   m_pLoader->Stop();
   //Get Ball two
   Util::Log("GV Shadow", "B1 Ball2");
-  RotateToDegree(161.6);  //Turn toward ball
+  RotateToDegree(80);  //Turn toward ball
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
   m_pDrive->ForwardInInchGyro(100, m_moveSpeed);
@@ -206,7 +210,7 @@ void GalaticPathVision::RunBlueOne()
   m_pLoader->Stop();
   //GetBall 3
   Util::Log("GV Shadow", "B1 Ball3");
-  RotateToDegree(88.2); //Turn toward ball and end
+  RotateToDegree(-35); //Turn toward ball and end
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE);
   m_pDrive->ForwardInInchGyro(50, m_moveSpeed);
@@ -215,7 +219,7 @@ void GalaticPathVision::RunBlueOne()
 
   //Go to End
   Util::Log("GV Shadow", "B1 End");
-  RotateToDegree(20);
+  RotateToEnd();
   m_pDrive->ForwardInInchGyro(60, m_moveSpeed);
 
   Util::Log("GV Shadow", "B1 Finished");
@@ -257,12 +261,24 @@ void GalaticPathVision::RunBlueTwo()
   m_isFinished = true;
 }
 
-void GalaticPathVision::FaceBall(bool turnLeft, double delay)
+void GalaticPathVision::FaceBall(bool turnLeft, double delay, double speed)
 {
+  if(speed < -1)
+  {
+    speed = m_turnSpeed;
+  }
+
+  frc::Timer timer;
+  timer.Reset();
+  timer.Start();
+  double startTime = timer.Get();
+  double currentTime = timer.Get();
+
   double result = m_pDrive->WhereToTurn(0, m_deadZone);
 
   while(result != 0)
   {
+
     if(result > 0)
     {
       m_pDrive->TurnRight(m_moveSpeed/2);
@@ -295,6 +311,14 @@ void GalaticPathVision::FaceBall(bool turnLeft, double delay)
       break;
     }
 
+    currentTime = timer.Get();
+    Util::Log("Galatic Timer", currentTime-startTime);
+    if(currentTime-startTime >= 8)
+    {
+      turnLeft != turnLeft;
+      startTime = currentTime;
+    }
+
     result = m_pDrive->WhereToTurn(0, m_deadZone);
   }
 }
@@ -322,8 +346,13 @@ void GalaticPathVision::RotateToEnd()
   m_pDrive->Stop();
 }
 
-void GalaticPathVision::RotateToDegree(double degree)
+void GalaticPathVision::RotateToDegree(double degree, double speed)
 {
+  if(speed < -1)
+  {
+    speed = m_turnSpeed;
+  }
+
   double currentAngle = m_pDrive->IMUGetAngle();
   
   double lowerDegree = degree - 1;
@@ -333,11 +362,11 @@ void GalaticPathVision::RotateToDegree(double degree)
   {
     if(currentAngle > upperDegree)
     {
-      m_pDrive->TurnRight(m_turnSpeed);
+      m_pDrive->TurnRight(speed);
     }
     else if(currentAngle < lowerDegree)
     {
-      m_pDrive->TurnLeft(m_turnSpeed * 1.2);
+      m_pDrive->TurnLeft(speed * 1.2);
     }
     currentAngle = m_pDrive->IMUGetAngle();
   }

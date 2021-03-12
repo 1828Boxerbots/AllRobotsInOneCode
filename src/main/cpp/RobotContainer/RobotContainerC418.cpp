@@ -429,7 +429,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 5;
+  int cases = 12;
   switch(cases)
   {
     case 0:
@@ -803,6 +803,8 @@ void RobotContainerC418::AutonomousPeriodic()
 void RobotContainerC418::TeleopPeriodic()
 {
 #ifndef NOHW
+  //GetVisionFMS();
+  //m_pDrive->WhereToTurn();
 //Reading all Mux Sensors for testing purposes
 #ifdef M_DISTANCE_LEFT
   m_pDrive->GetDistanceSensorDetectionDistanceLeft(); //Left Distance Sensor

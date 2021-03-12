@@ -33,8 +33,8 @@ class GalaticPathVision
   void RunBlueTwo();
 
   void RotateToEnd();
-  void FaceBall(bool turnLeft = false, double delay = 0.04);
-  void RotateToDegree(double degree);
+  void FaceBall(bool turnLeft = false, double delay = 0.04, double speed = -666);
+  void RotateToDegree(double degree, double speed = -666);
 
   void End(bool interrupted) override;
 
@@ -45,7 +45,7 @@ private:
   LoaderSubsystemBase *m_pLoader;
   bool m_isFinished = false;
 
-  OldCameraVision::VisionColors m_color = OldCameraVision::YELLOW_LEMON_N;
+  OldCameraVision::VisionColors m_color = OldCameraVision::YELLOW_LEMON_M;
 
   double m_moveSpeed = 0.4;
   double m_loaderSpeed = 0.6;
