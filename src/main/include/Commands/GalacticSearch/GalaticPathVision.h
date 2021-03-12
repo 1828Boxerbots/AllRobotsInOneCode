@@ -33,7 +33,7 @@ class GalaticPathVision
   void RunBlueTwo();
 
   void RotateToEnd();
-  void FaceBall(bool turnLeft = false, double delay = 0.4);
+  void FaceBall(bool turnLeft = false, double delay = 0.04);
   void RotateToDegree(double degree);
 
   void End(bool interrupted) override;
@@ -51,7 +51,7 @@ private:
   double m_loaderSpeed = 0.6;
   double m_turnSpeed = 0.1;
   double rioW = 60;
-  int m_deadZone = 10;
+  int m_deadZone = 6;
   double m_startAngle;
   double m_angleDed = 5;
 

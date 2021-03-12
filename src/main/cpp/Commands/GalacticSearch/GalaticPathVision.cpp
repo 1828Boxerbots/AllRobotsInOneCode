@@ -115,36 +115,35 @@ void GalaticPathVision::RunRedOne()
 
   //GetBallOne
   Util::Log("GV Shadow", "R1 Ball1");
-  FaceBall(false, 0.45);
+  //FaceBall(false, 0.05);
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
   m_pDrive->ForwardInInchGyro(75, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
   //GetBallTwo
   Util::Log("GV Shadow", "R1 Ball2");
-  RotateToDegree(-60);
-  FaceBall(true, 0.45);
+  RotateToDegree(-40);
+  FaceBall(true, 0.05);
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
-  m_pDrive->ForwardInInchGyro(60, m_moveSpeed);
+  m_pDrive->ForwardInInchGyro(55, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
   //GetBallThree
   Util::Log("GV Shadow", "R1 Ball3");
   //m_pDrive->SetLookingColorV(OldCameraVision::YELLOW_LEMON_N);
-  RotateToDegree(72); // Turn -97.130 degrees toward the third ball
+  RotateToDegree(65);
 
-  FaceBall(false, 0.45);
+  FaceBall(true, 0.08);
 
-  m_pLoader->SetLoadMotor(m_loaderSpeed);
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE);
-  m_pDrive->ForwardInInchGyro(59, m_moveSpeed);
+  m_pDrive->ForwardInInchGyro(73, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 
   //ToEndZone
   Util::Log("GV Shadow", "R1 Endzone");
   RotateToEnd();
-  m_pDrive->ForwardInInchGyro(150, m_moveSpeed);
+  m_pDrive->ForwardInInchGyro(130, m_moveSpeed);
 
   Util::Log("GV Shadow", "R1 Finished");
   m_isFinished = true;
@@ -338,7 +337,7 @@ void GalaticPathVision::RotateToDegree(double degree)
     }
     else if(currentAngle < lowerDegree)
     {
-      m_pDrive->TurnLeft(m_turnSpeed);
+      m_pDrive->TurnLeft(m_turnSpeed * 1.2);
     }
     currentAngle = m_pDrive->IMUGetAngle();
   }
