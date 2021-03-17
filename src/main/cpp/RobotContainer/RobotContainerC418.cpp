@@ -497,7 +497,7 @@ void RobotContainerC418::DisableInit()
     m_pLoader->SetLoadMotor(0.0);
   m_pShooter->Init();
   frc::SmartDashboard::PutBoolean("Is Enabled", false);
-}
+} 
 
 void RobotContainerC418::SetButtonA()
 {
