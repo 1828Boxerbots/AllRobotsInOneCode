@@ -48,6 +48,8 @@ RobotContainerC418::RobotContainerC418()
 
   m_pGalacticSearchVision = new GalaticPathVision(m_pDrive, m_pLoader);
 
+  m_pPlayMove = new PlayMove(m_pDrive, PLAY_MOVE_DEFAULT);
+
   // Configure the button bindings
   ConfigureButtonBindings();
   ConfigureAutonomousCommands();
@@ -272,7 +274,6 @@ void RobotContainerC418::ConfigureAutonomousCommands()
     }
   };
 
-  m_pGalacticSearchRedA = new GalacticPathRedA(m_pDrive, m_pLoader, 11);
 
   m_pAutoSlalom = new AutoSlalom(m_pDrive);
 
@@ -429,7 +430,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 12;
+  int cases = 8;
   switch(cases)
   {
     case 0:
@@ -457,16 +458,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
       return m_pAutoFetchGyro;
       break;
     case 8:
-      return m_pGalacticSearchRedA;
-      break;
-    case 9:
-      return m_pGalacticSearchRedB;
-      break;
-    case 10:
-      return m_pGalacticSearchBlueA;
-      break;
-    case 11:
-      return m_pGalacticSearchBlueB;
+      return m_pPlayMove;
       break;
     case 12:
       return m_pGalacticSearchVision;
@@ -482,7 +474,7 @@ void RobotContainerC418::Init()
   if (m_pSpin != nullptr)
     m_pSpin->InterpretFMS(ReadFMS());
   m_pDrive->Init();
-  SetDrive(RC_STYLE);
+  SetDrive(RECORD_RC);
   if (m_pLoader != nullptr)
     m_pLoader->SetLoadMotor(0.0);
   m_pLoader->Init();

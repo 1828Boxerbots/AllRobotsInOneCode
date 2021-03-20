@@ -24,6 +24,8 @@
 #include "subsystems/ArmSubsystemBase.h"
 #include "subsystems/SpinSubsystemBase.h"
 
+#include "Commands/RecordMove.h"
+
 #include "subsystems/LipALoop/WristSubsystemLipALoop.h"
 #include "subsystems/LipALoop/HandSubsystemLipALoop.h"
 #include "subsystems/Rocky/TurretSubsystemRocky.h"
@@ -59,6 +61,7 @@ public:
     TANK_STYLE
     ,ARCADE_STYLE
     ,RC_STYLE
+    ,RECORD_RC
   };
 
   double LOAD = 1.0;
@@ -76,6 +79,9 @@ protected:
 
   //Camera
   //CameraSubsystemBase* m_pCamera = nullptr;
+
+  //Record Move
+  RecordMove *m_pRecordMove = nullptr;
 
   //DriveTrain subsystem commands
   DriveTrainSubsystemBase *m_pDrive = nullptr;

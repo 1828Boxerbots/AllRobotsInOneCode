@@ -23,11 +23,9 @@
 #include "Commands/AutonomousBouncePath.h"
 #include "Commands/PickUpLemonCommand.h"
 #include "Commands/BackupChallengeOne.h"
-#include "Commands/GalacticSearch/GalacticPathRedA.h"
-#include "Commands/GalacticSearch/GalacticPathRedB.h"
-#include "Commands/GalacticSearch/GalacticPathBlueA.h"
-#include "Commands/GalacticSearch/GalacticPathBlueB.h"
 #include "Commands/GalacticSearch/GalaticPathVision.h"
+#include "Commands/PlayMove.h"
+
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -110,9 +108,8 @@ private:
   AutoSlalom *m_pAutoSlalom = nullptr;
   AutonomousBouncePath *m_pBouncePath = nullptr;
   BackupChallengeOne *m_pBackupChallengeOne = nullptr;
-  GalacticPathBlueA *m_pGalacticSearchBlueA = nullptr;
-  GalacticPathBlueB *m_pGalacticSearchBlueB = nullptr;
-  GalacticPathRedA *m_pGalacticSearchRedA = nullptr;
-  GalacticPathRedB *m_pGalacticSearchRedB = nullptr;
   GalaticPathVision *m_pGalacticSearchVision = nullptr;
+
+  PlayMove *m_pPlayMove = nullptr;
+  const char* PLAY_MOVE_DEFAULT = "/u/c418_recording/recording_2021-03-20_13-50-23.bin";
 };

@@ -176,3 +176,19 @@ void Util::Log(std::string title, SpinSubsystemBase::FMSColors value, std::strin
 
     frc::SmartDashboard::PutString(subsystemName + " " + title, newvalue);
 }
+
+std::string Util::TimeStampStr()
+{
+    //Grab current time from computer
+    std::tm *pOut;
+    std::time_t time = std::time(nullptr);
+    pOut = localtime(&time);
+
+    //Timestamp
+    char str[2560];
+    sprintf(str, "%04d-%02d-%02d_%02d-%02d-%02d", pOut->tm_year + 1900, pOut->tm_mon+1, pOut->tm_mday, pOut->tm_hour, 
+        pOut->tm_min, pOut->tm_sec);
+    
+    Log("Util Stamp", str);
+    return str;
+}

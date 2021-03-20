@@ -72,6 +72,13 @@ void RobotContainerBase::SetDrive(DriveStyles driveStyle)
             },
             {m_pDrive}));
         break;
+    case RECORD_RC:
+        if(m_pRecordMove == nullptr)
+        {
+            m_pRecordMove = new RecordMove(m_pDrive, &m_controller);
+        }
+        m_pDrive->SetDefaultCommand(*m_pRecordMove);
+        break;
     }
 }
 

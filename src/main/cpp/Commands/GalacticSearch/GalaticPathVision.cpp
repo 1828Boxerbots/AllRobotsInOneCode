@@ -230,28 +230,28 @@ void GalaticPathVision::RunBlueTwo()
 {
   //Get first ball
   Util::Log("GV Shadow", "B2 Ball1");
-  m_pDrive->TurnInDegrees(-80, m_moveSpeed); //Turn toward ball
+  RotateToDegree(-30);
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
-  m_pDrive->ForwardInInch(30, 0, m_moveSpeed);
+  m_pDrive->ForwardInInchGyro(36, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 
   //Get Second ball
   Util::Log("GV Shadow", "B2 Ball2");
-  m_pDrive->TurnInDegrees(-125, m_moveSpeed);  //Turn toward ball
-  FaceBall(true);
+  RotateToDegree(45);  //Turn toward ball
+  FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
-  m_pDrive->ForwardInInch(84, 0, m_moveSpeed);
-  Util::DelayInSeconds(0.5);
+  m_pDrive->ForwardInInchGyro(84, m_moveSpeed);
+  Util::DelayInSeconds(0.7);
   m_pLoader->Stop();
 
   //Get third ball and go to end zone
   Util::Log("GV Shadow", "B2 Ball1 3 & end");
-  m_pDrive->TurnInDegrees(80, m_moveSpeed); //Turn toward ball and end
-  FaceBall();
+  RotateToDegree(-45); //Turn toward ball and end
+  FaceBall(true);
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE);
-  m_pDrive->ForwardInInch(84, 0, m_moveSpeed);
+  m_pDrive->ForwardInInchGyro(84);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 

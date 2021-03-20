@@ -21,6 +21,9 @@ double Abs(double input);
 
 void DelayInSeconds(double seconds);
 
+//Returns string of current time from year-month-day_hour-min-std::string
+std::string TimeStampStr();
+
 bool CompareDouble(double value, double requiredValue, double tolerance = 0.001);
 
 //Log Functions
