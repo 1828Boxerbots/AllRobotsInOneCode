@@ -111,5 +111,5 @@ private:
   GalaticPathVision *m_pGalacticSearchVision = nullptr;
 
   PlayMove *m_pPlayMove = nullptr;
-  const char* PLAY_MOVE_DEFAULT = "/u/c418_recording/recording_2021-03-20_13-50-23.bin";
+  const char* PLAY_MOVE_DEFAULT = "/u/c418_recording/recording_2021-03-26_14-44-24.bin";
 };

@@ -30,6 +30,8 @@ class PlayMove
 
   void Execute() override;
 
+  void RotateToDegrees(double degree, double speed = 0.5);
+
   void End(bool interrupted) override;
 
   bool IsFinished() override;
@@ -43,6 +45,9 @@ private:
   long m_filelength = 0;
   char *m_pbuffer = nullptr;
   char *m_pPlaybackPtr = nullptr;
+
+  time_t m_preClock = 0;
+  int beat = 0;
 
   std::ofstream m_logfile;
   const std::string LOG_FILE = "/u/c418_recording/PlayMove_logfile.txt";

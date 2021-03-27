@@ -13,6 +13,7 @@
 #include "subsystems/LipALoop/HandSubsystemLipALoop.h"
 #include "RobotContainerBase.h"
 #include "subsystems/CameraSubsystemBase.h"
+#include "Commands/PlayMove.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -43,4 +44,7 @@ private:
 
   //Align Control
   void ConfigureButtonBindings();
+
+  PlayMove* m_pPlayMove = nullptr;
+  const char* PLAY_MOVE = "/u/c418_recording/recording_2021-03-22_17-15-55.bin";
 };

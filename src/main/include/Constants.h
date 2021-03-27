@@ -137,15 +137,15 @@ constexpr int DIO_HALLEFFECT_LOWER_C418 = 6;
 constexpr int RLY_SPIKE_C418 = 1;
 
 //C418 TRAJECTORY CONSTANTS
-constexpr auto ks = 0.727_V;
-constexpr auto kv = 0.0633 * 1_V * 1_s / 1_m;
-constexpr auto ka = 0.000762 * 1_V * 1_s * 1_s / 1_m;
-constexpr auto kTrackwidth = 0.581_m;
-extern const frc::DifferentialDriveKinematics kDriveKinematics;
-constexpr auto kMaxSpeed = 3_mps;
-constexpr auto kMaxAcceleration = 3_mps_sq;
-constexpr double kRamseteB = 2;
-constexpr double kRamseteZeta = 0.7;
+// constexpr auto ks = 0.727_V;
+// constexpr auto kv = 0.0633 * 1_V * 1_s / 1_m;
+// constexpr auto ka = 0.000762 * 1_V * 1_s * 1_s / 1_m;
+// constexpr auto kTrackwidth = 0.581_m;
+// extern const frc::DifferentialDriveKinematics kDriveKinematics;
+// constexpr auto kMaxSpeed = 3_mps;
+// constexpr auto kMaxAcceleration = 3_mps_sq;
+// constexpr double kRamseteB = 2;
+// constexpr double kRamseteZeta = 0.7;
 
 //Lidar Distances
 constexpr double LIDAR_LOW_C418 = 60;

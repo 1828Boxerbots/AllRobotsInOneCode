@@ -29,15 +29,15 @@ void BackupChallengeOne::Execute()
   if(m_isFinished == false)
   {
     //Going around first cone
-    m_pDrive->ForwardInInchGyro(95, 0.3);
-    m_pDrive->IMUArcade(0.7, 0.1, -300);
+    m_pDrive->ForwardInInchGyro(100, 0.3);
+    m_pDrive->IMUArcade(0.6, 0.2, -300);
     m_pDrive->SetLookingColorV(OldCameraVision::RED_CONE_N);
-    m_pDrive->AlignWithVision(-0.5, 30, true);
+    m_pDrive->AlignWithVision(-0.5, 50, false);
     m_pDrive->ForwardInInchGyro(50, 0.6);
     //Going around second cone
-    m_pDrive->IMUArcade(0.6, -0.2, 330);
+    m_pDrive->IMUArcade(0.8, -0.2, 330);
     m_pDrive->SetLookingColorV(OldCameraVision::PURPLE_BOTTLE_N);
-    m_pDrive->AlignWithVision(-0.75, 30, false);
+    m_pDrive->AlignWithVision(-0.75, 30, true);
     m_pDrive->ForwardInInchGyro(48, 0.6);
     //Going around third cone
     m_pDrive->IMUArcade(0.5, -0.17, 260);

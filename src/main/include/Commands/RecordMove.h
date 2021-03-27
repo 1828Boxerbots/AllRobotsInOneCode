@@ -7,6 +7,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <string.h>
+#include <ctime>
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
@@ -38,6 +40,13 @@ class RecordMove
 
   private:
     bool m_isFinished = false;
+    double m_deadZone = 0.01;
+    int m_frameCount = 0;
+
+    long long m_timeStart;
+    long long m_timeEnd;
+    long long m_timeCur;
+
     DriveTrainSubsystemBase *m_pDrive;
     frc::XboxController *m_pController;
 

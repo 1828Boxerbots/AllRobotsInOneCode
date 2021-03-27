@@ -11,18 +11,18 @@
 RobotContainerLipALoop::RobotContainerLipALoop()
 {
   m_pDrive = new DriveTrainSubsystemLipALoop;
-  //m_pCamera = new CameraSubsystemBase(m_pDrive);
 
-  //m_pCamera = new CameraSubsystemBase;
   m_pArm = new ArmSubsystemLipALoop;
   m_pWrist = new WristSubsystemLipALoop;
   m_pHand = new HandSubsystemLipALoop;
+
+  m_pPlayMove = new PlayMove(m_pDrive, PLAY_MOVE);
+
   // Configure the button bindings
   ConfigureButtonBindings();
-  //if(m_pCamera != nullptr) m_pCamera->Init();
   m_pDrive->Init();
   //m_pCamera->Init();
-  SetDrive();
+  SetDrive(RECORD_RC);
 }
 
 void RobotContainerLipALoop::ConfigureButtonBindings()
@@ -41,7 +41,7 @@ void RobotContainerLipALoop::ConfigureButtonBindings()
 frc2::Command *RobotContainerLipALoop::GetAutonomousCommand()
 {
   // An example command will be run in autonomous
-  return 0;
+  return m_pPlayMove;
 }
 
 void RobotContainerLipALoop::SetRightBumper()

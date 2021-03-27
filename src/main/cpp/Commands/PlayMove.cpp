@@ -47,30 +47,37 @@ void PlayMove::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void PlayMove::Execute()
 {
+  Util::Log("PlayMove Shadow1", "Exe Start");
+  Util::Log("PlayMove Shadow2", beat++);
   //If accidently went here when finished return
   if(m_isFinished)
   {
     return;
   }
 
-  //Set Time
-  char currentTime[256];
-  std::string timeChar = Util::TimeStampStr();
-  sprintf(currentTime, "Time: %s", timeChar);
-  //Post time on log file
-  m_logfile << currentTime << std::endl;
-  m_logfile.flush();
-  //Log pointer position and size
-  m_logfile << "PlayBack = " << (long)m_pPlaybackPtr << " sizeof(RecordingStructure) = " << sizeof(RecordingStructure)
-    << " Last Position = " << (long)(m_pbuffer + m_filelength) << std::endl;
+  // //Set Time
+  // char currentTime[256];
+  // std::string timeChar = Util::TimeStampStr();
+  // sprintf(currentTime, "Time: %s", timeChar);
+  // //Post time on log file
+  // m_logfile << currentTime << std::endl;
+  // //Log pointer position and size
+  // m_logfile << "PlayBack = " << (long)m_pPlaybackPtr << " sizeof(RecordingStructure) = " << sizeof(RecordingStructure)
+  //   << " Last Position = " << (long)(m_pbuffer + m_filelength) << std::endl;
 
   //Create left right variables
   double left = 0.0;
   double right = 0.0;
+  double currentAngle = 0;
+
+  int beat2 = 0;
 
   //While there is still file left contiue to read
   while((long)(m_pPlaybackPtr + sizeof(RecordingStructure)) < (long)(m_pbuffer + m_filelength))
   {
+    Util::Log("PlayMove Shadow3", beat2++);
+    Util::Log("PlayMove Shadow2", beat);
+
     //Set binary vaules to structure values
     RecordingStructure *pValues = (RecordingStructure *)m_pPlaybackPtr;
 
@@ -80,30 +87,62 @@ void PlayMove::Execute()
       //Set structure values to motor values
       left = pValues->m_left;
       right = pValues->m_right;
-
+      
       //Log motor values in log file
-      m_logfile << "Left: " << left << " right: " << right << std::endl;
+      //m_logfile << "Left: " << left << " right: " << right << std::endl;
+
+      currentAngle = m_pDrive->IMUGetAngle();
+      Util::Log("PlayMove m_gyro", pValues->m_gyro);
+      if(((currentAngle-5) < pValues->m_gyro || (currentAngle+5) > pValues->m_gyro) && beat > 0)
+      {
+        Util::Log("PlayMove Shadow1", "ROTATE");
+        RotateToDegrees(pValues->m_gyro, 0.2);
+        m_pDrive->ForwardInInchGyro(1, 0.3);
+      }
 
       //Move with Arcade
       m_pDrive->MoveArcade(left, right);
 
       //Get next data point
       m_pPlaybackPtr = (char*)(m_pPlaybackPtr + sizeof(RecordingStructure));
-      return;
+
+      Util::DelayInSeconds((double)pValues->m_sec / 1000.0);
     }
     else
     {
       //Move down one byte if sync is not alligned
       m_pPlaybackPtr = (char*)(m_pPlaybackPtr + 1);
-      m_logfile << "Sync off! NEXT!! " << std::endl;
+      //m_logfile << "Sync off! NEXT!! " << std::endl;
     }
   }
 
-  //Check if all values have been read
-  if((long)(m_pPlaybackPtr + sizeof(RecordingStructure)) > (long)(m_pbuffer + m_filelength))
+  m_pDrive->Stop();
+  m_isFinished = true;
+
+  Util::Log("PlayMove Shadow1", "Exe End");
+}
+
+void PlayMove::RotateToDegrees(double degree, double speed)
+{
+  double currentAngle = m_pDrive->IMUGetAngle();
+  
+  double lowerDegree = degree - 5;
+  double upperDegree = degree + 5;
+
+  while(currentAngle > upperDegree || currentAngle < lowerDegree)
   {
-    m_isFinished = true;
+    if(currentAngle > upperDegree)
+    {
+      m_pDrive->TurnRight(speed);
+    }
+    else if(currentAngle < lowerDegree)
+    {
+      m_pDrive->TurnLeft(speed);
+    }
+    currentAngle = m_pDrive->IMUGetAngle();
   }
+
+  m_pDrive->Stop();
 }
 
 // Called once the command ends or is interrupted.

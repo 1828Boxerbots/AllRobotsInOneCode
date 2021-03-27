@@ -76,6 +76,21 @@ void RobotContainerC418::ConfigureButtonBindings()
   SetLeftBumper();
 }
 
+void RobotContainerC418::Init()
+{
+
+  if (m_pSpin != nullptr)
+    m_pSpin->InterpretFMS(ReadFMS());
+  m_pDrive->Init();
+  SetDrive(RC_STYLE);
+  if (m_pLoader != nullptr)
+    m_pLoader->SetLoadMotor(0.0);
+  m_pLoader->Init();
+  frc::SmartDashboard::PutBoolean("Is Enabled", true);
+  m_pShooter->Init();
+  
+}
+
 void RobotContainerC418::ConfigureAutonomousCommands()
 {
   m_pAutoHouse = new frc2::SequentialCommandGroup {
@@ -430,7 +445,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 8;
+  int cases = 6;
   switch(cases)
   {
     case 0:
@@ -466,21 +481,6 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     default:
       return nullptr;
   }
-}
-
-void RobotContainerC418::Init()
-{
-
-  if (m_pSpin != nullptr)
-    m_pSpin->InterpretFMS(ReadFMS());
-  m_pDrive->Init();
-  SetDrive(RECORD_RC);
-  if (m_pLoader != nullptr)
-    m_pLoader->SetLoadMotor(0.0);
-  m_pLoader->Init();
-  frc::SmartDashboard::PutBoolean("Is Enabled", true);
-  m_pShooter->Init();
-  
 }
 
 void RobotContainerC418::DisableInit()

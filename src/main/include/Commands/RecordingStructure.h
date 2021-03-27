@@ -12,7 +12,11 @@ struct RecordingStructure
     }
 
     int m_sync1;
-    float m_left;
-    float m_right;
+    int m_frameNum;
+    long long m_sec;
+    char m_time[20];
+    double m_gyro;
+    double m_left;
+    double m_right;
     int m_sync2;
 };
