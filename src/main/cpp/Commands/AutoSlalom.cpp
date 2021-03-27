@@ -109,7 +109,6 @@ void AutoSlalom::loop0()
   m_pDrive->ForwardInInch(107, 0, 0.8);
 
   //Loop around the cone
-  //m_pDrive->TimedArcade(0.3)
   m_pDrive->TimedArcade(0.6, 0.2, 1.20);
   m_pDrive->TimedArcade(0.6, -0.24, 3.8);
 

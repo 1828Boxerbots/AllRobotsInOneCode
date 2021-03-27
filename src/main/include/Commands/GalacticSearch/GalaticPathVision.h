@@ -47,7 +47,7 @@ private:
 
   OldCameraVision::VisionColors m_color = OldCameraVision::YELLOW_LEMON_M;
 
-  double m_moveSpeed = 0.4;
+  double m_moveSpeed = 0.8;
   double m_loaderSpeed = 0.6;
   double m_turnSpeed = 0.1;
   double rioW = 60;

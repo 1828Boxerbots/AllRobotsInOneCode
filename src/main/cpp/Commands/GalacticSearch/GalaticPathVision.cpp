@@ -97,16 +97,7 @@ int GalaticPathVision::CheckRun()
   m_pDrive->ForwardInInchGyro(120, m_moveSpeed);
   //Can find Image return Blue1 and if cant find image return Blue2
   Util::Log("GV Shadow", "CheckRun Where");
-  if(m_pDrive->WhereToTurn(0, 50) > -2)
-  {
-    m_iteration = BLUE_ONE;
-    return BLUE_ONE;
-  }
-  else
-  {
-    m_iteration = BLUE_TWO;
-    return BLUE_TWO;
-  }
+  return BLUE_TWO;
   
 }
 
@@ -117,7 +108,7 @@ void GalaticPathVision::RunRedOne()
   Util::Log("GV Shadow", "R1 Ball1");
   //FaceBall(false, 0.05);
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
-  m_pDrive->ForwardInInchGyro(75, m_moveSpeed*2);
+  m_pDrive->ForwardInInchGyro(75, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
   //GetBallTwo
@@ -125,13 +116,13 @@ void GalaticPathVision::RunRedOne()
   RotateToDegree(-40);
   FaceBall(true, 0.05);
   m_pLoader->SetLoadMotor(m_loaderSpeed);
-  m_pDrive->ForwardInInchGyro(55, m_moveSpeed*2);
+  m_pDrive->ForwardInInchGyro(55, m_moveSpeed);
   Util::DelayInSeconds(0.7);
   m_pLoader->Stop();
   //GetBallThree
   Util::Log("GV Shadow", "R1 Ball3");
   RotateToDegree(50, 0.2);
-  m_pDrive->ForwardInInchGyro(6, m_moveSpeed);
+  m_pDrive->ForwardInInchGyro(6, m_moveSpeed/2);
   // bool turn = true;
   // if(m_pDrive->GyroGetAngle() > 50)
   // {
@@ -140,14 +131,14 @@ void GalaticPathVision::RunRedOne()
   FaceBall(true, 0.04, 0.2);
 
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE);
-  m_pDrive->ForwardInInchGyro(73, m_moveSpeed*2);
+  m_pDrive->ForwardInInchGyro(73, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
 
   //ToEndZone
   Util::Log("GV Shadow", "R1 Endzone");
   RotateToEnd();
-  m_pDrive->ForwardInInchGyro(130, m_moveSpeed*2);
+  m_pDrive->ForwardInInchGyro(130, m_moveSpeed);
 
   Util::Log("GV Shadow", "R1 Finished");
   m_isFinished = true;
@@ -159,7 +150,7 @@ void GalaticPathVision::RunRedTwo()
   Util::Log("GV Shadow", "R2 Ball1");
   FaceBall();
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
-  m_pDrive->ForwardInInchGyro(80, m_moveSpeed*2);
+  m_pDrive->ForwardInInchGyro(80, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
   //Get Second Ball
@@ -168,7 +159,7 @@ void GalaticPathVision::RunRedTwo()
   Util::DelayInSeconds(0.5);
   FaceBall(true);
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE_AND_BOTTOM);
-  m_pDrive->ForwardInInchGyro(80, m_moveSpeed*2);
+  m_pDrive->ForwardInInchGyro(80, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
   //Get Third Ball
@@ -177,14 +168,14 @@ void GalaticPathVision::RunRedTwo()
   Util::DelayInSeconds(0.3);
   FaceBall(true);
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE);
-  m_pDrive->ForwardInInchGyro(90, m_moveSpeed*2);
+  m_pDrive->ForwardInInchGyro(90, m_moveSpeed);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
   //Move towards end zone
   Util::Log("GV Shadow", "R2 EndZone");
   //m_pDrive->TurnInDegrees(90, m_moveSpeed);
   RotateToEnd();
-  m_pDrive->ForwardInInchGyro(90, m_moveSpeed*2);
+  m_pDrive->ForwardInInchGyro(90, m_moveSpeed);
   
   Util::Log("GV Shadow", "R2 Finished");
   m_isFinished = true;
@@ -248,15 +239,12 @@ void GalaticPathVision::RunBlueTwo()
 
   //Get third ball and go to end zone
   Util::Log("GV Shadow", "B2 Ball1 3 & end");
-  RotateToDegree(-45); //Turn toward ball and end
+  RotateToDegree(-40); //Turn toward ball and end
   FaceBall(true);
   m_pLoader->SetLoadMotor(m_loaderSpeed, LoaderSubsystemC418::MOTOR_INTAKE);
-  m_pDrive->ForwardInInchGyro(84);
+  m_pDrive->ForwardInInchGyro(96);
   Util::DelayInSeconds(0.5);
   m_pLoader->Stop();
-
-  RotateToEnd();
-  m_pDrive->ForwardInInchGyro(12);
 
   Util::Log("GV Shadow", "B2 Finished");
   m_isFinished = true;
