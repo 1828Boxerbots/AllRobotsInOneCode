@@ -61,8 +61,7 @@ void BackupChallengeOne::Execute()
       break;
     case 3:
       break;
-    default:
-
+    }
   }
 
   m_isFinished = true;
