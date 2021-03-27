@@ -31,4 +31,5 @@ class BackupChallengeOne
  private:
   DriveTrainSubsystemBase* m_pDrive = nullptr;
   bool m_isFinished = false;
+  int types;
 };
