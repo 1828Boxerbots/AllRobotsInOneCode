@@ -105,8 +105,8 @@ private:
 	//Purple Bottle Values
 	const cv::Scalar PURPLE_BOTTLE_LOW_M{100, 0, 0};			//V-100-150-0-155-0-255
 	const cv::Scalar PURPLE_BOTTLE_HIGH_M{150, 155, 255};
-	const cv::Scalar PURPLE_BOTTLE_LOW_A{0, 0, 0};
-	const cv::Scalar PURPLE_BOTTLE_HIGH_A{179, 255, 255};
+	const cv::Scalar PURPLE_BOTTLE_LOW_A{70, 50, 45};			//V-70-150-50-200-45-120
+	const cv::Scalar PURPLE_BOTTLE_HIGH_A{150, 200, 120};
 	const cv::Scalar PURPLE_BOTTLE_LOW_N{10, 0, 0};			//V-10-20-0-155-0-255
 	const cv::Scalar PURPLE_BOTTLE_HIGH_N{20, 155, 255};
 

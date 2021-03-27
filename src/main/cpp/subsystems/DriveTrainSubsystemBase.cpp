@@ -122,7 +122,7 @@ void DriveTrainSubsystemBase::MoveArcade(double Y, double X)
 
 void DriveTrainSubsystemBase::IMUArcade(double x, double y, double angle)
 {
-    double m_scale = 0.0;
+    double m_scale = 1;
     double leftY = x + y;
     double rightY = x - y;
     frc::SmartDashboard::PutNumber("Shadow", 1);
