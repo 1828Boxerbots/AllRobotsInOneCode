@@ -163,8 +163,6 @@ void RobotContainerC418::ConfigureAutonomousCommands()
         //m_pDrive->SetVisionCrop((320/2) - (100/2), (320*0.75), 100, 240*0.25);
         m_pDrive->WhereToTurn(0.0, 50);
         Util::Log("Nothere Where", m_pDrive->WhereToTurn(0.0, 50));
-
-        m_pDrive->ForwardInInchGyro(120, 0.4);
         // m_pDrive->IMUGetAngle();
         // m_pDrive->GetLeftEncoderInch();
         // m_pDrive->GetRightEncoderInch();
@@ -445,7 +443,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 6;
+  int cases = 12;
   switch(cases)
   {
     case 0:
