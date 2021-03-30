@@ -607,7 +607,7 @@ void DriveTrainSubsystemBase::ForwardInInches2(double inches, double speed)
     Stop();
 }
 
-void DriveTrainSubsystemBase::ForwardInInchGyro(double inch, double speed)
+void DriveTrainSubsystemBase::ForwardInInchGyro(double inch, double speed, double angleDeadZone, double turnSpeed)
 {
     ResetEncoder();
 
@@ -621,29 +621,30 @@ void DriveTrainSubsystemBase::ForwardInInchGyro(double inch, double speed)
     double rightInchStart = GetRightEncoderInch();
     double leftInchStart = GetLeftEncoderInch();
 
-    double deadZone = 1;
+    double deadZone = angleDeadZone;
     //double deadZoneInch = 0.1;
 
     double startAngleLow = startAngle - deadZone;
     double startAngleHigh = startAngle + deadZone;
-    double turnSpeed = 0;
 
+    double howToTurn = 0;
+    
     while(Util::Abs(leftInch - leftInchStart) < inch || Util::Abs(rightInch - rightInchStart) < inch)
     {
         if(currentAngle > startAngleHigh)
         {
             //Turn Right
-            turnSpeed = 0.05;
+            howToTurn = turnSpeed;
         }
         else if(currentAngle < startAngleLow)
         {
             //Turn Left
-            turnSpeed = -0.05;
+            howToTurn = -turnSpeed;
         }
         else
         {
             //DONT TURN FOOL
-            turnSpeed = 0;
+            howToTurn = 0;
         }
 
         leftInch = GetLeftEncoderInch();
@@ -653,7 +654,7 @@ void DriveTrainSubsystemBase::ForwardInInchGyro(double inch, double speed)
 
         Util::Log("ForwardGyro CA", currentAngle);
 
-        MoveArcade(speed, turnSpeed);
+        MoveArcade(speed, howToTurn);
     }
 
     Stop();

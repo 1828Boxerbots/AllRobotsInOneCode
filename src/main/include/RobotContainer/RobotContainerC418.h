@@ -25,6 +25,7 @@
 #include "Commands/BackupChallengeOne.h"
 #include "Commands/GalacticSearch/GalaticPathVision.h"
 #include "Commands/PlayMove.h"
+#include "Commands/NewSlalom.h"
 
 
 /**
@@ -109,6 +110,8 @@ private:
   AutonomousBouncePath *m_pBouncePath = nullptr;
   BackupChallengeOne *m_pBackupChallengeOne = nullptr;
   GalaticPathVision *m_pGalacticSearchVision = nullptr;
+
+  NewSlalom *m_pNewSlalom = nullptr;
 
   PlayMove *m_pPlayMove = nullptr;
   const char* PLAY_MOVE_DEFAULT = "/u/c418_recording/recording_2021-03-26_14-44-24.bin";

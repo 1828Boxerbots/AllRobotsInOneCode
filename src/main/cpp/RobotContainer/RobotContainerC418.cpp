@@ -47,6 +47,7 @@ RobotContainerC418::RobotContainerC418()
   m_pAutoLemonPick = new PickUpLemonCommand(m_pLoader, m_pShooter, m_pDrive, 0.2, 0.5);
 
   m_pGalacticSearchVision = new GalaticPathVision(m_pDrive, m_pLoader);
+  m_pNewSlalom = new NewSlalom(m_pDrive);
 
   m_pPlayMove = new PlayMove(m_pDrive, PLAY_MOVE_DEFAULT);
 
@@ -430,7 +431,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 6;
+  int cases = 9;
   switch(cases)
   {
     case 0:
@@ -459,6 +460,9 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
       break;
     case 8:
       return m_pPlayMove;
+      break;
+    case 9:
+      return m_pNewSlalom;
       break;
     case 12:
       return m_pGalacticSearchVision;

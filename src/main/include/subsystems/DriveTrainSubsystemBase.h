@@ -59,7 +59,7 @@ public:
   virtual void ForwardInSeconds(double goalTime, double speed = 1.0);
   virtual void TurnInDegrees(double relativeAngle, double speed = 0.75, double turnRadius = 11);
   virtual void TurnInDegreesGyro(double relativeAngle, double speed = 0.75);
-  virtual void ForwardInInchGyro(double inch, double speed = 1.0);
+  virtual void ForwardInInchGyro(double inch, double speed = 1.0, double angleDeadZone = 1, double turnSpeed = 0.05);
   //virtual void DetectionSoftware(double detectionDistance) {}
   virtual double GetLidarDetectionDistance() { return 0.0; }
   virtual double GetDistanceSensorDetectionDistanceLeft() { return 0.0; }
