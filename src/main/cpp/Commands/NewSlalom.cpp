@@ -37,7 +37,7 @@ void NewSlalom::Execute()
 
   //Rotate to face end cone
   RotateToDegree(-20, m_moveSpeed/2);
-  m_pDrive->AlignWithVision(-0.7, m_deadZone);
+  m_pDrive->AlignWithVision(-1, m_deadZone);
   //Move Forward
   //Check if we can still see cone
   int beat = 0;
@@ -52,7 +52,7 @@ void NewSlalom::Execute()
     m_pDrive->Stop();
   }
   
-  // m_pDrive->IMUArcade(-0.6, 0.2, -90);
+  m_pDrive->IMUArcade(0.8, -0.2, 350);
 
   // m_pDrive->ForwardInInchGyro(5, m_moveSpeed);
   // RotateToDegree(-180, m_moveSpeed/2);
