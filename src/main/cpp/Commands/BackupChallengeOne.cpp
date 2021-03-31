@@ -17,10 +17,10 @@ void BackupChallengeOne::Initialize()
   m_isFinished = false;
   types = 1;
 
-  // int *pHeight;
-  // int *pWidth;
-  // m_pDrive->GetVisionSize(pHeight, pWidth);
-  // m_pDrive->SetVisionCrop(0, *pHeight*0.75, *pWidth, *pHeight*0.25);
+  int height;
+  int width;
+  m_pDrive->GetVisionSize(&height, &width);
+  m_pDrive->SetVisionCrop(0, height*0.75, width, height*0.25);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -34,18 +34,23 @@ void BackupChallengeOne::Execute()
     case 1:
       //Going around first cone
       m_pDrive->ForwardInInchGyro(95, 0.3);
-      m_pDrive->IMUArcade(0.7, 0.1, -300);
-      m_pDrive->SetLookingColorV(OldCameraVision::RED_CONE_N);
+      m_pDrive->IMUArcade(0.6, 0.17, -300);
+      m_pDrive->ForwardInInchGyro(36, 0.3);
+      m_pDrive->SetLookingColorV(OldCameraVision::RED_CONE_A);
       m_pDrive->AlignWithVision(-0.5, 30, true);
-      m_pDrive->ForwardInInchGyro(50, 0.6);
+      m_pDrive->ForwardInInchGyro(18, 0.6);
       //Going around second cone
-      m_pDrive->IMUArcade(0.6, -0.2, 330);
-      m_pDrive->SetLookingColorV(OldCameraVision::PURPLE_BOTTLE_N);
-      m_pDrive->AlignWithVision(-0.75, 30, false);
-      m_pDrive->ForwardInInchGyro(48, 0.6);
+      m_pDrive->IMUArcade(0.6, -0.17, 330);
+      m_pDrive->ForwardInInchGyro(24, 0.6);
+      m_pDrive->SetLookingColorV(OldCameraVision::PURPLE_BOTTLE_A);
+      m_pDrive->AlignWithVision(-0.75, 30, true);
+      m_pDrive->ForwardInInchGyro(24, 0.6);
       //Going around third cone
-      m_pDrive->IMUArcade(0.5, -0.17, 260);
-      m_pDrive->SetLookingColorV(OldCameraVision::RED_CONE_N);
+      m_pDrive->IMUArcade(0.6, -0.16, 150);
+      m_pDrive->ForwardInInchGyro(24, 0.4);
+      m_pDrive->IMUArcade(0.6, -0.16, 130);
+      m_pDrive->ForwardInInchGyro(24,0.6);
+      m_pDrive->SetLookingColorV(OldCameraVision::RED_CONE_A);
       m_pDrive->AlignWithVision(1.0, 30, true);
       m_pDrive->ForwardInInchGyro(25, 0.5);
       //Coming back to start zone 
