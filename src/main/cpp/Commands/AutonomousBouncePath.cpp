@@ -36,6 +36,8 @@ void AutonomousBouncePath::Execute()
     case 3:
     ProcessState3();
     break;
+    case 4:
+    ProcessState4();
   }
 }
 
@@ -91,7 +93,67 @@ void AutonomousBouncePath::ProcessState3()
 {
   if(m_state == 3)
   {
-    m_pDrive->ForwardInInchGyro(134, 0.4);
+    m_pDrive->ForwardInInchGyro(49);
+    m_pDrive->TurnInDegreesGyro(90);
+    m_pDrive->ForwardInInchGyro(44);
+    m_pDrive->ForwardInInchGyro(-14);
+    m_pDrive->TurnInDegreesGyro(22);
+    m_pDrive->ForwardInInchGyro(-80);
+    m_pDrive->TurnInDegreesGyro(23);
+    m_pDrive->ForwardInInchGyro(-42.5);
+    m_pDrive->TurnInDegreesGyro(90);
+    m_pDrive->ForwardInInchGyro(-42.5);
+    m_pDrive->TurnInDegreesGyro(45);
+    m_pDrive->ForwardInInchGyro(-75);
+    m_pDrive->ForwardInInchGyro(75);
+    m_pDrive->TurnInDegreesGyro(45);
+    m_pDrive->ForwardInInchGyro(42.5);
+    m_pDrive->TurnInDegreesGyro(90);
+    m_pDrive->ForwardInInchGyro(42.5);
+    m_pDrive->TurnInDegreesGyro(45);
+    m_pDrive->ForwardInInchGyro(75);
+    m_pDrive->ForwardInInchGyro(-15);
+    m_pDrive->TurnInDegreesGyro(45);
+    m_pDrive->ForwardInInchGyro(-42.5);
     m_state = 4;
+  }
+}
+
+void AutonomousBouncePath::ProcessState4()
+{
+  if(m_state == 4)
+  {
+    m_pDrive->ForwardInInch(10,0,-0.5);
+    m_pDrive->TimedArcade(-0.6,-0.2,1.3);
+    m_pDrive->ForwardInInch(20,0,-0.5);
+    m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE_N);
+    m_pDrive->AlignWithVision(0.75, 30, false);
+    m_pDrive->ForwardInInch(10,0,0.5);
+    m_pDrive->TimedArcade(0.6,-0.2,1.3);
+    m_pDrive->SetLookingColorV(OldCameraVision::PURPLE_BOTTLE_N);
+    int cameraImage = m_pDrive->WhereToTurn();
+    while(cameraImage<-2)
+    {
+      m_pDrive->Forward(0.5);
+    }
+    while(cameraImage>-2)
+    {
+      if(cameraImage<0)
+      {
+        m_pDrive->MoveArcade(0.3, -0.05);
+      }
+      else if(cameraImage>0)
+      {
+        m_pDrive->MoveArcade(0.3, 0.05);
+      }
+      else
+      {
+        m_pDrive->MoveArcade(0.3, 0.0);
+      }
+      cameraImage = m_pDrive->WhereToTurn();
+    }
+    m_pDrive->ForwardInInchGyro(100, -0.3);
+    m_pDrive->AlignWithVision();
+
   }
 }

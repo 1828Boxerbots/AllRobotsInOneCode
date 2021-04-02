@@ -40,4 +40,5 @@ class AutonomousBouncePath
   void ProcessState1();
   void ProcessState2();
   void ProcessState3();
+  void ProcessState4();
 };

@@ -114,5 +114,5 @@ private:
   NewSlalom *m_pNewSlalom = nullptr;
 
   PlayMove *m_pPlayMove = nullptr;
-  const char* PLAY_MOVE_DEFAULT = "/u/c418_recording/recording_2021-03-26_14-44-24.bin";
+  const char* PLAY_MOVE_DEFAULT = "/u/c418_recording/recording_2021-03-29_17-07-55.bin";
 };

@@ -97,7 +97,7 @@ void PlayMove::Execute()
       {
         Util::Log("PlayMove Shadow1", "ROTATE");
         RotateToDegrees(pValues->m_gyro, 0.2);
-        m_pDrive->ForwardInInchGyro(1, 0.3);
+        //m_pDrive->ForwardInInchGyro(1, 0.3);
       }
 
       //Move with Arcade
