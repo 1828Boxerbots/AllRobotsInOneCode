@@ -146,7 +146,10 @@ void RobotContainerC418::ConfigureAutonomousCommands()
     {
       [this] 
       {
-        //m_pDrive->SetVisionCrop((320/2) - (100/2), (320*0.75), 100, 240*0.25);
+        int height;
+        int width;
+        m_pDrive->GetVisionSize(&height, &width);
+        m_pDrive->SetVisionCrop(0, height*0.75, width, height*0.25);        
         m_pDrive->WhereToTurn(0.0, 50);
         Util::Log("Nothere Where", m_pDrive->WhereToTurn(0.0, 50));
 
@@ -431,7 +434,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 9;
+  int cases = 6;
   switch(cases)
   {
     case 0:
