@@ -464,7 +464,7 @@ void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime, double speed)
     Stop();
 }
 
-void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZoneRange, bool defaultTurnRight)
+void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZoneRange, bool defaultTurnRight, bool forwardBitch)
 {
     Util::Log("Direction", "Null");
     double turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
@@ -506,15 +506,18 @@ void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZ
         }
     }
     Util::Log("Direction", "Center");
-    Forward(0.25);
-    while(turn > -2.9)
+    if(forwardBitch)
     {
-        //Continue Forwards until object is not see-able
-        turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
-        Util::Log("TurnCam", turn);
+        Forward(0.25);
+        while(turn > -2.9)
+        {
+            //Continue Forwards until object is not see-able
+            turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
+            Util::Log("TurnCam", turn);
+        }
+        Util::Log("Direction", "Stop");
     }
-     Util::Log("Direction", "Stop");
-     Stop();
+    Stop();
 }
 
 void DriveTrainSubsystemBase::MoveWithVision(double deadZoneLocation, int deadZoneRange, int moveSpeed, bool defaultTurnRight)

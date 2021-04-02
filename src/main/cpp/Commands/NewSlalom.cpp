@@ -24,16 +24,16 @@ void NewSlalom::Execute()
 {
   //MOve out of start range and rotate toward front cone
   m_pDrive->ForwardInInchGyro(14, m_moveSpeed);
-  RotateToDegree(10, m_moveSpeed/2);
+  RotateToDegree(15, m_moveSpeed/2);
   //Set vision color
   m_pDrive->SetLookingColorV(OldCameraVision::VisionColors::RED_CONE_A);
   //Align and move forward
-  m_pDrive->AlignWithVision(1.0, m_deadZone);
-  m_pDrive->ForwardInInchGyro(25, m_moveSpeed);
+  m_pDrive->AlignWithVision(1.0, m_deadZone, false);
+  m_pDrive->ForwardInInchGyro(45, m_moveSpeed);
 
   //Move forward along with cones
-  RotateToDegree(10, 0.15);
-  m_pDrive->ForwardInInchGyro(125, m_moveSpeed, 0.2, 0.2);
+  RotateToDegree(0, 0.15);
+  m_pDrive->ForwardInInchGyro(125, m_moveSpeed*0.75, 2, 0.3);
 
   //Rotate to face end cone
   RotateToDegree(-20, m_moveSpeed/2);
@@ -41,27 +41,30 @@ void NewSlalom::Execute()
   //Move Forward
   //Check if we can still see cone
   int beat = 0;
-  while (m_pDrive->WhereToTurn(-1, m_deadZone) > -2)
-  {
-    Util::DelayInSeconds(1);
-    m_pDrive->Stop();
-    //Align and move forward until we can no longer see end cone
-    m_pDrive->AlignWithVision(-1, m_deadZone);
-    m_pDrive->ForwardInInchGyro(0.1, 0.15, 0.2, 0.1);
-    Util::Log("Slalom While", beat++);
-    m_pDrive->Stop();
-  }
-  
-  m_pDrive->IMUArcade(0.8, -0.2, 350);
+  // while (m_pDrive->WhereToTurn(-1, m_deadZone) > -2)
+  // {
+  //   Util::DelayInSeconds(1);
+  //   m_pDrive->Stop();
+  //   //Align and move forward until we can no longer see end cone
+  //   m_pDrive->AlignWithVision(-1, m_deadZone);
+  //   m_pDrive->ForwardInInchGyro(0.1, 0.15, 0.2, 0.1);
+  //   Util::Log("Slalom While", beat++);
+  //   m_pDrive->Stop();
+  // }
+  m_pDrive->ForwardInInchGyro(12, m_moveSpeed);
+  m_pDrive->IMUArcade(0.65, -0.2, 310);
 
-  // m_pDrive->ForwardInInchGyro(5, m_moveSpeed);
-  // RotateToDegree(-180, m_moveSpeed/2);
-  // m_pDrive->ForwardInInchGyro(150, m_moveSpeed);
+  m_pDrive->ForwardInInchGyro(48, m_moveSpeed/2);
+  RotateToDegree(185, 0.15);
+  RotateToDegree(185, 0.15);
+  m_pDrive->ForwardInInchGyro(142, m_moveSpeed*0.75, 2, 0.3);
 
-  // RotateToDegree(-225, m_moveSpeed/2);
-  // m_pDrive->SetLookingColorV(OldCameraVision::VisionColors::GREEN_CONE_A);
-  // m_pDrive->AlignWithVision(0, m_deadZone);
-  // m_pDrive->ForwardInInchGyro(60);
+  RotateToDegree(125, m_moveSpeed/6);
+  Util::DelayInSeconds(0.2);
+  RotateToDegree(125, m_moveSpeed/6);
+  m_pDrive->SetLookingColorV(OldCameraVision::VisionColors::GREEN_CONE_A);
+  m_pDrive->AlignWithVision(-0.7, m_deadZone, true , false);
+  m_pDrive->ForwardInInchGyro(100);
 
   m_isFinished = true;
 }

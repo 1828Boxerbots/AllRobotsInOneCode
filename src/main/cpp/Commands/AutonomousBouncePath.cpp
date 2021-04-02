@@ -93,28 +93,28 @@ void AutonomousBouncePath::ProcessState3()
 {
   if(m_state == 3)
   {
-    m_pDrive->ForwardInInchGyro(49);
-    m_pDrive->TurnInDegreesGyro(90);
-    m_pDrive->ForwardInInchGyro(44);
-    m_pDrive->ForwardInInchGyro(-14);
-    m_pDrive->TurnInDegreesGyro(22);
-    m_pDrive->ForwardInInchGyro(-80);
-    m_pDrive->TurnInDegreesGyro(23);
-    m_pDrive->ForwardInInchGyro(-42.5);
-    m_pDrive->TurnInDegreesGyro(90);
-    m_pDrive->ForwardInInchGyro(-42.5);
-    m_pDrive->TurnInDegreesGyro(45);
-    m_pDrive->ForwardInInchGyro(-75);
-    m_pDrive->ForwardInInchGyro(75);
-    m_pDrive->TurnInDegreesGyro(45);
-    m_pDrive->ForwardInInchGyro(42.5);
-    m_pDrive->TurnInDegreesGyro(90);
-    m_pDrive->ForwardInInchGyro(42.5);
-    m_pDrive->TurnInDegreesGyro(45);
-    m_pDrive->ForwardInInchGyro(75);
-    m_pDrive->ForwardInInchGyro(-15);
-    m_pDrive->TurnInDegreesGyro(45);
-    m_pDrive->ForwardInInchGyro(-42.5);
+    m_pDrive->ForwardInInchGyro(49); // Move out of the starting zone
+    m_pDrive->TurnInDegreesGyro(90); // Turn to face the first target
+    m_pDrive->ForwardInInchGyro(44); // Go punch that target
+    m_pDrive->ForwardInInchGyro(-14); // Back up a little
+    m_pDrive->TurnInDegreesGyro(22); // Turn a shallow angle
+    m_pDrive->ForwardInInchGyro(-80); // Go all the way back
+    m_pDrive->TurnInDegreesGyro(23); // Turn a little more so the back is facing forward
+    m_pDrive->ForwardInInchGyro(-42.5); // Back up
+    m_pDrive->TurnInDegreesGyro(90); // Turn to face mostly away from the second target
+    m_pDrive->ForwardInInchGyro(-42.5); // Back up a little more
+    m_pDrive->TurnInDegreesGyro(45); // Turn to face away from the second target
+    m_pDrive->ForwardInInchGyro(-75); // Back all the way into the second target
+    m_pDrive->ForwardInInchGyro(75); // Move all the way back forward
+    m_pDrive->TurnInDegreesGyro(45); // Turn left
+    m_pDrive->ForwardInInchGyro(42.5); // Move forward
+    m_pDrive->TurnInDegreesGyro(90); // Turn again to get closer to the third target
+    m_pDrive->ForwardInInchGyro(42.5); // Move forward into position for the third target
+    m_pDrive->TurnInDegreesGyro(45); // Face the third target
+    m_pDrive->ForwardInInchGyro(75); // Run all the way into the third target
+    m_pDrive->ForwardInInchGyro(-15); // Back out a little
+    m_pDrive->TurnInDegreesGyro(45); // Turn to face away from the end zone
+    m_pDrive->ForwardInInchGyro(-42.5); // Back into the end zone
     m_state = 4;
   }
 }
