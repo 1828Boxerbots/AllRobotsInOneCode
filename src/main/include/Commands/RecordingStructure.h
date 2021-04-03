@@ -20,3 +20,24 @@ struct RecordingStructure
     double m_right;
     int m_sync2;
 };
+
+  constexpr int TIMESTAMP_MAX_SIZE = 256;
+  struct OneFrame
+  {
+    OneFrame()
+    {
+      timestamp[0] = 0;
+      framenum = 0;
+      delayTime = 0;
+      gyro = 0.0;
+      left = 0.0;
+      right = 0.0;
+    }
+
+    char timestamp[TIMESTAMP_MAX_SIZE];
+    int framenum;
+    int delayTime;
+    double gyro;
+    double left;
+    double right;
+  };

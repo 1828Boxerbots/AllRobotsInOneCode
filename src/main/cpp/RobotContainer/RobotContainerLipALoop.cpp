@@ -16,7 +16,7 @@ RobotContainerLipALoop::RobotContainerLipALoop()
   m_pWrist = new WristSubsystemLipALoop;
   m_pHand = new HandSubsystemLipALoop;
 
-  m_pPlayMove = new PlayMove(m_pDrive, PLAY_MOVE);
+  m_pTextPlayMove = new TextPlayMove(m_pDrive, PLAY_MOVE);
 
   // Configure the button bindings
   ConfigureButtonBindings();
@@ -41,7 +41,7 @@ void RobotContainerLipALoop::ConfigureButtonBindings()
 frc2::Command *RobotContainerLipALoop::GetAutonomousCommand()
 {
   // An example command will be run in autonomous
-  return m_pPlayMove;
+  return m_pTextPlayMove;
 }
 
 void RobotContainerLipALoop::SetRightBumper()
