@@ -36,7 +36,7 @@ void NewSlalom::Execute()
   m_pDrive->ForwardInInchGyro(125, m_moveSpeed*0.75, 2, 0.1);
 
   //Rotate to face end cone
-  RotateToDegree(-35, m_moveSpeed/2);
+  RotateToDegree(-39, m_moveSpeed/2);
   m_pDrive->AlignWithVision(-1, m_deadZone, true, false);
   //Move Forward
   //Check if we can still see cone
@@ -58,7 +58,7 @@ void NewSlalom::Execute()
 
   RotateToDegree(125, m_moveSpeed/6);
   Util::DelayInSeconds(0.2);
-  RotateToDegree(125, m_moveSpeed/6);
+  RotateToDegree(120, m_moveSpeed/6);
   m_pDrive->SetLookingColorV(OldCameraVision::VisionColors::GREEN_CONE_A);
   m_pDrive->AlignWithVision(-0.65, m_deadZone, true , false);
   m_pDrive->ForwardInInchGyro(100);
