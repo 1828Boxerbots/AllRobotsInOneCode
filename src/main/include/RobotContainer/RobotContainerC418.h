@@ -26,7 +26,7 @@
 #include "Commands/GalacticSearch/GalaticPathVision.h"
 #include "Commands/PlayMove.h"
 #include "Commands/NewSlalom.h"
-
+#include "Commands/BenAutoBarrel.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -112,6 +112,7 @@ private:
   GalaticPathVision *m_pGalacticSearchVision = nullptr;
 
   NewSlalom *m_pNewSlalom = nullptr;
+  BenAutoBarrel *m_pBenBarrel = nullptr;
 
   PlayMove *m_pPlayMove = nullptr;
   const char* PLAY_MOVE_DEFAULT = "/u/c418_recording/recording_2021-03-29_17-07-55.bin";

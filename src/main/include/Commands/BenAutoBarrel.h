@@ -32,4 +32,6 @@ class BenAutoBarrel
  private:
   DriveTrainSubsystemBase* m_pDrive = nullptr;
   bool m_isFinished = false;
+  double m_moveSpeed = 1;
+  double m_slitherSpeed = 0.1;
 };
