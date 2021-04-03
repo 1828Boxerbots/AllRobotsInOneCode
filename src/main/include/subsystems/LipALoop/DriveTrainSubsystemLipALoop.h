@@ -24,8 +24,8 @@ private:
   frc::Victor m_leftMotor{PWM_LEFTMOTOR_LIPALOOP};
   frc::Victor m_rightMotor{PWM_RIGHTMOTOR_LIPALOOP};
 #endif
-  double m_scaleL = 0.7;
-  double m_scaleR = 0.5;
+  double m_scaleL = 1.0;
+  double m_scaleR = 0.7;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

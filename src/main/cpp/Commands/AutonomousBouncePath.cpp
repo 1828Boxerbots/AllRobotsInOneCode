@@ -123,19 +123,27 @@ void AutonomousBouncePath::ProcessState4()
 {
   if(m_state == 4)
   {
+    //Turn Backwards into first Bottle
     m_pDrive->ForwardInInch(10,0,-0.5);
     m_pDrive->TimedArcade(-0.6,-0.2,1.3);
+    //Go forwards a little
     m_pDrive->ForwardInInch(20,0,-0.5);
+    //Turn to look for a green cone on D3
     m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE_N);
-    m_pDrive->AlignWithVision(0.75, 30, false);
-    m_pDrive->ForwardInInch(10,0,0.5);
+    m_pDrive->AlignWithVision(0.75, 30, false, false);
+    //Move Forward
+    m_pDrive->ForwardInInch(80,0,0.5);
+    //Go around cone
     m_pDrive->TimedArcade(0.6,-0.2,1.3);
+    //MoveForward to purple bottle until you can see it
     m_pDrive->SetLookingColorV(OldCameraVision::PURPLE_BOTTLE_N);
     int cameraImage = m_pDrive->WhereToTurn();
     while(cameraImage<-2)
     {
       m_pDrive->Forward(0.5);
+      cameraImage = m_pDrive->WhereToTurn();
     }
+    //Move Forward to purple bottle until you can't see it
     while(cameraImage>-2)
     {
       if(cameraImage<0)
@@ -152,8 +160,41 @@ void AutonomousBouncePath::ProcessState4()
       }
       cameraImage = m_pDrive->WhereToTurn();
     }
+    //Move Back
     m_pDrive->ForwardInInchGyro(100, -0.3);
-    m_pDrive->AlignWithVision();
+    //Turn right to look for a cone on the left
+    m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE_N);
+    m_pDrive->AlignWithVision(-1.0,30,true, false);
+    //Go Forward
+    m_pDrive->ForwardInInchGyro(30,0.3);
+    //Go around the cone to the left
+    m_pDrive->TimedArcade(0.6,-0.2,1.3);
+    //MoveForward to purple bottle until you can see it
+    m_pDrive->SetLookingColorV(OldCameraVision::PURPLE_BOTTLE_N);
+    cameraImage = m_pDrive->WhereToTurn();
+    while(cameraImage<-2)
+    {
+      m_pDrive->Forward(0.5);
+    }
+    //Move Forward to purple bottle until you can't see it
+    while(cameraImage>-2)
+    {
+      if(cameraImage<0)
+      {
+        m_pDrive->MoveArcade(0.3, -0.05);
+      }
+      else if(cameraImage>0)
+      {
+        m_pDrive->MoveArcade(0.3, 0.05);
+      }
+      else
+      {
+        m_pDrive->MoveArcade(0.3, 0.0);
+      }
+      cameraImage = m_pDrive->WhereToTurn();
+    }
+    //Turn backward into the finish
+    m_pDrive->TimedArcade(-0.6,-0.2,1.3);
 
   }
 }
