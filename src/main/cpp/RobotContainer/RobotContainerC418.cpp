@@ -48,6 +48,7 @@ RobotContainerC418::RobotContainerC418()
 
   m_pGalacticSearchVision = new GalaticPathVision(m_pDrive, m_pLoader);
   m_pNewSlalom = new NewSlalom(m_pDrive);
+  m_pBenBarrel = new BenAutoBarrel(m_pDrive);
 
   m_pPlayMove = new PlayMove(m_pDrive, PLAY_MOVE_DEFAULT);
 
@@ -434,7 +435,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 6;
+  int cases = 10;
   switch(cases)
   {
     case 0:
@@ -466,6 +467,9 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
       break;
     case 9:
       return m_pNewSlalom;
+      break;
+    case 10:
+      return m_pBenBarrel;
       break;
     case 12:
       return m_pGalacticSearchVision;

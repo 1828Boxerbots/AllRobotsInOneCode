@@ -30,7 +30,7 @@ public:
   virtual void MoveArcade(double Y, double X);
   void ArcadeVision(double y, double x,  OldCameraVision::VisionColors color = OldCameraVision::VisionColors::GREEN_CONE_N);
   void TimedArcade(double y, double x, double time);
-  void IMUArcade(double x, double y, double angle);
+  void IMUArcade(double y, double x, double angle);
   void Stop();
   void Forward(double speed = 1.0);
   void ForwardInInch(double inch, double angle, double speed);
@@ -89,9 +89,11 @@ public:
   //Temp Function meant to test turning function
   virtual void ForwardIninchTurn(double inch, double angle, double speed) {}
 
-  void AlignWithVision(double deadZoneLocation = 0.0, int deadZoneRange = 100, bool defaultTurnRight = true, bool forwardBitch = true);
+  void AlignWithVision(double deadZoneLocation = 0.0, int deadZoneRange = 100, bool defaultTurnRight = true, bool forward = true);
   void MoveWithVision(double deadZoneLocation = 0.0, int deadZoneRange = 100, int moveSpeed = 0.5, bool defaultTurnRight = true);
   virtual double WhereToTurn(double deadZoneLocation = 0.0, int deadZoneRange = 100){return 0.0;}
+
+  void RotateToDegreeAbsolute(double degree, double speed, double deadZone);
 
 protected:
   bool m_isColliding = false;

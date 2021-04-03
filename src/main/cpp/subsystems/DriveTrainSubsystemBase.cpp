@@ -120,11 +120,11 @@ void DriveTrainSubsystemBase::MoveArcade(double Y, double X)
 
 }
 
-void DriveTrainSubsystemBase::IMUArcade(double x, double y, double angle)
+void DriveTrainSubsystemBase::IMUArcade(double y, double x, double angle)
 {
     double m_scale = 1;
-    double leftY = x + y;
-    double rightY = x - y;
+    double leftY = y + x;
+    double rightY = y - x;
     frc::SmartDashboard::PutNumber("Shadow", 1);
     double currentAngle = IMUGetAngle();
     double startAngle = IMUGetAngle();
@@ -464,7 +464,7 @@ void DriveTrainSubsystemBase::ForwardInSeconds(double goalTime, double speed)
     Stop();
 }
 
-void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZoneRange, bool defaultTurnRight, bool forwardBitch)
+void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZoneRange, bool defaultTurnRight, bool forward)
 {
     Util::Log("Direction", "Null");
     double turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
@@ -506,7 +506,7 @@ void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZ
         }
     }
     Util::Log("Direction", "Center");
-    if(forwardBitch)
+    if(forward)
     {
         Forward(0.25);
         while(turn > -2.9)
@@ -658,6 +658,29 @@ void DriveTrainSubsystemBase::ForwardInInchGyro(double inch, double speed, doubl
         Util::Log("ForwardGyro CA", currentAngle);
 
         MoveArcade(speed, howToTurn);
+    }
+
+    Stop();
+}
+
+void DriveTrainSubsystemBase::RotateToDegreeAbsolute(double degree, double speed, double deadZone)
+{
+    double currentAngle = IMUGetAngle();
+  
+    double lowerDegree = degree - deadZone;
+    double upperDegree = degree + deadZone;
+
+    while(currentAngle > upperDegree || currentAngle < lowerDegree)
+    {
+        if(currentAngle > upperDegree)
+        {
+            TurnRight(speed);
+        }
+        else if(currentAngle < lowerDegree)
+        {
+            TurnLeft(speed);
+        }
+        currentAngle = IMUGetAngle();
     }
 
     Stop();
