@@ -27,6 +27,7 @@
 #include "Commands/PlayMove.h"
 #include "Commands/NewSlalom.h"
 #include "Commands/BenAutoBarrel.h"
+#include "Commands/BenAutoBounce.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -113,6 +114,7 @@ private:
 
   NewSlalom *m_pNewSlalom = nullptr;
   BenAutoBarrel *m_pBenBarrel = nullptr;
+  BenAutoBounce *m_pNewBounce = nullptr;
 
   PlayMove *m_pPlayMove = nullptr;
   const char* PLAY_MOVE_DEFAULT = "/u/c418_recording/recording_2021-03-29_17-07-55.bin";
