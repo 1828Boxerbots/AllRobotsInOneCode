@@ -7,6 +7,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/DriveTrainSubsystemBase.h"
+#include "../Drivers/CameraDrivers/OldCameraVision.h"
 
 /**
  * An example command.
@@ -31,5 +32,4 @@ class BenAutoBarrel
  private:
   DriveTrainSubsystemBase* m_pDrive = nullptr;
   bool m_isFinished = false;
-  int types;
 };

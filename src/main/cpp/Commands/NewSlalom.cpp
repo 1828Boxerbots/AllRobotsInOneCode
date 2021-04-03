@@ -24,7 +24,7 @@ void NewSlalom::Execute()
 {
   //MOve out of start range and rotate toward front cone
   m_pDrive->ForwardInInchGyro(14, m_moveSpeed);
-  RotateToDegree(15, m_moveSpeed/2);
+  RotateToDegree(17, m_moveSpeed/2);
   //Set vision color
   m_pDrive->SetLookingColorV(OldCameraVision::VisionColors::RED_CONE_A);
   //Align and move forward
@@ -33,37 +33,34 @@ void NewSlalom::Execute()
 
   //Move forward along with cones
   RotateToDegree(0, 0.15);
-  m_pDrive->ForwardInInchGyro(125, m_moveSpeed*0.75, 2, 0.3);
+  m_pDrive->ForwardInInchGyro(125, m_moveSpeed*0.75, 2, 0.1);
 
   //Rotate to face end cone
-  RotateToDegree(-20, m_moveSpeed/2);
-  m_pDrive->AlignWithVision(-1, m_deadZone);
+  RotateToDegree(-35, m_moveSpeed/2);
+  m_pDrive->AlignWithVision(-1, m_deadZone, true, false);
   //Move Forward
   //Check if we can still see cone
-  int beat = 0;
   // while (m_pDrive->WhereToTurn(-1, m_deadZone) > -2)
   // {
-  //   Util::DelayInSeconds(1);
   //   m_pDrive->Stop();
   //   //Align and move forward until we can no longer see end cone
-  //   m_pDrive->AlignWithVision(-1, m_deadZone);
-  //   m_pDrive->ForwardInInchGyro(0.1, 0.15, 0.2, 0.1);
-  //   Util::Log("Slalom While", beat++);
+  //   m_pDrive->AlignWithVision(-1, m_deadZone, true, false);
+  //   m_pDrive->ForwardInInchGyro(12, 0.15, 1, 0.1);
   //   m_pDrive->Stop();
   // }
-  m_pDrive->ForwardInInchGyro(12, m_moveSpeed);
-  m_pDrive->IMUArcade(0.65, -0.2, 310);
+  m_pDrive->ForwardInInchGyro(24, m_moveSpeed);
+  m_pDrive->IMUArcade(0.6, -0.2, 310);
 
   m_pDrive->ForwardInInchGyro(48, m_moveSpeed/2);
   RotateToDegree(185, 0.15);
   RotateToDegree(185, 0.15);
-  m_pDrive->ForwardInInchGyro(142, m_moveSpeed*0.75, 2, 0.3);
+  m_pDrive->ForwardInInchGyro(146, m_moveSpeed*0.75, 2, 0.1);
 
   RotateToDegree(125, m_moveSpeed/6);
   Util::DelayInSeconds(0.2);
   RotateToDegree(125, m_moveSpeed/6);
   m_pDrive->SetLookingColorV(OldCameraVision::VisionColors::GREEN_CONE_A);
-  m_pDrive->AlignWithVision(-0.7, m_deadZone, true , false);
+  m_pDrive->AlignWithVision(-0.65, m_deadZone, true , false);
   m_pDrive->ForwardInInchGyro(100);
 
   m_isFinished = true;
