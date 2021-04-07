@@ -5,11 +5,10 @@
 #include "../../include/Commands/BenAutoBounce.h"
 
 
-BenAutoBounce::BenAutoBounce(DriveTrainSubsystemBase* pDrive, double radius) 
+BenAutoBounce::BenAutoBounce(DriveTrainSubsystemBase* pDrive) 
 {
   // Use addRequirements() here to declare subsystem dependencies.
   m_pDrive = pDrive;
-  m_turnRadius = radius;
   this->AddRequirements(pDrive);
 }
 
@@ -59,12 +58,21 @@ void BenAutoBounce::ProcessState0()
   if(m_state == 0)
   {
     //m_pDrive->ForwardInInchGyro(10, 0.5);
-    m_pDrive->TimedArcade(0.6, -0.25, 0.95);
+    m_pDrive->TimedArcade(0.6, -0.26, 0.91);
     m_pDrive->ForwardInInchGyro(72, -0.5);
-    m_pDrive->TimedArcade(-0.6,-0.3, 1);
-    m_pDrive->RotateToDegreeAbsolute(230, 0.3, 1);
-    BackwardsInInchGyro(114, -0.5);
-    // m_pDrive->ForwardInInchGyro(96, 0.5);
+    m_pDrive->TimedArcade(-0.6,-0.3, 0.8);
+    // m_pDrive->RotateToDegreeAbsolute(230, 0.1, 1);
+    // Util::DelayInSeconds(0.1);
+    // m_pDrive->RotateToDegreeAbsolute(230, 0.1, 1);
+    m_pDrive->ForwardInInchGyro(25, -0.5);
+    SprinkleToAngle(263, 0.1, m_delay, 2.5);
+    m_pDrive->ForwardInInchGyro(100, -0.5);
+    m_pDrive->ForwardInInchGyro(100, 0.5);
+    SprinkleToAngle(360, 0.1, m_delay, 2.5);
+    m_pDrive->ForwardInInchGyro(84, 0.5);
+    SprinkleToAngle(450, 0.1, m_delay, 2.5);
+    m_pDrive->ForwardInInchGyro(110, 0.5);
+    m_pDrive->TimedArcade(-0.7, -0.3, 1.2);
     m_state = 1;
   }
 }
@@ -255,4 +263,34 @@ void BenAutoBounce::BackwardsInInchGyro(double inch, double speed, double angleD
     }
 
     m_pDrive->Stop();
+}
+
+void BenAutoBounce::SprinkleToAngle(double angle, double speed, double delay, double deadZone)
+{
+  double lowAngle = angle - deadZone;
+  double highAngle = angle + deadZone;
+
+  double currentAngle = m_pDrive->IMUGetAngle();
+
+  while(currentAngle > highAngle || currentAngle < lowAngle)
+  {
+    Util::Log("Sprinkle", "In While");
+    currentAngle = m_pDrive->IMUGetAngle();
+
+    if(currentAngle > highAngle)
+    {
+      m_pDrive->TurnRight(speed);
+      Util::DelayInSeconds(delay);
+      m_pDrive->Stop();
+    }
+    currentAngle = m_pDrive->IMUGetAngle();
+    if(currentAngle < lowAngle)
+    {
+      m_pDrive->TurnLeft(speed);
+      Util::DelayInSeconds(delay);
+      m_pDrive->Stop();
+    }
+  }
+  Util::Log("Sprinkle", "Done");
+  m_pDrive->Stop();
 }

@@ -20,7 +20,7 @@ class BenAutoBounce
     : public frc2::CommandHelper<frc2::CommandBase, BenAutoBounce> 
 {
  public:
-  BenAutoBounce(DriveTrainSubsystemBase* pDrive, double radius);
+  BenAutoBounce(DriveTrainSubsystemBase* pDrive);
 
   void Initialize() override;
 
@@ -33,12 +33,16 @@ class BenAutoBounce
   constexpr static double TURN_RADIUS = 11;
 
   void BackwardsInInchGyro(double inch, double speed, double angleDeadZone = 1, double turnSpeed = 0.05);
+  void SprinkleToAngle(double angle, double speed, double delay, double deadZone);
 
  private:
   DriveTrainSubsystemBase* m_pDrive = nullptr;
   bool m_isFinished = false;
   int m_state = 0;
   double m_turnRadius = 11;
+
+  double m_delay = 0.05;
+
   void ProcessState0();
   void ProcessState1();
   void ProcessState2();

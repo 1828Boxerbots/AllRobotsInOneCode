@@ -49,7 +49,7 @@ RobotContainerC418::RobotContainerC418()
   m_pGalacticSearchVision = new GalaticPathVision(m_pDrive, m_pLoader);
   m_pNewSlalom = new NewSlalom(m_pDrive);
   m_pBenBarrel = new BenAutoBarrel(m_pDrive);
-  m_pNewBounce = new BenAutoBounce(m_pDrive, 11);
+  m_pNewBounce = new BenAutoBounce(m_pDrive);
 
   m_pPlayMove = new PlayMove(m_pDrive, PLAY_MOVE_DEFAULT);
 
