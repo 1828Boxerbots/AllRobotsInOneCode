@@ -42,6 +42,10 @@ public:
 
   void GetVisionFMS() override;
   void BreakFMSStr(std::string gameData) override;
+  void SetRightTrigger() override;
+  void SetLeftTrigger() override;
+  void SetLeftBumper() override;
+  void SetRightBumper() override;
 
 private:
   // The robot's subsystems and commands are defined here...

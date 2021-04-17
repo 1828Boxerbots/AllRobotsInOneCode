@@ -39,6 +39,9 @@ void RobotContainerRocky::ConfigureButtonBindings()
   SetLeftBumper();
   SetRightBumper();
 
+  SetLeftTrigger();
+  SetRightTrigger();
+
   SetButtonX();
   SetButtonY();
 
@@ -90,7 +93,7 @@ void RobotContainerRocky::Init()
 {
   m_pDrive->Init();
   m_pShooter->Init();
-  SetDrive();
+  SetDrive(RC_STYLE);
 }
 
 void RobotContainerRocky::DisableInit()
@@ -287,6 +290,34 @@ void RobotContainerRocky::BreakFMSStr(std::string gameData)
     output = strtok(nullptr, "-");
   } // end FOR
     Util::Log("AutoFMS", "Vision HSV values added");
+}
+
+void RobotContainerRocky::SetRightTrigger()
+{
+  frc2::Button buttonRTOne{[this] { return m_controller.GetTriggerAxis(frc::GenericHID::kRightHand); }};
+  buttonRTOne.WhenPressed(&m_shooterEject);
+  buttonRTOne.WhenReleased(&m_shooterStop);
+}
+
+void RobotContainerRocky::SetLeftTrigger()
+{
+  frc2::Button buttonLTOne{[this] { return m_controller.GetTriggerAxis(frc::GenericHID::kLeftHand); }};
+  buttonLTOne.WhenPressed(&m_shooterSpin);
+  buttonLTOne.WhenReleased(&m_shooterStop);
+}
+
+void RobotContainerRocky::SetLeftBumper()
+{
+  frc2::Button bumperL{[this] { return m_controller.GetBumper(frc::GenericHID::kLeftHand); }};
+  bumperL.WhenHeld(&m_loaderLoad);
+  bumperL.WhenReleased(&m_loaderStop);
+}
+
+void RobotContainerRocky::SetRightBumper()
+{
+  frc2::Button bumperR{[this] { return m_controller.GetBumper(frc::GenericHID::kRightHand); }};
+  bumperR.WhenHeld(&m_loaderEject);
+  bumperR.WhenReleased(&m_loaderStop);
 }
 
 void RobotContainerRocky::AutonomousPeriodic() 

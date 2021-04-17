@@ -65,7 +65,6 @@ void BenAutoBounce::ProcessState0()
     // Util::DelayInSeconds(0.1);
     // m_pDrive->RotateToDegreeAbsolute(230, 0.1, 1);
     m_pDrive->ForwardInInchGyro(25, -0.5);
-    SprinkleToAngle(263, 0.1, m_delay, 2.5);
     m_pDrive->ForwardInInchGyro(100, -0.5);
     m_pDrive->ForwardInInchGyro(100, 0.5);
     SprinkleToAngle(360, 0.1, m_delay, 2.5);
