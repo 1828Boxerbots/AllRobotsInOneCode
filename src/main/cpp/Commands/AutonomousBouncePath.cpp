@@ -67,7 +67,7 @@ void AutonomousBouncePath::ProcessState1()
   if(m_state == 1)
   {
     ///m_pDrive->TurnInDegrees(165,0.5, m_turnRadius); /original
-    m_pDrive->TimedArcade(-0.9,-0.08,1.85); // Back waay out of the first bottle, and to the right
+    m_pDrive->TimedArcade(-0.9,-0.08,1.85); // Back out of the first bottle, and to the right
     m_pDrive->TimedArcade(-0.6,-0.3,1.42); // Reverse semicircle around cone
     m_pDrive->TimedArcade(-0.7,0.05,1.67); // Straight back into the second bottle
     m_pDrive->ForwardInInch(70,0.0,0.7); // Straight forward

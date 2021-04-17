@@ -117,7 +117,6 @@ void DriveTrainSubsystemBase::MoveArcade(double Y, double X)
     MoveTank(leftY, rightY * m_scale); //TeleOp Test
     //SetMotorL(leftY);
     //SetMotorR(rightY * m_scale);
-
 }
 
 void DriveTrainSubsystemBase::IMUArcade(double x, double y, double angle)
