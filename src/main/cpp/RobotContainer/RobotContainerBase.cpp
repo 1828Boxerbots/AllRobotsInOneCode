@@ -63,7 +63,7 @@ void RobotContainerBase::SetDrive(DriveStyles driveStyle)
             [this] {
                 double leftHand = -m_controller.GetY(frc::GenericHID::kLeftHand);
                 double rightHand = m_controller.GetX(frc::GenericHID::kRightHand);
-                rightHand = rightHand * 0.75;
+                rightHand = rightHand * 0.37;
                 Util::Log("SetDrive Left Stick", leftHand);
                 Util::Log("SetDrive Right Stick", rightHand);
                 Util::Log("SetDrive Left Motor", m_pDrive->GetMotorL());

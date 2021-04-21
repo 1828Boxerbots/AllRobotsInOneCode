@@ -69,14 +69,12 @@ void RobotContainerC418::ConfigureButtonBindings()
   SetButtonY();
 
   SetRightBumper();
+  SetLeftBumper();
 
   //Shooter
   SetRightTrigger();
   SetStartButton();
   SetBackButton();
-
-  //Shooter Encoder
-  SetLeftBumper();
 }
 
 void RobotContainerC418::ConfigureAutonomousCommands()
@@ -489,7 +487,7 @@ void RobotContainerC418::Init()
   if (m_pSpin != nullptr)
     m_pSpin->InterpretFMS(ReadFMS());
   m_pDrive->Init();
-  SetDrive(RECORD_RC);
+  SetDrive(RC_STYLE);
   if (m_pLoader != nullptr)
     m_pLoader->SetLoadMotor(0.0);
   m_pLoader->Init();
@@ -568,12 +566,15 @@ void RobotContainerC418::SetRightTrigger()
 
 void RobotContainerC418::SetLeftBumper()
 {
-  frc2::Button buttonLBOne{[this] { return m_controller.GetBumper(frc::GenericHID::kLeftHand); }};
-  buttonLBOne.WhenPressed(&m_shooterEncoderReset);
-  buttonLBOne.WhenReleased(&m_shooterEncoderReset);
+  frc2::Button buttonLBOne{[this] {return m_controller.GetBumper(frc::GenericHID::kLeftHand); }};
+  buttonLBOne.WhenHeld(&m_loaderAllIntake);
+  buttonLBOne.WhenReleased(&m_loaderAllStop);
+  // frc2::Button buttonLBOne{[this] { return m_controller.GetBumper(frc::GenericHID::kLeftHand); }};
+  // buttonLBOne.WhenPressed(&m_shooterEncoderReset);
+  // buttonLBOne.WhenReleased(&m_shooterEncoderReset);
 
-  frc2::Button buttonLBTwo{[this] { return m_controller2.GetBumper(frc::GenericHID::kLeftHand); }};
-  buttonLBTwo.WhenPressed(m_pShootLoad);
+  // frc2::Button buttonLBTwo{[this] { return m_controller2.GetBumper(frc::GenericHID::kLeftHand); }};
+  // buttonLBTwo.WhenPressed(m_pShootLoad);
 }
 
 void RobotContainerC418::SetRightBumper()
