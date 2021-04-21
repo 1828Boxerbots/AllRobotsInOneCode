@@ -51,8 +51,8 @@ public:
   void SetButtonX() override;
   void SetButtonY() override;
   void SetRightTrigger() override;
-  void SetLeftBumper() override;
   void SetRightBumper() override;
+  void SetLeftBumper() override;
   void SetStartButton() override;
   void SetBackButton() override;
   int ReadDioSwitch();
