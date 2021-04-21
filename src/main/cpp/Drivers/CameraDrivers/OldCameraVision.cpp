@@ -155,7 +155,7 @@ bool OldCameraVision::GetBlob(int deadZonePixel)
 		return false; //Exit if empty*/
 
 	//Filter the image
-	SetColor();
+	SetColorBGR();
 
 	if( ( m_centroidY > 0.0 ) && ( m_centroidX > 0.0 ) )
 	{
@@ -336,6 +336,134 @@ void OldCameraVision::SetColor()
 	GetCentroidY();
 
 	Util::DelayInSeconds(0.2);
+}
+
+void OldCameraVision::SetColorBGR()
+{
+	//Change the camera image from BGR to HSV - Blue Green Red to Hue Saturation Value
+	//cv::cvtColor(m_frame, m_imgHSV, cv::COLOR_BGR2HSV);
+	//SendImage("grey image", imgHSV);
+
+	//Looks for specifc colors in the image
+
+	cv::Scalar resultL;
+	cv::Scalar resultH;
+
+	switch(m_visionColor)
+	{
+		//Green
+		// case VisionColors::GREEN_CONE_M:
+		// 	resultL = GREEN_CONE_LOW_M;
+		// 	resultH = GREEN_CONE_HIGH_M;
+		// 	break;
+		// case VisionColors::GREEN_CONE_A:
+		// 	resultL = GREEN_CONE_LOW_A;
+		// 	resultH = GREEN_CONE_HIGH_A;
+		// 	break;
+		// case VisionColors::GREEN_CONE_N:
+		// 	resultL = GREEN_CONE_LOW_N;
+		// 	resultH = GREEN_CONE_HIGH_N;
+		// 	break;
+		// //Red
+		// case VisionColors::RED_CONE_M:
+		// 	resultL = RED_CONE_LOW_M;
+		// 	resultH = RED_CONE_HIGH_M;
+		// 	break;
+		// case VisionColors::RED_CONE_A:
+		// 	resultL = RED_CONE_LOW_A;
+		// 	resultH = RED_CONE_HIGH_A;
+		// 	break;
+		// case VisionColors::RED_CONE_N:
+		// 	resultL = RED_CONE_LOW_N;
+		// 	resultH = RED_CONE_HIGH_N;
+		// 	break;
+		// //Yellow Lemon
+		// case VisionColors::YELLOW_LEMON_M:
+		// 	resultL = YELLOW_LEMON_LOW_M;
+		// 	resultH = YELLOW_LEMON_HIGH_M;
+		// 	break;
+		// case VisionColors::YELLOW_LEMON_A:
+		// 	resultL = YELLOW_LEMON_LOW_A;
+		// 	resultH = YELLOW_LEMON_HIGH_A;
+		// 	break;
+		// case VisionColors::YELLOW_LEMON_N:
+		// 	resultL = YELLOW_LEMON_LOW_N;
+		// 	resultH = YELLOW_LEMON_HIGH_N;
+		// 	break;
+		// //Purple
+		// case VisionColors::PURPLE_BOTTLE_M:
+		// 	resultL = PURPLE_BOTTLE_LOW_M;
+		// 	resultH = PURPLE_BOTTLE_HIGH_M;
+		// 	break;
+		// case VisionColors::PURPLE_BOTTLE_A:
+		// 	resultL = PURPLE_BOTTLE_LOW_A;
+		// 	resultH = PURPLE_BOTTLE_HIGH_A;
+		// 	break;
+		// case VisionColors::PURPLE_BOTTLE_N:
+		// 	resultL = PURPLE_BOTTLE_LOW_N;
+		// 	resultH = PURPLE_BOTTLE_HIGH_N;
+		// 	break;
+		// //Others
+		// case VisionColors::YELLOW_CONE:
+		// 	resultL = YELLOW_CONE_LOW;
+		// 	resultH = YELLOW_CONE_HIGH;
+		// 	break;
+		// case VisionColors::ORANGE_CONE:
+		// 	resultL = ORANGE_CONE_LOW;
+		// 	resultH = ORANGE_CONE_HIGH;
+		// 	break;
+		//FMS Color
+		case VisionColors::FMS_COLOR:
+			resultL = FMS_LOW;
+			resultH = FMS_HIGH;
+			break;
+		default:
+			resultL = FMS_LOW;
+			resultH = FMS_HIGH;
+			break;
+	}
+
+	Util::Log("LowB", resultL.val[0]);
+	Util::Log("HighB", resultH.val[0]);
+	Util::Log("LowG", resultL.val[1]);
+	Util::Log("HighG", resultH.val[1]);
+	Util::Log("LowR", resultL.val[2]);
+	Util::Log("HighR", resultH.val[2]);
+
+	m_rect = cv::Rect2d(m_cropX, m_cropY, m_cropW, m_cropH);
+	cv::Mat m_imgBGR = m_frame;
+	m_imgBGR = m_imgBGR(m_rect);
+
+	SendImage(IMAGE_HSV, m_imgBGR);
+
+	//cv::inRange(m_imgHSV, resultL, resultH, m_imgThresholded);
+	cv::inRange(m_imgBGR, resultL, resultH, m_imgThresholded);
+
+	// cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MorphShapes::MORPH_ELLIPSE, cv::Size(5, 5)));
+	// cv::dilate(m_imgThresholdedTwo, m_imgThresholded, cv::getStructuringElement(cv::MorphShapes::MORPH_ELLIPSE, cv::Size(6, 6)));
+
+	//Display Filtered Image
+	SendImage(IMAGE_THRESHOLD, m_imgThresholded);
+	// // Find moments of the image
+	// cv::Moments m = cv::moments(m_imgThresholded, true);
+	// if(m.m00 != 0)
+	// {
+	// 	Util::Log("OldCameraVision", "centroids were valid");
+	// 	m_centroidX = (m.m10 / m.m00) + m_cropX;
+	// 	m_centroidY = (m.m01 / m.m00) + m_cropY;
+	// 	cv::Point p(m_centroidX, m_centroidY);
+	// }
+	// else
+	// {
+	// 	Util::Log("OldCameraVision", "centroids were divied by 0");
+	// 	m_centroidX = -1.0;
+	// 	m_centroidY = -1.0;
+	// }
+
+	// GetCentroidX();
+	// GetCentroidY();
+
+	// Util::DelayInSeconds(0.2);
 }
 
 void OldCameraVision::SetHigh(int HSV, int value)

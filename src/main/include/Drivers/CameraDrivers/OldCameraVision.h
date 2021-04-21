@@ -191,6 +191,8 @@ private:
 	/// </summary>
 	void SetColor();
 
+	void SetColorBGR();
+
 	bool GrabFrame();
 };
 
