@@ -294,18 +294,22 @@ void DriveTrainSubsystemC418::PrecisionMovementLidar(double wantedDistance)
 #ifdef M_LIDAR
   const double DEAD_ZONE = 5.0;
   double currentDistance = m_pLidar->GetDistanceInInches();
-  while (wantedDistance < (currentDistance + DEAD_ZONE) && wantedDistance > (currentDistance - DEAD_ZONE))
+  Util::Log("Lidar", "Activated");
+  if(currentDistance < 0) {  Util::Log("Lidar","No See");  }
+  while (currentDistance < (wantedDistance - DEAD_ZONE) || currentDistance > (wantedDistance + DEAD_ZONE))
   {
-    if (currentDistance < wantedDistance)
+    if (currentDistance < wantedDistance - DEAD_ZONE)
     {
-      MoveTank(-.5, -.5);
+      Forward(-.5);
     }
-    if (currentDistance > wantedDistance)
+    if (currentDistance > wantedDistance + DEAD_ZONE)
     {
-      MoveTank(.5, .5);
+      Forward(.5);
     }
     currentDistance = m_pLidar->GetDistanceInInches();
+    Util::Log("LidarDistance", currentDistance);
   }
+  Stop();
 #endif
 }
 
