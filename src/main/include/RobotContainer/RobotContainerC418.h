@@ -28,6 +28,7 @@
 #include "Commands/NewSlalom.h"
 #include "Commands/BenAutoBarrel.h"
 #include "Commands/BenAutoBounce.h"
+#include "Commands/AutoLineUpShootCommand.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -106,11 +107,12 @@ private:
   frc2::SequentialCommandGroup *m_pGoFullSpeed = nullptr;
   frc2::SequentialCommandGroup *m_pAutoFetchGyro = nullptr;
   frc2::SequentialCommandGroup *m_pAutoPickUpLemon = nullptr;
-
+  
   AutoSlalom *m_pAutoSlalom = nullptr;
   AutonomousBouncePath *m_pBouncePath = nullptr;
   BackupChallengeOne *m_pBackupChallengeOne = nullptr;
   GalaticPathVision *m_pGalacticSearchVision = nullptr;
+  AutoLineUpShootCommand *m_pAutoLineUp = nullptr;
 
   NewSlalom *m_pNewSlalom = nullptr;
   BenAutoBarrel *m_pBenBarrel = nullptr;

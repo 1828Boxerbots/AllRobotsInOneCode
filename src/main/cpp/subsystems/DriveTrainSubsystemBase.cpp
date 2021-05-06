@@ -506,7 +506,7 @@ void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZ
         }
     }
     Util::Log("Direction", "Center");
-    if(forward)
+    if(forward == true)
     {
         Forward(0.25);
         while(turn > -2.9)

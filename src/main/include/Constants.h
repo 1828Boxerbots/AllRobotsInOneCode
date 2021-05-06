@@ -47,7 +47,7 @@
 
 //#define M_DISTANCE_LEFT
 //#define M_DISTANCE_RIGHT
-//#define M_LIDAR
+#define M_LIDAR
 //#define M_COLOR
 #define M_IMU
 
