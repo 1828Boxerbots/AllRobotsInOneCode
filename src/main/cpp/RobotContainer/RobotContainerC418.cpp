@@ -640,6 +640,10 @@ void RobotContainerC418::GetVisionFMS()
             m_pDrive->SetVisionFMSColor(OldCameraVision::RED_CONE_N);
             Util::Log("AutoFMS", "Vision Red Night");
             break;
+          case 'G':
+            m_pDrive->SetVisionFMSColor(OldCameraVision::REF_GREEN);
+            Util::Log("AutoFMS", "Reflective Green");
+            break;
         }
       }
       else

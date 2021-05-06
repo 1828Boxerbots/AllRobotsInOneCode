@@ -46,7 +46,9 @@ public:
 	, YELLOW_LEMON_M, YELLOW_LEMON_A, YELLOW_LEMON_N
 	, PURPLE_BOTTLE_M, PURPLE_BOTTLE_A, PURPLE_BOTTLE_N
 	, LEMON_ROCKY_M, LEMON_ROCKY_A, LEMON_ROCKY_N
-	, YELLOW_CONE, ORANGE_CONE, FMS_COLOR};
+	, YELLOW_CONE, ORANGE_CONE
+	, REF_GREEN
+	, FMS_COLOR};
 
 	void Tick();
 	
@@ -117,6 +119,10 @@ private:
 	const cv::Scalar BLUE_TEAMSHIRT_LOW{50, 50, 100};
 	const cv::Scalar BLUE_TEAMSHIRT_HIGH{100, 255, 255};
 
+	//REFLECTIVE GREEN
+	const cv::Scalar REF_GREEN_LOW{40, 150, 0};		//V-40-250-150-255-0-255
+	const cv::Scalar REF_GREEN_HIGH{250, 255, 255};
+
 	//Lemon Rocky
 	const cv::Scalar YELLOW_LEMON_LOW_ROCKY_M{14, 100, 150};	//Moring		//V-14-30-100-255-150-255
 	const cv::Scalar YELLOW_LEMON_HIGH_ROCKY_M{30, 255, 255};  	//Moring
@@ -156,7 +162,7 @@ private:
 	//How big is the dead zone where WhereToTurn() = 0.0
 	//double m_deadZone = 50.0;
 
-	VisionColors m_visionColor = FMS_COLOR;
+	VisionColors m_visionColor = REF_GREEN;
 	//Holds the camera and raw image
 	cv::Mat m_frame; 
 	cv::Mat m_imgHSV;

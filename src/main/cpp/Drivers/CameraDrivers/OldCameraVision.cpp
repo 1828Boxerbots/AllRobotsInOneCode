@@ -21,7 +21,7 @@ bool OldCameraVision::Init()
 
 	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
 	m_camera.SetResolution( M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
-	//m_camera.SetExposureHoldCurrent();
+	m_camera.SetExposureManual(1);
 	//m_camera.SetWhiteBalanceHoldCurrent();
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
 	m_outputStream = frc::CameraServer::GetInstance()->PutVideo( IMAGE_FILTERED, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
@@ -277,6 +277,10 @@ void OldCameraVision::SetColor()
 			resultL = PURPLE_BOTTLE_LOW_N;
 			resultH = PURPLE_BOTTLE_HIGH_N;
 			break;
+		case VisionColors::REF_GREEN:
+			resultL = REF_GREEN_LOW;
+			resultH = REF_GREEN_HIGH;
+			break;
 		//Others
 		case VisionColors::YELLOW_CONE:
 			resultL = YELLOW_CONE_LOW;
@@ -292,8 +296,8 @@ void OldCameraVision::SetColor()
 			resultH = FMS_HIGH;
 			break;
 		default:
-			resultL = YELLOW_LEMON_LOW_A;
-			resultH = YELLOW_LEMON_HIGH_A;
+			resultL = REF_GREEN_LOW;
+			resultH = REF_GREEN_HIGH;
 			break;
 	}
 
