@@ -134,6 +134,7 @@ private:
 	const std::string IMAGE_FILTERED = "Filtered";
 	const std::string IMAGE_THRESHOLD = "Threshold";
 	const std::string IMAGE_HSV = "HSV";
+	const std::string IMAGE_CONT = "Contours";
 
 	cv::Scalar FMS_HIGH{179, 255, 255};
 	cv::Scalar FMS_LOW{0, 0, 0};
@@ -168,16 +169,27 @@ private:
 	cv::Mat m_imgHSV;
 	cv::Mat m_imgThresholded;
 	cv::Mat m_imgThresholdedTwo;
+	cv::Mat m_imgCanny;
+	cv::Mat m_imgContour;
 	cs::UsbCamera m_camera;
 	cs::CvSink m_cvSink;
 	cs::CvSource m_outputStream;
 	cs::CvSource m_outputStreamTwo;
 	cs::CvSource m_outputStreamHSV;
+	cs::CvSource m_outStreamContour;
 	cv::Rect2d m_rect;
 	int m_cropX = 0; 
 	int m_cropY = 0; 
 	int m_cropW = M_CAMERA_WIDTH; 
 	int m_cropH = M_CAMERA_HEIGHT;
+
+	//Check Vars
+	double m_minArea = 0;
+	double m_maxArea = 20000;
+	double m_minSolid = 0;
+	double m_maxSolid = 1;
+	double m_minRatio = 0;
+	double m_maxRatio = 100;
 
 	/// <summary>
 	/// Create a new window to display an image
@@ -200,5 +212,7 @@ private:
 	void SetColorBGR();
 
 	bool GrabFrame();
+
+	void GetContours();
 };
 

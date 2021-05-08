@@ -27,6 +27,7 @@ bool OldCameraVision::Init()
 	m_outputStream = frc::CameraServer::GetInstance()->PutVideo( IMAGE_FILTERED, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
 	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo ( IMAGE_THRESHOLD, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
 	m_outputStreamHSV = frc::CameraServer::GetInstance()->PutVideo ( IMAGE_HSV, M_CAMERA_WIDTH, M_CAMERA_HEIGHT);
+	m_outStreamContour = frc::CameraServer::GetInstance()->PutVideo ( IMAGE_CONT, M_CAMERA_WIDTH, M_CAMERA_HEIGHT);
 
 	//Setting Crop
 	double rioW = 70;
@@ -133,6 +134,10 @@ void OldCameraVision::SendImage(std::string title, cv::Mat frame/*, int width, i
 	{
 		m_outputStreamHSV.PutFrame(frame);
 	}
+	else if(title == IMAGE_CONT)
+	{
+		m_outStreamContour.PutFrame(frame);
+	}
 }
 
 bool OldCameraVision::GrabFrame()
@@ -155,7 +160,7 @@ bool OldCameraVision::GetBlob(int deadZonePixel)
 		return false; //Exit if empty*/
 
 	//Filter the image
-	SetColorBGR();
+	SetColor();
 
 	if( ( m_centroidY > 0.0 ) && ( m_centroidX > 0.0 ) )
 	{
@@ -315,31 +320,86 @@ void OldCameraVision::SetColor()
 
 	cv::inRange(m_imgHSV, resultL, resultH, m_imgThresholded);
 
+	//Display Filtered Image
+	SendImage(IMAGE_THRESHOLD, m_imgThresholded);
+
+	GetContours();
+	// // Find moments of the image
+	// cv::Moments m = cv::moments(m_imgThresholded, true);
+	// if(m.m00 != 0)
+	// {
+	// 	Util::Log("OldCameraVision", "centroids were valid");
+	// 	m_centroidX = (m.m10 / m.m00) + m_cropX;
+	// 	m_centroidY = (m.m01 / m.m00) + m_cropY;
+	// 	cv::Point p(m_centroidX, m_centroidY);
+	// }
+	// else
+	// {
+	// 	Util::Log("OldCameraVision", "centroids were divied by 0");
+	// 	m_centroidX = -1.0;
+	// 	m_centroidY = -1.0;
+	// }
+
+	// GetCentroidX();
+	// GetCentroidY();
+
+	// Util::DelayInSeconds(0.2);
+}
+
+void OldCameraVision::GetContours()
+{
+	cv::threshold(m_imgThresholded, m_imgThresholded, 180, 255, cv::THRESH_BINARY);
 	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MorphShapes::MORPH_ELLIPSE, cv::Size(5, 5)));
 	cv::dilate(m_imgThresholdedTwo, m_imgThresholded, cv::getStructuringElement(cv::MorphShapes::MORPH_ELLIPSE, cv::Size(6, 6)));
 
-	//Display Filtered Image
-	SendImage(IMAGE_THRESHOLD, m_imgThresholded);
-	// Find moments of the image
-	cv::Moments m = cv::moments(m_imgThresholded, true);
-	if(m.m00 != 0)
+	cv::Canny(m_imgThresholded, m_imgCanny, 0, 0);
+
+	std::vector<std::vector<cv::Point> > contours;
+	std::vector<cv::Vec4i> hierarchy;
+	cv::findContours(m_imgCanny, contours, hierarchy, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
+	m_imgContour = cv::Mat::zeros(m_imgCanny.rows, m_imgCanny.cols, CV_8UC3);
+
+	for(size_t i = 0; i < contours.size(); i++)
 	{
-		Util::Log("OldCameraVision", "centroids were valid");
-		m_centroidX = (m.m10 / m.m00) + m_cropX;
-		m_centroidY = (m.m01 / m.m00) + m_cropY;
-		cv::Point p(m_centroidX, m_centroidY);
-	}
-	else
-	{
-		Util::Log("OldCameraVision", "centroids were divied by 0");
-		m_centroidX = -1.0;
-		m_centroidY = -1.0;
+		//CONTOUR CHEKCS
+
+		//Area
+		double contourArea = cv::contourArea(contours[i]);
+		if(contourArea > m_maxArea || contourArea < m_minArea)
+		{
+			Util::Log("ContourArea", cvContourArea);
+			continue;
+		}
+
+		//Solidarity
+		cv::Rect boundRect = cv::boundingRect(contours[i]);
+		double solid = cv::contourArea(contours[i]) / ((1.0 * boundRect.width) * boundRect.height);
+		if(solid > m_maxSolid || solid < m_minSolid)
+		{
+			Util::Log("Solidarity: ", solid);
+			continue;
+		}
+
+		//Aspect Ration (w/h)
+		double ratio = (double)boundRect.width / boundRect.height;
+		if(ratio > m_maxRatio || ratio < m_minRatio)
+		{
+			Util::Log("Aspect Ratio", ratio);
+			continue;
+		}
+
+		m_centroidX = boundRect.x + (double)(boundRect.width / 2);
+		m_centroidY = boundRect.y + (double)(boundRect.height / 2);
+
+		cv::rectangle(m_frame, boundRect, cv::Scalar(0, 255, 255));
+
+		cv::line(m_imgContour, cv::Point(m_centroidX, m_centroidY - boundRect.height/2), cv::Point(m_centroidX, m_centroidY + boundRect.height/2), cv::Scalar(255, 0, 0));
+		cv::line(m_imgContour, cv::Point(m_centroidX - boundRect.width/2, m_centroidY), cv::Point(m_centroidX + boundRect.height/2, m_centroidY), cv::Scalar(255, 0, 0));
+
+		cv::drawContours(m_imgContour, contours, i, cv::Scalar(255, 0, 255), 2);
 	}
 
-	GetCentroidX();
-	GetCentroidY();
-
-	Util::DelayInSeconds(0.2);
+	SendImage(IMAGE_CONT, m_imgContour);
 }
 
 void OldCameraVision::SetColorBGR()
