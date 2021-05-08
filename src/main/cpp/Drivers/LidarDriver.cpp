@@ -35,8 +35,16 @@ double LidarDriver::GetDistanceInCM()
     m_pDevice->Read(FULL_DELAY_HIGH, 1, &high);
     m_pDevice->Read(FULL_DELAY_LOW, 1, &low);
     uint16_t centimeters = (high << 8) | low;
+    uint16_t centimeters2 = (low << 8) | high; 
     // Use this if you want to see distance on Smashboard
-    //Util::Log("Lidar Distance", centimeters, "LidarDriver");
+    
+    // Util::Log("Lidar High", high, "LidarDriver");
+
+    // Util::Log("Lidar Low", low, "LidarDriver");
+
+    Util::Log("Lidar Distance", centimeters, "LidarDriver");
+
+    // Util::Log("Lidar Distance 2", centimeters2, "LidarDriver");
 
     return (double)centimeters;
 }

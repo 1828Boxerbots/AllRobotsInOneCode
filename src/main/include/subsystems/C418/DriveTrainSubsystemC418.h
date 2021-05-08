@@ -102,7 +102,7 @@ private:
   I2CMultiplexerDriver *m_pMultiplexerDriver = nullptr;
 
 #ifdef M_LIDAR
-  MuxLidarDriver *m_pLidar = nullptr; // Paramaters: {I2C_PORT_MULTIPLEXER_C418, I2C_ADDR_LIDAR_C418, m_i2cBreakout, U8T_LINE_LIDAR_C418};
+  MuxLidarDriver *m_pLidar = nullptr; // Parameters: {I2C_PORT_MULTIPLEXER_C418, I2C_ADDR_LIDAR_C418, m_i2cBreakout, U8T_LINE_LIDAR_C418};
 #endif
 
 //For both distance sensors on C418

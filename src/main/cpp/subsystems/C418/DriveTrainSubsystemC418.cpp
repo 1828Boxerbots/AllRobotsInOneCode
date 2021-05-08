@@ -255,7 +255,7 @@ double DriveTrainSubsystemC418::GetLidarDetectionDistance()
   {
     return 1;
   }*/
-  double val = m_pLidar->GetDistanceInInches();
+  double val = m_pLidar->GetDistanceInCM();
   frc::SmartDashboard::PutNumber("DriveTrain Lidar", val);
   return val;
 #else

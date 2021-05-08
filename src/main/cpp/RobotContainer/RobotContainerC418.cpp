@@ -146,6 +146,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
     {
       [this] 
       {
+#ifdef TEST
         int height;
         int width;
         m_pDrive->GetVisionSize(&height, &width);
@@ -157,7 +158,8 @@ void RobotContainerC418::ConfigureAutonomousCommands()
         // m_pDrive->IMUGetAngle();
         // m_pDrive->GetLeftEncoderInch();
         // m_pDrive->GetRightEncoderInch();
-       
+#endif // #ifdef TEST
+      double lidar = m_pDrive->GetLidarDetectionDistance();
       }
     }
   };
