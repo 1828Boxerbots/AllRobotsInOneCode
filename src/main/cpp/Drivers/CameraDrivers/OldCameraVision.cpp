@@ -5,6 +5,11 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include "Util.h"
 #include <math.h>
+#include <stdlib.h>
+
+//#define HSV
+#define THRESHOLD
+#define CONTOURS
 
 OldCameraVision::OldCameraVision(int port)
 {
@@ -25,14 +30,28 @@ bool OldCameraVision::Init()
 	//m_camera.SetWhiteBalanceHoldCurrent();
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
 	m_outputStream = frc::CameraServer::GetInstance()->PutVideo( IMAGE_FILTERED, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
+	#ifdef THRESHOLD
 	m_outputStreamTwo = frc::CameraServer::GetInstance()->PutVideo ( IMAGE_THRESHOLD, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
+	#endif
+	#ifdef HSV
 	m_outputStreamHSV = frc::CameraServer::GetInstance()->PutVideo ( IMAGE_HSV, M_CAMERA_WIDTH, M_CAMERA_HEIGHT);
+	#endif
+	#ifdef CONTOURS
 	m_outStreamContour = frc::CameraServer::GetInstance()->PutVideo ( IMAGE_CONT, M_CAMERA_WIDTH, M_CAMERA_HEIGHT);
+	#endif
 
 	//Setting Crop
 	double rioW = 70;
 	SetCrop((M_CAMERA_WIDTH/2) - (rioW/2), (M_CAMERA_HEIGHT*0.7), rioW, M_CAMERA_HEIGHT*0.3);
 	//SetCrop(0, M_CAMERA_HEIGHT*0.75, M_CAMERA_WIDTH, M_CAMERA_HEIGHT*0.25);
+
+	m_elementE = cv::getStructuringElement(cv::MORPH_ELLIPSE,
+		cv::Size(2 * m_erodeSize + 1, 2 * m_erodeSize + 1),
+		cv::Point(m_erodeSize, m_erodeSize));
+
+	m_elementD = cv::getStructuringElement(cv::MORPH_ELLIPSE,
+		cv::Size(2 * m_dilateSize + 1, 2 * m_dilateSize + 1),
+		cv::Point(m_dilateSize, m_dilateSize));
 
 	return true;
 }
@@ -128,15 +147,21 @@ void OldCameraVision::SendImage(std::string title, cv::Mat frame/*, int width, i
 	}
 	else if(title == IMAGE_THRESHOLD)
 	{
+		#ifdef THRESHOLD
 		m_outputStreamTwo.PutFrame(frame);
+		#endif
 	}
 	else if(title == IMAGE_HSV)
 	{
+		#ifdef HSV
 		m_outputStreamHSV.PutFrame(frame);
+		#endif
 	}
 	else if(title == IMAGE_CONT)
 	{
+		#ifdef CONTOURS
 		m_outStreamContour.PutFrame(frame);
+		#endif
 	}
 }
 
@@ -306,22 +331,29 @@ void OldCameraVision::SetColor()
 			break;
 	}
 
-	Util::Log("LowH", resultL.val[0]);
-	Util::Log("HighH", resultH.val[0]);
-	Util::Log("LowS", resultL.val[1]);
-	Util::Log("HighS", resultH.val[1]);
-	Util::Log("LowV", resultL.val[2]);
-	Util::Log("HighV", resultH.val[2]);
+	Util::Log("OldCamera-LowH", resultL.val[0]);
+	Util::Log("OldCamera-HighH", resultH.val[0]);
+	Util::Log("OldCamera-LowS", resultL.val[1]);
+	Util::Log("OldCamera-HighS", resultH.val[1]);
+	Util::Log("OldCamera-LowV", resultL.val[2]);
+	Util::Log("OldCamera-HighV", resultH.val[2]);
 
 	m_rect = cv::Rect2d(m_cropX, m_cropY, m_cropW, m_cropH);
 	m_imgHSV = m_imgHSV(m_rect);
 
+	#ifdef HSV
 	SendImage(IMAGE_HSV, m_imgHSV);
+	#endif
 
 	cv::inRange(m_imgHSV, resultL, resultH, m_imgThresholded);
 
+	cv::erode(m_imgThresholded, m_imgThresholded, m_elementE);
+	cv::dilate(m_imgThresholded, m_imgThresholded, m_elementD);
+
 	//Display Filtered Image
+	#ifdef THRESHOLD
 	SendImage(IMAGE_THRESHOLD, m_imgThresholded);
+	#endif
 
 	GetContours();
 	// // Find moments of the image
@@ -362,29 +394,32 @@ void OldCameraVision::GetContours()
 	for(size_t i = 0; i < contours.size(); i++)
 	{
 		//CONTOUR CHEKCS
-
+		char message[1024];
 		//Area
 		double contourArea = cv::contourArea(contours[i]);
+		sprintf(message, "OldCamera-ContourArea %d", i);
+		Util::Log(message, contourArea);
 		if(contourArea > m_maxArea || contourArea < m_minArea)
 		{
-			Util::Log("ContourArea", cvContourArea);
 			continue;
 		}
 
 		//Solidarity
 		cv::Rect boundRect = cv::boundingRect(contours[i]);
 		double solid = cv::contourArea(contours[i]) / ((1.0 * boundRect.width) * boundRect.height);
+		sprintf(message, "OldCamera-Solidarity %d", i);
+		Util::Log(message, solid);
 		if(solid > m_maxSolid || solid < m_minSolid)
 		{
-			Util::Log("Solidarity: ", solid);
 			continue;
 		}
 
 		//Aspect Ration (w/h)
 		double ratio = (double)boundRect.width / boundRect.height;
+		sprintf(message, "OldCamera-AspectRatio %d", i);
+		Util::Log(message, ratio);
 		if(ratio > m_maxRatio || ratio < m_minRatio)
 		{
-			Util::Log("Aspect Ratio", ratio);
 			continue;
 		}
 
@@ -399,7 +434,16 @@ void OldCameraVision::GetContours()
 		cv::drawContours(m_imgContour, contours, i, cv::Scalar(255, 0, 255), 2);
 	}
 
+	Util::Log("OldCamera-MinArea", m_minArea);
+	Util::Log("OldCamera-MaxArea", m_maxArea);
+	Util::Log("OldCamera-MinRatio", m_minRatio);
+	Util::Log("OldCamera-MaxRatio", m_maxRatio);
+	Util::Log("OldCamera-MinSolid", m_minSolid);
+	Util::Log("OldCamera-MaxSolid", m_maxSolid);
+
+	#ifdef CONTOURS
 	SendImage(IMAGE_CONT, m_imgContour);
+	#endif
 }
 
 void OldCameraVision::SetColorBGR()

@@ -438,6 +438,46 @@ void DriveTrainSubsystemC418::GetVisionSize(int *pHeight, int *pWidth)
   #endif
 }
 
+void DriveTrainSubsystemC418::SetContArea(bool isLow, double value)
+{
+  #ifndef NO_HW
+    if(isLow)
+    {
+      m_camera.m_minArea = value;
+    }
+    else
+    {
+      m_camera.m_maxArea = value;
+    }
+  #endif
+}
+void DriveTrainSubsystemC418::SetContRatio(bool isLow, double value)
+{
+  #ifndef NO_HW
+    if(isLow)
+    {
+      m_camera.m_minRatio = value;
+    }
+    else
+    {
+      m_camera.m_maxRatio = value;
+    }
+  #endif
+}
+void DriveTrainSubsystemC418::SetContSolid(bool isLow, double value)
+{
+  #ifndef NO_HW
+    if(isLow)
+    {
+      m_camera.m_minSolid = value;
+    }
+    else
+    {
+      m_camera.m_maxSolid = value;
+    }
+  #endif
+}
+
 //Used to disable and enable anticollision
 void DriveTrainSubsystemC418::EnableAnticollision(bool enable)
 {

@@ -63,6 +63,14 @@ public:
 	double GetCentroidX();
 	double GetCentroidY();
 
+	//Check Vars
+	double m_minArea = 0;			// 5-15-2021 Ref-Green values
+	double m_maxArea = 30000;		// C-0-30000-1-3-0-1
+	double m_minRatio = 1;
+	double m_maxRatio = 3;
+	double m_minSolid = 0;
+	double m_maxSolid = 1;
+
 private:
  	int m_frameCounter = 0;
 
@@ -120,8 +128,8 @@ private:
 	const cv::Scalar BLUE_TEAMSHIRT_HIGH{100, 255, 255};
 
 	//REFLECTIVE GREEN
-	const cv::Scalar REF_GREEN_LOW{40, 150, 0};		//V-40-250-150-255-0-255
-	const cv::Scalar REF_GREEN_HIGH{250, 255, 255};
+	const cv::Scalar REF_GREEN_LOW{40, 150, 100};		//V-40-80-150-255-100-255
+	const cv::Scalar REF_GREEN_HIGH{80, 255, 255};
 
 	//Lemon Rocky
 	const cv::Scalar YELLOW_LEMON_LOW_ROCKY_M{14, 100, 150};	//Moring		//V-14-30-100-255-150-255
@@ -136,8 +144,8 @@ private:
 	const std::string IMAGE_HSV = "HSV";
 	const std::string IMAGE_CONT = "Contours";
 
-	cv::Scalar FMS_HIGH{179, 255, 255};
-	cv::Scalar FMS_LOW{0, 0, 0};
+	cv::Scalar FMS_HIGH{80, 255, 255};		//V-40-80-150-255-100-255
+	cv::Scalar FMS_LOW{40, 150, 100};
 
 	const double OUT_OF_CAMERA_RANGE = -3.0;
 
@@ -171,6 +179,10 @@ private:
 	cv::Mat m_imgThresholdedTwo;
 	cv::Mat m_imgCanny;
 	cv::Mat m_imgContour;
+	cv::Mat m_elementE;
+	cv::Mat m_elementD;
+	cv::Mat m_erode;
+	cv::Mat m_dilate;
 	cs::UsbCamera m_camera;
 	cs::CvSink m_cvSink;
 	cs::CvSource m_outputStream;
@@ -182,14 +194,8 @@ private:
 	int m_cropY = 0; 
 	int m_cropW = M_CAMERA_WIDTH; 
 	int m_cropH = M_CAMERA_HEIGHT;
-
-	//Check Vars
-	double m_minArea = 0;
-	double m_maxArea = 20000;
-	double m_minSolid = 0;
-	double m_maxSolid = 1;
-	double m_minRatio = 0;
-	double m_maxRatio = 100;
+	int m_erodeSize = 1;
+	int m_dilateSize = 2;
 
 	/// <summary>
 	/// Create a new window to display an image

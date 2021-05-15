@@ -150,7 +150,8 @@ void RobotContainerC418::ConfigureAutonomousCommands()
         int height;
         int width;
         m_pDrive->GetVisionSize(&height, &width);
-        m_pDrive->SetVisionCrop(0, 0, width, height);        
+        m_pDrive->SetVisionCrop(0, 0, width, height);
+        m_pDrive->SetLookingColorV(OldCameraVision::VisionColors::FMS_COLOR);
         m_pDrive->WhereToTurn(0.0, 50);
         Util::Log("Nothere Where", m_pDrive->WhereToTurn(0.0, 50));
 
@@ -756,6 +757,10 @@ void RobotContainerC418::GetVisionFMS()
       Util::Log("AutoFMS", "Vision Slider");
       BreakFMSStr(gameData);
       break;
+    case 'C':
+      Util::Log("AutoFMS", "Contour Slider");
+      BreakContourStr(gameData);
+      break;
     default:
       //This is corrupt data
       Util::Log("AutoFMS", gameData);
@@ -807,6 +812,45 @@ void RobotContainerC418::BreakFMSStr(std::string gameData)
     output = strtok(nullptr, "-");
   } // end FOR
     Util::Log("AutoFMS", "Vision HSV values added");
+}
+
+void RobotContainerC418::BreakContourStr(std::string gameData)
+{
+  char copy[60]; // Variable length arrays are bad! Must be a preset value. 60 is plenty big enough for our purposes.
+  strcpy(copy, gameData.c_str());
+  char *output = strtok(copy, "-");
+  for (int num=0; output != nullptr; num++)
+  {
+    float value = atof(output);
+    switch (num)
+    {
+      case 0:
+        break;
+      case 1:
+        m_pDrive->SetContArea(true, (double)value);
+        break;
+      case 2:
+        m_pDrive->SetContArea(false, (double)value);
+        break;
+      case 3:
+        m_pDrive->SetContRatio(true, (double)value);
+        break;
+      case 4:
+        m_pDrive->SetContRatio(false, (double)value);
+        break;
+      case 5:
+        m_pDrive->SetContSolid(true, (double)value);
+        break;
+      case 6:
+        m_pDrive->SetContSolid(false, (double)value);
+        break;
+      default:
+        //IT BROKE or there is more when there isnt suppose to be
+        break;
+    } // end SWITCH
+    output = strtok(nullptr, "-");
+  } // end FOR
+    Util::Log("AutoFMS", "Contour variable checks changed");
 }
 
 void RobotContainerC418::AutonomousPeriodic() 

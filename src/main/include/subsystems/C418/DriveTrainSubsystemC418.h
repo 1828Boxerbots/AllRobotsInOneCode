@@ -57,6 +57,10 @@ public:
   // void MoveArcade(double X, double Y) override;
   void SetVisionFMSColor(OldCameraVision::VisionColors colors) override;
 
+  void SetContArea(bool isLow, double value) override;
+  void SetContRatio(bool isLow, double value) override;
+  void SetContSolid(bool isLow, double value) override;
+
   void SetVisionCrop(int cropX = 0, int cropY = 0, int cropW = 240, int cropH = 320) override;
   void GetVisionSize(int *pHeight, int *pWidth) override;
 

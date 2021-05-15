@@ -62,6 +62,7 @@ public:
 
   void GetVisionFMS() override;
   void BreakFMSStr(std::string gameData) override;
+  void BreakContourStr(std::string gameDate);
 
   static SpinSubsystemC418::FMSColors givenColor;
 
