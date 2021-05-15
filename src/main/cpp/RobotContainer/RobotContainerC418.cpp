@@ -46,6 +46,8 @@ RobotContainerC418::RobotContainerC418()
 
   m_pAutoLemonPick = new PickUpLemonCommand(m_pLoader, m_pShooter, m_pDrive, 0.2, 0.5);
 
+  m_pAutoLineUp = new AutoLineUpShootCommand(m_pDrive, 48, m_pShooter, m_pLoader);
+
   m_pGalacticSearchVision = new GalaticPathVision(m_pDrive, m_pLoader);
   m_pNewSlalom = new NewSlalom(m_pDrive);
   m_pBenBarrel = new BenAutoBarrel(m_pDrive);
@@ -151,7 +153,7 @@ void RobotContainerC418::ConfigureAutonomousCommands()
         int width;
         m_pDrive->GetVisionSize(&height, &width);
         m_pDrive->SetVisionCrop(0, 0, width, height);
-        m_pDrive->SetLookingColorV(OldCameraVision::VisionColors::FMS_COLOR);
+        m_pDrive->SetLookingColorV(OldCameraVision::VisionColors::REF_GREEN);
         m_pDrive->WhereToTurn(0.0, 50);
         Util::Log("Nothere Where", m_pDrive->WhereToTurn(0.0, 50));
 
@@ -437,7 +439,8 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 5;
+  int cases = 13;
+  Util::Log("AutoC418", cases);
   switch(cases)
   {
     case 0:
@@ -478,6 +481,9 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
       break;
     case 12:
       return m_pGalacticSearchVision;
+      break;
+    case 13:
+      return m_pAutoLineUp;
       break;
     default:
       return nullptr;

@@ -31,7 +31,7 @@ public:
   void Periodic() override;
   //void DetectionSoftware(double detectionDistance) override;
   double GetLidarDetectionDistance() override;
-  void PrecisionMovementLidar(double wantedDistance) override;
+  void PrecisionMovementLidar(double wantedDistance, double speed = 0.5) override;
   double GetPulsesPerRevolution() override { return PULSE_PER_REVOLUTION; }
   void EnableAnticollision(bool enable) override;
 

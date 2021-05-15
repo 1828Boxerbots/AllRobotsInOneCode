@@ -143,7 +143,7 @@ void DriveTrainSubsystemRocky::DetectionSoftware(double detectionDistance)
 */
 
 //Sets up dead zone in lidar
-void DriveTrainSubsystemRocky::PrecisionMovementLidar(double wantedDistance)
+void DriveTrainSubsystemRocky::PrecisionMovementLidar(double wantedDistance, double speed)
 {
 #ifndef NOHW
   const double DEAD_ZONE = 5.0;

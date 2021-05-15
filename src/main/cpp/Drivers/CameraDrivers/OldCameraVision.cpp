@@ -41,8 +41,8 @@ bool OldCameraVision::Init()
 	#endif
 
 	//Setting Crop
-	double rioW = 70;
-	SetCrop((M_CAMERA_WIDTH/2) - (rioW/2), (M_CAMERA_HEIGHT*0.7), rioW, M_CAMERA_HEIGHT*0.3);
+	//double rioW = 70;
+	//SetCrop((M_CAMERA_WIDTH/2) - (rioW/2), (M_CAMERA_HEIGHT*0.7), rioW, M_CAMERA_HEIGHT*0.3);
 	//SetCrop(0, M_CAMERA_HEIGHT*0.75, M_CAMERA_WIDTH, M_CAMERA_HEIGHT*0.25);
 
 	m_elementE = cv::getStructuringElement(cv::MORPH_ELLIPSE,

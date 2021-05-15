@@ -64,7 +64,7 @@ public:
   virtual double GetLidarDetectionDistance() { return 0.0; }
   virtual double GetDistanceSensorDetectionDistanceLeft() { return 0.0; }
   virtual double GetDistanceSensorDetectionDistanceRight() { return 0.0; }
-  virtual void PrecisionMovementLidar(double wantedDistance) {}
+  virtual void PrecisionMovementLidar(double wantedDistance, double speed) {}
   virtual bool IsDistanceLeftActive() { return false; }
   virtual bool IsDistanceRightActive() { return false; }
   virtual void InitLeft(){};

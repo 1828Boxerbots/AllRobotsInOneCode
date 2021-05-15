@@ -50,7 +50,6 @@
 #define M_LIDAR
 //#define M_COLOR
 #define M_IMU
-#define TEST
 
 //Controllers
 constexpr int USB_CONTROLLER_ONE = 0;

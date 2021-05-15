@@ -470,6 +470,7 @@ void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZ
     double turn =  WhereToTurn(deadZoneLocation, deadZoneRange);
     while(turn != 0.0)
     {
+        Util::DelayInSeconds(0.3);
         turn = WhereToTurn(deadZoneLocation, deadZoneRange);
         if(turn < -1.0)
         {

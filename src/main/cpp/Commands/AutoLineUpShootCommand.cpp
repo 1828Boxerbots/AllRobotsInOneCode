@@ -22,9 +22,9 @@ void AutoLineUpShootCommand::Initialize()
   m_isFinished = false;
   int height;
   int width;
-  m_pDrive->SetLookingColorV(OldCameraVision::GREEN_CONE_A);
-  m_pDrive->GetVisionSize(&height, &width);
-  m_pDrive->SetVisionCrop(0, height*0.75, width, height*0.25);
+  m_pDrive->SetLookingColorV(OldCameraVision::REF_GREEN);
+  //m_pDrive->GetVisionSize(&height, &width);
+  //m_pDrive->SetVisionCrop(0, height*0.75, width, height*0.25);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -32,15 +32,15 @@ void AutoLineUpShootCommand::Execute()
 {
   if(m_isFinished == false)
   {
-    m_pDrive->AlignWithVision(0.0, 50, true, false);
-    //m_pDrive->PrecisionMovementLidar(m_wantedDistance);
+    m_pDrive->AlignWithVision(0.0, 7, true, false);
+    m_pDrive->PrecisionMovementLidar(m_wantedDistance, 0.2);
+    m_pLoad->LoadToPhoto(0.5);
     m_pShoot->Shoot(-1.0);
     Util::DelayInSeconds(5.0);
-    m_pLoad->Load(0.5, 0.0);
+    m_pLoad->SetLoadMotor(0.5);
     Util::DelayInSeconds(4.0);
-    m_pShoot->DisableInit();
-    m_pLoad->Load(0.0, 0.0);
-  // m_pShoot->Shoot(0.0);
+    m_pLoad->Stop();
+    m_pShoot->Stop();
     m_isFinished = true;
   }
 

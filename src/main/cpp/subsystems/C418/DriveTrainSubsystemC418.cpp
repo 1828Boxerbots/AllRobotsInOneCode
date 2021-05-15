@@ -255,7 +255,7 @@ double DriveTrainSubsystemC418::GetLidarDetectionDistance()
   {
     return 1;
   }*/
-  double val = m_pLidar->GetDistanceInCM();
+  double val = m_pLidar->GetDistanceInInches();
   frc::SmartDashboard::PutNumber("DriveTrain Lidar", val);
   return val;
 #else
@@ -289,7 +289,7 @@ void DriveTrainSubsystemC418::DetectionSoftware(double detectionDistance)
 */
 
 //Sets up dead zone in lidar
-void DriveTrainSubsystemC418::PrecisionMovementLidar(double wantedDistance)
+void DriveTrainSubsystemC418::PrecisionMovementLidar(double wantedDistance, double speed)
 {
 #ifdef M_LIDAR
   const double DEAD_ZONE = 5.0;
@@ -300,11 +300,11 @@ void DriveTrainSubsystemC418::PrecisionMovementLidar(double wantedDistance)
   {
     if (currentDistance < wantedDistance - DEAD_ZONE)
     {
-      Forward(-.5);
+      Forward(-speed);
     }
     if (currentDistance > wantedDistance + DEAD_ZONE)
     {
-      Forward(.5);
+      Forward(speed);
     }
     currentDistance = m_pLidar->GetDistanceInInches();
     Util::Log("LidarDistance", currentDistance);

@@ -50,7 +50,7 @@ public:
   double GetDistanceSensorDetectionDistanceLeft() override;
   double GetDistanceSensorDetectionDistanceRight() override;
   //void DetectionSoftware(double detectionDistance) override;
-  void PrecisionMovementLidar(double wantedDistance) override;
+  void PrecisionMovementLidar(double wantedDistance, double speed = 0.5) override;
   void EnableAnticollision(bool enable) override;
   void InitRight() override;
   void InitLeft() override;

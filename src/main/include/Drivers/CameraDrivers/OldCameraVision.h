@@ -195,7 +195,7 @@ private:
 	int m_cropW = M_CAMERA_WIDTH; 
 	int m_cropH = M_CAMERA_HEIGHT;
 	int m_erodeSize = 1;
-	int m_dilateSize = 2;
+	int m_dilateSize = 3;
 
 	/// <summary>
 	/// Create a new window to display an image
