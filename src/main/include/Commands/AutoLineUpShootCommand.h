@@ -28,6 +28,8 @@ class AutoLineUpShootCommand
 
   void Execute() override;
 
+  void ForwardLidarGyro(double wantedDistance, double speed);
+
   void End(bool interrupted) override;
 
   bool IsFinished() override;

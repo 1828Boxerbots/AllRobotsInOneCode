@@ -14,7 +14,7 @@ LoaderSubsystemC418::LoaderSubsystemC418() {}
 void LoaderSubsystemC418::Periodic()
 {
 #ifndef NOHW
-    Util::Log("Load Photogate", IsLoaded());
+    Util::Log("Load Photogate", m_photogate.Get());
     if (m_photogate.Get())
     {
         m_spike.TurnSpikeOn();
@@ -70,24 +70,20 @@ void LoaderSubsystemC418::SetLoadMotor(double speed, int motorNumber)
 
 void LoaderSubsystemC418::PhotogateStop(double speed)
 {
-    int count = 0;
+    frc::Timer timer;
 //Continue spining motor until photogate is set.
 #ifndef NOHW
+    timer.Start();
     while (m_photogate.Get() == true)
     {
         SetLoadMotor(speed);
-        count++;
-        Util::Log("Spinning Loader", count++, GetName());
-        Util::Log("PhotoCount", m_photoCount, GetName());
 
-        /*
-        if(count > m_photoCount)
+        if(timer.Get() >= 10)
         {
-            SetLoadMotor(0.0);
-            return;
+            break;
         }
-        */
     }
+    timer.Stop();
     SetLoadMotor(0.0);
     SetLoadMotor(0.0, MOTOR_BOTTOM);
 #endif

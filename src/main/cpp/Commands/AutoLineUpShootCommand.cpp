@@ -33,17 +33,72 @@ void AutoLineUpShootCommand::Execute()
   if(m_isFinished == false)
   {
     m_pDrive->AlignWithVision(0.0, 7, true, false);
-    m_pDrive->PrecisionMovementLidar(m_wantedDistance, 0.2);
-    m_pLoad->LoadToPhoto(0.5);
-    m_pShoot->Shoot(-1.0);
-    Util::DelayInSeconds(5.0);
-    m_pLoad->SetLoadMotor(0.5);
-    Util::DelayInSeconds(4.0);
+    //m_pDrive->PrecisionMovementLidar(m_wantedDistance, 0.2);
+    ForwardLidarGyro(m_wantedDistance, 0.2);
+    m_pLoad->PhotogateStop(0.5);
+    m_pShoot->Shoot(-0.8);
+    Util::DelayInSeconds(2.0);
+    for(int i = 0; i < 3; i++)
+    {
+      m_pLoad->PhotogateStop();
+      m_pLoad->SetLoadMotor(0.5);
+      Util::DelayInSeconds(1.0);
+    }
     m_pLoad->Stop();
     m_pShoot->Stop();
     m_isFinished = true;
   }
 
+}
+
+void AutoLineUpShootCommand::ForwardLidarGyro(double wantedDistance, double speed)
+{
+  double deadZoneLidar = 5.0;
+  double deadZoneIMU = 1;
+  double currentDistance = m_pDrive->GetLidarDetectionDistance();
+  Util::Log("Lidar", "Activated");
+  if(currentDistance < 0) {  Util::Log("Lidar","No See");  }
+  
+  double startIMU = m_pDrive->IMUGetAngle();
+  double highIMU, lowIMU;
+  double x, y;
+
+  while (currentDistance < (wantedDistance - deadZoneLidar) || currentDistance > (wantedDistance + deadZoneLidar))
+  {
+    highIMU = startIMU + deadZoneIMU;
+    lowIMU = startIMU - deadZoneIMU;
+    
+    if (currentDistance < (wantedDistance - deadZoneLidar) )
+    {
+      if(m_pDrive->IMUGetAngle() > highIMU)
+      {
+        x = -speed/4;
+      }
+      else if(m_pDrive->IMUGetAngle() < lowIMU)
+      {
+        x = speed/4;
+      }
+      y = -speed;
+    }
+    if (currentDistance > wantedDistance + deadZoneLidar)
+    {
+      if(m_pDrive->IMUGetAngle() > highIMU)
+      {
+        x = speed/4;
+      }
+      else if(m_pDrive->IMUGetAngle() < lowIMU)
+      {
+        x = -speed/4;
+      }
+      y = speed;
+    }
+
+    m_pDrive->MoveArcade(y, x);
+    currentDistance = m_pDrive->GetLidarDetectionDistance();
+    Util::Log("LidarDistance", currentDistance);
+  }
+
+  m_pDrive->Stop();
 }
 
 // Called once the command ends or is interrupted.

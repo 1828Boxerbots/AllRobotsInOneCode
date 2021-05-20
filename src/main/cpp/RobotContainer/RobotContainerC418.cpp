@@ -46,7 +46,7 @@ RobotContainerC418::RobotContainerC418()
 
   m_pAutoLemonPick = new PickUpLemonCommand(m_pLoader, m_pShooter, m_pDrive, 0.2, 0.5);
 
-  m_pAutoLineUp = new AutoLineUpShootCommand(m_pDrive, 48, m_pShooter, m_pLoader);
+  m_pAutoLineUp = new AutoLineUpShootCommand(m_pDrive, 40, m_pShooter, m_pLoader);
 
   m_pGalacticSearchVision = new GalaticPathVision(m_pDrive, m_pLoader);
   m_pNewSlalom = new NewSlalom(m_pDrive);
