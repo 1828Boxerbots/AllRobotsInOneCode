@@ -478,13 +478,13 @@ void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZ
             //Turn right/left if object is not seen
             if(defaultTurnRight == true)
             {
-                TurnRight(0.2);
+                TurnRight(0.15);
                 Util::DelayInSeconds(0.1);
                 Stop();
             }
             else if(defaultTurnRight == false)
             {
-                TurnLeft(0.2);
+                TurnLeft(0.15);
                 Util::DelayInSeconds(0.1);
                 Stop();
             }
@@ -493,7 +493,7 @@ void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZ
         {
             Util::Log("Direction", "TurnLeft");
             //Turn left if object is on the left
-            TurnLeft(0.3);
+            TurnLeft(0.15);
             Util::DelayInSeconds(0.05);
             Stop();
         }
@@ -501,7 +501,7 @@ void DriveTrainSubsystemBase::AlignWithVision(double deadZoneLocation, int deadZ
         {
             Util::Log("Direction", "TurnRight");
             //Turn right if object is on the right
-            TurnRight(0.3);
+            TurnRight(0.15);
             Util::DelayInSeconds(0.05);
             Stop();
         }

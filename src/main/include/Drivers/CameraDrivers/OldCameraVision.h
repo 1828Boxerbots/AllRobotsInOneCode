@@ -64,8 +64,8 @@ public:
 	double GetCentroidY();
 
 	//Check Vars
-	double m_minArea = 0;			// 5-15-2021 Ref-Green values
-	double m_maxArea = 30000;		// C-0-30000-1-3-0-1
+	double m_minArea = 0;			// 5-22-2021 Ref-Green values in MPR Lights ON
+	double m_maxArea = 30000;		// C-500-3000-1-3-0-1
 	double m_minRatio = 1;
 	double m_maxRatio = 3;
 	double m_minSolid = 0;
@@ -128,8 +128,8 @@ private:
 	const cv::Scalar BLUE_TEAMSHIRT_HIGH{100, 255, 255};
 
 	//REFLECTIVE GREEN
-	const cv::Scalar REF_GREEN_LOW{40, 150, 100};		//V-40-80-150-255-100-255
-	const cv::Scalar REF_GREEN_HIGH{80, 255, 255};
+	const cv::Scalar REF_GREEN_LOW{40, 50, 100};		//V-40-80-50-180-100-255
+	const cv::Scalar REF_GREEN_HIGH{80, 180, 255};
 
 	//Lemon Rocky
 	const cv::Scalar YELLOW_LEMON_LOW_ROCKY_M{14, 100, 150};	//Moring		//V-14-30-100-255-150-255

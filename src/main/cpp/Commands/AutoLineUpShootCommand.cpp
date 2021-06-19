@@ -33,19 +33,19 @@ void AutoLineUpShootCommand::Execute()
   if(m_isFinished == false)
   {
     m_pDrive->AlignWithVision(0.0, 7, true, false);
-    //m_pDrive->PrecisionMovementLidar(m_wantedDistance, 0.2);
-    ForwardLidarGyro(m_wantedDistance, 0.2);
-    m_pLoad->PhotogateStop(0.5);
-    m_pShoot->Shoot(-0.8);
-    Util::DelayInSeconds(2.0);
-    for(int i = 0; i < 3; i++)
-    {
-      m_pLoad->PhotogateStop();
-      m_pLoad->SetLoadMotor(0.5);
-      Util::DelayInSeconds(1.0);
-    }
-    m_pLoad->Stop();
-    m_pShoot->Stop();
+    //m_pDrive->PrecisionMovementLidar(30, 0.4);
+    ForwardLidarGyro(70, 0.4);
+    // m_pLoad->PhotogateStop();
+    // m_pShoot->Shoot(-0.73);
+    // Util::DelayInSeconds(2.5);
+    // for(int i = 0; i < 3; i++)
+    // {
+    //   m_pLoad->PhotogateStop();
+    //   m_pLoad->SetLoadMotor(0.5);
+    //   Util::DelayInSeconds(.8);
+    // }
+    // m_pLoad->Stop();
+    // m_pShoot->Stop();
     m_isFinished = true;
   }
 
