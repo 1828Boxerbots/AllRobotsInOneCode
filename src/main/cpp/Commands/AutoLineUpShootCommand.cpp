@@ -33,8 +33,10 @@ void AutoLineUpShootCommand::Execute()
   if(m_isFinished == false)
   {
     m_pDrive->AlignWithVision(0.0, 7, true, false);
+    m_pDrive->SetMotorL(0.1);
+    m_pDrive->SetMotorR(0.1);
     //m_pDrive->PrecisionMovementLidar(30, 0.4);
-    ForwardLidarGyro(70, 0.4);
+    //ForwardLidarGyro(70, 0.1);
     // m_pLoad->PhotogateStop();
     // m_pShoot->Shoot(-0.73);
     // Util::DelayInSeconds(2.5);

@@ -75,6 +75,7 @@ public:
   virtual void SetContArea(bool isLow, double value) {}
   virtual void SetContRatio(bool isLow, double value) {}
   virtual void SetContSolid(bool isLow, double value) {}
+  virtual void SetContSave() {}
   virtual void SetVisionFMSColor(OldCameraVision::VisionColors color) {}
   virtual void SetLookingColorV(OldCameraVision::VisionColors color) {}
   virtual OldCameraVision::VisionColors GetLookingColorV() { return OldCameraVision::INVALID_COLOR;}

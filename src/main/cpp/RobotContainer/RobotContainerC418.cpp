@@ -437,7 +437,7 @@ frc2::Command *RobotContainerC418::GetAutonomousCommand()
     return nullptr;
   }
   */
-  int cases = 13;
+  int cases = 5;
   Util::Log("AutoC418", cases);
   switch(cases)
   {
@@ -762,8 +762,18 @@ void RobotContainerC418::GetVisionFMS()
       BreakFMSStr(gameData);
       break;
     case 'C':
+      if(gameData.length() > 1)
+      {
+        if(gameData[1] == 'S')
+        {
+          m_pDrive->SetContSave();
+        }
+        else
+        {
+          BreakContourStr(gameData);
+        }
+      }
       Util::Log("AutoFMS", "Contour Slider");
-      BreakContourStr(gameData);
       break;
     default:
       //This is corrupt data

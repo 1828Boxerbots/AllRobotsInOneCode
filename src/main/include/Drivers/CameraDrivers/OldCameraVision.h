@@ -67,9 +67,10 @@ public:
 	double m_minArea = 0;			// 5-22-2021 Ref-Green values in MPR Lights ON
 	double m_maxArea = 30000;		// C-500-3000-1-3-0-1
 	double m_minRatio = 1;
-	double m_maxRatio = 3;
-	double m_minSolid = 0;
+	double m_maxRatio = 3;			// 6-19-2021 Contour values for ref-green in build room
+	double m_minSolid = 0;			// C-200-5000-1-2-0-0.34
 	double m_maxSolid = 1;
+	double m_saveCheck[6] = {200, 5000, 1, 2, 0, 0.34};
 
 private:
  	int m_frameCounter = 0;
@@ -128,8 +129,8 @@ private:
 	const cv::Scalar BLUE_TEAMSHIRT_HIGH{100, 255, 255};
 
 	//REFLECTIVE GREEN
-	const cv::Scalar REF_GREEN_LOW{40, 50, 100};		//V-40-80-50-180-100-255
-	const cv::Scalar REF_GREEN_HIGH{80, 180, 255};
+	const cv::Scalar REF_GREEN_LOW{40, 70, 150};			//V-40-80-50-180-100-255
+	const cv::Scalar REF_GREEN_HIGH{100, 255, 255};		//V-40-100-70-255-150-255 = 6-19-2021 Build room val
 
 	//Lemon Rocky
 	const cv::Scalar YELLOW_LEMON_LOW_ROCKY_M{14, 100, 150};	//Moring		//V-14-30-100-255-150-255

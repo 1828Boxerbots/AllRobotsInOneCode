@@ -478,6 +478,20 @@ void DriveTrainSubsystemC418::SetContSolid(bool isLow, double value)
   #endif
 }
 
+void DriveTrainSubsystemC418::SetContSave()
+{
+  #ifndef NO_HW
+    //Area, Ratio, Solid
+    //Low, high
+    m_camera.m_minSolid = m_camera.m_saveCheck[0];
+    m_camera.m_maxSolid = m_camera.m_saveCheck[1];
+    m_camera.m_minRatio = m_camera.m_saveCheck[2];
+    m_camera.m_maxRatio = m_camera.m_saveCheck[3];
+    m_camera.m_minSolid = m_camera.m_saveCheck[4];
+    m_camera.m_maxSolid = m_camera.m_saveCheck[5];
+  #endif
+}
+
 //Used to disable and enable anticollision
 void DriveTrainSubsystemC418::EnableAnticollision(bool enable)
 {

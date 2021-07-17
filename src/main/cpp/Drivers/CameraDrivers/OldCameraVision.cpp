@@ -27,7 +27,7 @@ bool OldCameraVision::Init()
 	m_camera = frc::CameraServer::GetInstance() -> StartAutomaticCapture();
 	m_camera.SetResolution( M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
 	m_camera.SetExposureManual(1);
-	//m_camera.SetWhiteBalanceHoldCurrent();
+	m_camera.SetWhiteBalanceHoldCurrent();
 	m_cvSink = frc::CameraServer::GetInstance() -> GetVideo();
 	m_outputStream = frc::CameraServer::GetInstance()->PutVideo( IMAGE_FILTERED, M_CAMERA_WIDTH, M_CAMERA_HEIGHT );
 	#ifdef THRESHOLD
@@ -381,8 +381,8 @@ void OldCameraVision::SetColor()
 void OldCameraVision::GetContours()
 {
 	cv::threshold(m_imgThresholded, m_imgThresholded, 180, 255, cv::THRESH_BINARY);
-	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MorphShapes::MORPH_ELLIPSE, cv::Size(5, 5)));
-	cv::dilate(m_imgThresholdedTwo, m_imgThresholded, cv::getStructuringElement(cv::MorphShapes::MORPH_ELLIPSE, cv::Size(6, 6)));
+	cv::erode(m_imgThresholded, m_imgThresholdedTwo, cv::getStructuringElement(cv::MorphShapes::MORPH_ELLIPSE, cv::Size(4, 4)));
+	cv::dilate(m_imgThresholdedTwo, m_imgThresholded, cv::getStructuringElement(cv::MorphShapes::MORPH_ELLIPSE, cv::Size(8, 8)));
 
 	cv::Canny(m_imgThresholded, m_imgCanny, 0, 0);
 
@@ -423,6 +423,7 @@ void OldCameraVision::GetContours()
 			continue;
 		}
 
+		//This gives the center based on demensions NOT weighted on where materal is 
 		m_centroidX = boundRect.x + (double)(boundRect.width / 2);
 		m_centroidY = boundRect.y + (double)(boundRect.height / 2);
 
