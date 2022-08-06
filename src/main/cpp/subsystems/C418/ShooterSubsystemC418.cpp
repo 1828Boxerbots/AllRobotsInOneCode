@@ -50,7 +50,7 @@ double ShooterSubsystemC418::EncoderSpeed()
 void ShooterSubsystemC418::SetShootMotor(double speed)
 {
 #ifndef NOHW
-    m_shooterMotor.Set(speed);
+    m_shooterMotor.Set(speed * m_motorSpeed);
     frc::SmartDashboard::PutNumber("C418 Shooter Encoder", m_shooterEncoder.GetDistance());
     frc::SmartDashboard::PutNumber("C418 Shooter Encoder RAW", m_shooterEncoder.GetRaw());
     frc::SmartDashboard::PutNumber("C418 Shooter Encoder RATE", m_shooterEncoder.GetRate());

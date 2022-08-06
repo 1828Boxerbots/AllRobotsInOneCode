@@ -89,6 +89,7 @@ constexpr int PWM_SHOOTER_KURGAN_ONE = 6;
 constexpr int PWM_SHOOTER_KURGAN_TWO = 5;
 constexpr int PWM_SHOOTER_KURGAN_THREE = 7;
 constexpr int PWM_SHOOTER_KURGAN_FOUR = 8;
+constexpr int DIO_PHOTOGATE_KURGAN = 0;
 
 //SLAL - Sir-Lifts-A-Lot
 constexpr int PWM_LEFTMOTOR_SLAL = 0;

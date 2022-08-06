@@ -127,6 +127,8 @@ private:
   int m_beat = 0;
   int distance_beatR = 0;
   int distance_beatL = 0;
+
+  double m_motorSpeed = 0.75;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

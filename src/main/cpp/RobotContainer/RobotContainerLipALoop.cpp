@@ -21,6 +21,8 @@ RobotContainerLipALoop::RobotContainerLipALoop()
   // Configure the button bindings
   ConfigureButtonBindings();
   m_pDrive->Init();
+  NetworkTable::Initialize();
+  netw = NetworkTable::GetTable("SmartDashboard");
   //m_pCamera->Init();
   SetDrive(RECORD_RC);
 }
@@ -42,6 +44,13 @@ frc2::Command *RobotContainerLipALoop::GetAutonomousCommand()
 {
   // An example command will be run in autonomous
   return m_pPlayMove;
+}
+
+void RobotContainerLipALoop::TeleopPeriodic()
+{
+  netw->NetworkTable::PutNumber("Server Var", serverVar);
+  serverVar++;
+  netw->NetworkTable::PutNumber("Client Var", clietVar);
 }
 
 void RobotContainerLipALoop::SetRightBumper()

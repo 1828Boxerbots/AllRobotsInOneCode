@@ -24,8 +24,6 @@ RobotContainerRocky::RobotContainerRocky()
 
   // Configure the button bindings
   ConfigureButtonBindings();
-
-
 }
 
 void RobotContainerRocky::ConfigureButtonBindings()

@@ -14,6 +14,8 @@
 #include "RobotContainerBase.h"
 #include "subsystems/CameraSubsystemBase.h"
 #include "Commands/PlayMove.h"
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <networktables/NetworkTable.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -38,6 +40,7 @@ public:
   void SetButtonX() override;
   void SetButtonY() override;
   void SetStartButton() override;
+  void TeleopPeriodic() override;
 
 private:
   // The robot's subsystems and commands are defined here...
@@ -45,6 +48,9 @@ private:
   //Align Control
   void ConfigureButtonBindings();
 
+  int serverVar = 1;
+  int clietVar = 0;
+  std::shared_ptr<NetworkTable> netw;
   PlayMove* m_pPlayMove = nullptr;
   const char* PLAY_MOVE = "/u/c418_recording/recording_2021-03-22_17-15-55.bin";
 };

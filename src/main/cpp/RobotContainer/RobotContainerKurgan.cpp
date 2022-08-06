@@ -17,7 +17,7 @@ RobotContainerKurgan::RobotContainerKurgan()
   // Configure the button bindings
   ConfigureButtonBindings();
   m_pDrive->Init();
-  SetDrive();
+  SetDrive(RC_STYLE);
   InitializeAutonomousFunctions();
 }
 
@@ -45,8 +45,8 @@ void RobotContainerKurgan::ConfigureButtonBindings()
   SetButtonB();
 
   //Shooter Controlls
-  SetLeftBumper();
-  SetRightBumper();
+  //SetLeftBumper();
+  //SetRightBumper();
 }
 
 frc2::Command *RobotContainerKurgan::GetAutonomousCommand()

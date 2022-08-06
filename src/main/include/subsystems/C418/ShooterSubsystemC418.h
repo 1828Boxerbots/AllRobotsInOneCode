@@ -37,6 +37,8 @@ private:
   frc::Timer m_timer;
   double m_startTime = 0.0;
   double m_encoderRawStart = 0.0;
+
+  double m_motorSpeed = 0.75;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };
